@@ -1,0 +1,5 @@
+ds_entity:
+    uuid:
+        not_blank: The uuid is required.
+        uuid: The uuid must have a valid format.
+        unique: The uuid must be unique.
