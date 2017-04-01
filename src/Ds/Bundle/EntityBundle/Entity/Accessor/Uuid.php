@@ -10,7 +10,7 @@ trait Uuid
     /**
      * Set uuid
      *
-     * @param $uuid
+     * @param string $uuid
      * @return object
      */
     public function setUuid($uuid)

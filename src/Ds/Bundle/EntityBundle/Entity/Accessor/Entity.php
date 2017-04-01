@@ -10,7 +10,7 @@ trait Entity
     /**
      * Set entity
      *
-     * @param $entity
+     * @param string $entity
      * @return object
      */
     public function setEntity($entity)
