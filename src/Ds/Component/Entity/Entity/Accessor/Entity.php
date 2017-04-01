@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Bundle\EntityBundle\Entity\Accessor;
+namespace Ds\Component\Entity\Entity\Accessor;
 
 /**
  * Trait Entity
