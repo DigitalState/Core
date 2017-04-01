@@ -12,6 +12,8 @@
     },
     "require": {
         "php": ">=7.0",
+        "symfony/symfony": "3.2.*",
+        "api-platform/core": "^2.0",
         "doctrine/orm": "^2.5",
         "ramsey/uuid": "^3.6"
     },
