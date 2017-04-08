@@ -8,6 +8,14 @@ namespace Ds\Component\Entity\Entity;
 interface Uuidentifiable
 {
     /**
+     * Set uuid
+     *
+     * @param string $uuid
+     * @return object
+     */
+    public function setUuid($uuid);
+
+    /**
      * Get uuid
      *
      * @return string
