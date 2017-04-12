@@ -1,0 +1,5 @@
+services:
+    ds.entity.event_listener.uuid:
+        class: Ds\Component\Entity\EventListener\UuidListener
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
