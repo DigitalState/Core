@@ -48,7 +48,7 @@ class EnabledExtension implements QueryCollectionExtensionInterface, QueryItemEx
      */
     public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, string $operationName = null)
     {
-        $this->addWhere($queryBuilder, $resourceClass);
+        $this->addCondition($queryBuilder, $resourceClass);
     }
 
     /**
@@ -56,7 +56,7 @@ class EnabledExtension implements QueryCollectionExtensionInterface, QueryItemEx
      */
     public function applyToItem(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, array $identifiers, string $operationName = null, array $context = [])
     {
-        $this->addWhere($queryBuilder, $resourceClass);
+        $this->addCondition($queryBuilder, $resourceClass);
     }
 
     /**
@@ -65,7 +65,7 @@ class EnabledExtension implements QueryCollectionExtensionInterface, QueryItemEx
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder
      * @param string $resourceClass
      */
-    protected function addWhere(QueryBuilder $queryBuilder, string $resourceClass)
+    protected function addCondition(QueryBuilder $queryBuilder, string $resourceClass)
     {
         if ($this->entity !== $resourceClass) {
             return;
