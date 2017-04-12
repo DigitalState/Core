@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Security\Doctrine\ORM\Extension;
+namespace Ds\Component\Security\Doctrine\ORM\QueryExtension;
 
 use Doctrine\ORM\QueryBuilder;
 use Ds\Component\Security\Security\User\User;
