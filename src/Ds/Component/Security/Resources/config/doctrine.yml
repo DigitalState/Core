@@ -1,8 +1,0 @@
-services:
-    ds.security.doctrine.orm.query_extension.authorization:
-        abstract: true
-        class: Ds\Component\Security\Doctrine\ORM\QueryExtension\AuthorizationExtension
-        autowire: true
-        tags:
-            - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
-            - { name: api_platform.doctrine.orm.query_extension.item }
