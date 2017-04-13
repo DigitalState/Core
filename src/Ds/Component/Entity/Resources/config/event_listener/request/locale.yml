@@ -1,0 +1,6 @@
+services:
+    ds.entity.event_listener.request.locale:
+        class: Ds\Component\Entity\EventListener\Request\LocaleListener
+        autowire: true
+        tags:
+            - { name: kernel.event_listener, event: kernel.view, method: kernelView, priority: 16 }
