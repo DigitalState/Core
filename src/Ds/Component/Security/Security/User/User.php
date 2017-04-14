@@ -2,19 +2,62 @@
 
 namespace Ds\Component\Security\Security\User;
 
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 
 /**
  * Class User
  */
-class User implements UserInterface
+class User implements AdvancedUserInterface, JWTUserInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    public static function createFromPayload($username, array $payload)
+    {
+        return new static($username, $payload['roles']);
+    }
+
+    /**
+     * @var string
+     */
+    protected $username; # region accessors
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    # endregion
+
+    /**
+     * @var array
+     */
+    protected $roles; # region accessors
+
     /**
      * {@inheritdoc}
      */
     public function getRoles()
     {
-        return [];
+        return $this->roles;
+    }
+
+    # endregion
+
+    /**
+     * Constructor
+     *
+     * @param string $username
+     * @param array $roles
+     */
+    public function __construct($username, array $roles = [])
+    {
+        $this->username = $username;
+        $this->roles = $roles;
     }
 
     /**
@@ -22,7 +65,6 @@ class User implements UserInterface
      */
     public function getPassword()
     {
-        return '';
     }
 
     /**
@@ -30,23 +72,6 @@ class User implements UserInterface
      */
     public function getSalt()
     {
-        return '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getUsername()
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getUuid()
-    {
-        return '';
     }
 
     /**
@@ -54,6 +79,37 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
+    }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isEnabled()
+    {
+        return true;
     }
 }
