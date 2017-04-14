@@ -15,7 +15,8 @@
         "symfony/symfony": "3.2.*",
         "api-platform/core": "^2.0",
         "doctrine/orm": "^2.5",
-        "ramsey/uuid": "^3.6"
+        "ramsey/uuid": "^3.6",
+        "lexik/jwt-authentication-bundle": "^2.2"
     },
     "require-dev": {
     },
