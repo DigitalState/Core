@@ -3,6 +3,7 @@
 namespace Ds\Component\Security\Serializer\ContextBuilder;
 
 use ApiPlatform\Core\Serializer\SerializerContextBuilderInterface;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -55,7 +56,13 @@ class AuthorizationContextBuilder implements SerializerContextBuilderInterface
         $context = $this->decorated->createFromRequest($request, $normalization, $extractedAttributes);
         $data = $request->attributes->get('data');
 
-        if (!$data instanceof $this->entity) {
+        if ($data instanceof Paginator) {
+            foreach ($data as $item) {
+                if (!$item instanceof $this->entity) {
+                    return $context;
+                }
+            }
+        } elseif (!$data instanceof $this->entity) {
             return $context;
         }
 
