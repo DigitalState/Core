@@ -1,9 +1,4 @@
 security:
-    role_hierarchy:
-        ROLE_MANAGER: ROLE_USER
-        ROLE_ADMIN: ROLE_MANAGER
-        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
-
     providers:
         jwt:
             lexik_jwt:
