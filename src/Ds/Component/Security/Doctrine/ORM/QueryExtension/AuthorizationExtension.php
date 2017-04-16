@@ -8,6 +8,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Doctrine\ORM\QueryBuilder;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+use Ds\Component\Security\Security\User\User;
+use Ds\Component\Security\Exception\InvalidUserTypeException;
 
 /**
  * Class AuthorizationExtension
@@ -28,6 +30,11 @@ abstract class AuthorizationExtension implements QueryCollectionExtensionInterfa
      * @var \Symfony\Component\Security\Core\Authorization\AuthorizationChecker
      */
     protected $authorizationChecker;
+
+    /**
+     * @var \Ds\Component\Security\Security\User\User
+     */
+    protected $user;
 
     /**
      * Constructor
@@ -64,6 +71,7 @@ abstract class AuthorizationExtension implements QueryCollectionExtensionInterfa
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder
      * @param string $resourceClass
+     * @throws \Ds\Component\Security\Exception\InvalidUserTypeException
      */
     protected function applyCondition(QueryBuilder $queryBuilder, string $resourceClass)
     {
@@ -71,10 +79,13 @@ abstract class AuthorizationExtension implements QueryCollectionExtensionInterfa
             return;
         }
 
-        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return;
+        $user = $this->tokenStorage->getToken()->getUser();
+
+        if (!$user instanceof User) {
+            throw new InvalidUserTypeException('User type is not valid.');
         }
 
+        $this->user = $user;
         $this->apply($queryBuilder);
     }
 
