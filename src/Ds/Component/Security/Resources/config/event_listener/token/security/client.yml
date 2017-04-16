@@ -1,0 +1,7 @@
+services:
+    ds.security.event_listener.token.validation.client:
+        class: Ds\Component\Security\EventListener\Token\Validation\ClientListener
+        arguments:
+            - "@request_stack"
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onDecoded }
