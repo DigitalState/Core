@@ -13,6 +13,11 @@ use Ds\Component\Entity\Entity\Uuidentifiable;
 class UuidListener
 {
     /**
+     * @const string
+     */
+    const UUID = 'uuid';
+
+    /**
      * On created
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
@@ -21,7 +26,7 @@ class UuidListener
     {
         $payload = $event->getData();
         $user = $event->getUser();
-        $payload['uuid'] = $user->getUuid();
+        $payload[static::UUID] = $user->getUuid();
         $event->setData($payload);
     }
 
@@ -34,7 +39,7 @@ class UuidListener
     {
         $payload = $event->getPayload();
 
-        if (!array_key_exists('uuid', $payload)) {
+        if (!array_key_exists(static::UUID, $payload)) {
             $event->markAsInvalid();
         }
     }

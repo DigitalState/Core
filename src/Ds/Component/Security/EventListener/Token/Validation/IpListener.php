@@ -11,6 +11,11 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 class IpListener
 {
     /**
+     * @const string
+     */
+    const IP = 'ip';
+
+    /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
     private $requestStack;
@@ -34,13 +39,13 @@ class IpListener
     {
         $payload = $event->getPayload();
 
-        if (!array_key_exists('ip', $payload)) {
+        if (!array_key_exists(static::IP, $payload)) {
             $event->markAsInvalid();
         }
 
         $request = $this->requestStack->getCurrentRequest();
 
-        if ($payload['ip'] !== $request->getClientIp()) {
+        if ($payload[static::IP] !== $request->getClientIp()) {
             $event->markAsInvalid();
         }
     }

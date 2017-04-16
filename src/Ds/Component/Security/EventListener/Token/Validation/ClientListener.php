@@ -11,6 +11,11 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 class ClientListener
 {
     /**
+     * @const string
+     */
+    const CLIENT = 'client';
+
+    /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
     private $requestStack;
@@ -34,13 +39,13 @@ class ClientListener
     {
         $payload = $event->getPayload();
 
-        if (!array_key_exists('client', $payload)) {
+        if (!array_key_exists(static::CLIENT, $payload)) {
             $event->markAsInvalid();
         }
 
         $request = $this->requestStack->getCurrentRequest();
 
-        if ($payload['ip'] !== md5($request->server->get('HTTP_USER_AGENT'))) {
+        if ($payload[static::CLIENT] !== md5($request->server->get('HTTP_USER_AGENT'))) {
             $event->markAsInvalid();
         }
     }
