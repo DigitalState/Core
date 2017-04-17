@@ -1,7 +1,0 @@
-services:
-    ds.security.event_listener.token.validation.ip:
-        class: Ds\Component\Security\EventListener\Token\Validation\IpListener
-        arguments:
-            - "@request_stack"
-        tags:
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onDecoded }
