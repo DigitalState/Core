@@ -15,7 +15,7 @@ class User implements AdvancedUserInterface, JWTUserInterface
      */
     public static function createFromPayload($username, array $payload)
     {
-        return new static($username, $payload['identity'], $payload['identity_uuid'], $payload['roles']);
+        return new static($username, $payload['iden'], $payload['iden_uuid'], $payload['roles']);
     }
 
     /**
