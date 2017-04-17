@@ -12,23 +12,39 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 class ClientListener
 {
     /**
-     * @const string
-     */
-    const CLIENT = 'client';
-
-    /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
-    private $requestStack;
+    protected $requestStack;
+
+    /**
+     * @var boolean
+     */
+    protected $validate;
+
+    /**
+     * @var string
+     */
+    protected $client;
+
+    /**
+     * @var integer
+     */
+    protected $length;
 
     /**
      * Constructor
      *
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param boolean $validate
+     * @param string $client
+     * @param integer $length
      */
-    public function __construct(RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack, $validate = true, $client = 'cli', $length = 8)
     {
         $this->requestStack = $requestStack;
+        $this->validate = $validate;
+        $this->client = $client;
+        $this->length = $length;
     }
 
     /**
@@ -38,9 +54,8 @@ class ClientListener
      */
     public function onCreated(JWTCreatedEvent $event)
     {
-        $request = $this->requestStack->getCurrentRequest();
         $payload = $event->getData();
-        $payload[static::CLIENT] = md5($request->server->get('HTTP_USER_AGENT'));
+        $payload[$this->client] = $this->getIdentifier();
         $event->setData($payload);
     }
 
@@ -53,8 +68,23 @@ class ClientListener
     {
         $payload = $event->getPayload();
 
-        if (!array_key_exists(static::CLIENT, $payload)) {
+        if (!array_key_exists($this->client, $payload)) {
+            $event->markAsInvalid();
+        } elseif ($this->validate && $payload[$this->client] !== $this->getIdentifier()) {
             $event->markAsInvalid();
         }
+    }
+
+    /**
+     * Get client identifier
+     *
+     * @return string
+     */
+    protected function getIdentifier()
+    {
+        $request = $this->requestStack->getCurrentRequest();
+        $identifier = substr(md5($request->server->get('HTTP_USER_AGENT')), 0, $this->length);
+
+        return $identifier;
     }
 }

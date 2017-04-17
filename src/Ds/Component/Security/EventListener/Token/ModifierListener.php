@@ -4,40 +4,46 @@ namespace Ds\Component\Security\EventListener\Token;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
-use Ds\Component\Security\Security\User\User;
-use Ds\Component\Security\Exception\InvalidUserTypeException;
+use OutOfRangeException;
 
 /**
- * Class UuidListener
+ * Class ModifierListener
  */
-class UuidListener
+class ModifierListener
 {
     /**
-     * @var string
+     * @var array
      */
-    protected $uuid;
+    protected $remove;
 
     /**
      * Constructor
      *
-     * @param string $uuid
+     * @param array $remove
      */
-    public function __construct($uuid = 'uuid')
+    public function __construct(array $remove = [])
     {
-        $this->uuid = $uuid;
+        $this->remove = $remove;
     }
 
     /**
      * On created
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
-     * @throws \Ds\Component\Security\Exception\InvalidUserTypeException
+     * @throws \OutOfRangeException
      */
     public function onCreated(JWTCreatedEvent $event)
     {
         $payload = $event->getData();
-        $user = $event->getUser();
-        $payload[$this->uuid] = $user->getUuid();
+
+        foreach ($this->remove as $attribute) {
+            if (!array_key_exists($attribute, $payload)) {
+                throw new OutOfRangeException('Payload attribute does not exist.');
+            }
+
+            unset($payload[$attribute]);
+        }
+
         $event->setData($payload);
     }
 
@@ -50,8 +56,11 @@ class UuidListener
     {
         $payload = $event->getPayload();
 
-        if (!array_key_exists($this->uuid, $payload)) {
-            $event->markAsInvalid();
+        foreach ($this->remove as $attribute) {
+            if (array_key_exists($attribute, $payload)) {
+                $event->markAsInvalid();
+                break;
+            }
         }
     }
 }

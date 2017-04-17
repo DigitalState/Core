@@ -12,23 +12,32 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 class IpListener
 {
     /**
-     * @const string
-     */
-    const IP = 'ip';
-
-    /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
-    private $requestStack;
+    protected $requestStack;
+
+    /**
+     * @var boolean
+     */
+    protected $validate;
+
+    /**
+     * @var string
+     */
+    protected $ip;
 
     /**
      * Constructor
      *
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param boolean $validate
+     * @param string $ip
      */
-    public function __construct(RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack, $validate = true, $ip = 'ip')
     {
         $this->requestStack = $requestStack;
+        $this->validate = $validate;
+        $this->ip = $ip;
     }
 
     /**
@@ -40,7 +49,7 @@ class IpListener
     {
         $request = $this->requestStack->getCurrentRequest();
         $payload = $event->getData();
-        $payload[static::IP] = $request->getClientIp();
+        $payload[$this->ip] = $request->getClientIp();
         $event->setData($payload);
     }
 
@@ -51,9 +60,12 @@ class IpListener
      */
     public function onDecoded(JWTDecodedEvent $event)
     {
+        $request = $this->requestStack->getCurrentRequest();
         $payload = $event->getPayload();
 
-        if (!array_key_exists(static::IP, $payload)) {
+        if (!array_key_exists($this->ip, $payload)) {
+            $event->markAsInvalid();
+        } elseif ($this->validate && $payload[$this->ip] !== $request->getClientIp()) {
             $event->markAsInvalid();
         }
     }

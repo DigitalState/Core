@@ -4,8 +4,6 @@ namespace Ds\Component\Security\EventListener\Token;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
-use Ds\Component\Security\Security\User\User;
-use Ds\Component\Entity\Entity\Uuidentifiable;
 
 /**
  * Class IdentityListener
@@ -13,22 +11,39 @@ use Ds\Component\Entity\Entity\Uuidentifiable;
 class IdentityListener
 {
     /**
-     * @const string
+     * @var string
      */
-    const IDENTITY = 'identity';
-    const IDENTITY_UUID = 'identity_uuid';
+    protected $identity;
+
+    /**
+     * @var string
+     */
+    protected $identityUuid;
+
+    /**
+     * Constructor
+     *
+     * @param string $identity
+     * @param string $identityUuid
+     */
+    public function __construct($identity = 'iden', $identityUuid = 'iden_uuid')
+    {
+        $this->identity = $identity;
+        $this->identityUuid = $identityUuid;
+    }
 
     /**
      * On created
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
+     * @throws \Ds\Component\Security\Exception\InvalidUserTypeException
      */
     public function onCreated(JWTCreatedEvent $event)
     {
         $payload = $event->getData();
         $user = $event->getUser();
-        $payload[static::IDENTITY] = $user->getIdentity();
-        $payload[static::IDENTITY_UUID] = $user->getIdentityUuid();
+        $payload[$this->identity] = $user->getIdentity();
+        $payload[$this->identityUuid] = $user->getIdentityUuid();
         $event->setData($payload);
     }
 
@@ -41,11 +56,9 @@ class IdentityListener
     {
         $payload = $event->getPayload();
 
-        if (!array_key_exists(static::IDENTITY, $payload)) {
+        if (!array_key_exists($this->identity, $payload)) {
             $event->markAsInvalid();
-        }
-
-        if (!array_key_exists(static::IDENTITY_UUID, $payload)) {
+        } elseif (!array_key_exists($this->identityUuid, $payload)) {
             $event->markAsInvalid();
         }
     }
