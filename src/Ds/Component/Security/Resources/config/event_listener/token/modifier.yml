@@ -1,8 +1,6 @@
 services:
     ds.security.event_listener.token.modifier:
         class: Ds\Component\Security\EventListener\Token\ModifierListener
-        arguments:
-            - [ username, roles ]
         tags:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onCreated }
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onDecoded }
