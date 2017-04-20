@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Doctrine\ORM\QueryBuilder;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
-use Ds\Component\Security\Security\User\User;
+use Ds\Component\Security\User\User;
 use Ds\Component\Security\Exception\InvalidUserTypeException;
 
 /**
@@ -32,7 +32,7 @@ abstract class AuthorizationExtension implements QueryCollectionExtensionInterfa
     protected $authorizationChecker;
 
     /**
-     * @var \Ds\Component\Security\Security\User\User
+     * @var \Ds\Component\Security\User\User
      */
     protected $user;
 

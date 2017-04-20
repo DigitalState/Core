@@ -2,7 +2,7 @@ security:
     providers:
         jwt:
             lexik_jwt:
-                class: Ds\Component\Security\Security\User\User
+                class: Ds\Component\Security\User\User
 
     access_decision_manager:
         strategy: unanimous

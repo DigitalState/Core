@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Security\Security\User;
+namespace Ds\Component\Security\User;
 
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;

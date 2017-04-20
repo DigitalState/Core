@@ -3,7 +3,7 @@
 namespace Ds\Component\Security\Doctrine\ORM\QueryExtension;
 
 use Doctrine\ORM\QueryBuilder;
-use Ds\Component\Security\Security\User\User;
+use Ds\Component\Security\User\User;
 
 /**
  * Class OwnerExtension

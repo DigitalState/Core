@@ -4,8 +4,6 @@ namespace Ds\Component\Security\EventListener\Token;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
-use Ds\Component\Security\Security\User\User;
-use Ds\Component\Security\Exception\InvalidUserTypeException;
 
 /**
  * Class UuidListener
