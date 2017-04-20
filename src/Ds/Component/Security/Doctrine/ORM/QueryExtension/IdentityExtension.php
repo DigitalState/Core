@@ -24,15 +24,17 @@ class IdentityExtension extends AuthorizationExtension
             throw new LogicException('Identity is not defined.');
         }
 
-        if (static::IDENTITY !== $this->user->getIdentity()) {
+        $user = $this->tokenStorage->getToken()->getUser();
+
+        if (static::IDENTITY !== $user->getIdentity()) {
             return;
         }
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder
             ->andWhere(sprintf('%s.identity = :identity', $rootAlias))
-            ->setParameter('identity', $this->user->getIdentity())
+            ->setParameter('identity', $user->getIdentity())
             ->andWhere(sprintf('%s.identityUuid = :identityUuid', $rootAlias))
-            ->setParameter('identityUuid', $this->user->getIdentityUuid());
+            ->setParameter('identityUuid', $user->getIdentityUuid());
     }
 }

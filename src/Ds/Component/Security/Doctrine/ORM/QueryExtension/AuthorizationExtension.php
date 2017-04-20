@@ -85,7 +85,6 @@ abstract class AuthorizationExtension implements QueryCollectionExtensionInterfa
             throw new InvalidUserTypeException('User type is not valid.');
         }
 
-        $this->user = $user;
         $this->apply($queryBuilder);
     }
 
