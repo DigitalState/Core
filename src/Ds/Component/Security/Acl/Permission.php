@@ -76,32 +76,14 @@ class Permission
     # endregion
 
     /**
-     * @var boolean
-     */
-    protected $exposed; # region accessors
-
-    /**
-     * Get exposed
-     *
-     * @return boolean
-     */
-    public function getExposed()
-    {
-        return $this->exposed;
-    }
-
-    # endregion
-
-    /**
      * Constructor
      *
      * @param string $type
      * @param string $subject
      * @param array|string $attributes
-     * @param boolean $exposed
      * @throws \DomainException
      */
-    public function __construct($type, $subject, $attributes = [], $exposed = false)
+    public function __construct($type, $subject, $attributes = [])
     {
         if (!in_array($type, [static::ENTItY, static::FIELD], true)) {
             throw new DomainException('Permission type does not exist.');
@@ -120,7 +102,6 @@ class Permission
         $this->type = $type;
         $this->subject = $subject;
         $this->attributes = $attributes;
-        $this->exposed = $exposed;
     }
 
     public function toArray()
