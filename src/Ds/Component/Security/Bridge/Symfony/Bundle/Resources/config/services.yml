@@ -1,0 +1,3 @@
+services:
+    ds_security.collection.permission:
+        class: Ds\Component\Security\Collection\PermissionCollection

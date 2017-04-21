@@ -1,0 +1,3 @@
+dunglas_action:
+    directories:
+        - ../vendor/digitalstate/core/src/Ds/Component/Security/Bridge/Symfony/Bundle/{Controller,Action,Command,EventSubscriber,Service}

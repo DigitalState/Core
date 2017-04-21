@@ -1,5 +1,5 @@
 services:
-    ds.security.event_listener.token.ip:
+    ds_security.event_listener.token.ip:
         class: Ds\Component\Security\EventListener\Token\IpListener
         arguments:
             - "@request_stack"
