@@ -9,9 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
- * Class Permission
+ * Class Permissions
  */
-class Permission
+class Permissions
 {
     /**
      * @var \Ds\Component\Security\Collection\PermissionCollection
@@ -29,6 +29,8 @@ class Permission
     }
 
     /**
+     * Action
+     *
      * @Route(path="/acl/permissions")
      * @Method("GET")
      */
