@@ -20,30 +20,48 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('acl')
-                    ->children()
-                        ->arrayNode('permissions')
-                            ->useAttributeAsKey('name')
-                            ->prototype('array')
-                                ->children()
-                                    ->enumNode('type')
-                                        ->values([ 'entity', 'field' ])
-                                    ->end()
-                                    ->scalarNode('subject')->end()
-                                    ->arrayNode('attributes')
-                                        ->isRequired()
-                                        ->requiresAtLeastOneElement()
-                                        ->prototype('scalar')->end()
-                                    ->end()
-                                    ->scalarNode('entity')->end()
-                                    ->scalarNode('field')->end()
+                ->append($this->getAclNode())
+            ->end();
+
+        return $treeBuilder;
+    }
+
+    /**
+     * Get acl node
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition|\Symfony\Component\Config\Definition\Builder\NodeDefinition
+     */
+    protected function getAclNode()
+    {
+        $builder = new TreeBuilder;
+        $node = $builder->root('acl');
+
+        $node
+            ->children()
+                ->arrayNode('permissions')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+                            ->enumNode('type')
+                                ->values([ 'entity', 'field' ])
+                            ->end()
+                            ->scalarNode('subject')
+                            ->end()
+                                ->arrayNode('attributes')
+                                    ->isRequired()
+                                    ->requiresAtLeastOneElement()
+                                    ->prototype('scalar')
                                 ->end()
+                            ->end()
+                            ->scalarNode('entity')
+                            ->end()
+                            ->scalarNode('field')
                             ->end()
                         ->end()
                     ->end()
                 ->end()
             ->end();
 
-        return $treeBuilder;
+        return $node;
     }
 }

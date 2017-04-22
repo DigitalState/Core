@@ -19,8 +19,17 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend(ContainerBuilder $container)
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('config.yml');
+        $config = $container->getExtensionConfig('dunglas_action');
+
+        if (!$config) {
+            return;
+        }
+
+        $container->prependExtensionConfig('dunglas_action', [
+            'directories' => [
+                __DIR__.'/../{Controller,Action,Command,EventSubscriber,Service}'
+            ]
+        ]);
     }
 
     /**
