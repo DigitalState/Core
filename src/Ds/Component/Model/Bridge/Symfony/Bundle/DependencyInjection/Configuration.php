@@ -20,24 +20,38 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('behavior')
-                    ->children()
-                        ->booleanNode('localizable')
-                            ->defaultFalse()
-                            ->treatNullLike(false)
-                        ->end()
-                        ->booleanNode('translatable')
-                            ->defaultFalse()
-                            ->treatNullLike(false)
-                        ->end()
-                        ->booleanNode('uuidentifiable')
-                            ->defaultFalse()
-                            ->treatNullLike(false)
-                        ->end()
-                    ->end()
-                ->end()
+                ->append($this->getBehaviorNode())
             ->end();
 
         return $treeBuilder;
+    }
+
+    /**
+     * Get behavior node
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition|\Symfony\Component\Config\Definition\Builder\NodeDefinition
+     */
+    protected function getBehaviorNode()
+    {
+        $builder = new TreeBuilder;
+        $node = $builder->root('behavior');
+
+        $node
+            ->children()
+                ->booleanNode('localizable')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+                ->booleanNode('translatable')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+                ->booleanNode('uuidentifiable')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+            ->end();
+
+        return $node;
     }
 }
