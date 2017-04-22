@@ -20,9 +20,9 @@ class DsModelExtension extends Extension implements PrependExtensionInterface
     {
         $container->prependExtensionConfig('ds_model', [
             'behavior' => [
-                'localizable' => false,
+                'uuidentifiable' => false,
                 'translatable' => false,
-                'uuidentifiable' => false
+                'localizable' => false
             ]
         ]);
     }
@@ -40,7 +40,7 @@ class DsModelExtension extends Extension implements PrependExtensionInterface
 
         foreach ($config['behavior'] as $behavior => $enabled) {
             if (!$enabled) {
-                $container->removeDefinition(sprintf('ds_entity.event_listener.%s', $behavior));
+                $container->removeDefinition(sprintf('ds_model.event_listener.%s', $behavior));
             }
         }
     }
