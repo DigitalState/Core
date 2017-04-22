@@ -9,9 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
- * Class Permissions
+ * Class PermissionsAction
  */
-class Permissions
+class PermissionsAction
 {
     /**
      * @var \Ds\Component\Security\Collection\PermissionCollection
