@@ -1,0 +1,26 @@
+parameters:
+    ds.component.model.event_listener.localizable_listener.class: Ds\Component\Model\EventListener\LocalizableListener
+    ds.component.model.event_listener.translatable_listener.class: Ds\Component\Model\EventListener\TranslatableListener
+    ds.component.model.event_listener.uuidentifiable_listener.class: Ds\Component\Model\EventListener\UuidentifiableListener
+
+services:
+    ds_model.event_listener.localizable:
+        class: "%ds.component.model.event_listener.localizable_listener.class%"
+        arguments:
+            - "@annotation_reader"
+        tags:
+            - { name: kernel.event_listener, event: kernel.view, method: kernelView, priority: 16 }
+
+    ds_model.event_listener.translatable:
+        class: "%ds.component.model.event_listener.translatable_listener.class%"
+        arguments:
+            - "@annotation_reader"
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postLoad }
+
+    ds_model.event_listener.uuidentifiable:
+        class: "%ds.component.model.event_listener.uuidentifiable_listener.class%"
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }

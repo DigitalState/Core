@@ -1,8 +1,0 @@
-services:
-    ds.entity.event_listener.translation:
-        class: Ds\Component\Entity\EventListener\TranslationListener
-        autowire: true
-        tags:
-            - { name: doctrine.event_listener, event: prePersist }
-            - { name: doctrine.event_listener, event: preUpdate }
-            - { name: doctrine.event_listener, event: postLoad }
