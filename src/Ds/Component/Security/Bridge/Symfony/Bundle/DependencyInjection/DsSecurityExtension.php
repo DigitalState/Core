@@ -30,6 +30,9 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
                 __DIR__.'/../{Controller,Action,Command,EventSubscriber,Service}'
             ]
         ]);
+
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('security.yml');
     }
 
     /**
