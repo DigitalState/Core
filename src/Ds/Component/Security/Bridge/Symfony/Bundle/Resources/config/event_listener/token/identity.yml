@@ -1,6 +1,0 @@
-services:
-    ds_security.event_listener.token.identity:
-        class: Ds\Component\Security\EventListener\Token\IdentityListener
-        tags:
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onCreated }
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onDecoded }

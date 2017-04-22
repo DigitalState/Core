@@ -19,20 +19,26 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend(ContainerBuilder $container)
     {
-        $config = $container->getExtensionConfig('dunglas_action');
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('security.yml');
 
-        if (!$config) {
-            return;
-        }
-
-        $container->prependExtensionConfig('dunglas_action', [
-            'directories' => [
-                __DIR__.'/../{Controller,Action,Command,EventSubscriber,Service}'
+        $container->prependExtensionConfig('ds_security', [
+            'token' => [
+                'ip' => false,
+                'client' => false,
+                'uuid' => false,
+                'identity' => false,
+                'modifier' => false
             ]
         ]);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('security.yml');
+        if ($container->getExtensionConfig('dunglas_action')) {
+            $container->prependExtensionConfig('dunglas_action', [
+                'directories' => [
+                    __DIR__.'/../{Controller,Action,Command,EventSubscriber,Service}'
+                ]
+            ]);
+        }
     }
 
     /**
@@ -46,27 +52,43 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        $this->loadAcl($container, $config['acl'] ?? []);
+        $this->loadToken($config['token'] ?? [], $container);
+        $this->loadAcl($config['acl'] ?? [], $container);
+    }
+
+    /**
+     * Load token
+     *
+     * @param array $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function loadToken(array $config, ContainerBuilder $container)
+    {
+        foreach ($config as $token => $enabled) {
+            if (!$enabled) {
+                $container->removeDefinition(sprintf('ds_security.event_listener.token.%s', $token));
+            }
+        }
     }
 
     /**
      * Load acl
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected function loadAcl(ContainerBuilder $container, array $config)
+    protected function loadAcl(array $config, ContainerBuilder $container)
     {
-        $this->loadPermissions($container, $config['permissions'] ?? []);
+        $this->loadPermissions($config['permissions'] ?? [], $container);
     }
 
     /**
      * Load permissions
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected function loadPermissions(ContainerBuilder $container, array $config)
+    protected function loadPermissions(array $config, ContainerBuilder $container)
     {
         $permissions = [];
 

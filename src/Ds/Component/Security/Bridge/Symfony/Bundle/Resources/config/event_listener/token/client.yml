@@ -1,8 +1,0 @@
-services:
-    ds_security.event_listener.token.client:
-        class: Ds\Component\Security\EventListener\Token\ClientListener
-        arguments:
-            - "@request_stack"
-        tags:
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onCreated }
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onDecoded }

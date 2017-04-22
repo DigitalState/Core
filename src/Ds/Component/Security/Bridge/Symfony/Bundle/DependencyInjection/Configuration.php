@@ -20,10 +20,48 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->append($this->getTokenNode())
                 ->append($this->getAclNode())
             ->end();
 
         return $treeBuilder;
+    }
+
+    /**
+     * Get token node
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition|\Symfony\Component\Config\Definition\Builder\NodeDefinition
+     */
+    protected function getTokenNode()
+    {
+        $builder = new TreeBuilder;
+        $node = $builder->root('token');
+
+        $node
+            ->children()
+                ->booleanNode('ip')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+                ->booleanNode('client')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+                ->booleanNode('uuid')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+                ->booleanNode('identity')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+                ->booleanNode('modifier')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+            ->end();
+
+        return $node;
     }
 
     /**

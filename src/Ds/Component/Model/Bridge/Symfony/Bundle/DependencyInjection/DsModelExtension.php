@@ -38,7 +38,18 @@ class DsModelExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        foreach ($config['behavior'] as $behavior => $enabled) {
+        $this->loadBehavior($config['behavior'] ?? [], $container);
+    }
+
+    /**
+     * Load behavior config
+     *
+     * @param array $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function loadBehavior(array $config, ContainerBuilder $container)
+    {
+        foreach ($config as $behavior => $enabled) {
             if (!$enabled) {
                 $container->removeDefinition(sprintf('ds_model.event_listener.%s', $behavior));
             }
