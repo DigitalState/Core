@@ -18,11 +18,11 @@ class Permission
     /**
      * @const string
      */
-    const BROWSE = 'browse';
-    const READ = 'read';
-    const EDIT = 'edit';
-    const ADD = 'add';
-    const DELETE = 'delete';
+    const BROWSE = 'BROWSE';
+    const READ = 'READ';
+    const EDIT = 'EDIT';
+    const ADD = 'ADD';
+    const DELETE = 'DELETE';
 
     /**
      * @var string
