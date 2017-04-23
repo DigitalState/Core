@@ -29,6 +29,13 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
                 'uuid' => false,
                 'identity' => false,
                 'modifier' => false
+            ],
+            'filter' => [
+                'identity' => false,
+                'anonymous' => false,
+                'individual' => false,
+                'owner' => false,
+                'enabled' => false
             ]
         ]);
 
@@ -53,6 +60,7 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.yml');
 
         $this->loadToken($config['token'] ?? [], $container);
+        $this->loadFilter($config['filter'] ?? [], $container);
         $this->loadAcl($config['acl'] ?? [], $container);
     }
 
@@ -67,6 +75,21 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         foreach ($config as $token => $enabled) {
             if (!$enabled) {
                 $container->removeDefinition(sprintf('ds_security.event_listener.token.%s', $token));
+            }
+        }
+    }
+
+    /**
+     * Load filter
+     *
+     * @param array $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function loadFilter(array $config, ContainerBuilder $container)
+    {
+        foreach ($config as $filter => $enabled) {
+            if (!$enabled) {
+                $container->removeDefinition(sprintf('ds_security.doctrine.orm.query_extension.%s', $filter));
             }
         }
     }

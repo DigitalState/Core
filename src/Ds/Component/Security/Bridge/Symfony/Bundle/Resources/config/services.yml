@@ -35,3 +35,23 @@ services:
         tags:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onCreated }
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onDecoded }
+
+    ds_security.doctrine.orm.query_extension.anonymous:
+        class: Ds\Component\Security\Doctrine\ORM\QueryExtension\AnonymousExtension
+        public: false
+        arguments:
+            - "@security.token_storage"
+            - "@security.authorization_checker"
+        tags:
+            - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
+            - { name: api_platform.doctrine.orm.query_extension.item }
+
+    ds_security.doctrine.orm.query_extension.individual:
+        class: Ds\Component\Security\Doctrine\ORM\QueryExtension\IndividualExtension
+        public: false
+        arguments:
+            - "@security.token_storage"
+            - "@security.authorization_checker"
+        tags:
+            - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
+            - { name: api_platform.doctrine.orm.query_extension.item }

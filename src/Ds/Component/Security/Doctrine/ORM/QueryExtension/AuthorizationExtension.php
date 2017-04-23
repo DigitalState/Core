@@ -17,11 +17,6 @@ use Ds\Component\Security\Exception\InvalidUserTypeException;
 abstract class AuthorizationExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
     /**
-     * @var string
-     */
-    protected $entity;
-
-    /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
      */
     protected $tokenStorage;
@@ -39,13 +34,11 @@ abstract class AuthorizationExtension implements QueryCollectionExtensionInterfa
     /**
      * Constructor
      *
-     * @param string $entity
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
      * @param \Symfony\Component\Security\Core\Authorization\AuthorizationChecker $checker
      */
-    public function __construct($entity, TokenStorageInterface $tokenStorage, AuthorizationChecker $checker)
+    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationChecker $checker)
     {
-        $this->entity = $entity;
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $checker;
     }
@@ -75,23 +68,20 @@ abstract class AuthorizationExtension implements QueryCollectionExtensionInterfa
      */
     protected function applyCondition(QueryBuilder $queryBuilder, string $resourceClass)
     {
-        if ($this->entity !== $resourceClass) {
-            return;
-        }
-
         $user = $this->tokenStorage->getToken()->getUser();
 
         if (!$user instanceof User) {
             throw new InvalidUserTypeException('User type is not valid.');
         }
 
-        $this->apply($queryBuilder);
+        $this->apply($queryBuilder, $resourceClass);
     }
 
     /**
      * Apply authorization condition
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder
+     * @param string $resourceClass
      */
-    abstract protected function apply(QueryBuilder $queryBuilder);
+    abstract protected function apply(QueryBuilder $queryBuilder, string $resourceClass);
 }

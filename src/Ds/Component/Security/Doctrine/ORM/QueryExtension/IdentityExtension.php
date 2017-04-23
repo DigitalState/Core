@@ -3,7 +3,6 @@
 namespace Ds\Component\Security\Doctrine\ORM\QueryExtension;
 
 use Doctrine\ORM\QueryBuilder;
-use LogicException;
 
 /**
  * Class IdentityExtension
@@ -11,25 +10,15 @@ use LogicException;
 class IdentityExtension extends AuthorizationExtension
 {
     /**
-     * @const string
-     */
-    const IDENTITY = null;
-
-    /**
      * {@inheritdoc}
      */
-    protected function apply(QueryBuilder $queryBuilder)
+    protected function apply(QueryBuilder $queryBuilder, string $resourceClass)
     {
-        if (null === static::IDENTITY) {
-            throw new LogicException('Identity is not defined.');
-        }
-
-        $user = $this->tokenStorage->getToken()->getUser();
-
-        if (static::IDENTITY !== $user->getIdentity()) {
+        if (!in_array('Ds\\Component\\Model\\Type\\Identitiable', class_implements($resourceClass), true)) {
             return;
         }
 
+        $user = $this->tokenStorage->getToken()->getUser();
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder
             ->andWhere(sprintf('%s.identity = :identity', $rootAlias))

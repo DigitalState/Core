@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->append($this->getTokenNode())
                 ->append($this->getAclNode())
+                ->append($this->getFilterNode())
             ->end();
 
         return $treeBuilder;
@@ -56,6 +57,43 @@ class Configuration implements ConfigurationInterface
                     ->treatNullLike(false)
                 ->end()
                 ->booleanNode('modifier')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+            ->end();
+
+        return $node;
+    }
+
+    /**
+     * Get filter node
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition|\Symfony\Component\Config\Definition\Builder\NodeDefinition
+     */
+    protected function getFilterNode()
+    {
+        $builder = new TreeBuilder;
+        $node = $builder->root('filter');
+
+        $node
+            ->children()
+                ->booleanNode('identity')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+                ->booleanNode('anonymous')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+                ->booleanNode('individual')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+                ->booleanNode('owner')
+                    ->defaultFalse()
+                    ->treatNullLike(false)
+                ->end()
+                ->booleanNode('enabled')
                     ->defaultFalse()
                     ->treatNullLike(false)
                 ->end()

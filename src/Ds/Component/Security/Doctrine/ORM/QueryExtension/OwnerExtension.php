@@ -13,7 +13,7 @@ class OwnerExtension extends AuthorizationExtension
     /**
      * {@inheritdoc}
      */
-    protected function apply(QueryBuilder $queryBuilder)
+    protected function apply(QueryBuilder $queryBuilder, string $resourceClass)
     {
         $user = $this->tokenStorage->getToken()->getUser();
         $rootAlias = $queryBuilder->getRootAliases()[0];
