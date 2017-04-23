@@ -40,15 +40,15 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->booleanNode('localizable')
                     ->defaultFalse()
-                    ->treatNullLike(false)
+                    ->treatNullLike(true)
                 ->end()
                 ->booleanNode('translatable')
                     ->defaultFalse()
-                    ->treatNullLike(false)
+                    ->treatNullLike(true)
                 ->end()
                 ->booleanNode('uuidentifiable')
                     ->defaultFalse()
-                    ->treatNullLike(false)
+                    ->treatNullLike(true)
                 ->end()
             ->end();
 
