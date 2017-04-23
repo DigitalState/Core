@@ -3,6 +3,7 @@
 namespace Ds\Component\Security\Doctrine\ORM\QueryExtension;
 
 use Doctrine\ORM\QueryBuilder;
+use Ds\Component\Identity\Identity;
 
 /**
  * Class IndividualExtension
@@ -16,7 +17,7 @@ class IndividualExtension extends IdentityExtension
     {
         $user = $this->tokenStorage->getToken()->getUser();
 
-        if ('Individual' !== $user->getIdentity()) {
+        if (Identity::INDIVIDUAL !== $user->getIdentity()) {
             return;
         }
 

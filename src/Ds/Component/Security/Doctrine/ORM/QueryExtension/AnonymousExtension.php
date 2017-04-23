@@ -3,6 +3,7 @@
 namespace Ds\Component\Security\Doctrine\ORM\QueryExtension;
 
 use Doctrine\ORM\QueryBuilder;
+use Ds\Component\Identity\Identity;
 
 /**
  * Class AnonymousExtension
@@ -16,7 +17,7 @@ class AnonymousExtension extends IdentityExtension
     {
         $user = $this->tokenStorage->getToken()->getUser();
 
-        if ('Anonymous' !== $user->getIdentity()) {
+        if (Identity::ANONYMOUS !== $user->getIdentity()) {
             return;
         }
 
