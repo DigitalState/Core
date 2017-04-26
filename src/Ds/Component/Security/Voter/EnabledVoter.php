@@ -5,6 +5,6 @@ namespace Ds\Component\Security\Voter;
 /**
  * Class EnabledVoter
  */
-class EnabledVoter extends AuthorizationVoter
+class EnabledVoter
 {
 }

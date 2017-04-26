@@ -3,8 +3,8 @@
 namespace Ds\Component\Security\Voter;
 
 /**
- * Class AuthorizationVoter
+ * Class IdentityVoter
  */
-class AuthorizationVoter
+class IdentityVoter
 {
 }
