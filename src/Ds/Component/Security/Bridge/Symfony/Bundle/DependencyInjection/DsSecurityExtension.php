@@ -42,7 +42,11 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         if ($container->getExtensionConfig('dunglas_action')) {
             $container->prependExtensionConfig('dunglas_action', [
                 'directories' => [
-                    __DIR__.'/../{Controller,Action,Command,EventSubscriber,Service}'
+                    __DIR__.'/../Controller',
+                    __DIR__.'/../Action',
+                    __DIR__.'/../Command',
+                    __DIR__.'/../EventSubscriber',
+                    __DIR__.'/../Service'
                 ]
             ]);
         }
