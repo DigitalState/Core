@@ -9,26 +9,13 @@ use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Accessor;
 use Knp\DoctrineBehaviors\Model As Behavior;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Component\Serializer\Annotation As Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
 
 /**
  * Class Association
- *
- * @ApiResource(
- *      attributes={
- *          "normalization_context"={"groups"={"association_output"}},
- *          "denormalization_context"={"groups"={"association_input"}}
- *      }
- * )
- * @ORM\Entity(repositoryClass="Ds\Component\Entity\Repository\AssociationRepository")
- * @ORM\Table(name="ds_association")
- * @ORM\HasLifecycleCallbacks
- * @ORMAssert\UniqueEntity(fields="uuid")
  */
 class Association implements Identifiable, Uuidentifiable, Associable, Ownable
 {
