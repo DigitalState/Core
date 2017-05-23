@@ -10,4 +10,5 @@ interface Identity
     const ANONYMOUS = 'Anonymous';
     const INDIVIDUAL = 'Individual';
     const STAFF = 'Staff';
+    const SYSTEM = 'System';
 }
