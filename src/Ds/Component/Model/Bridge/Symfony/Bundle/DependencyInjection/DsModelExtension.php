@@ -20,6 +20,7 @@ class DsModelExtension extends Extension implements PrependExtensionInterface
     {
         $container->prependExtensionConfig('ds_model', [
             'behavior' => [
+                'identitiable' => false,
                 'uuidentifiable' => false,
                 'translatable' => false,
                 'localizable' => false
