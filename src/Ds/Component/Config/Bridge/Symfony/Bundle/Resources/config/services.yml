@@ -1,9 +1,13 @@
 parameters:
     ds_config.entity.config.class: Ds\Component\Config\Entity\Config
+    ds_config.collection.config.class: Ds\Component\Config\Collection\ConfigCollection
     ds_config.repository.config.class: Ds\Component\Config\Repository\ConfigRepository
     ds_config.service.config.class: Ds\Component\Config\Service\ConfigService
 
 services:
+    ds_config.collection.config:
+        class: "%ds_config.collection.config.class%"
+
     ds_config.repository.config:
         class: "%ds_config.repository.config.class%"
         factory: ["@doctrine.orm.default_entity_manager", getRepository]
