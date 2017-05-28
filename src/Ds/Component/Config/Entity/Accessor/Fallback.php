@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Config\Accessor;
+namespace Ds\Component\Config\Entity\Accessor;
 
 /**
  * Trait Fallback

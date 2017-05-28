@@ -4,7 +4,7 @@ namespace Ds\Component\Config\Entity;
 
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Accessor;
-use Ds\Component\Config\Accessor as ConfigAccessor;
+use Ds\Component\Config\Entity\Accessor as ConfigAccessor;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
