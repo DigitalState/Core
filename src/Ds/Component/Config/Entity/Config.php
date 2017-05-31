@@ -23,7 +23,7 @@ class Config implements Identifiable
     use Accessor\Id;
     use ConfigAccessor\Key;
     use ConfigAccessor\Value;
-    use ConfigAccessor\Fallback;
+    use Accessor\Enabled;
 
     /**
      * @var integer
@@ -48,9 +48,9 @@ class Config implements Identifiable
 
     /**
      * @var string
-     * @ORM\Column(name="fallback", type="boolean")
+     * @ORM\Column(name="enabled", type="boolean")
      */
-    protected $fallback;
+    protected $enabled;
 
     /**
      * Constructor
@@ -58,6 +58,6 @@ class Config implements Identifiable
     public function __construct()
     {
         $this->value = null;
-        $this->fallback = true;
+        $this->enabled = false;
     }
 }

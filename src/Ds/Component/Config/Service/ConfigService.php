@@ -48,7 +48,7 @@ class ConfigService
             throw new OutOfRangeException('Config does not exist.');
         }
 
-        if ($config->getFallback()) {
+        if (!$config->getEnabled()) {
             return $this->configCollection->get($key);
         }
 
@@ -60,9 +60,9 @@ class ConfigService
      *
      * @param string $key
      * @param mixed $value
-     * @param boolean $fallback
+     * @param boolean $enabled
      */
-    public function set($key, $value, $fallback = null)
+    public function set($key, $value, $enabled = null)
     {
 
     }

@@ -23,7 +23,7 @@ abstract class ConfigFixture extends ResourceFixture
             $entity
                 ->setKey($config['key'])
                 ->setValue($config['value'])
-                ->setFallback($config['fallback']);
+                ->setEnabled($config['enabled']);
             $manager->persist($entity);
             $manager->flush();
         }
