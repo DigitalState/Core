@@ -1,0 +1,21 @@
+parameters:
+    ds_api.api.api.class: Ds\Component\Api\Api\Api
+    ds_api.service.individual.class: Ds\Component\Api\Service\IndividualService
+
+services:
+    ds_api.http.client:
+        class: GuzzleHttp\Client
+
+    ds_api.service:
+        abstract: true
+        arguments:
+            - "@ds_api.http.client"
+
+    ds_api.service.individual:
+        parent: ds_api.service
+        class: "%ds_api.service.individual.class%"
+
+    ds_api.api:
+        class: "%ds_api.api.api.class%"
+        arguments:
+            - "@ds_api.http.client"
