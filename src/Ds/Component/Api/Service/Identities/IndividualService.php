@@ -1,9 +1,10 @@
 <?php
 
-namespace Ds\Component\Api\Service;
+namespace Ds\Component\Api\Service\Identities;
 
-use Ds\Component\Api\Model\Individual;
-use Ds\Component\Api\Query\IndividualParameters as Parameters;
+use Ds\Component\Api\Service\AbstractService;
+use Ds\Component\Api\Model\Identities\Individual;
+use Ds\Component\Api\Query\Identities\IndividualParameters as Parameters;
 
 /**
  * Class IndividualService
@@ -18,8 +19,8 @@ class IndividualService extends AbstractService
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/form';
-    const RESOURCE_OBJECT = '/form/{id}';
+    const RESOURCE_LIST = '/individual';
+    const RESOURCE_OBJECT = '/individual/{id}';
 
     /**
      * @var array
@@ -32,7 +33,7 @@ class IndividualService extends AbstractService
     /**
      * Get individual list
      *
-     * @param \Ds\Component\Api\Query\IndividualParameters $parameters
+     * @param \Ds\Component\Api\Query\Identities\IndividualParameters $parameters
      * @return array
      */
     public function getList(Parameters $parameters = null)
