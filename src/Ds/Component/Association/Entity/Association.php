@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Entity\Entity;
+namespace Ds\Component\Association\Entity;
 
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Uuidentifiable;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Ds\Component\Entity\Accessor;
+namespace Ds\Component\Association\Accessor;
 
-use Ds\Component\Entity\Entity\Association;
+use Ds\Component\Association\Entity\Association;
 
 /**
  * Trait Associations
@@ -12,8 +12,8 @@ trait Associations
     /**
      * Add association
      *
-     * @param \Ds\Component\Entity\Entity\Association $association
-     * @return \Ds\Bundle\CaseBundle\Entity\CaseEntity
+     * @param \Ds\Component\Association\Entity\Association $association
+     * @return object
      */
     public function addAssociation(Association $association)
     {
@@ -27,8 +27,8 @@ trait Associations
     /**
      * Remove association
      *
-     * @param \Ds\Component\Entity\Entity\Association $association
-     * @return \Ds\Bundle\CaseBundle\Entity\CaseEntity
+     * @param \Ds\Component\Association\Entity\Association $association
+     * @return object
      */
     public function removeAssociation(Association $association)
     {
