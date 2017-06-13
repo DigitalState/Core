@@ -3,8 +3,8 @@
 namespace Ds\Component\Config\Entity;
 
 use Ds\Component\Model\Type\Identifiable;
-use Ds\Component\Model\Accessor;
-use Ds\Component\Config\Entity\Accessor as ConfigAccessor;
+use Ds\Component\Model\Attribute\Accessor;
+use Ds\Component\Config\Entity\Attribute\Accessor as ConfigAccessor;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;

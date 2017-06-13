@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Config\Entity\Accessor;
+namespace Ds\Component\Config\Entity\Attribute\Accessor;
 
 /**
  * Trait Value
