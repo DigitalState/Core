@@ -15,13 +15,57 @@ class User implements AdvancedUserInterface, JWTUserInterface
      */
     public static function createFromPayload($username, array $payload)
     {
-        return new static($username, $payload['iden'], $payload['iden_uuid'], $payload['roles']);
+        return new static(
+            $username,
+            $payload['uuid'] ?? null,
+            $payload['roles'] ?? [],
+            $payload['identity'] ?? null,
+            $payload['identityUuid'] ?? null
+        );
     }
 
     /**
      * @var string
      */
-    protected $username; # region accessors
+    protected $username;
+
+    /**
+     * @var string
+     */
+    protected $uuid;
+
+    /**
+     * @var array
+     */
+    protected $roles;
+
+    /**
+     * @var string
+     */
+    protected $identity;
+
+    /**
+     * @var string
+     */
+    protected $identityUuid;
+
+    /**
+     * Constructor
+     *
+     * @param string $username
+     * @param string $uuid
+     * @param array $roles
+     * @param string $identity
+     * @param string $identityUuid
+     */
+    public function __construct($username, $uuid = null, array $roles = [], $identity = null, $identityUuid = null)
+    {
+        $this->username = $username;
+        $this->uuid = $uuid;
+        $this->roles = $roles;
+        $this->identity = $identity;
+        $this->identityUuid = $identityUuid;
+    }
 
     /**
      * {@inheritdoc}
@@ -31,42 +75,13 @@ class User implements AdvancedUserInterface, JWTUserInterface
         return $this->username;
     }
 
-    # endregion
-
-    /**
-     * @var string
-     */
-    protected $identity; # region accessors
-
     /**
      * {@inheritdoc}
      */
-    public function getIdentity()
+    public function getUuid()
     {
-        return $this->identity;
+        return $this->uuid;
     }
-
-    # endregion
-
-    /**
-     * @var string
-     */
-    protected $identityUuid; # region accessors
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getIdentityUuid()
-    {
-        return $this->identityUuid;
-    }
-
-    # endregion
-
-    /**
-     * @var array
-     */
-    protected $roles; # region accessors
 
     /**
      * {@inheritdoc}
@@ -76,22 +91,20 @@ class User implements AdvancedUserInterface, JWTUserInterface
         return $this->roles;
     }
 
-    # endregion
+    /**
+     * {@inheritdoc}
+     */
+    public function getIdentity()
+    {
+        return $this->identity;
+    }
 
     /**
-     * Constructor
-     *
-     * @param string $username
-     * @param string $identity
-     * @param string $identityUuid
-     * @param array $roles
+     * {@inheritdoc}
      */
-    public function __construct($username, $identity, $identityUuid, array $roles = [])
+    public function getIdentityUuid()
     {
-        $this->username = $username;
-        $this->identity = $identity;
-        $this->identityUuid = $identityUuid;
-        $this->roles = $roles;
+        return $this->identityUuid;
     }
 
     /**

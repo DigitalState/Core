@@ -6,23 +6,23 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 
 /**
- * Class IdentityListener
+ * Class IdentityUuidListener
  */
-class IdentityListener
+class IdentityUuidListener
 {
     /**
      * @var string
      */
-    protected $identity;
+    protected $identityUuid;
 
     /**
      * Constructor
      *
-     * @param string $identity
+     * @param string $identityUuid
      */
-    public function __construct($identity = 'identity')
+    public function __construct($identityUuid = 'identityUuid')
     {
-        $this->identity = $identity;
+        $this->identityUuid = $identityUuid;
     }
 
     /**
@@ -35,7 +35,7 @@ class IdentityListener
     {
         $payload = $event->getData();
         $user = $event->getUser();
-        $payload[$this->identity] = $user->getIdentity();
+        $payload[$this->identityUuid] = $user->getIdentityUuid();
         $event->setData($payload);
     }
 
@@ -48,7 +48,7 @@ class IdentityListener
     {
         $payload = $event->getPayload();
 
-        if (!array_key_exists($this->identity, $payload)) {
+        if (!array_key_exists($this->identityUuid, $payload)) {
             $event->markAsInvalid();
         }
     }

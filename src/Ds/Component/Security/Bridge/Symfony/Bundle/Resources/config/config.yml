@@ -1,0 +1,15 @@
+ds_security:
+    token:
+        uuid: true
+        identity: true
+        identity_uuid: true
+        ip: false
+        client: false
+        modifier: false
+
+    filter:
+        identity: false
+        anonymous: false
+        individual: false
+        owner: false
+        enabled: false

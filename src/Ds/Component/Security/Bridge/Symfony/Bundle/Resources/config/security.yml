@@ -5,7 +5,7 @@ security:
     providers:
         jwt:
             lexik_jwt:
-                class: "%ds_security.user.user.class%"
+                class: '%ds_security.user.user.class%'
 
     access_decision_manager:
         strategy: unanimous

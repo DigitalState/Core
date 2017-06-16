@@ -34,7 +34,7 @@ class PermissionsAction
      * @Route(path="/acl/permissions")
      * @Method("GET")
      */
-    public function __invoke()
+    public function cget()
     {
         $permissions = $this->permissionCollection->toArray();
 

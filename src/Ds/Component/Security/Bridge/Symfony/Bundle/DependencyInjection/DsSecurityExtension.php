@@ -20,24 +20,8 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
     public function prepend(ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('config.yml');
         $loader->load('security.yml');
-
-        $container->prependExtensionConfig('ds_security', [
-            'token' => [
-                'ip' => false,
-                'client' => false,
-                'uuid' => false,
-                'identity' => false,
-                'modifier' => false
-            ],
-            'filter' => [
-                'identity' => false,
-                'anonymous' => false,
-                'individual' => false,
-                'owner' => false,
-                'enabled' => false
-            ]
-        ]);
 
         if ($container->getExtensionConfig('dunglas_action')) {
             $container->prependExtensionConfig('dunglas_action', [
