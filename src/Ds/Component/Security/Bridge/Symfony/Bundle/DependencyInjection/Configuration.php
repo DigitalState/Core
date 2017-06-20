@@ -17,11 +17,10 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder;
         $rootNode = $treeBuilder->root('ds_security');
-
         $rootNode
             ->children()
                 ->append($this->getTokenNode())
-                ->append($this->getAclNode())
+                ->append($this->getPermissionsNode())
                 ->append($this->getFilterNode())
             ->end();
 
@@ -37,7 +36,6 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder;
         $node = $builder->root('token');
-
         $node
             ->children()
                 ->booleanNode('uuid')
@@ -78,7 +76,6 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder;
         $node = $builder->root('filter');
-
         $node
             ->children()
                 ->booleanNode('identity')
@@ -107,37 +104,34 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Get acl node
+     * Get permissions node
      *
      * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition|\Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
-    protected function getAclNode()
+    protected function getPermissionsNode()
     {
         $builder = new TreeBuilder;
-        $node = $builder->root('acl');
-
+        $node = $builder->root('permissions');
         $node
-            ->children()
-                ->arrayNode('permissions')
-                    ->useAttributeAsKey('name')
-                    ->prototype('array')
-                        ->children()
-                            ->enumNode('type')
-                                ->values([ 'entity', 'field' ])
-                            ->end()
-                            ->scalarNode('subject')
-                            ->end()
-                                ->arrayNode('attributes')
-                                    ->isRequired()
-                                    ->requiresAtLeastOneElement()
-                                    ->prototype('scalar')
-                                ->end()
-                            ->end()
-                            ->scalarNode('entity')
-                            ->end()
-                            ->scalarNode('field')
-                            ->end()
-                        ->end()
+            ->useAttributeAsKey('name')
+            ->prototype('array')
+                ->children()
+                    ->scalarNode('title')
+                    ->end()
+                    ->enumNode('type')
+                        ->values([ 'entity', 'field' ])
+                    ->end()
+                    ->scalarNode('subject')
+                    ->end()
+                    ->arrayNode('attributes')
+                        ->isRequired()
+                        ->requiresAtLeastOneElement()
+                        ->prototype('scalar')
+                    ->end()
+                    ->end()
+                    ->scalarNode('entity')
+                    ->end()
+                    ->scalarNode('field')
                     ->end()
                 ->end()
             ->end();

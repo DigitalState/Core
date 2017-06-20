@@ -1,3 +1,4 @@
 ds_security:
     resource: '@DsSecurityBundle/Action/'
     type: annotation
+    prefix: /security

@@ -1,15 +1,18 @@
 <?php
 
-namespace Ds\Component\Security\Bridge\Symfony\Bundle\Action\Acl;
+namespace Ds\Component\Security\Bridge\Symfony\Bundle\Action\Security;
 
 use Ds\Component\Security\Collection\PermissionCollection;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class PermissionsAction
+ *
+ * @ApiResource
  */
 class PermissionsAction
 {
@@ -31,12 +34,17 @@ class PermissionsAction
     /**
      * Action
      *
-     * @Route(path="/acl/permissions")
+     * @Route(path="/permissions")
      * @Method("GET")
      */
     public function cget()
     {
         $permissions = $this->permissionCollection->toArray();
+
+        foreach ($permissions as $key => $permission) {
+            unset($permission['subject']);
+            $permissions[$key] = $permission;
+        }
 
         return new JsonResponse($permissions);
     }

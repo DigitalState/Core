@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\Config\FileLocator;
-use Ds\Component\Security\Acl\Permission;
+use Ds\Component\Security\Model\Permission;
 
 /**
  * Class DsSecurityExtension
@@ -49,7 +49,7 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
 
         $this->loadToken($config['token'] ?? [], $container);
         $this->loadFilter($config['filter'] ?? [], $container);
-        $this->loadAcl($config['acl'] ?? [], $container);
+        $this->loadPermissions($config['permissions'] ?? [], $container);
     }
 
     /**
@@ -83,17 +83,6 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
     }
 
     /**
-     * Load acl
-     *
-     * @param array $config
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function loadAcl(array $config, ContainerBuilder $container)
-    {
-        $this->loadPermissions($config['permissions'] ?? [], $container);
-    }
-
-    /**
      * Load permissions
      *
      * @param array $config
@@ -103,7 +92,8 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
     {
         $permissions = [];
 
-        foreach ($config as $item) {
+        foreach ($config as $key => $item) {
+            $title = $item['title'] ?? null;
             $type = $item['type'] ?? null;
             $subject = $item['subject'] ?? null;
             $attributes = $item['attributes'] ?? [];
@@ -116,8 +106,8 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
                 $subject = $item['field'];
             }
 
-            $permission = new Permission($type, $subject, $attributes);
-            $permissions[] = $permission->toArray();
+            $permission = new Permission($title, $key, $type, $subject, $attributes);
+            $permissions[] = (array) $permission->toObject();
         }
 
         $container

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Security\Acl;
+namespace Ds\Component\Security\Model;
 
 use DomainException;
 
@@ -9,6 +9,12 @@ use DomainException;
  */
 class Permission
 {
+    use Attribute\Key;
+    use Attribute\Title;
+    use Attribute\Type;
+    use Attribute\Subject;
+    use Attribute\Attributes;
+
     /**
      * @const string
      */
@@ -25,65 +31,16 @@ class Permission
     const DELETE = 'DELETE';
 
     /**
-     * @var string
-     */
-    protected $type; # region accessors
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    # endregion
-
-    /**
-     * @var string
-     */
-    protected $subject; # region accessors
-
-    /**
-     * Get subject
-     *
-     * @return string
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-    # endregion
-
-    /**
-     * @var array
-     */
-    protected $attributes; # region accessors
-
-    /**
-     * Get attributes
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    # endregion
-
-    /**
      * Constructor
      *
+     * @param string $title
+     * @param string $key
      * @param string $type
      * @param string $subject
      * @param array|string $attributes
      * @throws \DomainException
      */
-    public function __construct($type, $subject, $attributes = [])
+    public function __construct($title, $key, $type, $subject, $attributes = [])
     {
         if (!in_array($type, [static::ENTItY, static::FIELD], true)) {
             throw new DomainException('Permission type does not exist.');
@@ -99,13 +56,20 @@ class Permission
             }
         }
 
+        $this->title = $title;
+        $this->key = $key;
         $this->type = $type;
         $this->subject = $subject;
         $this->attributes = $attributes;
     }
 
-    public function toArray()
+    /**
+     * Type cast to array
+     *
+     * @return \stdClass
+     */
+    public function toObject()
     {
-        return get_object_vars($this);
+        return (object) get_object_vars($this);
     }
 }
