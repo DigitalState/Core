@@ -3,6 +3,7 @@
 namespace Ds\Component\Security\Bridge\Symfony\Bundle\Action\Security;
 
 use Ds\Component\Security\Collection\PermissionCollection;
+use Ds\Component\Security\Model\Permission;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -40,12 +41,35 @@ class PermissionsAction
     public function cget()
     {
         $permissions = $this->permissionCollection->toArray();
+        $transformed = [];
 
         foreach ($permissions as $key => $permission) {
-            unset($permission['subject']);
-            $permissions[$key] = $permission;
+            switch ($permission['type']) {
+                case Permission::FIELD:
+                    $permission['entity'] = $this->getEntityKey($permission['subject'], $permissions);
+                    break;
+            }
+
+            $transformed[$key] = $permission;
+            unset($transformed[$key]['subject']);
         }
 
-        return new JsonResponse($permissions);
+        return new JsonResponse($transformed);
+    }
+
+    /**
+     * Get entity key for a given subject
+     *
+     * @param string $subject
+     * @param array $permissions
+     * @return string|null
+     */
+    protected function getEntityKey($subject, $permissions)
+    {
+        foreach ($permissions as $permission) {
+            if (Permission::ENTItY === $permission['type'] && 0 === strpos($subject, $permission['subject'])) {
+                return $permission['key'];
+            }
+        }
     }
 }
