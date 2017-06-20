@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Security\Entity;
 
+use Ds\Bundle\CaseBundle\Attribute\Accessor\CaseAccessor;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Ownable;
@@ -39,6 +40,7 @@ class Permission implements Identifiable, Uuidentifiable, Ownable
     use Accessor\Owner;
     use Accessor\OwnerUuid;
     use Accessor\UserUuid;
+    use Accessor\BusinessUnitUuid;
     use SecurityAccessor\Key;
     use SecurityAccessor\Attributes;
 
@@ -103,6 +105,16 @@ class Permission implements Identifiable, Uuidentifiable, Ownable
      * @Assert\Uuid
      */
     protected $userUuid;
+
+    /**
+     * @var string
+     * @ApiProperty
+     * @Serializer\Groups({"permission_output", "permission_input"})
+     * @ORM\Column(name="business_unit_uuid", type="guid", nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Uuid
+     */
+    protected $businessUnitUuid;
 
     /**
      * @var string
