@@ -3,9 +3,14 @@
 namespace Ds\Component\Config\Entity;
 
 use Ds\Component\Model\Type\Identifiable;
+use Ds\Component\Model\Type\Uuidentifiable;
+use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Attribute\Accessor;
-use Ds\Component\Config\Entity\Attribute\Accessor as ConfigAccessor;
+use Knp\DoctrineBehaviors\Model as Behavior;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Component\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
@@ -13,20 +18,41 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
 /**
  * Class Config
  *
+ * @ApiResource(
+ *     collectionOperations={
+ *         "get"={"method"="GET"}
+ *     },
+ *     itemOperations={
+ *         "get"={"method"="GET"},
+ *         "put"={"method"="PUT"}
+ *     },
+ *     attributes={
+ *         "normalization_context"={"groups"={"config_output"}},
+ *         "denormalization_context"={"groups"={"config_input"}}
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="Ds\Component\Config\Repository\ConfigRepository")
  * @ORM\Table(name="ds_config")
  * @ORM\HasLifecycleCallbacks
+ * @ORMAssert\UniqueEntity(fields="uuid")
  * @ORMAssert\UniqueEntity(fields="key")
  */
-class Config implements Identifiable
+class Config implements Identifiable, Uuidentifiable, Ownable
 {
+    use Behavior\Timestampable\Timestampable;
+
     use Accessor\Id;
-    use ConfigAccessor\Key;
-    use ConfigAccessor\Value;
+    use Accessor\Uuid;
+    use Accessor\Owner;
+    use Accessor\OwnerUuid;
+    use Accessor\Key;
+    use Accessor\Value;
     use Accessor\Enabled;
 
     /**
      * @var integer
+     * @ApiProperty(identifier=false, writable=false)
+     * @Serializer\Groups({"config_output"})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(name="id", type="integer")
@@ -35,19 +61,67 @@ class Config implements Identifiable
 
     /**
      * @var string
-     * @ORM\Column(name="`key`", type="string")
+     * @ApiProperty(identifier=true, writable=false)
+     * @Serializer\Groups({"config_output"})
+     * @ORM\Column(name="uuid", type="guid", unique=true)
+     * @Assert\Uuid
+     */
+    protected $uuid;
+
+    /**
+     * @var \DateTime
+     * @ApiProperty(writable=false)
+     * @Serializer\Groups({"config_output"})
+     */
+    protected $createdAt;
+
+    /**
+     * @var \DateTime
+     * @ApiProperty(writable=false)
+     * @Serializer\Groups({"config_output"})
+     */
+    protected $updatedAt;
+
+    /**
+     * @var string
+     * @ApiProperty(writable=false)
+     * @Serializer\Groups({"config_output"})
+     * @ORM\Column(name="`owner`", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     */
+    protected $owner;
+
+    /**
+     * @var string
+     * @ApiProperty(writable=false)
+     * @Serializer\Groups({"config_output"})
+     * @ORM\Column(name="owner_uuid", type="guid", nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Uuid
+     */
+    protected $ownerUuid;
+
+    /**
+     * @var string
+     * @ApiProperty(writable=false)
+     * @Serializer\Groups({"config_output"})
+     * @ORM\Column(name="`key`", type="string", unique=true)
      * @Assert\NotBlank
      */
     protected $key;
 
     /**
      * @var string
+     * @ApiProperty
+     * @Serializer\Groups({"config_output", "config_input"})
      * @ORM\Column(name="`value`", type="text", nullable=true)
      */
     protected $value;
 
     /**
      * @var string
+     * @ApiProperty
+     * @Serializer\Groups({"config_output", "config_input"})
      * @ORM\Column(name="enabled", type="boolean")
      */
     protected $enabled;
