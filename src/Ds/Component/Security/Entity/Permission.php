@@ -111,7 +111,6 @@ class Permission implements Identifiable, Uuidentifiable, Ownable
      * @ApiProperty
      * @Serializer\Groups({"permission_output", "permission_input"})
      * @ORM\Column(name="business_unit_uuid", type="guid", nullable=true)
-     * @Assert\NotBlank
      * @Assert\Uuid
      */
     protected $businessUnitUuid;
