@@ -6,16 +6,16 @@ parameters:
 
 services:
     ds_config.collection.config:
-        class: "%ds_config.collection.config.class%"
+        class: '%ds_config.collection.config.class%'
 
     ds_config.repository.config:
-        class: "%ds_config.repository.config.class%"
-        factory: ["@doctrine.orm.default_entity_manager", getRepository]
+        class: '%ds_config.repository.config.class%'
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - "%ds_config.entity.config.class%"
+            - '%ds_config.entity.config.class%'
 
     ds_config.service.config:
-        class: "%ds_config.service.config.class%"
+        class: '%ds_config.service.config.class%'
         arguments:
-            - "@ds_config.collection.config"
-            - "@ds_config.repository.config"
+            - '@ds_config.collection.config'
+            - '@ds_config.repository.config'
