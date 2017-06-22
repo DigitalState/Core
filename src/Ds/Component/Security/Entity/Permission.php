@@ -2,13 +2,12 @@
 
 namespace Ds\Component\Security\Entity;
 
-use Ds\Bundle\CaseBundle\Attribute\Accessor\CaseAccessor;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Attribute\Accessor;
-use Ds\Component\Security\Model\Attribute\Accessor as SecurityAccessor;
 use Knp\DoctrineBehaviors\Model as Behavior;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
@@ -40,9 +39,6 @@ class Permission implements Identifiable, Uuidentifiable, Ownable
     use Accessor\Owner;
     use Accessor\OwnerUuid;
     use Accessor\UserUuid;
-    use Accessor\BusinessUnitUuid;
-    use SecurityAccessor\Key;
-    use SecurityAccessor\Attributes;
 
     /**
      * @var integer
@@ -107,29 +103,57 @@ class Permission implements Identifiable, Uuidentifiable, Ownable
     protected $userUuid;
 
     /**
-     * @var string
+     * @var \Doctrine\Common\Collections\ArrayCollection
      * @ApiProperty
      * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Column(name="business_unit_uuid", type="guid", nullable=true)
-     * @Assert\Uuid
+     * @ORM\OneToMany(targetEntity="PermissionEntry", mappedBy="permission", cascade={"persist"})
      */
-    protected $businessUnitUuid;
+    protected $entries; # region accessors
 
     /**
-     * @var string
-     * @ApiProperty
-     * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Column(name="`key`", type="string", length=255)
-     * @Assert\NotBlank
+     * Add entry
+     *
+     * @param \Ds\Component\Security\Entity\PermissionEntry $entry
+     * @return object
      */
-    protected $key;
+    public function addEntry(PermissionEntry $entry)
+    {
+        $entry->setPermission($this);
+        $this->entries->add($entry);
+
+        return $this;
+    }
 
     /**
-     * @var array
-     * @ApiProperty
-     * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Column(name="attributes", type="json_array")
-     * @Assert\NotBlank
+     * Remove entry
+     *
+     * @param \Ds\Component\Security\Entity\PermissionEntry $entry
+     * @return object
      */
-    protected $attributes;
+    public function removeEntry(PermissionEntry $entry)
+    {
+        $this->entries->removeElement($entry);
+
+        return $this;
+    }
+
+    /**
+     * Get entries
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getEntries()
+    {
+        return $this->entries;
+    }
+
+    # endregion
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->entries = new ArrayCollection;
+    }
 }
