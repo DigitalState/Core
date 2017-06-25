@@ -19,3 +19,32 @@ services:
         arguments:
             - '@ds_config.collection.config'
             - '@ds_config.repository.config'
+
+    ds_config.filter.config.search:
+        parent: api_platform.doctrine.orm.search_filter
+        arguments:
+            -
+              id: exact
+              uuid: exact
+              owner: exact
+              ownerUuid: exact
+              key: partial
+        tags:
+            - { name: api_platform.filter, id: ds.config.search }
+
+    ds_config.filter.config.date:
+        parent: api_platform.doctrine.orm.date_filter
+        arguments:
+            -
+                createdAt: ~
+                updatedAt: ~
+        tags:
+            - { name: api_platform.filter, id: ds.config.date }
+
+    ds_config.filter.config.boolean:
+        parent: api_platform.doctrine.orm.boolean_filter
+        arguments:
+            -
+                enabled: ~
+        tags:
+            - { name: api_platform.filter, id: ds.config.boolean }

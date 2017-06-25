@@ -28,6 +28,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  *         "put"={"method"="PUT"}
  *     },
  *     attributes={
+ *         "filters"={"ds.config.search", "ds.config.date", "ds.config.boolean"},
  *         "normalization_context"={"groups"={"config_output"}},
  *         "denormalization_context"={"groups"={"config_input"}}
  *     }
