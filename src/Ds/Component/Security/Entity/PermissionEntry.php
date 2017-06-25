@@ -91,6 +91,7 @@ class PermissionEntry implements Identifiable
      * @Serializer\Groups({"permission_output", "permission_input"})
      * @ORM\Column(name="`key`", type="string", length=255)
      * @Assert\NotBlank
+     * @Assert\Length(min=1, max=255)
      */
     protected $key;
 
@@ -100,6 +101,10 @@ class PermissionEntry implements Identifiable
      * @Serializer\Groups({"permission_output", "permission_input"})
      * @ORM\Column(name="attributes", type="json_array")
      * @Assert\NotBlank
+     * @Assert\All({
+     *     @Assert\NotBlank,
+     *     @Assert\Length(min=1)
+     * })
      */
     protected $attributes;
 }
