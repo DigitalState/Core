@@ -5,6 +5,7 @@ namespace Ds\Component\Config\Entity;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Ownable;
+use Ds\Component\Model\Type\Versionable;
 use Ds\Component\Model\Attribute\Accessor;
 use Knp\DoctrineBehaviors\Model as Behavior;
 
@@ -37,7 +38,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * @ORMAssert\UniqueEntity(fields="uuid")
  * @ORMAssert\UniqueEntity(fields="key")
  */
-class Config implements Identifiable, Uuidentifiable, Ownable
+class Config implements Identifiable, Uuidentifiable, Ownable, Versionable
 {
     use Behavior\Timestampable\Timestampable;
 
@@ -48,6 +49,7 @@ class Config implements Identifiable, Uuidentifiable, Ownable
     use Accessor\Key;
     use Accessor\Value;
     use Accessor\Enabled;
+    use Accessor\Version;
 
     /**
      * @var integer
@@ -125,6 +127,17 @@ class Config implements Identifiable, Uuidentifiable, Ownable
      * @ORM\Column(name="enabled", type="boolean")
      */
     protected $enabled;
+
+    /**
+     * @var integer
+     * @ApiProperty
+     * @Serializer\Groups({"config_output", "config_input"})
+     * @ORM\Column(name="version", type="integer")
+     * @ORM\Version
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
+     */
+    protected $version;
 
     /**
      * Constructor
