@@ -77,6 +77,7 @@ class Association implements Identifiable, Uuidentifiable, Associable, Ownable, 
      * @Serializer\Groups({"association_output", "association_input"})
      * @ORM\Column(name="entity", type="string")
      * @Assert\NotBlank
+     * @Assert\Length(min=1, max=255)
      */
     protected $entity;
 
@@ -96,6 +97,7 @@ class Association implements Identifiable, Uuidentifiable, Associable, Ownable, 
      * @Serializer\Groups({"association_output", "association_input"})
      * @ORM\Column(name="`owner`", type="string")
      * @Assert\NotBlank
+     * @Assert\Length(min=1, max=255)
      */
     protected $owner;
 
