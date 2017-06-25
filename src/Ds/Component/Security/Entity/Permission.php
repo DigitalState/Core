@@ -5,6 +5,7 @@ namespace Ds\Component\Security\Entity;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Ownable;
+use Ds\Component\Model\Type\Versionable;
 use Ds\Component\Model\Attribute\Accessor;
 use Knp\DoctrineBehaviors\Model as Behavior;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -30,7 +31,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * @ORM\HasLifecycleCallbacks
  * @ORMAssert\UniqueEntity(fields="uuid")
  */
-class Permission implements Identifiable, Uuidentifiable, Ownable
+class Permission implements Identifiable, Uuidentifiable, Ownable, Versionable
 {
     use Behavior\Timestampable\Timestampable;
 
@@ -39,6 +40,7 @@ class Permission implements Identifiable, Uuidentifiable, Ownable
     use Accessor\Owner;
     use Accessor\OwnerUuid;
     use Accessor\UserUuid;
+    use Accessor\Version;
 
     /**
      * @var integer
@@ -148,6 +150,17 @@ class Permission implements Identifiable, Uuidentifiable, Ownable
     }
 
     # endregion
+
+    /**
+     * @var integer
+     * @ApiProperty
+     * @Serializer\Groups({"permission_output", "permission_input"})
+     * @ORM\Column(name="version", type="integer")
+     * @ORM\Version
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
+     */
+    protected $version;
 
     /**
      * Constructor
