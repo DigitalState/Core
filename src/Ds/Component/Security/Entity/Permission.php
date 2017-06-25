@@ -22,6 +22,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  *
  * @ApiResource(
  *      attributes={
+ *          "filters"={"ds.permission.search", "ds.permission.date"},
  *          "normalization_context"={"groups"={"permission_output"}},
  *          "denormalization_context"={"groups"={"permission_input"}}
  *      }
