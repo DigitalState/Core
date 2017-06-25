@@ -90,6 +90,7 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Versionable
      * @Serializer\Groups({"config_output"})
      * @ORM\Column(name="`owner`", type="string", length=255, nullable=true)
      * @Assert\NotBlank
+     * @Assert\Length(min=1, max=255)
      */
     protected $owner;
 
@@ -109,6 +110,7 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Versionable
      * @Serializer\Groups({"config_output"})
      * @ORM\Column(name="`key`", type="string", unique=true)
      * @Assert\NotBlank
+     * @Assert\Length(min=1, max=255)
      */
     protected $key;
 
@@ -125,6 +127,7 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Versionable
      * @ApiProperty
      * @Serializer\Groups({"config_output", "config_input"})
      * @ORM\Column(name="enabled", type="boolean")
+     * @Assert\Type("boolean")
      */
     protected $enabled;
 
