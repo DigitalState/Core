@@ -6,6 +6,7 @@ use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Associable;
 use Ds\Component\Model\Type\Ownable;
+use Ds\Component\Model\Type\Versionable;
 use Ds\Component\Model\Attribute\Accessor;
 use Knp\DoctrineBehaviors\Model As Behavior;
 
@@ -17,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Association
  */
-class Association implements Identifiable, Uuidentifiable, Associable, Ownable
+class Association implements Identifiable, Uuidentifiable, Associable, Ownable, Versionable
 {
     use Behavior\Timestampable\Timestampable;
     use Behavior\SoftDeletable\SoftDeletable;
@@ -28,6 +29,7 @@ class Association implements Identifiable, Uuidentifiable, Associable, Ownable
     use Accessor\EntityUuid;
     use Accessor\Owner;
     use Accessor\OwnerUuid;
+    use Accessor\Version;
 
     /**
      * @var integer
@@ -106,4 +108,15 @@ class Association implements Identifiable, Uuidentifiable, Associable, Ownable
      * @Assert\Uuid
      */
     protected $ownerUuid;
+
+    /**
+     * @var integer
+     * @ApiProperty
+     * @Serializer\Groups({"association_output", "association_input"})
+     * @ORM\Column(name="version", type="integer")
+     * @ORM\Version
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
+     */
+    protected $version;
 }
