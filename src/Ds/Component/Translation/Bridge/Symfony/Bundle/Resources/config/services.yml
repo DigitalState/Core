@@ -1,0 +1,12 @@
+parameters:
+    ds_translation.doctrine.orm.filter.translation.class: Ds\Component\Translation\Doctrine\ORM\Filter\TranslationFilter
+
+services:
+    ds_translation.doctrine.orm.filter.translation:
+        class: '%ds_translation.doctrine.orm.filter.translation.class%'
+        arguments:
+            - '@doctrine'
+            - '@request_stack'
+            - '@?logger'
+        tags:
+            - { name: 'api_platform.filter', id: 'ds.translation' }
