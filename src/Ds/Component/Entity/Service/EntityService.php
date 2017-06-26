@@ -66,4 +66,14 @@ class EntityService
     {
         return $this->entity;
     }
+
+    /**
+     * Create entity instance
+     *
+     * @return object
+     */
+    public function createInstance()
+    {
+        return new $this->entity;
+    }
 }
