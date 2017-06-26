@@ -8,6 +8,8 @@ services:
         arguments:
             - '@doctrine'
             - '@request_stack'
+            - '@api_platform.iri_converter'
+            - '@api_platform.property_accessor'
             - '@?logger'
 
     ds_translation.doctrine.orm.filter.order:
@@ -15,4 +17,5 @@ services:
         arguments:
             - '@doctrine'
             - '@request_stack'
+            - '%api_platform.collection.order_parameter_name%'
             - '@?logger'
