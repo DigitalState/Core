@@ -1,12 +1,18 @@
 parameters:
-    ds_translation.doctrine.orm.filter.translation.class: Ds\Component\Translation\Doctrine\ORM\Filter\TranslationFilter
+    ds_translation.doctrine.orm.filter.search.class: Ds\Component\Translation\Doctrine\ORM\Filter\SearchFilter
+    ds_translation.doctrine.orm.filter.sort.class: Ds\Component\Translation\Doctrine\ORM\Filter\SortFilter
 
 services:
-    ds_translation.doctrine.orm.filter.translation:
-        class: '%ds_translation.doctrine.orm.filter.translation.class%'
+    ds_translation.doctrine.orm.filter.search:
+        class: '%ds_translation.doctrine.orm.filter.search.class%'
         arguments:
             - '@doctrine'
             - '@request_stack'
             - '@?logger'
-        tags:
-            - { name: 'api_platform.filter', id: 'ds.translation' }
+
+    ds_translation.doctrine.orm.filter.sort:
+        class: '%ds_translation.doctrine.orm.filter.sort.class%'
+        arguments:
+            - '@doctrine'
+            - '@request_stack'
+            - '@?logger'
