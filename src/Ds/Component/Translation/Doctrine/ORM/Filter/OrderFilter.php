@@ -2,16 +2,13 @@
 
 namespace Ds\Component\Translation\Doctrine\ORM\Filter;
 
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Query\Expr\Join;
-use DomainException;
 
 /**
  * Class OrderFilter
  */
-class OrderFilter extends AbstractFilter
+class OrderFilter extends TranslationFilter
 {
     /**
      * Filter property
@@ -38,7 +35,7 @@ class OrderFilter extends AbstractFilter
         $description = [];
 
         foreach ($this->properties as $property => $strategy) {
-            $description[$property] = [
+            $description['order['.$property.']'] = [
                 'property' => $property,
                 'type' => 'string',
                 'required' => false,

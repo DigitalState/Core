@@ -2,16 +2,14 @@
 
 namespace Ds\Component\Translation\Doctrine\ORM\Filter;
 
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Query\Expr\Join;
 use DomainException;
 
 /**
  * Class SearchFilter
  */
-class SearchFilter extends AbstractFilter
+class SearchFilter extends TranslationFilter
 {
     /**
      * Filter property
@@ -25,10 +23,13 @@ class SearchFilter extends AbstractFilter
      */
     protected function filterProperty(string $property, $value, QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, string $operationName = null)
     {
+        if (!array_key_exists($property, $this->properties)) {
+            return;
+        }
+
+        $this->joinTranslation($queryBuilder, $resourceClass);
+        $translationAlias = $this->getTranslationAlias($queryBuilder);
         $name = $queryNameGenerator->generateParameterName($property);
-        $rootAlias = $queryBuilder->getRootAliases()[0];
-        $transAlias = $rootAlias.'_t';
-        $transClass = call_user_func($resourceClass.'::getTranslationEntityClass');
 
         switch ($this->properties[$property]) {
             case 'partial':
@@ -56,8 +57,7 @@ class SearchFilter extends AbstractFilter
         }
 
         $queryBuilder
-            ->leftJoin($transClass, $transAlias, Join::WITH, $rootAlias.'.id = '.$transAlias.'.translatable')
-            ->andWhere(sprintf('%s.%s LIKE :%s', $transAlias, $property, $name))
+            ->andWhere(sprintf('%s.%s LIKE :%s', $translationAlias, $property, $name))
             ->setParameter($name, $value);
     }
 
