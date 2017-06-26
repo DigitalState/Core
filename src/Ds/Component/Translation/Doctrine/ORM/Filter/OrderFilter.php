@@ -9,9 +9,9 @@ use Doctrine\ORM\Query\Expr\Join;
 use DomainException;
 
 /**
- * Class SortFilter
+ * Class OrderFilter
  */
-class SortFilter extends AbstractFilter
+class OrderFilter extends AbstractFilter
 {
     /**
      * Filter property

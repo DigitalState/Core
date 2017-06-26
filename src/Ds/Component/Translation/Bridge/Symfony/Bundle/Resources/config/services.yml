@@ -1,6 +1,6 @@
 parameters:
     ds_translation.doctrine.orm.filter.search.class: Ds\Component\Translation\Doctrine\ORM\Filter\SearchFilter
-    ds_translation.doctrine.orm.filter.sort.class: Ds\Component\Translation\Doctrine\ORM\Filter\SortFilter
+    ds_translation.doctrine.orm.filter.order.class: Ds\Component\Translation\Doctrine\ORM\Filter\OrderFilter
 
 services:
     ds_translation.doctrine.orm.filter.search:
@@ -10,8 +10,8 @@ services:
             - '@request_stack'
             - '@?logger'
 
-    ds_translation.doctrine.orm.filter.sort:
-        class: '%ds_translation.doctrine.orm.filter.sort.class%'
+    ds_translation.doctrine.orm.filter.order:
+        class: '%ds_translation.doctrine.orm.filter.order.class%'
         arguments:
             - '@doctrine'
             - '@request_stack'
