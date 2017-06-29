@@ -7,8 +7,12 @@ namespace Ds\Component\Identity;
  */
 interface Identity
 {
-    const ANONYMOUS = 'Anonymous';
-    const INDIVIDUAL = 'Individual';
-    const STAFF = 'Staff';
+    /**
+     * @const string
+     */
+    const ADMIN = 'Admin';
     const SYSTEM = 'System';
+    const STAFF = 'Staff';
+    const INDIVIDUAL = 'Individual';
+    const ANONYMOUS = 'Anonymous';
 }
