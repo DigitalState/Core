@@ -28,14 +28,17 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  *         "put"={"method"="PUT"}
  *     },
  *     attributes={
- *         "filters"={"ds.config.search", "ds.config.date", "ds.config.boolean"},
- *         "normalization_context"={"groups"={"config_output"}},
- *         "denormalization_context"={"groups"={"config_input"}}
+ *         "normalization_context"={
+ *             "groups"={"config_output"}
+ *         },
+ *         "denormalization_context"={
+ *             "groups"={"config_input"}
+ *         },
+ *         "filters"={"ds.config.search", "ds.config.date", "ds.config.boolean"}
  *     }
  * )
  * @ORM\Entity(repositoryClass="Ds\Component\Config\Repository\ConfigRepository")
  * @ORM\Table(name="ds_config")
- * @ORM\HasLifecycleCallbacks
  * @ORMAssert\UniqueEntity(fields="uuid")
  * @ORMAssert\UniqueEntity(fields="key")
  */

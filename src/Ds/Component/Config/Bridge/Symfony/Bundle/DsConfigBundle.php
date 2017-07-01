@@ -2,9 +2,9 @@
 
 namespace Ds\Component\Config\Bridge\Symfony\Bundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ds\Component\Config\Bridge\Symfony\Bundle\DependencyInjection\Compiler;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Class DsConfigBundle

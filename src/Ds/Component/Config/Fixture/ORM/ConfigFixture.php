@@ -2,9 +2,9 @@
 
 namespace Ds\Component\Config\Fixture\ORM;
 
-use Ds\Component\Migration\Fixture\ORM\ResourceFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ds\Component\Config\Entity\Config;
+use Ds\Component\Migration\Fixture\ORM\ResourceFixture;
 
 /**
  * Class ConfigFixture
