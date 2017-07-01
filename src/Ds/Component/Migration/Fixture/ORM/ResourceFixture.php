@@ -3,8 +3,8 @@
 namespace Ds\Component\Migration\Fixture\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Ds\Component\Container\Attribute;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
