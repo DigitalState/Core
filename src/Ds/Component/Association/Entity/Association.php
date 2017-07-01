@@ -2,18 +2,18 @@
 
 namespace Ds\Component\Association\Entity;
 
-use Ds\Component\Model\Type\Identifiable;
-use Ds\Component\Model\Type\Uuidentifiable;
-use Ds\Component\Model\Type\Associable;
-use Ds\Component\Model\Type\Ownable;
-use Ds\Component\Model\Type\Versionable;
 use Ds\Component\Model\Attribute\Accessor;
+use Ds\Component\Model\Type\Associable;
+use Ds\Component\Model\Type\Identifiable;
+use Ds\Component\Model\Type\Ownable;
+use Ds\Component\Model\Type\Uuidentifiable;
+use Ds\Component\Model\Type\Versionable;
 use Knp\DoctrineBehaviors\Model As Behavior;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
-use Symfony\Component\Serializer\Annotation As Serializer;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Association

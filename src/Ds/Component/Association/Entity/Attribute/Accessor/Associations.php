@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Association\Attribute\Accessor;
+namespace Ds\Component\Association\Entity\Attribute\Accessor;
 
 use Ds\Component\Association\Entity\Association;
 
