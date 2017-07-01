@@ -2,10 +2,10 @@
 
 namespace Ds\Component\Model\EventListener;
 
+use Doctrine\Common\Annotations\Reader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ds\Component\Model\Type\Translatable;
 use Ds\Component\Model\Annotation\Translate;
-use Doctrine\Common\Annotations\Reader;
 use ReflectionObject;
 
 /**

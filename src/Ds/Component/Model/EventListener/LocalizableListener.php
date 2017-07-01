@@ -2,12 +2,12 @@
 
 namespace Ds\Component\Model\EventListener;
 
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
-use Ds\Component\Model\Type\Translatable;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
 use Ds\Component\Model\Annotation\Translate;
+use Ds\Component\Model\Type\Translatable;
 use Doctrine\Common\Annotations\Reader;
 use ReflectionObject;
+use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 
 /**
  * Class LocalizableListener

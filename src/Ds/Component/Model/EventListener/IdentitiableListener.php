@@ -2,9 +2,9 @@
 
 namespace Ds\Component\Model\EventListener;
 
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ds\Component\Model\Type\Identitiable;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
  * Class IdentitiableListener
