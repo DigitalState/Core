@@ -2,9 +2,9 @@
 
 namespace Ds\Component\Api\Service\Identities;
 
-use Ds\Component\Api\Service\AbstractService;
 use Ds\Component\Api\Model\Identities\Individual;
 use Ds\Component\Api\Query\Identities\IndividualParameters as Parameters;
+use Ds\Component\Api\Service\AbstractService;
 
 /**
  * Class IndividualService

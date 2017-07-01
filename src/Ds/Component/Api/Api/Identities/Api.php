@@ -2,8 +2,8 @@
 
 namespace Ds\Component\Api\Api\Identities;
 
-use GuzzleHttp\ClientInterface;
 use Ds\Component\Api\Service\Identities;
+use GuzzleHttp\ClientInterface;
 
 /**
  * Class Api

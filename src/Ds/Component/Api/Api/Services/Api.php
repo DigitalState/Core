@@ -2,8 +2,8 @@
 
 namespace Ds\Component\Api\Api\Services;
 
-use GuzzleHttp\ClientInterface;
 use Ds\Component\Api\Service\Services;
+use GuzzleHttp\ClientInterface;
 
 /**
  * Class Api

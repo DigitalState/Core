@@ -3,10 +3,10 @@
 namespace Ds\Component\Api\Service;
 
 use Ds\Component\Api\Model\Model;
-use stdClass;
 use GuzzleHttp\ClientInterface;
-use LogicException;
 use InvalidArgumentException;
+use LogicException;
+use stdClass;
 use UnexpectedValueException;
 
 /**

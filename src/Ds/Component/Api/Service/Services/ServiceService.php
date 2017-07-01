@@ -2,9 +2,9 @@
 
 namespace Ds\Component\Api\Service\Services;
 
+use Ds\Component\Api\Model\Services\Service;
+use Ds\Component\Api\Query\Services\ServiceParameters as Parameters;
 use Ds\Component\Api\Service\AbstractService;
-use Ds\Component\Api\Model\Identities\Staff;
-use Ds\Component\Api\Query\Identities\StaffParameters as Parameters;
 
 /**
  * Class ServiceService
