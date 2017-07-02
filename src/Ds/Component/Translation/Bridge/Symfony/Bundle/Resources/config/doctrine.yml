@@ -1,7 +1,3 @@
-parameters:
-    ds_translation.doctrine.orm.filter.search.class: Ds\Component\Translation\Doctrine\ORM\Filter\SearchFilter
-    ds_translation.doctrine.orm.filter.order.class: Ds\Component\Translation\Doctrine\ORM\Filter\OrderFilter
-
 services:
     ds_translation.doctrine.orm.filter.search:
         class: '%ds_translation.doctrine.orm.filter.search.class%'
