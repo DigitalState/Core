@@ -1,0 +1,5 @@
+parameters:
+    ds_model.event_listener.identitiable.class: Ds\Component\Model\EventListener\IdentitiableListener
+    ds_model.event_listener.uuidentifiable.class: Ds\Component\Model\EventListener\UuidentifiableListener
+    ds_model.event_listener.translatable.class: Ds\Component\Model\EventListener\TranslatableListener
+    ds_model.event_listener.localizable.class: Ds\Component\Model\EventListener\LocalizableListener
