@@ -1,0 +1,5 @@
+parameters:
+    ds_config.entity.config.class: Ds\Component\Config\Entity\Config
+    ds_config.collection.config.class: Ds\Component\Config\Collection\ConfigCollection
+    ds_config.repository.config.class: Ds\Component\Config\Repository\ConfigRepository
+    ds_config.service.config.class: Ds\Component\Config\Service\ConfigService

@@ -31,7 +31,10 @@ class DsConfigExtension extends Extension implements PrependExtensionInterface
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('parameters.yml');
         $loader->load('api_filters.yml');
+        $loader->load('collections.yml');
+        $loader->load('repositories.yml');
         $loader->load('services.yml');
     }
 }
