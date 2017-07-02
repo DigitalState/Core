@@ -1,5 +1,5 @@
 services:
-    ds.session.handler.pdo:
+    ds_session.handler.pdo:
         class: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
         public: false
         arguments:
