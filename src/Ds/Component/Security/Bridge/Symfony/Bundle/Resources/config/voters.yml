@@ -4,5 +4,6 @@ services:
         arguments:
             - '@ds_security.collection.permission'
             - '@ds_security.service.permission'
+            - '@ds_security.doctrine.cache.query'
         tags:
            - { name: security.voter }
