@@ -4,7 +4,7 @@ doctrine:
             DsSecurity:
                 type: annotation
                 is_bundle: false
-                dir: %kernel.root_dir%/../vendor/digitalstate/core/src/Ds/Component/Security/Entity
+                dir: '%kernel.root_dir%/../vendor/digitalstate/core/src/Ds/Component/Security/Entity'
                 prefix: Ds\Component\Security\Entity
                 alias: DsSecurity
 

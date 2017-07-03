@@ -4,6 +4,6 @@ doctrine:
             DsConfig:
                 type: annotation
                 is_bundle: false
-                dir: %kernel.root_dir%/../vendor/digitalstate/core/src/Ds/Component/Config/Entity
+                dir: '%kernel.root_dir%/../vendor/digitalstate/core/src/Ds/Component/Config/Entity'
                 prefix: Ds\Component\Config\Entity
                 alias: DsConfig
