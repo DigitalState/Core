@@ -34,7 +34,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * )
  * @ORM\Entity(repositoryClass="Ds\Component\Security\Repository\PermissionRepository")
  * @ORM\Table(name="ds_permission")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @ORMAssert\UniqueEntity(fields="uuid")
  */
 class Permission implements Identifiable, Uuidentifiable, Ownable, Identitiable, Versionable

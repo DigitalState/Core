@@ -8,14 +8,6 @@ doctrine:
                 prefix: Ds\Component\Security\Entity
                 alias: DsSecurity
 
-doctrine_cache:
-    providers:
-        ds_security_query:
-            apc: ~
-            namespace: ds_security_query
-            aliases:
-                - ds_security.doctrine.cache.query
-
 ds_security:
     token:
         uuid: true

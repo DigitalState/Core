@@ -2,7 +2,6 @@
 
 namespace Ds\Component\Security\Voter\Permission;
 
-use Doctrine\Common\Cache\Cache;
 use Ds\Component\Security\Collection\PermissionCollection;
 use Ds\Component\Security\Model\Permission;
 use Ds\Component\Security\Service\PermissionService;
@@ -27,22 +26,15 @@ class PropertyVoter extends Voter
     protected $permissionService;
 
     /**
-     * @var \Doctrine\Common\Cache\Cache
-     */
-    protected $queryCache;
-
-    /**
      * Constructor
      *
      * @param \Ds\Component\Security\Collection\PermissionCollection $permissionCollection
      * @param \Ds\Component\Security\Service\PermissionService $permissionService
-     * @param \Doctrine\Common\Cache\Cache
      */
-    public function __construct(PermissionCollection $permissionCollection, PermissionService $permissionService, Cache $queryCache)
+    public function __construct(PermissionCollection $permissionCollection, PermissionService $permissionService)
     {
         $this->permissionCollection = $permissionCollection;
         $this->permissionService = $permissionService;
-        $this->queryCache = $queryCache;
     }
 
     /**
@@ -76,7 +68,6 @@ class PropertyVoter extends Voter
             return false;
         }
 
-        // @todo Add doctrine cache
         $permission = $this->permissionService->getRepository()->findOneBy([
             'identity' => $user->getIdentity(),
             'identityUuid' => $user->getIdentityUuid()

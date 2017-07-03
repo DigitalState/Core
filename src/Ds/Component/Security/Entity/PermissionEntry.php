@@ -28,7 +28,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * )
  * @ORM\Entity(repositoryClass="Ds\Component\Security\Repository\PermissionEntryRepository")
  * @ORM\Table(name="ds_permission_entry")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  */
 class PermissionEntry implements Identifiable
 {
