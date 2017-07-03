@@ -45,7 +45,7 @@ class PermissionsAction
 
         foreach ($permissions as $key => $permission) {
             switch ($permission['type']) {
-                case Permission::FIELD:
+                case Permission::PROPERTY:
                     $permission['entity'] = $this->getEntityKey($permission['subject'], $permissions);
                     break;
             }
@@ -67,7 +67,7 @@ class PermissionsAction
     protected function getEntityKey($subject, $permissions)
     {
         foreach ($permissions as $permission) {
-            if (Permission::ENTItY === $permission['type'] && 0 === strpos($subject, $permission['subject'])) {
+            if (Permission::ENTITY === $permission['type'] && 0 === strpos($subject, $permission['subject'])) {
                 return $permission['key'];
             }
         }

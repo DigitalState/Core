@@ -1,0 +1,17 @@
+parameters:
+    ds_security.collection.permission.class: Ds\Component\Security\Collection\PermissionCollection
+    ds_security.entity.permission.class: Ds\Component\Security\Entity\Permission
+    ds_security.doctrine.orm.query_extension.anonymous.class: Ds\Component\Security\Doctrine\ORM\QueryExtension\AnonymousExtension
+    ds_security.doctrine.orm.query_extension.individual.class: Ds\Component\Security\Doctrine\ORM\QueryExtension\IndividualExtension
+    ds_security.event_listener.permission.entry.class: Ds\Component\Security\EventListener\Permission\EntryListener
+    ds_security.event_listener.token.uuid.class: Ds\Component\Security\EventListener\Token\UuidListener
+    ds_security.event_listener.token.identity.class: Ds\Component\Security\EventListener\Token\IdentityListener
+    ds_security.event_listener.token.identity_uuid.class: Ds\Component\Security\EventListener\Token\IdentityUuidListener
+    ds_security.event_listener.token.ip.class: Ds\Component\Security\EventListener\Token\IpListener
+    ds_security.event_listener.token.client.class: Ds\Component\Security\EventListener\Token\ClientListener
+    ds_security.event_listener.token.modifier.class: Ds\Component\Security\EventListener\Token\ModifierListener
+    ds_security.serializer.normalizer.permission.class: Ds\Component\Security\Serializer\Normalizer\PermissionNormalizer
+    ds_security.repository.permission.class: Ds\Component\Security\Repository\PermissionRepository
+    ds_security.service.permission.class: Ds\Component\Security\Service\PermissionService
+    ds_security.voter.permission.entity.class: Ds\Component\Security\Voter\Permission\EntityVoter
+    ds_security.voter.permission.property.class: Ds\Component\Security\Voter\Permission\PropertyVoter

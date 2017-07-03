@@ -1,0 +1,6 @@
+services:
+    ds_security.repository.permission:
+        class: "%ds_security.repository.permission.class%"
+        factory: ["@doctrine.orm.default_entity_manager", getRepository]
+        arguments:
+            - "%ds_security.entity.permission.class%"

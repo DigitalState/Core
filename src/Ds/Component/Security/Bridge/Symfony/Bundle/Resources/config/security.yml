@@ -1,11 +1,8 @@
-parameters:
-    ds_security.user.user.class: Ds\Component\Security\User\User
-
 security:
     providers:
         jwt:
             lexik_jwt:
-                class: '%ds_security.user.user.class%'
+                class: Ds\Component\Security\User\User
 
     access_decision_manager:
         strategy: unanimous

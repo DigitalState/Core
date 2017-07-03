@@ -45,7 +45,15 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('parameters.yml');
+        $loader->load('api_filters.yml');
+        $loader->load('collections.yml');
+        $loader->load('doctrine.yml');
+        $loader->load('event_listeners.yml');
+        $loader->load('repositories.yml');
+        $loader->load('serializers.yml');
         $loader->load('services.yml');
+        $loader->load('voters.yml');
 
         $this->loadToken($config['token'] ?? [], $container);
         $this->loadFilter($config['filter'] ?? [], $container);
@@ -90,7 +98,7 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
      */
     protected function loadPermissions(array $config, ContainerBuilder $container)
     {
-        $permissions = [];
+        $definition = $container->findDefinition('ds_security.collection.permission');
 
         foreach ($config as $key => $item) {
             $title = $item['title'] ?? null;
@@ -99,19 +107,15 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
             $attributes = $item['attributes'] ?? [];
 
             if (array_key_exists('entity', $item)) {
-                $type = Permission::ENTItY;
+                $type = Permission::ENTITY;
                 $subject = $item['entity'];
-            } elseif (array_key_exists('field', $item)) {
-                $type = Permission::FIELD;
-                $subject = $item['field'];
+            } elseif (array_key_exists('property', $item)) {
+                $type = Permission::PROPERTY;
+                $subject = $item['property'];
             }
 
             $permission = new Permission($title, $key, $type, $subject, $attributes);
-            $permissions[] = (array) $permission->toObject();
+            $definition->addMethodCall('set', [$key, (array) $permission->toObject()]);
         }
-
-        $container
-            ->findDefinition('ds_security.collection.permission')
-            ->addArgument($permissions);
     }
 }

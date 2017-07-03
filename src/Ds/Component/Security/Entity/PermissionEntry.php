@@ -18,8 +18,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  *
  * @ApiResource(
  *      attributes={
- *          "normalization_context"={"groups"={"permission_output"}},
- *          "denormalization_context"={"groups"={"permission_input"}}
+ *          "normalization_context"={
+ *              "groups"={"permission_output"}
+ *          },
+ *          "denormalization_context"={
+ *              "groups"={"permission_input"}
+ *          }
  *      }
  * )
  * @ORM\Entity(repositoryClass="Ds\Component\Security\Repository\PermissionEntryRepository")

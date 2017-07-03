@@ -1,0 +1,48 @@
+services:
+    ds_security.event_listener.permission.entry:
+        class: '%ds_security.event_listener.permission.entry.class%'
+        arguments:
+            - '@request_stack'
+            - '@ds_security.service.permission'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 4 }
+
+    ds_security.event_listener.token.uuid:
+        class: '%ds_security.event_listener.token.uuid.class%'
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onCreated }
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onDecoded }
+
+    ds_security.event_listener.token.identity:
+        class: '%ds_security.event_listener.token.identity.class%'
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onCreated }
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onDecoded }
+
+    ds_security.event_listener.token.identity_uuid:
+        class: '%ds_security.event_listener.token.identity_uuid.class%'
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onCreated }
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onDecoded }
+
+    ds_security.event_listener.token.ip:
+        class: '%ds_security.event_listener.token.ip.class%'
+        arguments:
+            - '@request_stack'
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onCreated }
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onDecoded }
+
+    ds_security.event_listener.token.client:
+        class: '%ds_security.event_listener.token.client.class%'
+        arguments:
+            - '@request_stack'
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onCreated }
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onDecoded }
+
+    ds_security.event_listener.token.modifier:
+        class: '%ds_security.event_listener.token.modifier.class%'
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onCreated }
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onDecoded }

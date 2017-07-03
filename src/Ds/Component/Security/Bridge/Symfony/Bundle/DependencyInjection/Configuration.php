@@ -119,7 +119,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('title')
                     ->end()
                     ->enumNode('type')
-                        ->values([ 'entity', 'field' ])
+                        ->values([ 'entity', 'property' ])
                     ->end()
                     ->scalarNode('subject')
                     ->end()
@@ -131,7 +131,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->scalarNode('entity')
                     ->end()
-                    ->scalarNode('field')
+                    ->scalarNode('property')
                     ->end()
                 ->end()
             ->end();

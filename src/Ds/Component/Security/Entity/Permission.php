@@ -5,6 +5,7 @@ namespace Ds\Component\Security\Entity;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Ownable;
+use Ds\Component\Model\Type\Identitiable;
 use Ds\Component\Model\Type\Versionable;
 use Ds\Component\Model\Attribute\Accessor;
 use Knp\DoctrineBehaviors\Model as Behavior;
@@ -23,8 +24,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * @ApiResource(
  *      attributes={
  *          "filters"={"ds.permission.search", "ds.permission.date"},
- *          "normalization_context"={"groups"={"permission_output"}},
- *          "denormalization_context"={"groups"={"permission_input"}}
+ *          "normalization_context"={
+ *              "groups"={"permission_output"}
+ *          },
+ *          "denormalization_context"={
+ *              "groups"={"permission_input"}
+ *          }
  *      }
  * )
  * @ORM\Entity(repositoryClass="Ds\Component\Security\Repository\PermissionRepository")
@@ -32,7 +37,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * @ORM\HasLifecycleCallbacks
  * @ORMAssert\UniqueEntity(fields="uuid")
  */
-class Permission implements Identifiable, Uuidentifiable, Ownable, Versionable
+class Permission implements Identifiable, Uuidentifiable, Ownable, Identitiable, Versionable
 {
     use Behavior\Timestampable\Timestampable;
 
@@ -40,7 +45,8 @@ class Permission implements Identifiable, Uuidentifiable, Ownable, Versionable
     use Accessor\Uuid;
     use Accessor\Owner;
     use Accessor\OwnerUuid;
-    use Accessor\UserUuid;
+    use Accessor\Identity;
+    use Accessor\IdentityUuid;
     use Accessor\Version;
 
     /**
@@ -100,11 +106,21 @@ class Permission implements Identifiable, Uuidentifiable, Ownable, Versionable
      * @var string
      * @ApiProperty
      * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Column(name="user_uuid", type="guid", nullable=true)
+     * @ORM\Column(name="identity", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(min=1, max=255)
+     */
+    protected $identity;
+
+    /**
+     * @var string
+     * @ApiProperty
+     * @Serializer\Groups({"permission_output", "permission_input"})
+     * @ORM\Column(name="identity_uuid", type="guid", nullable=true)
      * @Assert\NotBlank
      * @Assert\Uuid
      */
-    protected $userUuid;
+    protected $identityUuid;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection

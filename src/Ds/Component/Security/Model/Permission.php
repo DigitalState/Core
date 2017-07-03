@@ -18,8 +18,8 @@ class Permission
     /**
      * @const string
      */
-    const ENTItY = 'entity';
-    const FIELD = 'field';
+    const ENTITY = 'entity';
+    const PROPERTY = 'property';
 
     /**
      * @const string
@@ -42,7 +42,7 @@ class Permission
      */
     public function __construct($title, $key, $type, $subject, $attributes = [])
     {
-        if (!in_array($type, [static::ENTItY, static::FIELD], true)) {
+        if (!in_array($type, [static::ENTITY, static::PROPERTY], true)) {
             throw new DomainException('Permission type does not exist.');
         }
 

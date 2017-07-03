@@ -1,0 +1,14 @@
+services:
+    ds_security.filter.permission.search:
+        parent: api_platform.doctrine.orm.search_filter
+        arguments:
+            - { id: exact, uuid: exact, owner: exact, ownerUuid: exact, userUuid: exact }
+        tags:
+            - { name: api_platform.filter, id: ds.permission.search }
+
+    ds_security.filter.permission.date:
+        parent: api_platform.doctrine.orm.date_filter
+        arguments:
+            - { createdAt: ~, updatedAt: ~ }
+        tags:
+            - { name: api_platform.filter, id: ds.permission.date }
