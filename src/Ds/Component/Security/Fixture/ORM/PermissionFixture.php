@@ -24,7 +24,8 @@ abstract class PermissionFixture extends ResourceFixture
                 ->setUuid($permission['uuid'])
                 ->setOwner($permission['owner'])
                 ->setOwnerUuid($permission['owner_uuid'])
-                ->setUserUuid($permission['user_uuid']);
+                ->setIdentity($permission['identity'])
+                ->setIdentityUuid($permission['identity_uuid']);
             $manager->persist($entity);
             $manager->flush();
         }
