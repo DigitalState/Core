@@ -3,25 +3,18 @@
 namespace Ds\Component\Security\Voter\Permission;
 
 use Ds\Component\Security\Collection\PermissionCollection;
+use Ds\Component\Security\Model\Permission;
 use Ds\Component\Security\Service\PermissionService;
 use Ds\Component\Security\User\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use UnexpectedValueException;
 
 /**
  * Class EntityVoter
  */
 class EntityVoter extends Voter
 {
-    /**
-     * @const string
-     */
-    const BROWSE = 'BROWSE';
-    const READ = 'READ';
-    const ADD = 'ADD';
-    const EDIT = 'EDIT';
-    const DELETE = 'DELETE';
-
     /**
      * @var \Ds\Component\Security\Collection\PermissionCollection
      */
@@ -49,7 +42,7 @@ class EntityVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-        if (!in_array($attribute, [static::BROWSE, static::READ, static::ADD, static::EDIT, static::DELETE], true)) {
+        if (!in_array($attribute, [Permission::BROWSE, Permission::READ, Permission::EDIT, Permission::ADD, Permission::DELETE], true)) {
             return false;
         }
 
@@ -57,7 +50,7 @@ class EntityVoter extends Voter
             return false;
         }
 
-        if ('entity:' !== substr($subject, '0', 7)) {
+        if (Permission::ENTITY.':' !== substr($subject, '0', 7)) {
             return false;
         }
 
@@ -75,6 +68,39 @@ class EntityVoter extends Voter
             return false;
         }
 
-        return true;
+        $permission = $this->permissionService->getRepository()->findOneBy([
+            'identity' => $user->getIdentity(),
+            'identityUuid' => $user->getIdentityUuid()
+        ]);
+
+        if (!$permission) {
+            return false;
+        }
+
+        $subject = substr($subject, 7);
+        $granted = false;
+
+        foreach ($permission->getEntries() as $entry) {
+            $item = $this->permissionCollection->get($entry->getKey());
+
+            if (!$item) {
+                throw new UnexpectedValueException('Permission does not exist.');
+            }
+
+            if (Permission::ENTITY !== $item['type']) {
+                continue;
+            }
+
+            if ($subject !== $item['subject']) {
+                continue;
+            }
+
+            if (in_array($attribute, $entry->getAttributes(), true)) {
+                $granted = true;
+                break;
+            }
+        }
+
+        return $granted;
     }
 }
