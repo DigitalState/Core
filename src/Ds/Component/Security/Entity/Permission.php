@@ -127,6 +127,7 @@ class Permission implements Identifiable, Uuidentifiable, Ownable, Identitiable,
      * @ApiProperty
      * @Serializer\Groups({"permission_output", "permission_input"})
      * @ORM\OneToMany(targetEntity="PermissionEntry", mappedBy="permission", cascade={"persist"})
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      */
     protected $entries; # region accessors
 
