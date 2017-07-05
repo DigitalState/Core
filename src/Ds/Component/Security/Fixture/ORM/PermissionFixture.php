@@ -4,6 +4,7 @@ namespace Ds\Component\Security\Fixture\ORM;
 
 use Ds\Component\Migration\Fixture\ORM\ResourceFixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Ds\Component\Security\Entity\Access;
 use Ds\Component\Security\Entity\Permission;
 
 /**
@@ -21,11 +22,11 @@ abstract class PermissionFixture extends ResourceFixture
         foreach ($permissions as $permission) {
             $entity = new Permission;
             $entity
-                ->setUuid($permission['uuid'])
-                ->setOwner($permission['owner'])
-                ->setOwnerUuid($permission['owner_uuid'])
-                ->setIdentity($permission['identity'])
-                ->setIdentityUuid($permission['identity_uuid']);
+                ->setAccess($manager->getRepository(Access::class)->findOneBy(['uuid' => $permission['access']]))
+                ->setEntity($permission['entity'])
+                ->setEntityUuid($permission['entity_uuid'])
+                ->setKey($permission['key'])
+                ->setAttributes($permission['attributes']);
             $manager->persist($entity);
             $manager->flush();
         }

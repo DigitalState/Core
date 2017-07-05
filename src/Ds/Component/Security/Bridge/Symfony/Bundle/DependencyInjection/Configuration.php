@@ -15,16 +15,17 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder;
-        $rootNode = $treeBuilder->root('ds_security');
-        $rootNode
+        $builder = new TreeBuilder;
+        $node = $builder->root('ds_security');
+        $node
             ->children()
+                ->booleanNode('acl')->defaultFalse()->end()
                 ->append($this->getTokenNode())
-                ->append($this->getPermissionsNode())
                 ->append($this->getFilterNode())
+                ->append($this->getPermissionsNode())
             ->end();
 
-        return $treeBuilder;
+        return $builder;
     }
 
     /**
@@ -38,30 +39,12 @@ class Configuration implements ConfigurationInterface
         $node = $builder->root('token');
         $node
             ->children()
-                ->booleanNode('uuid')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
-                ->booleanNode('identity')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
-                ->booleanNode('identity_uuid')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
-                ->booleanNode('ip')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
-                ->booleanNode('client')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
-                ->booleanNode('modifier')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
+                ->booleanNode('uuid')->defaultFalse()->end()
+                ->booleanNode('identity')->defaultFalse()->end()
+                ->booleanNode('identity_uuid')->defaultFalse()->end()
+                ->booleanNode('ip')->defaultFalse()->end()
+                ->booleanNode('client')->defaultFalse()->end()
+                ->booleanNode('modifier')->defaultFalse()->end()
             ->end();
 
         return $node;
@@ -78,26 +61,11 @@ class Configuration implements ConfigurationInterface
         $node = $builder->root('filter');
         $node
             ->children()
-                ->booleanNode('identity')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
-                ->booleanNode('anonymous')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
-                ->booleanNode('individual')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
-                ->booleanNode('owner')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
-                ->booleanNode('enabled')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
+                ->booleanNode('identity')->defaultFalse()->end()
+                ->booleanNode('anonymous')->defaultFalse()->end()
+                ->booleanNode('individual')->defaultFalse()->end()
+                ->booleanNode('owner')->defaultFalse()->end()
+                ->booleanNode('enabled')->defaultFalse()->end()
             ->end();
 
         return $node;
@@ -116,24 +84,13 @@ class Configuration implements ConfigurationInterface
             ->useAttributeAsKey('name')
             ->prototype('array')
                 ->children()
-                    ->scalarNode('title')
-                    ->end()
-                    ->enumNode('type')
-                        ->values([ 'entity', 'property' ])
-                    ->end()
-                    ->scalarNode('subject')
-                    ->end()
-                    ->arrayNode('attributes')
-                        ->isRequired()
-                        ->requiresAtLeastOneElement()
-                        ->prototype('scalar')
-                    ->end()
-                    ->end()
-                    ->scalarNode('entity')
-                    ->end()
-                    ->scalarNode('property')
-                    ->end()
+                    ->scalarNode('title')->end()
+                    ->enumNode('type') ->values([ 'entity', 'property' ])->end()
+                    ->scalarNode('subject')->end()
+                    ->arrayNode('attributes')->isRequired()->requiresAtLeastOneElement()->prototype('scalar')->end()
                 ->end()
+                ->scalarNode('entity')->end()
+                ->scalarNode('property')->end()
             ->end();
 
         return $node;

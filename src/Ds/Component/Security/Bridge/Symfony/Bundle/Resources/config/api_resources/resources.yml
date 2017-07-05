@@ -1,2 +1,2 @@
 resources:
-    Ds\Component\Security\Entity\Permission: ~
+    Ds\Component\Security\Entity\Access: ~

@@ -2,20 +2,25 @@
 
 namespace Ds\Component\Security\Serializer\Normalizer;
 
+use ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException;
 use ApiPlatform\Core\Serializer\AbstractItemNormalizer;
 use DomainException;
+use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Security\Model\Permission;
 use Ds\Component\Security\Voter\Permission\PropertyVoter;
+use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\ConstraintViolation;
 
 /**
- * Class PermissionNormalizer
+ * Class AclNormalizer
  */
-class PermissionNormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
+class AclNormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
 {
     /**
      * @var \ApiPlatform\Core\Serializer\AbstractItemNormalizer
@@ -56,9 +61,47 @@ class PermissionNormalizer implements NormalizerInterface, DenormalizerInterface
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        $object = $this->decorated->denormalize($data, $class, $format, $context);
+        $token = $this->tokenStorage->getToken();
 
-        return $object;
+        if (!$token) {
+            throw new LogicException('Token is not defined.');
+        }
+
+        $attributes = [Permission::EDIT];
+        $subject = ['type' => Permission::PROPERTY];
+
+        if (array_key_exists('object_to_populate', $context)) {
+            $object = $context['object_to_populate'];
+            $subject['entity'] = $object->getOwner();
+            $subject['entity_uuid'] = $object->getOwnerUuid();
+        } else {
+            if (!array_key_exists('owner', $data)) {
+                throw new ValidationException(new ConstraintViolationList, 'Owner is required.');
+            }
+
+            $subject['entity'] = $data['owner'];
+
+            if (!array_key_exists('ownerUuid', $data)) {
+                throw new ValidationException(new ConstraintViolationList, 'Owner uuid is required.');
+            }
+
+            $subject['entity_uuid'] = $data['ownerUuid'];
+        }
+
+        foreach (array_keys($data) as $property) {
+            $subject['subject'] = $context['resource_class'].'.'.$property;
+            $vote = $this->propertyVoter->vote($token, $subject, $attributes);
+
+            if (PropertyVoter::ACCESS_ABSTAIN === $vote) {
+                throw new LogicException('Voter cannot abstain from voting.');
+            }
+
+            if (PropertyVoter::ACCESS_DENIED === $vote) {
+                unset($data[$property]);
+            }
+        }
+
+        return $this->decorated->denormalize($data, $class, $format, $context);
     }
 
     /**
@@ -70,39 +113,32 @@ class PermissionNormalizer implements NormalizerInterface, DenormalizerInterface
         $token = $this->tokenStorage->getToken();
 
         if (!$token) {
-            return $data;
+            throw new LogicException('Token is not defined.');
         }
 
-        $operation = null;
-
-        if (array_key_exists('item_operation_name', $context)) {
-            $operation = $context['item_operation_name'];
-        } elseif (array_key_exists('collection_operation_name', $context)) {
-            $operation = 'c'.$context['collection_operation_name'];
+        if (array_key_exists('collection_operation_name', $context)) {
+            $attributes = [Permission::BROWSE];
+        } elseif (array_key_exists('item_operation_name', $context)) {
+            $attributes = [Permission::READ];
+        } else {
+            throw new DomainException('Operation does not exist.');
         }
 
-        switch ($operation) {
-            case 'cget':
-                $attributes = [Permission::BROWSE];
-                break;
-
-            case 'get':
-                $attributes = [Permission::READ];
-                break;
-
-            case 'put':
-                $attributes = [Permission::EDIT];
-                break;
-
-            default:
-                throw new DomainException('Operation does not exist.');
-        }
+        $subject = [
+            'type' => Permission::PROPERTY,
+            'entity' => $object->getOwner(),
+            'entity_uuid' => $object->getOwnerUuid()
+        ];
 
         foreach (array_keys($data) as $property) {
-            $subject = Permission::PROPERTY.':'.$context['resource_class'].'.'.$property;
+            $subject['subject'] = $context['resource_class'].'.'.$property;
             $vote = $this->propertyVoter->vote($token, $subject, $attributes);
 
-            if (PropertyVoter::ACCESS_GRANTED !== $vote) {
+            if (PropertyVoter::ACCESS_ABSTAIN === $vote) {
+                throw new LogicException('Voter cannot abstain from voting.');
+            }
+
+            if (PropertyVoter::ACCESS_DENIED === $vote) {
                 unset($data[$property]);
             }
         }
@@ -115,6 +151,10 @@ class PermissionNormalizer implements NormalizerInterface, DenormalizerInterface
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
+        if (!in_array(Ownable::class, class_implements($type), true)) {
+            return false;
+        }
+
         return $this->decorated->supportsDenormalization($data, $type, $format);
     }
 
@@ -123,6 +163,10 @@ class PermissionNormalizer implements NormalizerInterface, DenormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
+        if (!$data instanceof Ownable) {
+            return false;
+        }
+
         return $this->decorated->supportsNormalization($data, $format);
     }
 

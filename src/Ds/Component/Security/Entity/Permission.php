@@ -3,13 +3,8 @@
 namespace Ds\Component\Security\Entity;
 
 use Ds\Component\Model\Type\Identifiable;
-use Ds\Component\Model\Type\Uuidentifiable;
-use Ds\Component\Model\Type\Ownable;
-use Ds\Component\Model\Type\Identitiable;
-use Ds\Component\Model\Type\Versionable;
 use Ds\Component\Model\Attribute\Accessor;
-use Knp\DoctrineBehaviors\Model as Behavior;
-use Doctrine\Common\Collections\ArrayCollection;
+use Ds\Component\Security\Model\Attribute\Accessor as SecurityAccessor;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
@@ -23,7 +18,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  *
  * @ApiResource(
  *      attributes={
- *          "filters"={"ds.permission.search", "ds.permission.date"},
  *          "normalization_context"={
  *              "groups"={"permission_output"}
  *          },
@@ -33,26 +27,22 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  *      }
  * )
  * @ORM\Entity(repositoryClass="Ds\Component\Security\Repository\PermissionRepository")
- * @ORM\Table(name="ds_permission")
+ * @ORM\Table(name="ds_access_permission")
  * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
- * @ORMAssert\UniqueEntity(fields="uuid")
  */
-class Permission implements Identifiable, Uuidentifiable, Ownable, Identitiable, Versionable
+class Permission implements Identifiable
 {
-    use Behavior\Timestampable\Timestampable;
-
     use Accessor\Id;
-    use Accessor\Uuid;
-    use Accessor\Owner;
-    use Accessor\OwnerUuid;
-    use Accessor\Identity;
-    use Accessor\IdentityUuid;
-    use Accessor\Version;
+    use Accessor\Entity;
+    use Accessor\EntityUuid;
+    use SecurityAccessor\Key;
+    use SecurityAccessor\Type;
+    use SecurityAccessor\Subject;
+    use SecurityAccessor\Attributes;
 
     /**
      * @var integer
-     * @ApiProperty(identifier=false, writable=false)
-     * @Serializer\Groups({"permission_output"})
+     * @ApiProperty(identifier=false, readable=false, writable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(name="id", type="integer")
@@ -60,132 +50,88 @@ class Permission implements Identifiable, Uuidentifiable, Ownable, Identitiable,
     protected $id;
 
     /**
-     * @var string
-     * @ApiProperty(identifier=true, writable=false)
-     * @Serializer\Groups({"permission_output"})
-     * @ORM\Column(name="uuid", type="guid", unique=true)
-     * @Assert\Uuid
+     * @var \Ds\Component\Security\Entity\Access
+     * @ApiProperty(readable=false, writable=false)
+     * @ORM\ManyToOne(targetEntity="Access", inversedBy="permissions")
+     * @ORM\JoinColumn(name="access_id", referencedColumnName="id")
+     * @Assert\Valid
      */
-    protected $uuid;
+    protected $access; # region accessors
 
     /**
-     * @var \DateTime
-     * @ApiProperty(writable=false)
-     * @Serializer\Groups({"permission_output"})
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     * @ApiProperty(writable=false)
-     * @Serializer\Groups({"permission_output"})
-     */
-    protected $updatedAt;
-
-    /**
-     * @var string
-     * @ApiProperty
-     * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Column(name="`owner`", type="string", length=255, nullable=true)
-     * @Assert\NotBlank
-     * @Assert\Length(min=1, max=255)
-     */
-    protected $owner;
-
-    /**
-     * @var string
-     * @ApiProperty
-     * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Column(name="owner_uuid", type="guid", nullable=true)
-     * @Assert\NotBlank
-     * @Assert\Uuid
-     */
-    protected $ownerUuid;
-
-    /**
-     * @var string
-     * @ApiProperty
-     * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Column(name="identity", type="string", length=255, nullable=true)
-     * @Assert\NotBlank
-     * @Assert\Length(min=1, max=255)
-     */
-    protected $identity;
-
-    /**
-     * @var string
-     * @ApiProperty
-     * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Column(name="identity_uuid", type="guid", nullable=true)
-     * @Assert\NotBlank
-     * @Assert\Uuid
-     */
-    protected $identityUuid;
-
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     * @ApiProperty
-     * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\OneToMany(targetEntity="PermissionEntry", mappedBy="permission", cascade={"persist"})
-     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
-     */
-    protected $entries; # region accessors
-
-    /**
-     * Add entry
+     * Set access
      *
-     * @param \Ds\Component\Security\Entity\PermissionEntry $entry
+     * @param \Ds\Component\Security\Entity\Access $access
      * @return object
      */
-    public function addEntry(PermissionEntry $entry)
+    public function setAccess(Access $access = null)
     {
-        $entry->setPermission($this);
-        $this->entries->add($entry);
+        $this->access = $access;
 
         return $this;
     }
 
     /**
-     * Remove entry
+     * Get access
      *
-     * @param \Ds\Component\Security\Entity\PermissionEntry $entry
-     * @return object
+     * @return \Ds\Component\Security\Entity\Access
      */
-    public function removeEntry(PermissionEntry $entry)
+    public function getAccess()
     {
-        $this->entries->removeElement($entry);
-
-        return $this;
-    }
-
-    /**
-     * Get entries
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getEntries()
-    {
-        return $this->entries;
+        return $this->access;
     }
 
     # endregion
 
     /**
-     * @var integer
+     * @var string
      * @ApiProperty
      * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Column(name="version", type="integer")
-     * @ORM\Version
+     * @ORM\Column(name="entity", type="string", length=255, nullable=true)
      * @Assert\NotBlank
-     * @Assert\Type("integer")
+     * @Assert\Length(min=1, max=255)
      */
-    protected $version;
+    protected $entity;
 
     /**
-     * Constructor
+     * @var string
+     * @ApiProperty
+     * @Serializer\Groups({"permission_output", "permission_input"})
+     * @ORM\Column(name="entity_uuid", type="guid", nullable=true)
+     * @Assert\Uuid
      */
-    public function __construct()
-    {
-        $this->entries = new ArrayCollection;
-    }
+    protected $entityUuid;
+
+    /**
+     * @var string
+     * @ApiProperty
+     * @Serializer\Groups({"permission_output", "permission_input"})
+     * @ORM\Column(name="`key`", type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min=1, max=255)
+     */
+    protected $key;
+
+    /**
+     * @var string
+     */
+    protected $type;
+
+    /**
+     * @var string
+     */
+    protected $subject;
+
+    /**
+     * @var array
+     * @ApiProperty
+     * @Serializer\Groups({"permission_output", "permission_input"})
+     * @ORM\Column(name="attributes", type="json_array")
+     * @Assert\NotBlank
+     * @Assert\All({
+     *     @Assert\NotBlank,
+     *     @Assert\Length(min=1)
+     * })
+     */
+    protected $attributes;
 }

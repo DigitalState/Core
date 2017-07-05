@@ -1,6 +1,12 @@
 services:
+    ds_security.service.access:
+        class: '%ds_security.service.access.class%'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%ds_security.entity.access.class%'
+
     ds_security.service.permission:
-        class: "%ds_security.service.permission.class%"
+        class: '%ds_security.service.permission.class%'
         arguments:
             - '@doctrine.orm.entity_manager'
             - '%ds_security.entity.permission.class%'

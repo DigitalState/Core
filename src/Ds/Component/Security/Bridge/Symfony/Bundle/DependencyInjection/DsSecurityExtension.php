@@ -19,9 +19,25 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend(ContainerBuilder $container)
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('config.yml');
-        $loader->load('security.yml');
+        $container->prependExtensionConfig('ds_security', [
+            'acl' => false,
+            'token' => [
+                'uuid' => true,
+                'identity' => true,
+                'identity_uuid' => true,
+                'ip' => false,
+                'client' => false,
+                'modifier' => false
+            ],
+            'filter' => [
+                'identity' => false,
+                'anonymous' => false,
+                'individual' => false,
+                'owner' => false,
+                'enabled' => false
+            ],
+            'permissions' => []
+        ]);
 
         if ($container->getExtensionConfig('dunglas_action')) {
             $container->prependExtensionConfig('dunglas_action', [
@@ -30,6 +46,10 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
                 ]
             ]);
         }
+
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('config.yml');
+        $loader->load('security.yml');
     }
 
     /**
@@ -51,9 +71,24 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.yml');
         $loader->load('voters.yml');
 
-        $this->loadToken($config['token'] ?? [], $container);
-        $this->loadFilter($config['filter'] ?? [], $container);
-        $this->loadPermissions($config['permissions'] ?? [], $container);
+        $this->loadAcl($config['acl'], $container);
+        $this->loadToken($config['token'], $container);
+        $this->loadFilter($config['filter'], $container);
+        $this->loadPermissions($config['permissions'], $container);
+    }
+
+    /**
+     * Load acl
+     *
+     * @param boolean $enabled
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function loadAcl($enabled, ContainerBuilder $container)
+    {
+        if (!$enabled) {
+            $container->removeDefinition('ds_security.serializer.normalizer.acl');
+            $container->removeDefinition('ds_security.serializer.jsonld.normalizer.acl');
+        }
     }
 
     /**
@@ -111,7 +146,7 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
             }
 
             $permission = new Permission($title, $key, $type, $subject, $attributes);
-            $definition->addMethodCall('set', [$key, (array) $permission->toObject()]);
+            $definition->addMethodCall('set', [$key, (array)$permission->toObject()]);
         }
     }
 }

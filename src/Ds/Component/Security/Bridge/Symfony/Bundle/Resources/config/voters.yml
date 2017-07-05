@@ -2,7 +2,6 @@ services:
     ds_security.voter.permission.property:
         class: '%ds_security.voter.permission.property.class%'
         arguments:
-            - '@ds_security.collection.permission'
-            - '@ds_security.service.permission'
+            - '@ds_security.service.access'
         tags:
            - { name: security.voter }

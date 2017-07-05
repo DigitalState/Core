@@ -9,8 +9,8 @@ use DomainException;
  */
 class Permission
 {
-    use Attribute\Key;
     use Attribute\Title;
+    use Attribute\Key;
     use Attribute\Type;
     use Attribute\Subject;
     use Attribute\Attributes;

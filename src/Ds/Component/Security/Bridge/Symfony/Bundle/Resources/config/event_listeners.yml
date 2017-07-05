@@ -1,11 +1,18 @@
 services:
-    ds_security.event_listener.permission.entry:
-        class: '%ds_security.event_listener.permission.entry.class%'
+    ds_security.event_listener.access.permissions:
+        class: '%ds_security.event_listener.access.permissions.class%'
         arguments:
             - '@request_stack'
-            - '@ds_security.service.permission'
+            - '@ds_security.service.access'
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 4 }
+
+    ds_security.event_listener.permission.subject:
+        class: '%ds_security.event_listener.permission.subject.class%'
+        arguments:
+            - '@ds_security.collection.permission'
+        tags:
+            - { name: doctrine.orm.entity_listener, entity: '%ds_security.entity.permission.class%', event: postLoad }
 
     ds_security.event_listener.token.uuid:
         class: '%ds_security.event_listener.token.uuid.class%'

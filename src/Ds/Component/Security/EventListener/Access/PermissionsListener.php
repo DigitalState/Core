@@ -1,17 +1,17 @@
 <?php
 
-namespace Ds\Component\Security\EventListener\Permission;
+namespace Ds\Component\Security\EventListener\Access;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Ds\Component\Security\Entity\Permission;
-use Ds\Component\Security\Service\PermissionService;
+use Ds\Component\Security\Entity\Access;
+use Ds\Component\Security\Service\AccessService;
 
 /**
- * Class EntryListener
+ * Class PermissionsListener
  */
-class EntryListener
+class PermissionsListener
 {
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
@@ -19,24 +19,24 @@ class EntryListener
     protected $requestStack;
 
     /**
-     * @var \Ds\Component\Security\Service\PermissionService
+     * @var \Ds\Component\Security\Service\AccessService
      */
-    protected $permissionService;
+    protected $accessService;
 
     /**
      * Constructor
      *
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \Ds\Component\Security\Service\PermissionService $permissionService
+     * @param \Ds\Component\Security\Service\AccessService $accessService
      */
-    public function __construct(RequestStack $requestStack, PermissionService $permissionService)
+    public function __construct(RequestStack $requestStack, AccessService $accessService)
     {
         $this->requestStack = $requestStack;
-        $this->permissionService = $permissionService;
+        $this->accessService = $accessService;
     }
 
     /**
-     * Remove existing permission entries on put request
+     * Remove existing permissions on put request
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      */
@@ -54,18 +54,16 @@ class EntryListener
 
         $data = $event->getRequest()->attributes->get('data');
 
-        if (!$data instanceof Permission) {
+        if (!$data instanceof Access) {
             return;
         }
 
-        $permission = $data;
+        $access = $data;
 
-        foreach ($permission->getEntries() as $entry) {
-            $entry->setPermission(null);
-            $permission->getEntries()->removeElement($entry);
+        foreach ($access->getPermissions() as $permission) {
+            $this->accessService->getManager()->remove($permission);
         }
 
-        $this->permissionService->getManager()->persist($permission);
-        $this->permissionService->getManager()->flush();
+        $this->accessService->getManager()->flush();
     }
 }
