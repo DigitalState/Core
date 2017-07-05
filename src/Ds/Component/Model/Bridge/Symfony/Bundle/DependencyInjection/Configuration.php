@@ -15,15 +15,14 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder;
-        $rootNode = $treeBuilder->root('ds_model');
-
-        $rootNode
+        $builder = new TreeBuilder;
+        $node = $builder->root('ds_model');
+        $node
             ->children()
                 ->append($this->getBehaviorNode())
             ->end();
 
-        return $treeBuilder;
+        return $builder;
     }
 
     /**
@@ -35,25 +34,12 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder;
         $node = $builder->root('behavior');
-
         $node
             ->children()
-                ->booleanNode('localizable')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
-                ->booleanNode('translatable')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
-                ->booleanNode('identitiable')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
-                ->booleanNode('uuidentifiable')
-                    ->defaultFalse()
-                    ->treatNullLike(true)
-                ->end()
+                ->booleanNode('localizable')->defaultFalse()->end()
+                ->booleanNode('translatable')->defaultFalse()->end()
+                ->booleanNode('identitiable')->defaultFalse()->end()
+                ->booleanNode('uuidentifiable')->defaultFalse()->end()
             ->end();
 
         return $node;
