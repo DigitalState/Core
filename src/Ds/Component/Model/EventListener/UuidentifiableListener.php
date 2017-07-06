@@ -16,7 +16,7 @@ class UuidentifiableListener
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      */
-    public function onPrePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 

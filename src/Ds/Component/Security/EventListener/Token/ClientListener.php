@@ -52,7 +52,7 @@ class ClientListener
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
      */
-    public function onCreated(JWTCreatedEvent $event)
+    public function created(JWTCreatedEvent $event)
     {
         $payload = $event->getData();
         $payload[$this->client] = $this->getIdentifier();
@@ -64,7 +64,7 @@ class ClientListener
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent $event
      */
-    public function onDecoded(JWTDecodedEvent $event)
+    public function decoded(JWTDecodedEvent $event)
     {
         $payload = $event->getPayload();
 

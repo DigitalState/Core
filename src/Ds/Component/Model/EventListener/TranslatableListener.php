@@ -33,7 +33,7 @@ class TranslatableListener
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      */
-    public function onPrePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
@@ -49,7 +49,7 @@ class TranslatableListener
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      */
-    public function onPreUpdate(LifecycleEventArgs $args)
+    public function preUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
@@ -65,7 +65,7 @@ class TranslatableListener
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      */
-    public function onPostLoad(LifecycleEventArgs $args)
+    public function postLoad(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 

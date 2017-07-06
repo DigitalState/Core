@@ -34,7 +34,7 @@ class SubjectListener
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
      * @throws \UnexpectedValueException
      */
-    public function onPostLoad(Permission $permission, LifecycleEventArgs $event)
+    public function postLoad(Permission $permission, LifecycleEventArgs $event)
     {
         $item = $this->permissionCollection->get($permission->getKey());
 

@@ -43,7 +43,7 @@ class EntityListener
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function kernelRequest(GetResponseEvent $event)
     {
         $token = $this->tokenStorage->getToken();
 

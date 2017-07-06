@@ -31,7 +31,7 @@ class UuidListener
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
      * @throws \Ds\Component\Security\Exception\InvalidUserTypeException
      */
-    public function onCreated(JWTCreatedEvent $event)
+    public function created(JWTCreatedEvent $event)
     {
         $payload = $event->getData();
         $user = $event->getUser();
@@ -44,7 +44,7 @@ class UuidListener
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent $event
      */
-    public function onDecoded(JWTDecodedEvent $event)
+    public function decoded(JWTDecodedEvent $event)
     {
         $payload = $event->getPayload();
 
