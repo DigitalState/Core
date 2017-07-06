@@ -26,7 +26,7 @@ class IdentityUuidListener
     }
 
     /**
-     * On created
+     * Add the identity uuid to the token
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
      * @throws \Ds\Component\Security\Exception\InvalidUserTypeException
@@ -40,7 +40,7 @@ class IdentityUuidListener
     }
 
     /**
-     * On decoded
+     * Mark the token as invalid if the identity uuid is missing
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent $event
      */

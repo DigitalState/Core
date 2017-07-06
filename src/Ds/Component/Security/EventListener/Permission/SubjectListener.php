@@ -28,13 +28,13 @@ class SubjectListener
     }
 
     /**
-     * Post load
+     * Hydrate the permission entity with permission configurations
      *
      * @param \Ds\Component\Security\Entity\Permission $permission
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $event
      * @throws \UnexpectedValueException
      */
-    public function postLoad(Permission $permission, LifecycleEventArgs $event)
+    public function onPostLoad(Permission $permission, LifecycleEventArgs $event)
     {
         $item = $this->permissionCollection->get($permission->getKey());
 

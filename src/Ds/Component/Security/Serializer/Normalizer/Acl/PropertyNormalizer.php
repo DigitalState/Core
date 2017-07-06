@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Security\Serializer\Normalizer;
+namespace Ds\Component\Security\Serializer\Normalizer\Acl;
 
 use ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException;
 use ApiPlatform\Core\Serializer\AbstractItemNormalizer;
@@ -18,9 +18,9 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolation;
 
 /**
- * Class AclNormalizer
+ * Class PropertyNormalizer
  */
-class AclNormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
+class PropertyNormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
 {
     /**
      * @var \ApiPlatform\Core\Serializer\AbstractItemNormalizer

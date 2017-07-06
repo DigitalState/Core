@@ -86,8 +86,9 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
     protected function loadAcl($enabled, ContainerBuilder $container)
     {
         if (!$enabled) {
-            $container->removeDefinition('ds_security.serializer.normalizer.acl');
-            $container->removeDefinition('ds_security.serializer.jsonld.normalizer.acl');
+            $container->removeDefinition('ds_security.event_listener.acl.entity');
+            $container->removeDefinition('ds_security.serializer.normalizer.acl.property');
+            $container->removeDefinition('ds_security.serializer.jsonld.normalizer.acl.property');
         }
     }
 

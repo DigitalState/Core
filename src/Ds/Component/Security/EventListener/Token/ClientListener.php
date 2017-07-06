@@ -48,7 +48,7 @@ class ClientListener
     }
 
     /**
-     * On created
+     * Add the client identifier to the token
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
      */
@@ -60,7 +60,7 @@ class ClientListener
     }
 
     /**
-     * On decoded
+     * Mark the token as invalid if the client identifier is missing or is not valid
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent $event
      */
@@ -76,7 +76,7 @@ class ClientListener
     }
 
     /**
-     * Get client identifier
+     * Get the client identifier
      *
      * @return string
      */

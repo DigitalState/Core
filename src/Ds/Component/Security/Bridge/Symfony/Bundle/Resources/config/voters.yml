@@ -1,4 +1,11 @@
 services:
+    ds_security.voter.permission.entity:
+        class: '%ds_security.voter.permission.entity.class%'
+        arguments:
+            - '@ds_security.service.access'
+        tags:
+           - { name: security.voter }
+
     ds_security.voter.permission.property:
         class: '%ds_security.voter.permission.property.class%'
         arguments:

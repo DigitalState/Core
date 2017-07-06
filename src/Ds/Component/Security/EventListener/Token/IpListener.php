@@ -41,7 +41,7 @@ class IpListener
     }
 
     /**
-     * On created
+     * Add the ip to the token
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
      */
@@ -54,7 +54,7 @@ class IpListener
     }
 
     /**
-     * On decoded
+     * Mark the token as invalid if the ip is missing or is not valid
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent $event
      */

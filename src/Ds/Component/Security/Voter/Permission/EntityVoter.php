@@ -2,26 +2,30 @@
 
 namespace Ds\Component\Security\Voter\Permission;
 
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-
+use Ds\Component\Security\Model\Permission;
 
 /**
  * Class EntityVoter
  */
-class EntityVoter extends Voter
+class EntityVoter extends PermissionVoter
 {
     /**
      * {@inheritdoc}
      */
     protected function supports($attribute, $subject)
     {
-    }
+        if (!parent::supports($attribute, $subject)) {
+            return false;
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
-    {
+        if (Permission::ENTITY !== $subject['type']) {
+            return false;
+        }
+
+        if (!in_array($attribute, [Permission::BROWSE, Permission::READ, Permission::EDIT, Permission::ADD, Permission::DELETE], true)) {
+            return false;
+        }
+
+        return true;
     }
 }

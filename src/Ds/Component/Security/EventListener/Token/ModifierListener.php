@@ -27,7 +27,7 @@ class ModifierListener
     }
 
     /**
-     * On created
+     * Remove attributes from the token
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
      * @throws \OutOfRangeException
@@ -48,7 +48,7 @@ class ModifierListener
     }
 
     /**
-     * On decoded
+     * Mark the token as invalid if the token still contains removed attributes
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent $event
      */
