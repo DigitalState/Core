@@ -29,11 +29,11 @@ class TranslatableListener
     }
 
     /**
-     * Pre persist
+     * Persist the entity translations
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      */
-    public function prePersist(LifecycleEventArgs $args)
+    public function onPrePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
@@ -45,11 +45,11 @@ class TranslatableListener
     }
 
     /**
-     * Pre update
+     * Update the entity translations
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      */
-    public function preUpdate(LifecycleEventArgs $args)
+    public function onPreUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
@@ -61,11 +61,11 @@ class TranslatableListener
     }
 
     /**
-     * Pre persist
+     * Hydrate the entity translations
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      */
-    public function postLoad(LifecycleEventArgs $args)
+    public function onPostLoad(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
@@ -77,7 +77,7 @@ class TranslatableListener
     }
 
     /**
-     * Persist entity
+     * Persist the entity translations
      *
      * @param \Ds\Component\Model\Type\Translatable $entity
      */
@@ -99,7 +99,7 @@ class TranslatableListener
     }
 
     /**
-     * Load entity
+     * Hydrate the entity translations
      *
      * @param \Ds\Component\Model\Type\Translatable $entity
      */

@@ -12,11 +12,11 @@ use Ramsey\Uuid\Uuid;
 class UuidentifiableListener
 {
     /**
-     * Pre persist
+     * Generate an uuid before persisting the entity
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      */
-    public function prePersist(LifecycleEventArgs $args)
+    public function onPrePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 

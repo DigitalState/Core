@@ -34,7 +34,7 @@ class LocalizableListener
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
      */
-    public function kernelView(GetResponseForControllerResultEvent $event)
+    public function onKernelView(GetResponseForControllerResultEvent $event)
     {
         $request = $event->getRequest();
 

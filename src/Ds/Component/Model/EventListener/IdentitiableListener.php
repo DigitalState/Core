@@ -27,11 +27,11 @@ class IdentitiableListener
     }
 
     /**
-     * Pre persist
+     * Generate a uuid before persisting the entity
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      */
-    public function prePersist(LifecycleEventArgs $args)
+    public function onPrePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
