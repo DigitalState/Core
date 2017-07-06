@@ -108,24 +108,24 @@ abstract class PermissionVoter extends Voter
     {
         $permissions = new ArrayCollection;
 
-        $generic = $this->accessService->getRepository()->findOneBy([
+        $accesses = $this->accessService->getRepository()->findBy([
             'identity' => $user->getIdentity(),
             'identityUuid' => null
         ]);
 
-        if ($generic) {
-            foreach ($generic->getPermissions() as $permission) {
+        foreach ($accesses as $access) {
+            foreach ($access->getPermissions() as $permission) {
                 $permissions->add($permission);
             }
         }
 
-        $specific = $this->accessService->getRepository()->findOneBy([
+        $accesses = $this->accessService->getRepository()->findBy([
             'identity' => $user->getIdentity(),
             'identityUuid' => $user->getIdentityUuid()
         ]);
 
-        if ($specific) {
-            foreach ($specific->getPermissions() as $permission) {
+        foreach ($accesses as $access) {
+            foreach ($access->getPermissions() as $permission) {
                 $permissions->add($permission);
             }
         }
