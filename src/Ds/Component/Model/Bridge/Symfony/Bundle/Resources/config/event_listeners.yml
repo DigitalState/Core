@@ -25,4 +25,4 @@ services:
         arguments:
             - '@annotation_reader'
         tags:
-            - { name: kernel.event_listener, event: kernel.view, priority: 17 }
+            - { name: kernel.event_listener, event: kernel.view, method: kernelView, priority: 17 }

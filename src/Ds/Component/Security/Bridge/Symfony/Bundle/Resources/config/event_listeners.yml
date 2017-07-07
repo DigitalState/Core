@@ -5,14 +5,14 @@ services:
             - '@security.token_storage'
             - '@ds_security.voter.permission.entity'
         tags:
-            - { name: kernel.event_listener, event: kernel.request, priority: 1 }
+            - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 1 }
 
     ds_security.event_listener.access.permissions:
         class: '%ds_security.event_listener.access.permissions.class%'
         arguments:
             - '@ds_security.service.access'
         tags:
-            - { name: kernel.event_listener, event: kernel.request, priority: 4 }
+            - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 4 }
 
     ds_security.event_listener.permission.subject:
         class: '%ds_security.event_listener.permission.subject.class%'
