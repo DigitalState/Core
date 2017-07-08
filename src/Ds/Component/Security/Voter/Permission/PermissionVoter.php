@@ -72,7 +72,7 @@ abstract class PermissionVoter extends Voter
                 return false;
             }
 
-            if ($subject['subject'] !== $permission->getSubject()) {
+            if (!fnmatch($permission->getSubject(), $subject['subject'], FNM_NOESCAPE)) {
                 return false;
             }
 
