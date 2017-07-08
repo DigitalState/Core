@@ -7,3 +7,8 @@ doctrine:
                 dir: '%kernel.root_dir%/../vendor/digitalstate/core/src/Ds/Component/Security/Entity'
                 prefix: Ds\Component\Security\Entity
                 alias: DsSecurity
+
+ds_security:
+    permissions:
+        entity:            { title: All Entities,   entity:   '*',      attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
+        entity_fields:     { title: All Fields,     property: '*.*',    attributes: [BROWSE, READ, EDIT] }
