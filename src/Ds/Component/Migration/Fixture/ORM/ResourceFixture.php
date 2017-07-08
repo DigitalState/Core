@@ -15,7 +15,7 @@ abstract class ResourceFixture extends AbstractFixture implements ContainerAware
     use Attribute\Container;
 
     /**
-     * Parse resource file
+     * Parse resource file(s)
      *
      * @param string $resource
      * @return array
@@ -24,14 +24,16 @@ abstract class ResourceFixture extends AbstractFixture implements ContainerAware
     {
         $server = $this->container->getParameter('server');
         $resource = str_replace('{server}', $server, $resource);
-        $key = pathinfo($resource)['filename'];
-        $yml = file_get_contents($resource);
-        $data = Yaml::parse($yml);
         $items = [];
 
-        foreach ($data[$key] as $item) {
-            $item += $data['prototype'];
-            $items[] = $item;
+        foreach (glob($resource) as $file) {
+            $yml = file_get_contents($file);
+            $data = Yaml::parse($yml);
+
+            foreach ($data['items'] as $item) {
+                $item += $data['prototype'];
+                $items[] = $item;
+            }
         }
 
         return $items;
