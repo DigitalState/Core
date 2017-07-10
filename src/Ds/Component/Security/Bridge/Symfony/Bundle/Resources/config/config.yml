@@ -10,5 +10,16 @@ doctrine:
 
 ds_security:
     permissions:
-        entity:            { title: All Entities,   entity:   '*',      attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
-        entity_fields:     { title: All Fields,     property: '*.*',    attributes: [BROWSE, READ, EDIT] }
+        entity:                { title: All Entities,     entity:   '*',                                                attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
+        entity_fields:         { title: All Fields,       property: '*.*',                                              attributes: [BROWSE, READ, EDIT] }
+        access:                { title: Access,           property: Ds\Component\Security\Entity\Access,                attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
+        access_fields:         { title: All Fields,       property: Ds\Component\Security\Entity\Access.*,              attributes: [BROWSE, READ, EDIT] }
+        access_id:             { title: Id,               property: Ds\Component\Security\Entity\Access.id,             attributes: [BROWSE, READ, EDIT] }
+        access_uuid:           { title: Uiid,             property: Ds\Component\Security\Entity\Access.uuid,           attributes: [BROWSE, READ, EDIT] }
+        access_created_at:     { title: Created At,       property: Ds\Component\Security\Entity\Access.createdAt,      attributes: [BROWSE, READ, EDIT] }
+        access_updated_at:     { title: Updated At,       property: Ds\Component\Security\Entity\Access.updatedAt,      attributes: [BROWSE, READ, EDIT] }
+        access_owner:          { title: Owner,            property: Ds\Component\Security\Entity\Access.owner,          attributes: [BROWSE, READ, EDIT] }
+        access_owner_uuid:     { title: Owner Uuid,       property: Ds\Component\Security\Entity\Access.ownerUuid,      attributes: [BROWSE, READ, EDIT] }
+        access_identity:       { title: Identity,         property: Ds\Component\Security\Entity\Access.identity,       attributes: [BROWSE, READ, EDIT] }
+        access_identity_uuid:  { title: Identity Uuid,    property: Ds\Component\Security\Entity\Access.identityUuid,   attributes: [BROWSE, READ, EDIT] }
+        access_permissions:    { title: Permissions,      property: Ds\Component\Security\Entity\Access.permissions,    attributes: [BROWSE, READ, EDIT] }
