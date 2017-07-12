@@ -2,7 +2,6 @@
 
 namespace Ds\Component\Security\Voter\Permission;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Ds\Component\Security\Model\Subject;
 use Ds\Component\Security\Service\AccessService;
 use Ds\Component\Security\User\User;
@@ -52,7 +51,7 @@ abstract class PermissionVoter extends Voter
             return false;
         }
 
-        $permissions = $this->getPermissions($user)->filter(function($permission) use ($subject) {
+        $permissions = $this->accessService->getCompiled($user)->filter(function($permission) use ($subject) {
             if ($subject->getType() !== $permission->getType()) {
                 return false;
             }
@@ -81,40 +80,5 @@ abstract class PermissionVoter extends Voter
         }
 
         return false;
-    }
-
-    /**
-     * Get user permissions
-     *
-     * @param \Ds\Component\Security\User\User $user
-     * @return ArrayCollection
-     */
-    protected function getPermissions(User $user)
-    {
-        $permissions = new ArrayCollection;
-
-        $accesses = $this->accessService->getRepository()->findBy([
-            'identity' => $user->getIdentity(),
-            'identityUuid' => null
-        ]);
-
-        foreach ($accesses as $access) {
-            foreach ($access->getPermissions() as $permission) {
-                $permissions->add($permission);
-            }
-        }
-
-        $accesses = $this->accessService->getRepository()->findBy([
-            'identity' => $user->getIdentity(),
-            'identityUuid' => $user->getIdentityUuid()
-        ]);
-
-        foreach ($accesses as $access) {
-            foreach ($access->getPermissions() as $permission) {
-                $permissions->add($permission);
-            }
-        }
-
-        return $permissions;
     }
 }

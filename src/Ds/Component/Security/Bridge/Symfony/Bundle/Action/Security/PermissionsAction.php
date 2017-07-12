@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class PermissionsAction
@@ -38,7 +37,6 @@ class PermissionsAction
      *
      * @Method("GET")
      * @Route(path="/permissions")
-     * @Security("is_granted('BROWSE', {type:'property', value:'Ds\Component\Security\Entity\Access.id', entity:'BusinessUnit', entity_uuid:'c11c546e-bd01-47cf-97da-e25388357b5a'})")
      */
     public function cget()
     {
