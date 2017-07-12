@@ -10,13 +10,13 @@ doctrine:
 
 ds_security:
     permissions:
-        config:              { title: Config,         entity:   Ds\Component\Config\Entity\Config,               attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
-        config_properties:   { title: All Properties, property: Ds\Component\Config\Entity\Config.*,             attributes: [BROWSE, READ, EDIT] }
-        config_id:           { title: Id,             property: Ds\Component\Config\Entity\Config.id,            attributes: [BROWSE, READ, EDIT] }
-        config_uuid:         { title: Uuid,           property: Ds\Component\Config\Entity\Config.uuid,          attributes: [BROWSE, READ, EDIT] }
-        config_owner:        { title: Owner,          property: Ds\Component\Config\Entity\Config.owner,         attributes: [BROWSE, READ, EDIT] }
-        config_owner_uuid:   { title: Owner Uuid,     property: Ds\Component\Config\Entity\Config.ownerUuid,     attributes: [BROWSE, READ, EDIT] }
-        config_key:          { title: Key,            property: Ds\Component\Config\Entity\Config.key,           attributes: [BROWSE, READ, EDIT] }
-        config_value:        { title: Value,          property: Ds\Component\Config\Entity\Config.value,         attributes: [BROWSE, READ, EDIT] }
-        config_enabled:      { title: Enabled,        property: Ds\Component\Config\Entity\Config.enabled,       attributes: [BROWSE, READ, EDIT] }
-        config_version:      { title: Version,        property: Ds\Component\Config\Entity\Config.version,       attributes: [BROWSE, READ, EDIT] }
+        config:              { title: ds.config.permissions.config,                entity:   Ds\Component\Config\Entity\Config,               attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
+        config_property:     { title: ds.config.permissions.config.property,       property: Ds\Component\Config\Entity\Config.*,             attributes: [BROWSE, READ, EDIT] }
+        config_id:           { title: ds.config.permissions.config.id,             property: Ds\Component\Config\Entity\Config.id,            attributes: [BROWSE, READ, EDIT] }
+        config_uuid:         { title: ds.config.permissions.config.uuid,           property: Ds\Component\Config\Entity\Config.uuid,          attributes: [BROWSE, READ, EDIT] }
+        config_owner:        { title: ds.config.permissions.config.owner,          property: Ds\Component\Config\Entity\Config.owner,         attributes: [BROWSE, READ, EDIT] }
+        config_owner_uuid:   { title: ds.config.permissions.config.owner_uuid,     property: Ds\Component\Config\Entity\Config.ownerUuid,     attributes: [BROWSE, READ, EDIT] }
+        config_key:          { title: ds.config.permissions.config.key,            property: Ds\Component\Config\Entity\Config.key,           attributes: [BROWSE, READ, EDIT] }
+        config_value:        { title: ds.config.permissions.config.value,          property: Ds\Component\Config\Entity\Config.value,         attributes: [BROWSE, READ, EDIT] }
+        config_enabled:      { title: ds.config.permissions.config.enabled,        property: Ds\Component\Config\Entity\Config.enabled,       attributes: [BROWSE, READ, EDIT] }
+        config_version:      { title: ds.config.permissions.config.version,        property: Ds\Component\Config\Entity\Config.version,       attributes: [BROWSE, READ, EDIT] }
