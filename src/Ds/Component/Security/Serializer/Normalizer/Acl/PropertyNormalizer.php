@@ -7,6 +7,7 @@ use ApiPlatform\Core\Serializer\AbstractItemNormalizer;
 use DomainException;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Security\Model\Permission;
+use Ds\Component\Security\Model\Subject;
 use Ds\Component\Security\Voter\Permission\PropertyVoter;
 use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -68,28 +69,30 @@ class PropertyNormalizer implements NormalizerInterface, DenormalizerInterface, 
         }
 
         $attributes = [Permission::EDIT];
-        $subject = ['type' => Permission::PROPERTY];
+        $subject = new Subject;
+        $subject->setType(Permission::PROPERTY);
 
         if (array_key_exists('object_to_populate', $context)) {
             $object = $context['object_to_populate'];
-            $subject['entity'] = $object->getOwner();
-            $subject['entity_uuid'] = $object->getOwnerUuid();
+            $subject
+                ->setEntity($object->getOwner())
+                ->setEntityUuid($object->getOwnerUuid());
         } else {
             if (!array_key_exists('owner', $data)) {
                 throw new ValidationException(new ConstraintViolationList, 'Owner is required.');
             }
 
-            $subject['entity'] = $data['owner'];
+            $subject->setEntity($data['owner']);
 
             if (!array_key_exists('ownerUuid', $data)) {
                 throw new ValidationException(new ConstraintViolationList, 'Owner uuid is required.');
             }
 
-            $subject['entity_uuid'] = $data['ownerUuid'];
+            $subject->setEntityUuid($data['ownerUuid']);
         }
 
         foreach (array_keys($data) as $property) {
-            $subject['subject'] = $context['resource_class'].'.'.$property;
+            $subject->setValue($context['resource_class'].'.'.$property);
             $vote = $this->propertyVoter->vote($token, $subject, $attributes);
 
             if (PropertyVoter::ACCESS_ABSTAIN === $vote) {
@@ -124,14 +127,14 @@ class PropertyNormalizer implements NormalizerInterface, DenormalizerInterface, 
             throw new DomainException('Operation does not exist.');
         }
 
-        $subject = [
-            'type' => Permission::PROPERTY,
-            'entity' => $object->getOwner(),
-            'entity_uuid' => $object->getOwnerUuid()
-        ];
+        $subject = new Subject;
+        $subject
+            ->setType(Permission::PROPERTY)
+            ->setEntity($object->getOwner())
+            ->setEntityUuid($object->getOwnerUuid());
 
         foreach (array_keys($data) as $property) {
-            $subject['subject'] = $context['resource_class'].'.'.$property;
+            $subject->setValue($context['resource_class'].'.'.$property);
             $vote = $this->propertyVoter->vote($token, $subject, $attributes);
 
             if (PropertyVoter::ACCESS_ABSTAIN === $vote) {

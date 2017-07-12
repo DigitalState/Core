@@ -37,7 +37,7 @@ class Permission implements Identifiable
     use Accessor\EntityUuid;
     use SecurityAccessor\Key;
     use SecurityAccessor\Type;
-    use SecurityAccessor\Subject;
+    use SecurityAccessor\Value;
     use SecurityAccessor\Attributes;
 
     /**
@@ -120,7 +120,7 @@ class Permission implements Identifiable
     /**
      * @var string
      */
-    protected $subject;
+    protected $value;
 
     /**
      * @var array

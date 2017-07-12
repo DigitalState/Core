@@ -11,7 +11,7 @@ doctrine:
 ds_security:
     permissions:
         config:              { title: Config,         entity:   Ds\Component\Config\Entity\Config,               attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
-        config_fields:       { title: All Fields,     property: Ds\Component\Config\Entity\Config.*,             attributes: [BROWSE, READ, EDIT] }
+        config_properties:   { title: All Properties, property: Ds\Component\Config\Entity\Config.*,             attributes: [BROWSE, READ, EDIT] }
         config_id:           { title: Id,             property: Ds\Component\Config\Entity\Config.id,            attributes: [BROWSE, READ, EDIT] }
         config_uuid:         { title: Uuid,           property: Ds\Component\Config\Entity\Config.uuid,          attributes: [BROWSE, READ, EDIT] }
         config_owner:        { title: Owner,          property: Ds\Component\Config\Entity\Config.owner,         attributes: [BROWSE, READ, EDIT] }

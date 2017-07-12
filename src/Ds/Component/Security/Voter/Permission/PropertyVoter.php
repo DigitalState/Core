@@ -18,7 +18,7 @@ class PropertyVoter extends PermissionVoter
             return false;
         }
 
-        if (Permission::PROPERTY !== $subject['type']) {
+        if (Permission::PROPERTY !== $subject->getType()) {
             return false;
         }
 

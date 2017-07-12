@@ -85,10 +85,11 @@ class Configuration implements ConfigurationInterface
             ->prototype('array')
                 ->children()
                     ->scalarNode('title')->end()
-                    ->enumNode('type') ->values([ 'entity', 'property' ])->end()
-                    ->scalarNode('subject')->end()
+                    ->enumNode('type') ->values(['custom', 'entity', 'property' ])->end()
+                    ->scalarNode('value')->end()
                     ->arrayNode('attributes')->isRequired()->requiresAtLeastOneElement()->prototype('scalar')->end()
                 ->end()
+                ->scalarNode('custom')->end()
                 ->scalarNode('entity')->end()
                 ->scalarNode('property')->end()
             ->end();

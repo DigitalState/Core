@@ -57,9 +57,6 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration;
-        $config = $this->processConfiguration($configuration, $configs);
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('api_filters.yml');
@@ -71,6 +68,9 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.yml');
         $loader->load('voters.yml');
 
+        $configuration = new Configuration;
+        $config = $this->processConfiguration($configuration, $configs);
+
         $this->loadAcl($config['acl'], $container);
         $this->loadToken($config['token'], $container);
         $this->loadFilter($config['filter'], $container);
@@ -80,12 +80,12 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
     /**
      * Load acl
      *
-     * @param boolean $enabled
+     * @param boolean $acl
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected function loadAcl($enabled, ContainerBuilder $container)
+    protected function loadAcl($acl, ContainerBuilder $container)
     {
-        if (!$enabled) {
+        if (!$acl) {
             $container->removeDefinition('ds_security.event_listener.acl.entity');
             $container->removeDefinition('ds_security.serializer.normalizer.acl.property');
             $container->removeDefinition('ds_security.serializer.jsonld.normalizer.acl.property');
@@ -95,14 +95,14 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
     /**
      * Load token
      *
-     * @param array $config
+     * @param array $token
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected function loadToken(array $config, ContainerBuilder $container)
+    protected function loadToken(array $token, ContainerBuilder $container)
     {
-        foreach ($config as $token => $enabled) {
+        foreach ($token as $property => $enabled) {
             if (!$enabled) {
-                $container->removeDefinition(sprintf('ds_security.event_listener.token.%s', $token));
+                $container->removeDefinition(sprintf('ds_security.event_listener.token.%s', $property));
             }
         }
     }
@@ -110,14 +110,14 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
     /**
      * Load filter
      *
-     * @param array $config
+     * @param array $filter
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected function loadFilter(array $config, ContainerBuilder $container)
+    protected function loadFilter(array $filter, ContainerBuilder $container)
     {
-        foreach ($config as $filter => $enabled) {
+        foreach ($filter as $property => $enabled) {
             if (!$enabled) {
-                $container->removeDefinition(sprintf('ds_security.doctrine.orm.query_extension.%s', $filter));
+                $container->removeDefinition(sprintf('ds_security.doctrine.orm.query_extension.%s', $property));
             }
         }
     }
@@ -125,29 +125,42 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
     /**
      * Load permissions
      *
-     * @param array $config
+     * @param array $permissions
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected function loadPermissions(array $config, ContainerBuilder $container)
+    protected function loadPermissions(array $permissions, ContainerBuilder $container)
     {
-        $definition = $container->findDefinition('ds_security.collection.permission');
+        foreach ($permissions as $key => $element) {
+            $element['key'] = $key;
 
-        foreach ($config as $key => $item) {
-            $title = $item['title'] ?? null;
-            $type = $item['type'] ?? null;
-            $subject = $item['subject'] ?? null;
-            $attributes = $item['attributes'] ?? [];
-
-            if (array_key_exists('entity', $item)) {
-                $type = Permission::ENTITY;
-                $subject = $item['entity'];
-            } elseif (array_key_exists('property', $item)) {
-                $type = Permission::PROPERTY;
-                $subject = $item['property'];
+            if (!array_key_exists('title', $element)) {
+                $element['title'] = null;
             }
 
-            $permission = new Permission($title, $key, $type, $subject, $attributes);
-            $definition->addMethodCall('set', [$key, (array)$permission->toObject()]);
+            if (!array_key_exists('type', $element)) {
+                $element['type'] = null;
+            }
+
+            if (!array_key_exists('value', $element)) {
+                $element['value'] = null;
+            }
+
+            if (!array_key_exists('attributes', $element)) {
+                $element['attributes'] = [];
+            }
+
+            foreach (['custom', 'entity', 'property'] as $type) {
+                if (array_key_exists($type, $element)) {
+                    $element['type'] = constant(Permission::class.'::'.strtoupper($type));
+                    $element['value'] = $element[$type];
+                    unset($element[$type]);
+                }
+            }
+
+            $permissions[$key] = $element;
         }
+
+        $definition = $container->findDefinition('ds_security.collection.permission');
+        $definition->setArguments([$permissions]);
     }
 }

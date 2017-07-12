@@ -12,12 +12,13 @@ class Permission
     use Attribute\Title;
     use Attribute\Key;
     use Attribute\Type;
-    use Attribute\Subject;
+    use Attribute\Value;
     use Attribute\Attributes;
 
     /**
      * @const string
      */
+    const CUSTOM = 'custom';
     const ENTITY = 'entity';
     const PROPERTY = 'property';
 
@@ -29,6 +30,7 @@ class Permission
     const EDIT = 'EDIT';
     const ADD = 'ADD';
     const DELETE = 'DELETE';
+    const EXECUTE = 'EXECUTE';
 
     /**
      * Constructor
@@ -36,13 +38,13 @@ class Permission
      * @param string $title
      * @param string $key
      * @param string $type
-     * @param string $subject
+     * @param string $value
      * @param array|string $attributes
      * @throws \DomainException
      */
-    public function __construct($title, $key, $type, $subject, $attributes = [])
+    public function __construct($title, $key, $type, $value, $attributes = [])
     {
-        if (!in_array($type, [static::ENTITY, static::PROPERTY], true)) {
+        if (!in_array($type, [static::CUSTOM, static::ENTITY, static::PROPERTY], true)) {
             throw new DomainException('Permission type does not exist.');
         }
 
@@ -51,7 +53,7 @@ class Permission
         }
 
         foreach ($attributes as $attribute) {
-            if (!in_array($attribute, [static::BROWSE, static::READ, static::EDIT, static::ADD, static::DELETE], true)) {
+            if (!in_array($attribute, [static::BROWSE, static::READ, static::EDIT, static::ADD, static::DELETE, static::EXECUTE], true)) {
                 throw new DomainException('Permission attribute does not exist.');
             }
         }
@@ -59,7 +61,7 @@ class Permission
         $this->title = $title;
         $this->key = $key;
         $this->type = $type;
-        $this->subject = $subject;
+        $this->value = $value;
         $this->attributes = $attributes;
     }
 

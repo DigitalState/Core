@@ -3,6 +3,7 @@
 namespace Ds\Component\Security\Voter\Permission;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ds\Component\Security\Model\Subject;
 use Ds\Component\Security\Service\AccessService;
 use Ds\Component\Security\User\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -33,23 +34,7 @@ abstract class PermissionVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-        if (!is_array($subject)) {
-            return false;
-        }
-
-        if (!array_key_exists('type', $subject)) {
-            return false;
-        }
-
-        if (!array_key_exists('subject', $subject)) {
-            return false;
-        }
-
-        if (!array_key_exists('entity', $subject)) {
-            return false;
-        }
-
-        if (!array_key_exists('entity_uuid', $subject)) {
+        if (!$subject instanceof Subject) {
             return false;
         }
 
@@ -68,20 +53,20 @@ abstract class PermissionVoter extends Voter
         }
 
         $permissions = $this->getPermissions($user)->filter(function($permission) use ($subject) {
-            if ($subject['type'] !== $permission->getType()) {
+            if ($subject->getType() !== $permission->getType()) {
                 return false;
             }
 
-            if (!fnmatch($permission->getSubject(), $subject['subject'], FNM_NOESCAPE)) {
+            if (!fnmatch($permission->getValue(), $subject->getValue(), FNM_NOESCAPE)) {
                 return false;
             }
 
-            if ($subject['entity'] !== $permission->getEntity()) {
+            if ($subject->getEntity() !== $permission->getEntity()) {
                 return false;
             }
 
             if (null !== $permission->getEntityUuid()) {
-                if ($subject['entity_uuid'] !== $permission->getEntityUuid()) {
+                if ($subject->getEntityUuid() !== $permission->getEntityUuid()) {
                     return false;
                 }
             }

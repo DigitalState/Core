@@ -3,14 +3,14 @@
 namespace Ds\Component\Security\Model\Attribute;
 
 /**
- * Trait Subject
+ * Trait Value
  */
-trait Subject
+trait Value
 {
-    use Accessor\Subject;
+    use Accessor\Value;
 
     /**
      * @var string
      */
-    protected $subject;
+    protected $value;
 }

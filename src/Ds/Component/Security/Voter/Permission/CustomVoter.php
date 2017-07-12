@@ -5,9 +5,9 @@ namespace Ds\Component\Security\Voter\Permission;
 use Ds\Component\Security\Model\Permission;
 
 /**
- * Class EntityVoter
+ * Class CustomVoter
  */
-class EntityVoter extends PermissionVoter
+class CustomVoter extends PermissionVoter
 {
     /**
      * {@inheritdoc}
@@ -18,11 +18,11 @@ class EntityVoter extends PermissionVoter
             return false;
         }
 
-        if (Permission::ENTITY !== $subject->getType()) {
+        if (Permission::CUSTOM !== $subject->getType()) {
             return false;
         }
 
-        if (!in_array($attribute, [Permission::BROWSE, Permission::READ, Permission::EDIT, Permission::ADD, Permission::DELETE], true)) {
+        if (!in_array($attribute, [Permission::BROWSE, Permission::READ, Permission::EDIT, Permission::ADD, Permission::DELETE, Permission::EXECUTE], true)) {
             return false;
         }
 

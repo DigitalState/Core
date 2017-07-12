@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class PermissionsAction
@@ -35,41 +36,32 @@ class PermissionsAction
     /**
      * Action
      *
-     * @Route(path="/permissions")
      * @Method("GET")
+     * @Route(path="/permissions")
+     * @Security("is_granted('BROWSE', {type:'property', value:'Ds\Component\Security\Entity\Access.id', entity:'BusinessUnit', entity_uuid:'c11c546e-bd01-47cf-97da-e25388357b5a'})")
      */
     public function cget()
     {
-        $permissions = $this->permissionCollection->toArray();
-        $transformed = [];
+        $permissions = [];
 
-        foreach ($permissions as $key => $permission) {
-            switch ($permission['type']) {
+        foreach ($this->permissionCollection as $key => $element) {
+            $permission = $element->toObject();
+
+            switch ($permission->type) {
                 case Permission::PROPERTY:
-                    $permission['entity'] = $this->getEntityKey($permission['subject'], $permissions);
+                    $parent = $this->permissionCollection->getParent($element);
+
+                    if ($parent) {
+                        $permission->parent = $parent->getKey();
+                    }
+
                     break;
             }
 
-            $transformed[$key] = $permission;
-            unset($transformed[$key]['subject']);
+            unset($permission->subject);
+            $permissions[] = $permission;
         }
 
-        return new JsonResponse($transformed);
-    }
-
-    /**
-     * Get entity key for a given subject
-     *
-     * @param string $subject
-     * @param array $permissions
-     * @return string|null
-     */
-    protected function getEntityKey($subject, $permissions)
-    {
-        foreach ($permissions as $permission) {
-            if (Permission::ENTITY === $permission['type'] && 0 === strpos($subject, $permission['subject'])) {
-                return $permission['key'];
-            }
-        }
+        return new JsonResponse($permissions);
     }
 }

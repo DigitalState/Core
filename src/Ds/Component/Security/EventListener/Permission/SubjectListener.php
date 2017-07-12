@@ -43,7 +43,7 @@ class SubjectListener
         }
 
         $permission
-            ->setType($item['type'])
-            ->setSubject($item['subject']);
+            ->setType($item->getType())
+            ->setValue($item->getValue());
     }
 }

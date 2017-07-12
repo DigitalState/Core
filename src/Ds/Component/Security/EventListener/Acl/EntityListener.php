@@ -5,6 +5,7 @@ namespace Ds\Component\Security\EventListener\Acl;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Security\Model\Permission;
+use Ds\Component\Security\Model\Subject;
 use Ds\Component\Security\Voter\Permission\EntityVoter;
 use LogicException;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -81,15 +82,17 @@ class EntityListener
         }
 
         $data = $request->attributes->get('data');
-        $subject = [
-            'type' => Permission::ENTITY,
-            'subject' => $entity
-        ];
+        $subject = new Subject;
+        $subject
+            ->setType(Permission::ENTITY)
+            ->setValue($entity);
 
         if ($data instanceof Paginator) {
             foreach ($data as $item) {
-                $subject['entity'] = $item->getOwner();
-                $subject['entity_uuid'] = $item->getOwnerUuid();
+                $subject
+                    ->setEntity($item->getOwner())
+                    ->setEntityUuid($item->getOwnerUuid());
+
                 $vote = $this->entityVoter->vote($token, $subject, [$permission]);
 
                 if (EntityVoter::ACCESS_ABSTAIN === $vote) {
@@ -101,8 +104,10 @@ class EntityListener
                 }
             }
         } else {
-            $subject['entity'] = $data->getOwner();
-            $subject['entity_uuid'] = $data->getOwnerUuid();
+            $subject
+                ->setEntity($data->getOwner())
+                ->setEntityUuid($data->getOwnerUuid());
+
             $vote = $this->entityVoter->vote($token, $subject, [$permission]);
 
             if (EntityVoter::ACCESS_ABSTAIN === $vote) {
