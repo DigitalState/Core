@@ -1,0 +1,6 @@
+services:
+    ds_entity.service.entity:
+        class: '%ds_entity.service.entity.class%'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        public: false

@@ -1,0 +1,2 @@
+parameters:
+    ds_entity.service.entity.class: Ds\Component\Entity\Service\EntityService
