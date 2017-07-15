@@ -8,9 +8,9 @@ use Ds\Component\Security\Entity\Permission;
 use UnexpectedValueException;
 
 /**
- * Class SubjectListener
+ * Class ValueListener
  */
-class SubjectListener
+class ValueListener
 {
     /**
      * @var \Ds\Component\Security\Collection\PermissionCollection
@@ -38,7 +38,7 @@ class SubjectListener
     {
         $item = $this->permissionCollection->get($permission->getKey());
 
-        if (!$item) {
+        if (!$item) {echo $permission->getKey();exit;
             throw new UnexpectedValueException('Permission does not exist.');
         }
 

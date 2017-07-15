@@ -56,7 +56,7 @@ class PermissionsAction
                     break;
             }
 
-            unset($permission->subject);
+            unset($permission->value);
             $permissions[] = $permission;
         }
 

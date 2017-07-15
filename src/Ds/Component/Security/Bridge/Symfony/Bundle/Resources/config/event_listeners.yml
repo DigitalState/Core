@@ -14,8 +14,8 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 4 }
 
-    ds_security.event_listener.permission.subject:
-        class: '%ds_security.event_listener.permission.subject.class%'
+    ds_security.event_listener.permission.value:
+        class: '%ds_security.event_listener.permission.value.class%'
         arguments:
             - '@ds_security.collection.permission'
         tags:
