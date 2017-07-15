@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Model\EventListener;
+namespace Ds\Component\Entity\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ds\Component\Model\Type\Uuidentifiable;

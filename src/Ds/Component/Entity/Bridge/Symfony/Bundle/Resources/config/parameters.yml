@@ -1,2 +1,4 @@
 parameters:
+    ds_entity.event_listener.identitiable.class: Ds\Component\Entity\EventListener\IdentitiableListener
+    ds_entity.event_listener.uuidentifiable.class: Ds\Component\Entity\EventListener\UuidentifiableListener
     ds_entity.service.entity.class: Ds\Component\Entity\Service\EntityService

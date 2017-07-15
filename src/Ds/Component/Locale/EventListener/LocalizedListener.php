@@ -1,18 +1,18 @@
 <?php
 
-namespace Ds\Component\Model\EventListener;
+namespace Ds\Component\Locale\EventListener;
 
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
-use Ds\Component\Model\Annotation\Translate;
-use Ds\Component\Model\Type\Translatable;
+use Ds\Component\Locale\Model\Annotation\Localized;
+use Ds\Component\Locale\Model\Type\Localizable;
 use Doctrine\Common\Annotations\Reader;
 use ReflectionObject;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 
 /**
- * Class LocalizableListener
+ * Class LocalizedListener
  */
-class LocalizableListener
+class LocalizedListener
 {
     /**
      * @var \Doctrine\Common\Annotations\Reader
@@ -43,59 +43,56 @@ class LocalizableListener
         }
 
         $controllerResult = $event->getControllerResult();
-
-        if (!$controllerResult instanceof Paginator && !$controllerResult instanceof Translatable) {
-            return;
-        }
-
         $locale = $request->query->get('locale');
 
         if ($controllerResult instanceof Paginator) {
             foreach ($controllerResult as $entity) {
-                $this->applyLocale($entity, $locale);
+                if ($entity instanceof Localizable) {
+                    $this->localize($entity, $locale);
+                }
             }
-        } elseif ($controllerResult instanceof Translatable) {
-            $this->applyLocale($controllerResult, $locale);
+        } elseif ($controllerResult instanceof Localizable) {
+            $this->localize($controllerResult, $locale);
         }
 
         $event->setControllerResult($controllerResult);
     }
 
     /**
-     * Apply locale to entity
+     * Localize entity
      *
-     * @param \Ds\Component\Model\Type\Translatable $entity
+     * @param \Ds\Component\Locale\Model\Type\Localizable $entity
      * @param string $locale
      */
-    protected function applyLocale(Translatable $entity,  $locale)
+    protected function localize(Localizable $entity, $locale)
     {
-        $properties = $this->getTranslateProperties($entity);
+        $properties = $this->getLocalizedProperties($entity);
 
         foreach ($properties as $property) {
             $name = ucfirst($property->getName());
             $values = $entity->{'get'.$name}();
 
             if (array_key_exists($locale, $values)) {
-                $entity->{'set'.$name}($values[$locale]);
+                $entity->{'set'.$name}([$locale => $values[$locale]]);
             } else {
-                $entity->{'set'.$name}(null);
+                $entity->{'set'.$name}([$locale => null]);
             }
         }
     }
 
     /**
-     * Get properties with Translate annotation
+     * Get properties with Localized annotation
      *
-     * @param \Ds\Component\Model\Type\Translatable $entity
+     * @param \Ds\Component\Locale\Model\Type\Localizable $entity
      * @return array
      */
-    protected function getTranslateProperties(Translatable $entity)
+    protected function getLocalizedProperties(Localizable $entity)
     {
         $reflection = new ReflectionObject($entity);
         $properties = $reflection->getProperties();
 
         foreach ($properties as $key => $property) {
-            if (!$this->reader->getPropertyAnnotation($property, Translate::class)) {
+            if (!$this->reader->getPropertyAnnotation($property, Localized::class)) {
                 unset($properties[$key]);
             }
         }

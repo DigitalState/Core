@@ -1,0 +1,7 @@
+services:
+    ds_locale.event_listener.localized:
+        class: '%ds_locale.event_listener.localized.class%'
+        arguments:
+            - '@annotation_reader'
+        tags:
+            - { name: kernel.event_listener, event: kernel.view, method: kernelView, priority: 17 }

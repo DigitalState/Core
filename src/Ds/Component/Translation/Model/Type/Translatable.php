@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Model\Type;
+namespace Ds\Component\Translation\Model\Type;
 
 /**
  * Interface Translatable

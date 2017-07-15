@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Model\EventListener;
+namespace Ds\Component\Entity\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ds\Component\Model\Type\Identitiable;
@@ -44,7 +44,6 @@ class IdentitiableListener
         }
 
         $user = $this->tokenStorage->getToken()->getUser();
-
         $entity
             ->setIdentity($user->getIdentity())
             ->setIdentityUuid($user->getIdentityUuid());
