@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Security\Bridge\Symfony\Bundle\Action\Security;
+namespace Ds\Component\Security\Bridge\Symfony\Bundle\Action;
 
 use Ds\Component\Security\Collection\PermissionCollection;
 use Ds\Component\Security\Model\Permission;
