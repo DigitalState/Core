@@ -38,7 +38,7 @@ class ValueListener
     {
         $item = $this->permissionCollection->get($permission->getKey());
 
-        if (!$item) {echo $permission->getKey();exit;
+        if (!$item) {
             throw new UnexpectedValueException('Permission does not exist.');
         }
 
