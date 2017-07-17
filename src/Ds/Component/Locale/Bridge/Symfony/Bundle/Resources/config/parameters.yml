@@ -1,2 +1,2 @@
 parameters:
-    ds_locale.event_listener.localized.class: Ds\Component\Locale\EventListener\LocalizedListener
+    ds_locale.event_listener.locale.class: Ds\Component\Locale\EventListener\LocaleListener

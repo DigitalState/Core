@@ -3,16 +3,16 @@
 namespace Ds\Component\Locale\EventListener;
 
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
-use Ds\Component\Locale\Model\Annotation\Localized;
+use Ds\Component\Locale\Model\Annotation\Locale;
 use Ds\Component\Locale\Model\Type\Localizable;
 use Doctrine\Common\Annotations\Reader;
 use ReflectionObject;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 
 /**
- * Class LocalizedListener
+ * Class LocaleListener
  */
-class LocalizedListener
+class LocaleListener
 {
     /**
      * @var \Doctrine\Common\Annotations\Reader
@@ -66,7 +66,7 @@ class LocalizedListener
      */
     protected function localize(Localizable $entity, $locale)
     {
-        $properties = $this->getLocalizedProperties($entity);
+        $properties = $this->getLocaleProperties($entity);
 
         foreach ($properties as $property) {
             $name = ucfirst($property->getName());
@@ -81,18 +81,18 @@ class LocalizedListener
     }
 
     /**
-     * Get properties with Localized annotation
+     * Get properties with Locale annotation
      *
      * @param \Ds\Component\Locale\Model\Type\Localizable $entity
      * @return array
      */
-    protected function getLocalizedProperties(Localizable $entity)
+    protected function getLocaleProperties(Localizable $entity)
     {
         $reflection = new ReflectionObject($entity);
         $properties = $reflection->getProperties();
 
         foreach ($properties as $key => $property) {
-            if (!$this->reader->getPropertyAnnotation($property, Localized::class)) {
+            if (!$this->reader->getPropertyAnnotation($property, Locale::class)) {
                 unset($properties[$key]);
             }
         }

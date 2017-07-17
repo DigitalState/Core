@@ -3,11 +3,11 @@
 namespace Ds\Component\Locale\Model\Annotation;
 
 /**
- * Class Localized
+ * Class Locale
  *
  * @Annotation
  * @Target("PROPERTY")
  */
-class Localized
+class Locale
 {
 }

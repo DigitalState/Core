@@ -1,6 +1,6 @@
 services:
-    ds_locale.event_listener.localized:
-        class: '%ds_locale.event_listener.localized.class%'
+    ds_locale.event_listener.locale:
+        class: '%ds_locale.event_listener.locale.class%'
         arguments:
             - '@annotation_reader'
         tags:
