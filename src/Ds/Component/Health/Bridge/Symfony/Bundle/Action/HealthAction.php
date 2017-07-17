@@ -42,11 +42,11 @@ class HealthAction
     {
         $statuses = $this->healthService->check();
         $data = $statuses->toObject();
-        $data->checks = new stdClass;
+        $data->statuses = new stdClass;
 
         foreach ($data->collection as $alias => $status) {
             unset($status->alias);
-            $data->checks->{$alias} = $status;
+            $data->statuses->{$alias} = $status;
         }
 
         unset($data->collection);
