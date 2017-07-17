@@ -1,0 +1,5 @@
+parameters:
+    ds_health.check.ping.class: Ds\Component\Health\Check\PingCheck
+    ds_health.check.database.connection.class: Ds\Component\Health\Check\Database\ConnectionCheck
+    ds_health.collection.check.class: Ds\Component\Health\Collection\CheckCollection
+    ds_health.service.health.class: Ds\Component\Health\Service\HealthService
