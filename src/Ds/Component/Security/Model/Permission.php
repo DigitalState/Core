@@ -66,7 +66,7 @@ class Permission
     }
 
     /**
-     * Type cast to array
+     * Type cast to object
      *
      * @return \stdClass
      */
