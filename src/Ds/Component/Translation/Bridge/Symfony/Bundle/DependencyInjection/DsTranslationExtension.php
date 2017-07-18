@@ -23,5 +23,6 @@ class DsTranslationExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('doctrine.yml');
+        $loader->load('event_listeners.yml');
     }
 }
