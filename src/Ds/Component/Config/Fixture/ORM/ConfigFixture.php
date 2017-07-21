@@ -4,7 +4,7 @@ namespace Ds\Component\Config\Fixture\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Ds\Component\Config\Entity\Config;
-use Ds\Component\Migration\Fixture\ORM\ResourceFixture;
+use Ds\Component\Database\Fixture\ORM\ResourceFixture;
 
 /**
  * Class ConfigFixture

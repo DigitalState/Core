@@ -2,9 +2,9 @@
 
 namespace Ds\Component\Security\Fixture\ORM;
 
-use Ds\Component\Migration\Fixture\ORM\ResourceFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ds\Component\Security\Entity\Access;
+use Ds\Component\Database\Fixture\ORM\ResourceFixture;
 
 /**
  * Class AccessFixture

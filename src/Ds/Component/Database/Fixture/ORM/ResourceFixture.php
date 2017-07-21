@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Migration\Fixture\ORM;
+namespace Ds\Component\Database\Fixture\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Ds\Component\Container\Attribute;
@@ -22,8 +22,8 @@ abstract class ResourceFixture extends AbstractFixture implements ContainerAware
      */
     protected function parse($resource)
     {
-        $server = $this->container->getParameter('server');
-        $resource = str_replace('{server}', $server, $resource);
+        $env = $this->container->get('kernel')->getEnvironment();
+        $resource = str_replace('{env}', $env, $resource);
         $items = [];
 
         foreach (glob($resource) as $file) {
