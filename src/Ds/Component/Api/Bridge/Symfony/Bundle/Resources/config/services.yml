@@ -1,7 +1,3 @@
-parameters:
-    ds_api.api.api.class: Ds\Component\Api\Api\Api
-    ds_api.service.individual.class: Ds\Component\Api\Service\IndividualService
-
 services:
     ds_api.http.client:
         class: GuzzleHttp\Client
