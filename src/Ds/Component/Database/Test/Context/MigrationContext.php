@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Database\Behat\Context;
+namespace Ds\Component\Database\Test\Context;
 
 use Behat\Behat\Context\Context;
 use Symfony\Component\Process\Process;
@@ -10,13 +10,6 @@ use Symfony\Component\Process\Process;
  */
 class MigrationContext implements Context
 {
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-    }
-
     /**
      * Run migrations
      *

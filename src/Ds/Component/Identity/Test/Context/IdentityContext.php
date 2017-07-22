@@ -1,12 +1,11 @@
 <?php
 
-namespace Ds\Component\Identity\Behat\Context;
+namespace Ds\Component\Identity\Test\Context;
 
 use Behat\Behat\Context\Context;
 use Behatch\HttpCall\Request;
 use DomainException;
 use Ds\Component\Identity\Collection\IdentityCollection;
-use Ds\Component\Security\User\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 /**
