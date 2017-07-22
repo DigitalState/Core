@@ -87,12 +87,13 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('title')->end()
                     ->enumNode('type')->values(['custom', 'entity', 'property'])->end()
                     ->scalarNode('value')->end()
-                    ->arrayNode('attributes')->isRequired()->requiresAtLeastOneElement()->prototype('scalar')->end()
-                ->end()
-                ->scalarNode('custom')->end()
-                ->scalarNode('entity')->end()
-                ->scalarNode('property')->end()
-            ->end();
+                    ->arrayNode('attributes')
+                        ->prototype('enum')->values(['BROWSE', 'READ', 'EDIT', 'ADD', 'DELETE', 'EXECUTE'])->end()
+                    ->end()
+                    ->scalarNode('custom')->end()
+                    ->scalarNode('entity')->end()
+                    ->scalarNode('property')->end()
+                ->end();
 
         return $node;
     }
