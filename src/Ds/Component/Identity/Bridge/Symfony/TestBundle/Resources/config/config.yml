@@ -1,0 +1,36 @@
+ds_identity_test:
+    identities:
+        admin:
+            username: admin
+            uuid: 64219f39-413b-4384-bae5-18b6948b3979
+            roles: [ROLE_USER]
+            identity: Admin
+            identityUuid: 0fb0d23c-db4d-4b08-8987-317006e96f5a
+
+        system:
+            username: system
+            uuid: 9eb213e2-e108-4d4f-ab6b-62d1e50052ae
+            roles: [ROLE_USER]
+            identity: System
+            identityUuid: b53d5f8e-e85f-43fd-8bc3-c3c9fa65b5a1
+
+        staff:
+            username: staff
+            uuid: b4df246d-0307-4bb9-a732-58326c133839
+            roles: [ROLE_USER]
+            identity: Staff
+            identityUuid: f8f05002-f00a-4d6d-b21c-3408a8c24991
+
+        individual:
+            username: individual
+            uuid: 536f60f4-f357-4dff-8f8f-a6bcfbd6dfb3
+            roles: [ROLE_USER]
+            identity: Individual
+            identityUuid: 458d54d9-8aa4-417d-a58b-d7f84df909ae
+
+        anonymous:
+            username: anonymous
+            uuid: cca27a98-8691-4caa-96b5-015fc6068e8b
+            roles: [ROLE_USER]
+            identity: Anonymous
+            identityUuid: c0391d20-2122-4234-838b-521bd716a54c
