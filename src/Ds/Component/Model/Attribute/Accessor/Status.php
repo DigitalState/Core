@@ -2,8 +2,8 @@
 
 namespace Ds\Component\Model\Attribute\Accessor;
 
-use ReflectionClass;
 use DomainException;
+use ReflectionClass;
 
 /**
  * Trait Status
@@ -19,7 +19,7 @@ trait Status
      */
     public function setStatus($status)
     {
-        if (!in_array($status, $this->getStatuses(), true)) {
+        if ($this->getStatuses() && !in_array($status, $this->getStatuses(), true)) {
             throw new DomainException('Status does not exist.');
         }
 
@@ -43,15 +43,15 @@ trait Status
      *
      * @return array
      */
-    protected function getStatuses()
+    public function getStatuses()
     {
-        static $statuses = null;
+        static $statuses;
 
         if (null === $statuses) {
             $statuses = [];
-            $reflection = new ReflectionClass($this);
+            $class = new ReflectionClass($this);
 
-            foreach ($reflection->getConstants() as $constant => $value) {
+            foreach ($class->getConstants() as $constant => $value) {
                 if ('STATUS_' === substr($constant, 0, 7)) {
                     $statuses[] = $value;
                 }

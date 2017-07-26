@@ -2,8 +2,8 @@
 
 namespace Ds\Component\Model\Attribute\Accessor;
 
-use ReflectionClass;
 use DomainException;
+use ReflectionClass;
 
 /**
  * Trait State
@@ -19,7 +19,7 @@ trait State
      */
     public function setState($state)
     {
-        if (!in_array($state, $this->getStates(), true)) {
+        if ($this->getStates() && !in_array($state, $this->getStates(), true)) {
             throw new DomainException('State does not exist.');
         }
 
@@ -43,15 +43,15 @@ trait State
      *
      * @return array
      */
-    protected function getStates()
+    public function getStates()
     {
-        static $states = null;
+        static $states;
 
         if (null === $states) {
             $states = [];
-            $reflection = new ReflectionClass($this);
+            $class = new ReflectionClass($this);
 
-            foreach ($reflection->getConstants() as $constant => $value) {
+            foreach ($class->getConstants() as $constant => $value) {
                 if ('STATE_' === substr($constant, 0, 6)) {
                     $states[] = $value;
                 }
