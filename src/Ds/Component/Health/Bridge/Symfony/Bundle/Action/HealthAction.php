@@ -7,6 +7,7 @@ use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -36,6 +37,7 @@ class HealthAction
      *
      * @Method("GET")
      * @Route(path="/health")
+     * @Security("is_granted('BROWSE', 'health')")
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function cget()
@@ -59,15 +61,13 @@ class HealthAction
      *
      * @Method("GET")
      * @Route(path="/health/{alias}", requirements={"alias"=".+"})
+     * @Security("is_granted('READ', 'health')")
      * @param string $alias
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function get($alias)
     {
-        if (null !== $alias) {
-            $alias = str_replace('/', '.', $alias);
-        }
-
+        $alias = str_replace('/', '.', $alias);
         $status = $this->healthService->check($alias);
         $data = $status->toObject();
         unset($data->alias);

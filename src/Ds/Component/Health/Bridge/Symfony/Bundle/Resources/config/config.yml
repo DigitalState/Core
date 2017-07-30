@@ -1,0 +1,3 @@
+ds_security:
+    permissions:
+        health: { title: ds.health.permissions.health, custom: health, attributes: [BROWSE, READ] }
