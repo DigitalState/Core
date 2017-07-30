@@ -24,3 +24,4 @@ ds_security:
         access_identity:       { title: ds.security.permissions.access.identity,         property: Ds\Component\Security\Entity\Access.identity,       attributes: [BROWSE, READ, EDIT] }
         access_identity_uuid:  { title: ds.security.permissions.access.identity_uuid,    property: Ds\Component\Security\Entity\Access.identityUuid,   attributes: [BROWSE, READ, EDIT] }
         access_permissions:    { title: ds.security.permissions.access.permissions,      property: Ds\Component\Security\Entity\Access.permissions,    attributes: [BROWSE, READ, EDIT] }
+        permissions:           { title: ds.security.permissions.permissions,             custom:   permissions,                                        attributes: [BROWSE, READ] }

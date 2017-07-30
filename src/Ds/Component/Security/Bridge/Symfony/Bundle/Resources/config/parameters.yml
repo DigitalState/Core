@@ -18,5 +18,6 @@ parameters:
     ds_security.repository.permission.class: Ds\Component\Security\Repository\PermissionRepository
     ds_security.service.access.class: Ds\Component\Security\Service\AccessService
     ds_security.service.permission.class: Ds\Component\Security\Service\PermissionService
-    ds_security.voter.permission.entity.class: Ds\Component\Security\Voter\Permission\EntityVoter
-    ds_security.voter.permission.property.class: Ds\Component\Security\Voter\Permission\PropertyVoter
+    ds_security.voter.custom.class: Ds\Component\Security\Voter\CustomVoter
+    ds_security.voter.entity.class: Ds\Component\Security\Voter\EntityVoter
+    ds_security.voter.property.class: Ds\Component\Security\Voter\PropertyVoter

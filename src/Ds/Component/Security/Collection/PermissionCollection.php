@@ -92,7 +92,7 @@ class PermissionCollection extends ArrayCollection
     /**
      * Cast element to permission object
      *
-     * @param $element
+     * @param mixed $element
      * @return \Ds\Component\Security\Model\Permission
      * @throws \InvalidArgumentException
      */
@@ -102,7 +102,7 @@ class PermissionCollection extends ArrayCollection
         }
 
         if (!is_array($element)) {
-            throw new InvalidArgumentException('Element is not an array.');
+            throw new InvalidArgumentException('Element is not an array or object.');
         }
 
         foreach (['title', 'type', 'value', 'attributes'] as $key) {

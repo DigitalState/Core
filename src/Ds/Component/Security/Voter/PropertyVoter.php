@@ -1,7 +1,8 @@
 <?php
 
-namespace Ds\Component\Security\Voter\Permission;
+namespace Ds\Component\Security\Voter;
 
+use Ds\Component\Security\Model\Permission;
 use Ds\Component\Security\Model\Subject;
 use Ds\Component\Security\Service\AccessService;
 use Ds\Component\Security\User\User;
@@ -9,9 +10,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
- * Class PermissionVoter
+ * Class PropertyVoter
  */
-abstract class PermissionVoter extends Voter
+class PropertyVoter extends Voter
 {
     /**
      * @var \Ds\Component\Security\Service\AccessService
@@ -34,6 +35,14 @@ abstract class PermissionVoter extends Voter
     protected function supports($attribute, $subject)
     {
         if (!$subject instanceof Subject) {
+            return false;
+        }
+
+        if (Permission::PROPERTY !== $subject->getType()) {
+            return false;
+        }
+
+        if (!in_array($attribute, [Permission::BROWSE, Permission::READ, Permission::EDIT], true)) {
             return false;
         }
 

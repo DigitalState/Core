@@ -6,7 +6,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Security\Model\Permission;
 use Ds\Component\Security\Model\Subject;
-use Ds\Component\Security\Voter\Permission\EntityVoter;
+use Ds\Component\Security\Voter\EntityVoter;
 use LogicException;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -23,7 +23,7 @@ class EntityListener
     protected $tokenStorage;
 
     /**
-     * @var \Ds\Component\Security\Voter\Permission\EntityVoter
+     * @var \Ds\Component\Security\Voter\EntityVoter
      */
     protected $entityVoter;
 
@@ -31,7 +31,7 @@ class EntityListener
      * Constructor
      *
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Ds\Component\Security\Voter\Permission\EntityVoter $entityVoter
+     * @param \Ds\Component\Security\Voter\EntityVoter $entityVoter
      */
     public function __construct(TokenStorageInterface $tokenStorage, EntityVoter $entityVoter)
     {
