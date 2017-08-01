@@ -2,6 +2,8 @@
 
 namespace Ds\Component\Model\Attribute\Accessor;
 
+use DateTime;
+
 /**
  * Trait Enabled
  */
@@ -16,6 +18,10 @@ trait Enabled
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
+
+        if (property_exists($this, 'enabledAt')) {
+            $this->enabledAt = $enabled ? new DateTime : null;
+        }
 
         return $this;
     }

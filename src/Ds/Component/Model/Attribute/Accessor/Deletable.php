@@ -2,6 +2,8 @@
 
 namespace Ds\Component\Model\Attribute\Accessor;
 
+use DateTime;
+
 /**
  * Trait Deleted
  */
@@ -16,6 +18,10 @@ trait Deleted
     public function setDeleted($deleted)
     {
         $this->deleted = $deleted;
+
+        if (property_exists($this, 'deletedAt')) {
+            $this->deletedAt = $deleted ? new DateTime : null;
+        }
 
         return $this;
     }
