@@ -29,4 +29,14 @@ trait Enabled
     {
         return $this->enabled;
     }
+
+    /**
+     * Check if enabled or not
+     *
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
 }
