@@ -21,4 +21,11 @@ interface Enableable
      * @return boolean
      */
     public function getEnabled();
+
+    /**
+     * Check if enabled or not
+     *
+     * @return boolean
+     */
+    public function isEnabled();
 }
