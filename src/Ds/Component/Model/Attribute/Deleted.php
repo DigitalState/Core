@@ -8,9 +8,4 @@ namespace Ds\Component\Model\Attribute;
 trait Deleted
 {
     use Accessor\Deleted;
-
-    /**
-     * @var boolean
-     */
-    protected $deleted;
 }

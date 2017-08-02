@@ -17,11 +17,7 @@ trait Deleted
      */
     public function setDeleted($deleted)
     {
-        $this->deleted = $deleted;
-
-        if (property_exists($this, 'deletedAt')) {
-            $this->deletedAt = $deleted ? new DateTime : null;
-        }
+        $this->deletedAt = $deleted ? new DateTime : null;
 
         return $this;
     }
@@ -33,16 +29,6 @@ trait Deleted
      */
     public function getDeleted()
     {
-        return $this->deleted;
-    }
-
-    /**
-     * Check if deleted or not
-     *
-     * @return boolean
-     */
-    public function isDeleted()
-    {
-        return $this->deleted;
+        return $this->deletedAt !== null;
     }
 }
