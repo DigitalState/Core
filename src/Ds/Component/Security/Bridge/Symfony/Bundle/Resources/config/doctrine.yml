@@ -1,4 +1,14 @@
 services:
+    ds_security.doctrine.orm.query_extension.enabled:
+        class: '%ds_security.doctrine.orm.query_extension.enabled.class%'
+        public: false
+        arguments:
+            - '@security.token_storage'
+            - '@security.authorization_checker'
+        tags:
+            - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
+            - { name: api_platform.doctrine.orm.query_extension.item }
+
     ds_security.doctrine.orm.query_extension.deleted:
         class: '%ds_security.doctrine.orm.query_extension.deleted.class%'
         public: false
