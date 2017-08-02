@@ -32,9 +32,7 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
             'filter' => [
                 'identity' => false,
                 'anonymous' => false,
-                'individual' => false,
-                'owner' => false,
-                'enabled' => false
+                'individual' => false
             ],
             'permissions' => []
         ]);
@@ -86,6 +84,7 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
     protected function loadAcl($acl, ContainerBuilder $container)
     {
         if (!$acl) {
+            $container->removeDefinition('ds_security.doctrine.orm.query_extension.deleted');
             $container->removeDefinition('ds_security.event_listener.acl.entity');
             $container->removeDefinition('ds_security.serializer.normalizer.acl.property');
             $container->removeDefinition('ds_security.serializer.jsonld.normalizer.acl.property');

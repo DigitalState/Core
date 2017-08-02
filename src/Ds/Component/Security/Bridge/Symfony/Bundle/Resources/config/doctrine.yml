@@ -1,6 +1,6 @@
 services:
-    ds_security.doctrine.orm.query_extension.anonymous:
-        class: '%ds_security.doctrine.orm.query_extension.anonymous.class%'
+    ds_security.doctrine.orm.query_extension.deleted:
+        class: '%ds_security.doctrine.orm.query_extension.deleted.class%'
         public: false
         arguments:
             - '@security.token_storage'
@@ -9,12 +9,22 @@ services:
             - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
             - { name: api_platform.doctrine.orm.query_extension.item }
 
-    ds_security.doctrine.orm.query_extension.individual:
-        class: '%ds_security.doctrine.orm.query_extension.individual.class%'
-        public: false
-        arguments:
-            - '@security.token_storage'
-            - '@security.authorization_checker'
-        tags:
-            - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
-            - { name: api_platform.doctrine.orm.query_extension.item }
+#    ds_security.doctrine.orm.query_extension.anonymous:
+#        class: '%ds_security.doctrine.orm.query_extension.anonymous.class%'
+#        public: false
+#        arguments:
+#            - '@security.token_storage'
+#            - '@security.authorization_checker'
+#        tags:
+#            - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
+#            - { name: api_platform.doctrine.orm.query_extension.item }
+#
+#    ds_security.doctrine.orm.query_extension.individual:
+#        class: '%ds_security.doctrine.orm.query_extension.individual.class%'
+#        public: false
+#        arguments:
+#            - '@security.token_storage'
+#            - '@security.authorization_checker'
+#        tags:
+#            - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
+#            - { name: api_platform.doctrine.orm.query_extension.item }

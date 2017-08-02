@@ -64,8 +64,6 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('identity')->defaultFalse()->end()
                 ->booleanNode('anonymous')->defaultFalse()->end()
                 ->booleanNode('individual')->defaultFalse()->end()
-                ->booleanNode('owner')->defaultFalse()->end()
-                ->booleanNode('enabled')->defaultFalse()->end()
             ->end();
 
         return $node;

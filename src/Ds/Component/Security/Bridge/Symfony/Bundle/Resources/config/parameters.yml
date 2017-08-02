@@ -2,8 +2,7 @@ parameters:
     ds_security.collection.permission.class: Ds\Component\Security\Collection\PermissionCollection
     ds_security.entity.access.class: Ds\Component\Security\Entity\Access
     ds_security.entity.permission.class: Ds\Component\Security\Entity\Permission
-    ds_security.doctrine.orm.query_extension.anonymous.class: Ds\Component\Security\Doctrine\ORM\QueryExtension\AnonymousExtension
-    ds_security.doctrine.orm.query_extension.individual.class: Ds\Component\Security\Doctrine\ORM\QueryExtension\IndividualExtension
+    ds_security.doctrine.orm.query_extension.deleted.class: Ds\Component\Security\Doctrine\ORM\QueryExtension\DeletedExtension
     ds_security.event_listener.acl.entity.class: Ds\Component\Security\EventListener\Acl\EntityListener
     ds_security.event_listener.access.permissions.class: Ds\Component\Security\EventListener\Access\PermissionsListener
     ds_security.event_listener.permission.value.class: Ds\Component\Security\EventListener\Permission\ValueListener
