@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Type;
 
 /**
  * Interface Associable
+ *
+ * @package Ds\Component\Model
  */
 interface Associable
 {

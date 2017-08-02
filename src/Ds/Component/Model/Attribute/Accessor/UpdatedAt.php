@@ -6,6 +6,8 @@ use DateTime;
 
 /**
  * Trait CreatedAt
+ *
+ * @package Ds\Component\Model
  */
 trait UpdatedAt
 {

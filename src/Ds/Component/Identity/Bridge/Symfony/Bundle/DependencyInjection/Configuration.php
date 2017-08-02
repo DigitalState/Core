@@ -7,6 +7,8 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * Class Configuration
+ *
+ * @package Ds\Component\Identity
  */
 class Configuration implements ConfigurationInterface
 {

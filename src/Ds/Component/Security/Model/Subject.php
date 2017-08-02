@@ -6,6 +6,8 @@ use Ds\Component\Model\Attribute;
 
 /**
  * Class Subject
+ *
+ * @package Ds\Component\Security
  */
 class Subject
 {

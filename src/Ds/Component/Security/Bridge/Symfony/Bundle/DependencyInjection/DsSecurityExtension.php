@@ -11,6 +11,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Class DsSecurityExtension
+ *
+ * @package Ds\Component\Security
  */
 class DsSecurityExtension extends Extension implements PrependExtensionInterface
 {

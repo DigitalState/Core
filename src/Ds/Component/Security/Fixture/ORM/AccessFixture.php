@@ -8,6 +8,8 @@ use Ds\Component\Database\Fixture\ORM\ResourceFixture;
 
 /**
  * Class AccessFixture
+ *
+ * @package Ds\Component\Security
  */
 abstract class AccessFixture extends ResourceFixture
 {

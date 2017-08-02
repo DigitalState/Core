@@ -13,6 +13,8 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 /**
  * Class DeletedExtension
+ *
+ * @package Ds\Component\Security
  */
 class DeletedExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {

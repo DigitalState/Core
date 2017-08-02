@@ -7,6 +7,8 @@ use ReflectionClass;
 
 /**
  * Trait Status
+ *
+ * @package Ds\Component\Model
  */
 trait Status
 {

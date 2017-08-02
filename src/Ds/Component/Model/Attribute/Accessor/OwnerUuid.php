@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Attribute\Accessor;
 
 /**
  * Trait OwnerUuid
+ *
+ * @package Ds\Component\Model
  */
 trait OwnerUuid
 {

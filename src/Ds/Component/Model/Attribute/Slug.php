@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Attribute;
 
 /**
  * Trait Slug
+ *
+ * @package Ds\Component\Model
  */
 trait Slug
 {

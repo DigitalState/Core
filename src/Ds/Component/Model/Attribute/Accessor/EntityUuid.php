@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Attribute\Accessor;
 
 /**
  * Trait EntityUuid
+ *
+ * @package Ds\Component\Model
  */
 trait EntityUuid
 {

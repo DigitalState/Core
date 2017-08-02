@@ -9,6 +9,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Class DsSessionExtension
+ *
+ * @package Ds\Component\Session
  */
 class DsSessionExtension extends Extension
 {

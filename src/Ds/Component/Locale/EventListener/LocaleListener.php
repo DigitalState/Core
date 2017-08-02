@@ -11,6 +11,8 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 
 /**
  * Class LocaleListener
+ *
+ * @package Ds\Component\Locale
  */
 class LocaleListener
 {

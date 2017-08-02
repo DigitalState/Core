@@ -6,6 +6,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Trait Container
+ *
+ * @package Ds\Component\Container
  */
 trait Container
 {

@@ -13,6 +13,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
  * Class CustomVoter
+ *
+ * @package Ds\Component\Security
  */
 class CustomVoter extends Voter
 {

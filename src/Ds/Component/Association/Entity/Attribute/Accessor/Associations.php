@@ -6,6 +6,8 @@ use Ds\Component\Association\Entity\Association;
 
 /**
  * Trait Associations
+ *
+ * @package Ds\Component\Association
  */
 trait Associations
 {

@@ -19,6 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
 /**
  * Class Config
  *
+ * @package Ds\Component\Config
  * @ApiResource(
  *     collectionOperations={
  *         "get"={"method"="GET"}

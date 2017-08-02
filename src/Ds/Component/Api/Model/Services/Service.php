@@ -7,6 +7,8 @@ use Ds\Component\Api\Model\Model;
 
 /**
  * Class Service
+ *
+ * @package Ds\Component\Api
  */
 class Service implements Model
 {

@@ -6,6 +6,8 @@ use DomainException;
 
 /**
  * Class Permission
+ *
+ * @package Ds\Component\Security
  */
 class Permission
 {

@@ -8,6 +8,8 @@ use InvalidArgumentException;
 
 /**
  * Class IdentityCollection
+ *
+ * @package Ds\Component\Identity
  */
 class IdentityCollection extends ArrayCollection
 {

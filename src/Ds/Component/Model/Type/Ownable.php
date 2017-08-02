@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Type;
 
 /**
  * Interface Ownable
+ *
+ * @package Ds\Component\Model
  */
 interface Ownable
 {

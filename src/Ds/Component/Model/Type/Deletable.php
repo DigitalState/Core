@@ -6,6 +6,8 @@ use DateTime;
 
 /**
  * Interface Deletable
+ *
+ * @package Ds\Component\Model
  */
 interface Deletable
 {

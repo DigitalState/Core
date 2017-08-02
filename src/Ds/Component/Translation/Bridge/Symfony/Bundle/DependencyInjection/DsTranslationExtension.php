@@ -9,6 +9,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Class DsTranslationExtension
+ *
+ * @package Ds\Component\Translation
  */
 class DsTranslationExtension extends Extension
 {

@@ -7,6 +7,8 @@ use Ds\Component\Api\Model\Model;
 
 /**
  * Class Individual
+ *
+ * @package Ds\Component\Api
  */
 class Individual implements Model
 {

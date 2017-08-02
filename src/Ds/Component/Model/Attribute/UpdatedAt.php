@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Attribute;
 
 /**
  * Trait UpdatedAt
+ *
+ * @package Ds\Component\Model
  */
 trait UpdatedAt
 {

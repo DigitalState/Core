@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Attribute\Accessor;
 
 /**
  * Trait Weight
+ *
+ * @package Ds\Component\Model
  */
 trait Weight
 {

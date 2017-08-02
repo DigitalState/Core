@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * Class EntityService
+ *
+ * @package Ds\Component\Entity
  */
 class EntityService
 {

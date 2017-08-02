@@ -4,6 +4,8 @@ namespace Ds\Component\Translation\Model\Attribute\Accessor;
 
 /**
  * Trait Title
+ *
+ * @package Ds\Component\Translation
  */
 trait Title
 {

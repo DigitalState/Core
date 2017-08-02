@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Type;
 
 /**
  * Interface Identitiable
+ *
+ * @package Ds\Component\Model
  */
 interface Identitiable
 {

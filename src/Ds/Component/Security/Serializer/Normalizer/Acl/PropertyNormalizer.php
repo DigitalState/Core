@@ -20,6 +20,8 @@ use Symfony\Component\Validator\ConstraintViolation;
 
 /**
  * Class PropertyNormalizer
+ *
+ * @package Ds\Component\Security
  */
 class PropertyNormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
 {
@@ -48,7 +50,7 @@ class PropertyNormalizer implements NormalizerInterface, DenormalizerInterface, 
      *
      * @param \ApiPlatform\Core\Serializer\AbstractItemNormalizer $decorated
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Ds\Component\Security\Voter\Permission\PropertyVoter $propertyVoter
+     * @param \Ds\Component\Security\Voter\PropertyVoter $propertyVoter
      */
     public function __construct(AbstractItemNormalizer $decorated, TokenStorageInterface $tokenStorage, PropertyVoter $propertyVoter)
     {

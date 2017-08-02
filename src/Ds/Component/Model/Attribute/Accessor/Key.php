@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Attribute\Accessor;
 
 /**
  * Trait Key
+ *
+ * @package Ds\Component\Model
  */
 trait Key
 {

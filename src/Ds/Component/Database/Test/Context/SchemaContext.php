@@ -8,6 +8,8 @@ use Doctrine\ORM\Tools\SchemaTool;
 
 /**
  * Class SchemaContext
+ *
+ * @package Ds\Component\Database
  */
 class SchemaContext implements Context
 {

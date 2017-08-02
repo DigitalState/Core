@@ -9,6 +9,8 @@ use DomainException;
 
 /**
  * Class OrderFilter
+ *
+ * @package Ds\Component\Translation
  */
 class OrderFilter extends BaseOrderFilter
 {

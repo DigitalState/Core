@@ -6,6 +6,8 @@ use DateTime;
 
 /**
  * Trait Enabled
+ *
+ * @package Ds\Component\Model
  */
 trait Enabled
 {

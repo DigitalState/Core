@@ -4,6 +4,8 @@ namespace Ds\Component\Api\Query;
 
 /**
  * Interface Parameters
+ *
+ * @package Ds\Component\Api
  */
 interface Parameters
 {

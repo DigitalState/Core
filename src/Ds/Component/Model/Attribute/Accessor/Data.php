@@ -6,6 +6,8 @@ use OutOfRangeException;
 
 /**
  * Trait Data
+ *
+ * @package Ds\Component\Model
  */
 trait Data
 {

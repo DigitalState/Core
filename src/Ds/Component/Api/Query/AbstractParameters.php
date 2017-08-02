@@ -6,6 +6,8 @@ use stdClass;
 
 /**
  * Class AbstractParameters
+ *
+ * @package Ds\Component\Api
  */
 abstract class AbstractParameters implements Parameters
 {

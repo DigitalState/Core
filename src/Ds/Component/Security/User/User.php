@@ -7,6 +7,8 @@ use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 
 /**
  * Class User
+ *
+ * @package Ds\Component\Security
  */
 class User implements AdvancedUserInterface, JWTUserInterface
 {

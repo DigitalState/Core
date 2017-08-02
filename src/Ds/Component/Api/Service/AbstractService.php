@@ -11,6 +11,8 @@ use UnexpectedValueException;
 
 /**
  * Class AbstractService
+ *
+ * @package Ds\Component\Api
  */
 abstract class AbstractService implements Service
 {

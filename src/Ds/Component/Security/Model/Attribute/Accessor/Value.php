@@ -4,6 +4,8 @@ namespace Ds\Component\Security\Model\Attribute\Accessor;
 
 /**
  * Trait Value
+ *
+ * @package Ds\Component\Security
  */
 trait Value
 {

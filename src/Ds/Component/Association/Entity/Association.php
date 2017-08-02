@@ -17,6 +17,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Association
+ *
+ * @package Ds\Component\Association
  */
 class Association implements Identifiable, Uuidentifiable, Associable, Ownable, Versionable
 {

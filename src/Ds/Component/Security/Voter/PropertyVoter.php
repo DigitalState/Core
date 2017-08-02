@@ -11,6 +11,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
  * Class PropertyVoter
+ *
+ * @package Ds\Component\Security
  */
 class PropertyVoter extends Voter
 {

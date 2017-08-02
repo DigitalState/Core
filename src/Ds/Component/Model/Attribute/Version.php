@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Attribute;
 
 /**
  * Trait Version
+ *
+ * @package Ds\Component\Model
  */
 trait Version
 {

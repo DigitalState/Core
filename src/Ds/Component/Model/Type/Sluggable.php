@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Type;
 
 /**
  * Interface Sluggable
+ *
+ * @package Ds\Component\Model
  */
 interface Sluggable
 {

@@ -8,6 +8,8 @@ use InvalidArgumentException;
 
 /**
  * Class PermissionCollection
+ *
+ * @package Ds\Component\Security
  */
 class PermissionCollection extends ArrayCollection
 {

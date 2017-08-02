@@ -7,6 +7,8 @@ use GuzzleHttp\ClientInterface;
 
 /**
  * Class Api
+ *
+ * @package Ds\Component\Api
  */
 class Api
 {

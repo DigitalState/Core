@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class EntityListener
+ *
+ * @package Ds\Component\Security
  */
 class EntityListener
 {

@@ -7,6 +7,8 @@ use Ds\Component\Identity\Identity;
 
 /**
  * Class IndividualExtension
+ *
+ * @package Ds\Component\Security
  */
 class IndividualExtension extends IdentityExtension
 {

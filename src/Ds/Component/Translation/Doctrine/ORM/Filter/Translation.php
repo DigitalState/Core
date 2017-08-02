@@ -7,6 +7,8 @@ use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * Trait Translation
+ *
+ * @package Ds\Component\Translation
  */
 trait Translation
 {

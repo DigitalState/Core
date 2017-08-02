@@ -6,6 +6,8 @@ use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class IdentityExtension
+ *
+ * @package Ds\Component\Security
  */
 class IdentityExtension extends AuthorizationExtension
 {

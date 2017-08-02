@@ -6,6 +6,8 @@ use Ds\Component\Translation\Model\Attribute\Accessor;
 
 /**
  * Trait Description
+ *
+ * @package Ds\Component\Translation
  */
 trait Description
 {

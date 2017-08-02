@@ -6,6 +6,8 @@ use Ds\Component\Api\Query\AbstractParameters;
 
 /**
  * Class ServiceParameters
+ *
+ * @package Ds\Component\Api
  */
 class ServiceParameters extends AbstractParameters
 {

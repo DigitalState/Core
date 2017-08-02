@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class PermissionsAction
  *
+ * @package Ds\Component\Security
  * @ApiResource
  */
 class PermissionsAction

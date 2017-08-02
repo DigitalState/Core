@@ -8,6 +8,8 @@ use Ds\Component\Database\Fixture\ORM\ResourceFixture;
 
 /**
  * Class ConfigFixture
+ *
+ * @package Ds\Component\Config
  */
 abstract class ConfigFixture extends ResourceFixture
 {

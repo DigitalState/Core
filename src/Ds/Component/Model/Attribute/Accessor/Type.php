@@ -7,6 +7,8 @@ use ReflectionClass;
 
 /**
  * Trait Type
+ *
+ * @package Ds\Component\Model
  */
 trait Type
 {

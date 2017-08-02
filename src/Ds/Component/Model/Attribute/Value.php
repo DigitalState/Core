@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Attribute;
 
 /**
  * Trait Value
+ *
+ * @package Ds\Component\Model
  */
 trait Value
 {

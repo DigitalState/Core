@@ -13,6 +13,8 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 /**
  * Class EnabledExtension
+ *
+ * @package Ds\Component\Security
  */
 class EnabledExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {

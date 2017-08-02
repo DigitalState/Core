@@ -7,6 +7,8 @@ use Symfony\Component\Process\Process;
 
 /**
  * Class MigrationContext
+ *
+ * @package Ds\Component\Database
  */
 class MigrationContext implements Context
 {

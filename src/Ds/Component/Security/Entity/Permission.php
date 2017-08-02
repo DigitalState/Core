@@ -16,6 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
 /**
  * Class Permission
  *
+ * @package Ds\Component\Security
  * @ApiResource(
  *      attributes={
  *          "normalization_context"={

@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Attribute\Accessor;
 
 /**
  * Trait Identity
+ *
+ * @package Ds\Component\Model
  */
 trait Identity
 {

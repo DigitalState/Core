@@ -8,6 +8,8 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 
 /**
  * Class IpListener
+ *
+ * @package Ds\Component\Security
  */
 class IpListener
 {

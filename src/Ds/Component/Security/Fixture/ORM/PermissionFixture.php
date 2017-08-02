@@ -9,6 +9,8 @@ use Ds\Component\Database\Fixture\ORM\ResourceFixture;
 
 /**
  * Class PermissionFixture
+ *
+ * @package Ds\Component\Security
  */
 abstract class PermissionFixture extends ResourceFixture
 {

@@ -4,6 +4,8 @@ namespace Ds\Component\Identity;
 
 /**
  * Interface Identity
+ *
+ * @package Ds\Component\Identity
  */
 interface Identity
 {

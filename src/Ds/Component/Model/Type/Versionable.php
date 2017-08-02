@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Type;
 
 /**
  * Interface Versionable
+ *
+ * @package Ds\Component\Model
  */
 interface Versionable
 {

@@ -7,6 +7,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class ConfigPass
+ *
+ * @package Ds\Component\Config
  */
 class ConfigPass implements CompilerPassInterface
 {

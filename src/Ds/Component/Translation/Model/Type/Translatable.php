@@ -4,6 +4,8 @@ namespace Ds\Component\Translation\Model\Type;
 
 /**
  * Interface Translatable
+ *
+ * @package Ds\Component\Translation
  */
 interface Translatable
 {

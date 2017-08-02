@@ -8,6 +8,8 @@ use OutOfRangeException;
 
 /**
  * Class ConfigService
+ *
+ * @package Ds\Component\Config
  */
 class ConfigService
 {

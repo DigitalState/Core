@@ -4,6 +4,8 @@ namespace Ds\Component\Container\Attribute;
 
 /**
  * Trait Container
+ *
+ * @package Ds\Component\Container
  */
 trait Container
 {

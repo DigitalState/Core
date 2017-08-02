@@ -7,6 +7,8 @@ use Ds\Component\Security\User\User;
 
 /**
  * Class OwnerExtension
+ *
+ * @package Ds\Component\Security
  */
 class OwnerExtension extends AuthorizationExtension
 {

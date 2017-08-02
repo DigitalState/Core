@@ -10,6 +10,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Class DsLocaleExtension
+ *
+ * @package Ds\Component\Locale
  */
 class DsLocaleExtension extends Extension implements PrependExtensionInterface
 {

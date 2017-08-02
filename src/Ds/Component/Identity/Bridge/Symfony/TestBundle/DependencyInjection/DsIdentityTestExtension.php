@@ -11,6 +11,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Class DsIdentityTestExtension
+ *
+ * @package Ds\Component\Identity
  */
 class DsIdentityTestExtension extends Extension implements PrependExtensionInterface
 {

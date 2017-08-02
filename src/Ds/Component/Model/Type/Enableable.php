@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Type;
 
 /**
  * Interface Enableable
+ *
+ * @package Ds\Component\Model
  */
 interface Enableable
 {

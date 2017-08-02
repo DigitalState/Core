@@ -10,6 +10,8 @@ use ReflectionObject;
 
 /**
  * Class TranslateListener
+ *
+ * @package Ds\Component\Translation
  */
 class TranslateListener
 {

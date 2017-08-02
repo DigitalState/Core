@@ -9,6 +9,8 @@ use UnexpectedValueException;
 
 /**
  * Class ValueListener
+ *
+ * @package Ds\Component\Security
  */
 class ValueListener
 {

@@ -9,6 +9,8 @@ use Ds\Component\Security\Service\AccessService;
 
 /**
  * Class PermissionsListener
+ *
+ * @package Ds\Component\Security
  */
 class PermissionsListener
 {

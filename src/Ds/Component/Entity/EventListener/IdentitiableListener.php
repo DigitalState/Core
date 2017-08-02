@@ -8,6 +8,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
  * Class IdentitiableListener
+ *
+ * @package Ds\Component\Entity
  */
 class IdentitiableListener
 {

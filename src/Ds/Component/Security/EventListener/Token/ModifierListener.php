@@ -8,6 +8,8 @@ use OutOfRangeException;
 
 /**
  * Class ModifierListener
+ *
+ * @package Ds\Component\Security
  */
 class ModifierListener
 {

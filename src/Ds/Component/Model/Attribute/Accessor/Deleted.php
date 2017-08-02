@@ -6,6 +6,8 @@ use DateTime;
 
 /**
  * Trait Deleted
+ *
+ * @package Ds\Component\Model
  */
 trait Deleted
 {

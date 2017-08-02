@@ -7,6 +7,8 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 
 /**
  * Class IdentityUuidListener
+ *
+ * @package Ds\Component\Security
  */
 class IdentityUuidListener
 {

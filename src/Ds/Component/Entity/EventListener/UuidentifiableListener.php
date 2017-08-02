@@ -8,6 +8,8 @@ use Ramsey\Uuid\Uuid;
 
 /**
  * Class UuidentifiableListener
+ *
+ * @package Ds\Component\Entity
  */
 class UuidentifiableListener
 {

@@ -9,6 +9,8 @@ use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class ResourceFixture
+ *
+ * @package Ds\Component\Database
  */
 abstract class ResourceFixture extends AbstractFixture implements ContainerAwareInterface
 {

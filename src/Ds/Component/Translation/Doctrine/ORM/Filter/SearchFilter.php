@@ -8,6 +8,8 @@ use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class SearchFilter
+ *
+ * @package Ds\Component\Translation
  */
 class SearchFilter extends BaseSearchFilter
 {

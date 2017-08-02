@@ -8,6 +8,8 @@ use Ds\Component\Api\Service\AbstractService;
 
 /**
  * Class IndividualService
+ *
+ * @package Ds\Component\Api
  */
 class IndividualService extends AbstractService
 {

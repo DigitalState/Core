@@ -13,6 +13,8 @@ use Ds\Component\Security\Exception\InvalidUserTypeException;
 
 /**
  * Class AuthorizationExtension
+ *
+ * @package Ds\Component\Security
  */
 abstract class AuthorizationExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {

@@ -4,6 +4,8 @@ namespace Ds\Component\Model\Attribute\Accessor;
 
 /**
  * Trait Presentation
+ *
+ * @package Ds\Component\Model
  */
 trait Presentation
 {

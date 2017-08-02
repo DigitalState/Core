@@ -21,6 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
 /**
  * Class Access
  *
+ * @package Ds\Component\Security
  * @ApiResource(
  *      attributes={
  *          "filters"={"ds.access.search", "ds.access.date"},

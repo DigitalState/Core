@@ -7,6 +7,8 @@ use Ds\Component\Identity\Identity;
 
 /**
  * Class AnonymousExtension
+ *
+ * @package Ds\Component\Security
  */
 class AnonymousExtension extends IdentityExtension
 {

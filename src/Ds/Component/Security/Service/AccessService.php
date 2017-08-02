@@ -8,6 +8,8 @@ use Ds\Component\Security\User\User;
 
 /**
  * Class AccessService
+ *
+ * @package Ds\Component\Security
  */
 class AccessService extends EntityService
 {

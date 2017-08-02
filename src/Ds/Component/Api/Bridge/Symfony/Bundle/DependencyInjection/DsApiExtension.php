@@ -9,6 +9,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Class DsApiExtension
+ *
+ * @package Ds\Component\Api
  */
 class DsApiExtension extends Extension
 {

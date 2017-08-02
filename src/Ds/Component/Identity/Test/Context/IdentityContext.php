@@ -10,6 +10,8 @@ use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 /**
  * Class IdentityContext
+ *
+ * @package Ds\Component\Identity
  */
 class IdentityContext implements Context
 {

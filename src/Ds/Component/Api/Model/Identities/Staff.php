@@ -7,6 +7,8 @@ use Ds\Component\Api\Model\Model;
 
 /**
  * Class Staff
+ *
+ * @package Ds\Component\Api
  */
 class Staff implements Model
 {

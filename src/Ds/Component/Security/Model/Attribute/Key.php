@@ -4,6 +4,8 @@ namespace Ds\Component\Security\Model\Attribute;
 
 /**
  * Trait Key
+ *
+ * @package Ds\Component\Security
  */
 trait Key
 {

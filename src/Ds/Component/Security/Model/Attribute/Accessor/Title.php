@@ -4,6 +4,8 @@ namespace Ds\Component\Security\Model\Attribute\Accessor;
 
 /**
  * Trait Title
+ *
+ * @package Ds\Component\Security
  */
 trait Title
 {

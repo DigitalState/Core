@@ -4,6 +4,8 @@ namespace Ds\Component\Api\Model\Attribute;
 
 /**
  * Trait Uuid
+ *
+ * @package Ds\Component\Api
  */
 trait Uuid
 {

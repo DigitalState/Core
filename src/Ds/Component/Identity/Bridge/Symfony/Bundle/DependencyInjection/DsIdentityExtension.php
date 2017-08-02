@@ -10,6 +10,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Class DsIdentityExtension
+ *
+ * @package Ds\Component\Identity
  */
 class DsIdentityExtension extends Extension implements PrependExtensionInterface
 {
