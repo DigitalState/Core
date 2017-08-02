@@ -38,7 +38,7 @@ class PermissionsAction
      *
      * @Method("GET")
      * @Route(path="/permissions")
-     * @Security("is_granted('BROWSE', 'Permissions')")
+     * @Security("is_granted('BROWSE', 'permissions')")
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function cget()
