@@ -31,11 +31,6 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
                 'client' => false,
                 'modifier' => false
             ],
-            'filter' => [
-                'identity' => false,
-                'anonymous' => false,
-                'individual' => false
-            ],
             'permissions' => []
         ]);
 
@@ -73,7 +68,6 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
 
         $this->loadAcl($config['acl'], $container);
         $this->loadToken($config['token'], $container);
-        $this->loadFilter($config['filter'], $container);
         $this->loadPermissions($config['permissions'], $container);
     }
 
@@ -88,6 +82,7 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         if (!$acl) {
             $container->removeDefinition('ds_security.doctrine.orm.query_extension.enabled');
             $container->removeDefinition('ds_security.doctrine.orm.query_extension.deleted');
+            $container->removeDefinition('ds_security.doctrine.orm.query_extension.identity');
             $container->removeDefinition('ds_security.event_listener.acl.entity');
             $container->removeDefinition('ds_security.serializer.normalizer.acl.property');
             $container->removeDefinition('ds_security.serializer.jsonld.normalizer.acl.property');
@@ -105,21 +100,6 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         foreach ($token as $property => $enabled) {
             if (!$enabled) {
                 $container->removeDefinition(sprintf('ds_security.event_listener.token.%s', $property));
-            }
-        }
-    }
-
-    /**
-     * Load filter
-     *
-     * @param array $filter
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function loadFilter(array $filter, ContainerBuilder $container)
-    {
-        foreach ($filter as $property => $enabled) {
-            if (!$enabled) {
-                $container->removeDefinition(sprintf('ds_security.doctrine.orm.query_extension.%s', $property));
             }
         }
     }
