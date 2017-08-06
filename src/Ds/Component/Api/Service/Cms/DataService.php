@@ -1,28 +1,28 @@
 <?php
 
-namespace Ds\Component\Api\Service\Services;
+namespace Ds\Component\Api\Service\Cms;
 
-use Ds\Component\Api\Model\Services\Service;
-use Ds\Component\Api\Query\Services\ServiceParameters as Parameters;
+use Ds\Component\Api\Model\Cms\Data;
+use Ds\Component\Api\Query\Cms\DataParameters as Parameters;
 use Ds\Component\Api\Service\AbstractService;
 
 /**
- * Class ServiceService
+ * Class DataService
  *
  * @package Ds\Component\Api
  */
-class ServiceService extends AbstractService
+class DataService extends AbstractService
 {
     /**
      * @const string
      */
-    const MODEL = Service::class;
+    const MODEL = Data::class;
 
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/services';
-    const RESOURCE_OBJECT = '/services/{id}';
+    const RESOURCE_LIST = '/datas';
+    const RESOURCE_OBJECT = '/datas/{id}';
 
     /**
      * @var array
@@ -33,9 +33,9 @@ class ServiceService extends AbstractService
     ];
 
     /**
-     * Get service list
+     * Get data list
      *
-     * @param \Ds\Component\Api\Query\Services\ServiceParameters $parameters
+     * @param \Ds\Component\Api\Query\Cms\DataParameters $parameters
      * @return array
      */
     public function getList(Parameters $parameters = null)

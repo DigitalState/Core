@@ -2,27 +2,27 @@
 
 namespace Ds\Component\Api\Service\Services;
 
-use Ds\Component\Api\Model\Services\Service;
-use Ds\Component\Api\Query\Services\ServiceParameters as Parameters;
+use Ds\Component\Api\Model\Services\Category;
+use Ds\Component\Api\Query\Services\CategoryParameters as Parameters;
 use Ds\Component\Api\Service\AbstractService;
 
 /**
- * Class ServiceService
+ * Class CategoryService
  *
  * @package Ds\Component\Api
  */
-class ServiceService extends AbstractService
+class CategoryService extends AbstractService
 {
     /**
      * @const string
      */
-    const MODEL = Service::class;
+    const MODEL = Category::class;
 
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/services';
-    const RESOURCE_OBJECT = '/services/{id}';
+    const RESOURCE_LIST = '/categories';
+    const RESOURCE_OBJECT = '/categories/{id}';
 
     /**
      * @var array
@@ -33,9 +33,9 @@ class ServiceService extends AbstractService
     ];
 
     /**
-     * Get service list
+     * Get category list
      *
-     * @param \Ds\Component\Api\Query\Services\ServiceParameters $parameters
+     * @param \Ds\Component\Api\Query\Services\CategoryParameters $parameters
      * @return array
      */
     public function getList(Parameters $parameters = null)

@@ -9,33 +9,10 @@ namespace Ds\Component\Api\Model\Attribute;
  */
 trait Uuid
 {
+    use Accessor\Uuid;
+
     /**
      * @var string
      */
-    protected $uuid; # region accessors
-
-    /**
-     * Set uuid
-     *
-     * @param string $uuid
-     * @return object
-     */
-    public function setUuid($uuid)
-    {
-        $this->uuid = $uuid;
-
-        return $this;
-    }
-
-    /**
-     * Get uuid
-     *
-     * @return string
-     */
-    public function getUuid()
-    {
-        return $this->uuid;
-    }
-
-    # endregion
+    protected $uuid;
 }

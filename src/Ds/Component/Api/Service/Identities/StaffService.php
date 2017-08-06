@@ -21,8 +21,8 @@ class StaffService extends AbstractService
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/staff';
-    const RESOURCE_OBJECT = '/staff/{id}';
+    const RESOURCE_LIST = '/staffs';
+    const RESOURCE_OBJECT = '/staffs/{id}';
 
     /**
      * @var array
@@ -33,7 +33,7 @@ class StaffService extends AbstractService
     ];
 
     /**
-     * Get individual list
+     * Get staff list
      *
      * @param \Ds\Component\Api\Query\Identities\StaffParameters $parameters
      * @return array

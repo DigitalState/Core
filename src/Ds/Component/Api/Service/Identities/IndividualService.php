@@ -21,8 +21,8 @@ class IndividualService extends AbstractService
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/individual';
-    const RESOURCE_OBJECT = '/individual/{id}';
+    const RESOURCE_LIST = '/individuals';
+    const RESOURCE_OBJECT = '/individuals/{id}';
 
     /**
      * @var array

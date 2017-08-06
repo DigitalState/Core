@@ -1,28 +1,28 @@
 <?php
 
-namespace Ds\Component\Api\Service\Services;
+namespace Ds\Component\Api\Service\Cms;
 
-use Ds\Component\Api\Model\Services\Service;
-use Ds\Component\Api\Query\Services\ServiceParameters as Parameters;
+use Ds\Component\Api\Model\Cms\File;
+use Ds\Component\Api\Query\Cms\FileParameters as Parameters;
 use Ds\Component\Api\Service\AbstractService;
 
 /**
- * Class ServiceService
+ * Class FileService
  *
  * @package Ds\Component\Api
  */
-class ServiceService extends AbstractService
+class FileService extends AbstractService
 {
     /**
      * @const string
      */
-    const MODEL = Service::class;
+    const MODEL = File::class;
 
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/services';
-    const RESOURCE_OBJECT = '/services/{id}';
+    const RESOURCE_LIST = '/files';
+    const RESOURCE_OBJECT = '/files/{id}';
 
     /**
      * @var array
@@ -33,9 +33,9 @@ class ServiceService extends AbstractService
     ];
 
     /**
-     * Get service list
+     * Get file list
      *
-     * @param \Ds\Component\Api\Query\Services\ServiceParameters $parameters
+     * @param \Ds\Component\Api\Query\Cms\FileParameters $parameters
      * @return array
      */
     public function getList(Parameters $parameters = null)

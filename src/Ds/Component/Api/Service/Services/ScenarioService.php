@@ -2,27 +2,27 @@
 
 namespace Ds\Component\Api\Service\Services;
 
-use Ds\Component\Api\Model\Services\Service;
-use Ds\Component\Api\Query\Services\ServiceParameters as Parameters;
+use Ds\Component\Api\Model\Services\Scenario;
+use Ds\Component\Api\Query\Services\ScenarioParameters as Parameters;
 use Ds\Component\Api\Service\AbstractService;
 
 /**
- * Class ServiceService
+ * Class ScenarioService
  *
  * @package Ds\Component\Api
  */
-class ServiceService extends AbstractService
+class ScenarioService extends AbstractService
 {
     /**
      * @const string
      */
-    const MODEL = Service::class;
+    const MODEL = Scenario::class;
 
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/services';
-    const RESOURCE_OBJECT = '/services/{id}';
+    const RESOURCE_LIST = '/scenarios';
+    const RESOURCE_OBJECT = '/scenarios/{id}';
 
     /**
      * @var array
@@ -33,9 +33,9 @@ class ServiceService extends AbstractService
     ];
 
     /**
-     * Get service list
+     * Get scenario list
      *
-     * @param \Ds\Component\Api\Query\Services\ServiceParameters $parameters
+     * @param \Ds\Component\Api\Query\Services\ScenarioParameters $parameters
      * @return array
      */
     public function getList(Parameters $parameters = null)
