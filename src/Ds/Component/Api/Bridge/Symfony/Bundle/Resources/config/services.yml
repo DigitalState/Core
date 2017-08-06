@@ -7,25 +7,25 @@ services:
         arguments:
             - '@ds_api.http.client'
 
-    ds_api.service.asset:
+    ds_api.service.health:
         parent: ds_api.service
-        class: '%ds_api.service.asset.class%'
+        class: '%ds_api.service.health.class%'
+
+    ds_api.service.config:
+        parent: ds_api.service
+        class: '%ds_api.service.config.class%'
+
+    ds_api.service.access:
+        parent: ds_api.service
+        class: '%ds_api.service.access.class%'
+
+    ds_api.service.permission:
+        parent: ds_api.service
+        class: '%ds_api.service.permission.class%'
 
     ds_api.service.user:
         parent: ds_api.service
         class: '%ds_api.service.user.class%'
-
-    ds_api.service.data:
-        parent: ds_api.service
-        class: '%ds_api.service.data.class%'
-
-    ds_api.service.file:
-        parent: ds_api.service
-        class: '%ds_api.service.file.class%'
-
-    ds_api.service.text:
-        parent: ds_api.service
-        class: '%ds_api.service.text.class%'
 
     ds_api.service.admin:
         parent: ds_api.service
@@ -47,9 +47,25 @@ services:
         parent: ds_api.service
         class: '%ds_api.service.system.class%'
 
+    ds_api.service.business_unit:
+        parent: ds_api.service
+        class: '%ds_api.service.business_unit.class%'
+
+    ds_api.service.case:
+        parent: ds_api.service
+        class: '%ds_api.service.case.class%'
+
+    ds_api.service.case_status:
+        parent: ds_api.service
+        class: '%ds_api.service.case_status.class%'
+
     ds_api.service.record:
         parent: ds_api.service
         class: '%ds_api.service.record.class%'
+
+    ds_api.service.asset:
+        parent: ds_api.service
+        class: '%ds_api.service.asset.class%'
 
     ds_api.service.category:
         parent: ds_api.service
@@ -66,6 +82,18 @@ services:
     ds_api.service.submission:
         parent: ds_api.service
         class: '%ds_api.service.submission.class%'
+
+    ds_api.service.data:
+        parent: ds_api.service
+        class: '%ds_api.service.data.class%'
+
+    ds_api.service.file:
+        parent: ds_api.service
+        class: '%ds_api.service.file.class%'
+
+    ds_api.service.text:
+        parent: ds_api.service
+        class: '%ds_api.service.text.class%'
 
     ds_api.api:
         class: '%ds_api.api.api.class%'

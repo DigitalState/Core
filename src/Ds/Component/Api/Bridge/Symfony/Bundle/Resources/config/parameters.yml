@@ -1,17 +1,24 @@
 parameters:
     ds_api.api.api.class: Ds\Component\Api\Api\Api
-    ds_api.service.asset.class: Ds\Component\Api\Service\Assets\AssetService
+    ds_api.service.health.class: Ds\Component\Api\Service\Authentication\HealthService
+    ds_api.service.config.class: Ds\Component\Api\Service\Authentication\ConfigService
+    ds_api.service.access.class: Ds\Component\Api\Service\Authentication\AccessService
+    ds_api.service.permission.class: Ds\Component\Api\Service\Authentication\PermissionService
     ds_api.service.user.class: Ds\Component\Api\Service\Authentication\UserService
-    ds_api.service.data.class: Ds\Component\Api\Service\Cms\DataService
-    ds_api.service.file.class: Ds\Component\Api\Service\Cms\FileService
-    ds_api.service.text.class: Ds\Component\Api\Service\Cms\TextService
     ds_api.service.admin.class: Ds\Component\Api\Service\Identities\AdminService
     ds_api.service.anonymous.class: Ds\Component\Api\Service\Identities\AnonymousService
     ds_api.service.individual.class: Ds\Component\Api\Service\Identities\IndividualService
     ds_api.service.staff.class: Ds\Component\Api\Service\Identities\StaffService
     ds_api.service.system.class: Ds\Component\Api\Service\Identities\SystemService
+    ds_api.service.business_unit.class: Ds\Component\Api\Service\Identities\BusinessUnitService
+    ds_api.service.case.class: Ds\Component\Api\Service\Assets\CaseService
+    ds_api.service.case_status.class: Ds\Component\Api\Service\Assets\CaseStatusService
+    ds_api.service.asset.class: Ds\Component\Api\Service\Assets\AssetService
     ds_api.service.record.class: Ds\Component\Api\Service\Records\RecordService
     ds_api.service.category.class: Ds\Component\Api\Service\Services\CategoryService
     ds_api.service.scenario.class: Ds\Component\Api\Service\Services\ScenarioService
     ds_api.service.service.class: Ds\Component\Api\Service\Services\ServiceService
     ds_api.service.submission.class: Ds\Component\Api\Service\Services\SubmissionService
+    ds_api.service.data.class: Ds\Component\Api\Service\Cms\DataService
+    ds_api.service.file.class: Ds\Component\Api\Service\Cms\FileService
+    ds_api.service.text.class: Ds\Component\Api\Service\Cms\TextService
