@@ -10,7 +10,7 @@ namespace Ds\Component\Model\Attribute\Accessor;
 trait CustomId
 {
     /**
-     * Set CustomId
+     * Set custom id
      *
      * @param string $customId
      * @return object
@@ -23,7 +23,7 @@ trait CustomId
     }
 
     /**
-     * Get CustomId
+     * Get custom id
      *
      * @return string
      */
