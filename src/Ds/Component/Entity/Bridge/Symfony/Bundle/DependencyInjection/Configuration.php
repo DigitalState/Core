@@ -40,6 +40,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->booleanNode('identitiable')->defaultFalse()->end()
                 ->booleanNode('uuidentifiable')->defaultFalse()->end()
+                ->booleanNode('custom_identifiable')->defaultFalse()->end()
             ->end();
 
         return $node;

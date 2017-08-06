@@ -10,3 +10,10 @@ services:
         class: '%ds_entity.event_listener.uuidentifiable.class%'
         tags:
             - { name: doctrine.event_listener, event: prePersist }
+
+    ds_entity.event_listener.custom_identifiable:
+        class: '%ds_entity.event_listener.custom_identifiable.class%'
+        arguments:
+            - '@ds_entity.service.sequence'
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
