@@ -39,7 +39,7 @@ class RecordService extends AbstractService
      */
     public function getList(Parameters $parameters = null)
     {
-        $objects = $this->execute('GET', 'http://www.mocky.io/v2/592b798d100000b10e389778');
+        $objects = $this->execute('GET', static::RESOURCE_LIST);
         $list = [];
 
         foreach ($objects as $object) {

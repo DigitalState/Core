@@ -15,112 +15,112 @@ class Api
     /**
      * @var \Ds\Component\Api\Service\HealthService
      */
-    protected $health;
+    public $health;
 
     /**
      * @var \Ds\Component\Api\Service\ConfigService
      */
-    protected $config;
+    public $config;
 
     /**
      * @var \Ds\Component\Api\Service\AccessService
      */
-    protected $access;
+    public $access;
 
     /**
      * @var \Ds\Component\Api\Service\PermissionService
      */
-    protected $permission;
+    public $permission;
 
     /**
      * @var \Ds\Component\Api\Service\UserService
      */
-    protected $user;
+    public $user;
 
     /**
      * @var \Ds\Component\Api\Service\AdminService
      */
-    protected $admin;
+    public $admin;
 
     /**
      * @var \Ds\Component\Api\Service\AnonymousService
      */
-    protected $anonymous;
+    public $anonymous;
 
     /**
      * @var \Ds\Component\Api\Service\StaffService
      */
-    protected $staff;
+    public $staff;
 
     /**
      * @var \Ds\Component\Api\Service\IndividualService
      */
-    protected $individual;
+    public $individual;
 
     /**
      * @var \Ds\Component\Api\Service\SystemService
      */
-    protected $system;
+    public $system;
 
     /**
      * @var \Ds\Component\Api\Service\BusinessUnitService
      */
-    protected $businessUnit;
+    public $businessUnit;
 
     /**
      * @var \Ds\Component\Api\Service\CaseService
      */
-    protected $case;
+    public $case;
 
     /**
      * @var \Ds\Component\Api\Service\CaseStatusService
      */
-    protected $caseStatus;
+    public $caseStatus;
 
     /**
      * @var \Ds\Component\Api\Service\AssetService
      */
-    protected $asset;
+    public $asset;
 
     /**
      * @var \Ds\Component\Api\Service\RecordService
      */
-    protected $record;
+    public $record;
 
     /**
      * @var \Ds\Component\Api\Service\CategoryService
      */
-    protected $category;
+    public $category;
 
     /**
      * @var \Ds\Component\Api\Service\ServiceService
      */
-    protected $service;
+    public $service;
 
     /**
      * @var \Ds\Component\Api\Service\ScenarioService
      */
-    protected $scenario;
+    public $scenario;
 
     /**
      * @var \Ds\Component\Api\Service\SubmissionService
      */
-    protected $submission;
+    public $submission;
 
     /**
      * @var \Ds\Component\Api\Service\DataService
      */
-    protected $data;
+    public $data;
 
     /**
      * @var \Ds\Component\Api\Service\FileService
      */
-    protected $file;
+    public $file;
 
     /**
      * @var \Ds\Component\Api\Service\TextService
      */
-    protected $text;
+    public $text;
 
     /**
      * Constructor
