@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Resolver\Resolver\Resolver;
+namespace Ds\Component\Resolver\Resolver;
 
 /**
  * Interface Resolver
