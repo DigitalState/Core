@@ -2,6 +2,6 @@ services:
     ds_translation.event_listener.translate:
         class: '%ds_translation.event_listener.translate.class%'
         arguments:
-            - '@annotation_reader'
+            - '@ds_translation.service.translation'
         tags:
             - { name: doctrine.event_listener, event: postLoad }

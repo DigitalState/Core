@@ -23,5 +23,6 @@ class DsTranslationExtension extends Extension
         $loader->load('parameters.yml');
         $loader->load('doctrine.yml');
         $loader->load('event_listeners.yml');
+        $loader->load('services.yml');
     }
 }
