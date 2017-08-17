@@ -5,6 +5,7 @@ namespace Ds\Component\Translation\EventListener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ds\Component\Translation\Model\Type\Translatable;
 use Ds\Component\Translation\Service\TranslationService;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 /**
  * Class TranslateListener
@@ -29,6 +30,40 @@ class TranslateListener
     }
 
     /**
+     * Deny access if the user does not have proper permissions
+     *
+     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+     */
+    public function kernelRequest(GetResponseEvent $event)
+    {
+        $request = $event->getRequest();
+        $entity = $request->attributes->get('_api_resource_class');
+
+        if (null === $entity) {
+            return;
+        }
+
+        if (!in_array(Translatable::class, class_implements($entity), true)) {
+            return;
+        }
+
+        $entity = $request->attributes->get('data');
+        $properties = $this->translationService->getProperties($entity);
+
+        foreach ($properties as $property) {
+            $get = 'get'.$property->getName();
+            $set = 'set'.$property->getName();
+            $values = [];
+
+            foreach ($entity->getTranslations() as $translation) {
+                $values[$translation->getLocale()] = $translation->$get();
+            }
+
+            $entity->$set($values);
+        }
+    }
+
+    /**
      * Post load
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
@@ -41,16 +76,6 @@ class TranslateListener
             return;
         }
 
-        $this->load($entity);
-    }
-
-    /**
-     * Load entity translation
-     *
-     * @param \Ds\Component\Translation\Model\Type\Translatable $entity
-     */
-    protected function load(Translatable $entity)
-    {
         $properties = $this->translationService->getProperties($entity);
 
         foreach ($properties as $property) {

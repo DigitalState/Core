@@ -5,3 +5,4 @@ services:
             - '@ds_translation.service.translation'
         tags:
             - { name: doctrine.event_listener, event: postLoad }
+            - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 2 }
