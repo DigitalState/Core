@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Translation\EventListener;
 
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ds\Component\Translation\Model\Type\Translatable;
 use Ds\Component\Translation\Service\TranslationService;
@@ -47,19 +48,18 @@ class TranslateListener
             return;
         }
 
-        $entity = $request->attributes->get('data');
-        $properties = $this->translationService->getProperties($entity);
+        if ('post' !== $request->attributes->get('_api_collection_operation_name') && 'put' !== $request->attributes->get('_api_item_operation_name')) {
+            return;
+        }
 
-        foreach ($properties as $property) {
-            $get = 'get'.$property->getName();
-            $set = 'set'.$property->getName();
-            $values = [];
+        $data = $request->attributes->get('data');
 
-            foreach ($entity->getTranslations() as $translation) {
-                $values[$translation->getLocale()] = $translation->$get();
+        if ($data instanceof Paginator) {
+            foreach ($data as $item) {
+                $this->load($item);
             }
-
-            $entity->$set($values);
+        } else {
+            $this->load($data);
         }
     }
 
@@ -76,6 +76,16 @@ class TranslateListener
             return;
         }
 
+        $this->load($entity);
+    }
+
+    /**
+     * Load entity translations
+     *
+     * @param \Ds\Component\Translation\Model\Type\Translatable $entity
+     */
+    protected function load(Translatable $entity)
+    {
         $properties = $this->translationService->getProperties($entity);
 
         foreach ($properties as $property) {
