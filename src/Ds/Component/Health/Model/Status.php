@@ -2,6 +2,8 @@
 
 namespace Ds\Component\Health\Model;
 
+use DateTime;
+
 /**
  * Class Status
  *
@@ -11,6 +13,7 @@ class Status
 {
     use Attribute\Alias;
     use Attribute\Healthy;
+    use Attribute\Timestamp;
 
     /**
      * Constructor
@@ -18,6 +21,7 @@ class Status
     public function __construct()
     {
         $this->healthy = false;
+        $this->timestamp = new DateTime;
     }
 
     /**

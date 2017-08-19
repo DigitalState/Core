@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Health\Model;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use stdClass;
 
@@ -14,6 +15,7 @@ class Statuses
 {
     use Attribute\Healthy;
     use Attribute\Collection;
+    use Attribute\Timestamp;
 
     /**
      * Constructor
@@ -21,6 +23,7 @@ class Statuses
     public function __construct()
     {
         $this->healthy = false;
+        $this->timestamp = new DateTime;
         $this->collection = new ArrayCollection;
     }
 
@@ -33,6 +36,7 @@ class Statuses
     {
         $object = new stdClass;
         $object->healthy = $this->healthy;
+        $object->timestamp = $this->timestamp;
         $object->collection = $this->collection->toArray();
 
         foreach ($object->collection as $alias => $status) {

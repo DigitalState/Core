@@ -18,6 +18,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class HealthAction
 {
     /**
+     * @const string
+     */
+    const TIMESTAMP_FORMAT = 'Y-m-d\TH:i:sP';
+
+    /**
      * @var \Ds\Component\Health\Service\HealthService
      */
     protected $healthService;
@@ -44,9 +49,11 @@ class HealthAction
     {
         $statuses = $this->healthService->check();
         $data = $statuses->toObject();
+        $data->timestamp = $data->timestamp->format(static::TIMESTAMP_FORMAT);
         $data->statuses = new stdClass;
 
         foreach ($data->collection as $alias => $status) {
+            $status->timestamp = $status->timestamp->format(static::TIMESTAMP_FORMAT);
             unset($status->alias);
             $data->statuses->{$alias} = $status;
         }
@@ -70,6 +77,7 @@ class HealthAction
         $alias = str_replace('/', '.', $alias);
         $status = $this->healthService->check($alias);
         $data = $status->toObject();
+        $data->timestamp = $data->timestamp->format(static::TIMESTAMP_FORMAT);
         unset($data->alias);
 
         return new JsonResponse($data);
