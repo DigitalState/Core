@@ -5,6 +5,7 @@ namespace Ds\Component\Security\Entity;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Attribute\Accessor;
 use Ds\Component\Security\Model\Attribute\Accessor as SecurityAccessor;
+use Ds\Component\Security\Entity\Attribute\Accessor as EntityAccessor;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
@@ -36,6 +37,7 @@ class Permission implements Identifiable
     use Accessor\Id;
     use Accessor\Entity;
     use Accessor\EntityUuid;
+    use EntityAccessor\Access;
     use SecurityAccessor\Key;
     use SecurityAccessor\Type;
     use SecurityAccessor\Value;
@@ -57,32 +59,7 @@ class Permission implements Identifiable
      * @ORM\JoinColumn(name="access_id", referencedColumnName="id")
      * @Assert\Valid
      */
-    protected $access; # region accessors
-
-    /**
-     * Set access
-     *
-     * @param \Ds\Component\Security\Entity\Access $access
-     * @return object
-     */
-    public function setAccess(Access $access = null)
-    {
-        $this->access = $access;
-
-        return $this;
-    }
-
-    /**
-     * Get access
-     *
-     * @return \Ds\Component\Security\Entity\Access
-     */
-    public function getAccess()
-    {
-        return $this->access;
-    }
-
-    # endregion
+    protected $access;
 
     /**
      * @var string
