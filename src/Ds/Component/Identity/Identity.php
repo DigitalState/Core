@@ -3,11 +3,11 @@
 namespace Ds\Component\Identity;
 
 /**
- * Interface Identity
+ * Class Identity
  *
  * @package Ds\Component\Identity
  */
-interface Identity
+class Identity
 {
     /**
      * @const string
