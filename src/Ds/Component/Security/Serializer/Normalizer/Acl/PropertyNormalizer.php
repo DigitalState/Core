@@ -8,7 +8,7 @@ use DomainException;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Security\Model\Permission;
 use Ds\Component\Security\Model\Subject;
-use Ds\Component\Security\Voter\PropertyVoter;
+use Ds\Component\Security\Voter\Permission\PropertyVoter;
 use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -36,7 +36,7 @@ class PropertyNormalizer implements NormalizerInterface, DenormalizerInterface, 
     protected $tokenStorage;
 
     /**
-     * @var \Ds\Component\Security\Voter\PropertyVoter
+     * @var \Ds\Component\Security\Voter\Permission\PropertyVoter
      */
     protected $propertyVoter;
 
@@ -50,7 +50,7 @@ class PropertyNormalizer implements NormalizerInterface, DenormalizerInterface, 
      *
      * @param \ApiPlatform\Core\Serializer\AbstractItemNormalizer $decorated
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Ds\Component\Security\Voter\PropertyVoter $propertyVoter
+     * @param \Ds\Component\Security\Voter\Permission\PropertyVoter $propertyVoter
      */
     public function __construct(AbstractItemNormalizer $decorated, TokenStorageInterface $tokenStorage, PropertyVoter $propertyVoter)
     {

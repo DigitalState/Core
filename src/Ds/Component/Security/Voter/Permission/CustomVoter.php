@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Security\Voter;
+namespace Ds\Component\Security\Voter\Permission;
 
 use Ds\Component\Security\Collection\PermissionCollection;
 use Ds\Component\Security\Model\Permission;

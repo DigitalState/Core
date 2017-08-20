@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Security\Voter;
+namespace Ds\Component\Security\Voter\Permission;
 
 use Ds\Component\Security\Model\Permission;
 use Ds\Component\Security\Model\Subject;
@@ -10,11 +10,11 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
- * Class PropertyVoter
+ * Class EntityVoter
  *
  * @package Ds\Component\Security
  */
-class PropertyVoter extends Voter
+class EntityVoter extends Voter
 {
     /**
      * @var \Ds\Component\Security\Service\AccessService
@@ -40,11 +40,11 @@ class PropertyVoter extends Voter
             return false;
         }
 
-        if (Permission::PROPERTY !== $subject->getType()) {
+        if (Permission::ENTITY !== $subject->getType()) {
             return false;
         }
 
-        if (!in_array($attribute, [Permission::BROWSE, Permission::READ, Permission::EDIT], true)) {
+        if (!in_array($attribute, [Permission::BROWSE, Permission::READ, Permission::EDIT, Permission::ADD, Permission::DELETE], true)) {
             return false;
         }
 

@@ -3,7 +3,7 @@ services:
         class: '%ds_security.event_listener.acl.entity.class%'
         arguments:
             - '@security.token_storage'
-            - '@ds_security.voter.entity'
+            - '@ds_security.voter.permission.entity'
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 1 }
 

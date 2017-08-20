@@ -1,21 +1,21 @@
 services:
-    ds_security.voter.custom:
-        class: '%ds_security.voter.custom.class%'
+    ds_security.voter.permission.custom:
+        class: '%ds_security.voter.permission.custom.class%'
         arguments:
             - '@ds_security.service.access'
             - '@ds_security.collection.permission'
         tags:
            - { name: security.voter }
 
-    ds_security.voter.entity:
-        class: '%ds_security.voter.entity.class%'
+    ds_security.voter.permission.entity:
+        class: '%ds_security.voter.permission.entity.class%'
         arguments:
             - '@ds_security.service.access'
         tags:
            - { name: security.voter }
 
-    ds_security.voter.property:
-        class: '%ds_security.voter.property.class%'
+    ds_security.voter.permission.property:
+        class: '%ds_security.voter.permission.property.class%'
         arguments:
             - '@ds_security.service.access'
         tags:

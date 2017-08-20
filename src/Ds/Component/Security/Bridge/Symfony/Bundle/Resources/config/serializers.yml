@@ -5,7 +5,7 @@ services:
         arguments:
             - '@ds_security.serializer.normalizer.acl.property.inner'
             - '@security.token_storage'
-            - '@ds_security.voter.property'
+            - '@ds_security.voter.permission.property'
 
     ds_security.serializer.jsonld.normalizer.acl.property:
         decorates: api_platform.jsonld.normalizer.item
@@ -13,4 +13,4 @@ services:
         arguments:
             - '@ds_security.serializer.jsonld.normalizer.acl.property.inner'
             - '@security.token_storage'
-            - '@ds_security.voter.property'
+            - '@ds_security.voter.permission.property'

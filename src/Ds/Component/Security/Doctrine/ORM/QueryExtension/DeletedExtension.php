@@ -9,7 +9,6 @@ use Doctrine\ORM\QueryBuilder;
 use Ds\Component\Identity\Identity;
 use Ds\Component\Model\Type\Deletable;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 /**
  * Class DeletedExtension
@@ -24,20 +23,13 @@ class DeletedExtension implements QueryCollectionExtensionInterface, QueryItemEx
     protected $tokenStorage;
 
     /**
-     * @var \Symfony\Component\Security\Core\Authorization\AuthorizationChecker
-     */
-    protected $authorizationChecker;
-
-    /**
      * Constructor
      *
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Symfony\Component\Security\Core\Authorization\AuthorizationChecker $checker
      */
-    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationChecker $checker)
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
-        $this->authorizationChecker = $checker;
     }
 
     /**
