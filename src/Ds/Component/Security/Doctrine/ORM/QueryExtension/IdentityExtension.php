@@ -49,7 +49,7 @@ class IdentityExtension implements QueryCollectionExtensionInterface, QueryItemE
     }
 
     /**
-     * Apply authorization condition
+     * Apply condition
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder
      * @param string $resourceClass
