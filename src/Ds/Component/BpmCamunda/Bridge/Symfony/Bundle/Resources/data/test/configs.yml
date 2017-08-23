@@ -1,0 +1,9 @@
+items: []
+
+prototype:
+    uuid: ~
+    owner: BusinessUnit
+    owner_uuid: ~
+    key: ~
+    value: ~
+    enabled: true
