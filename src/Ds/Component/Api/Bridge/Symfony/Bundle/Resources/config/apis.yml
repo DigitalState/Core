@@ -1,0 +1,8 @@
+services:
+    ds_api.http.client:
+        class: GuzzleHttp\Client
+
+    ds_api.api:
+        class: '%ds_api.api.api.class%'
+        arguments:
+            - '@ds_api.http.client'

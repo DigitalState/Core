@@ -1,0 +1,68 @@
+items:
+    -
+        uuid: c344e1ef-04a7-492a-83d4-c86fce4a7a3e
+        key: ds_api.host.authentication
+        value: http://172.18.0.1:8010/app_dev.php
+
+    -
+        uuid: d91c984f-48f4-4d8b-a3db-a83a398e0c54
+        key: ds_api.host.identities
+        value: http://172.19.0.1:8054/app_dev.php
+
+    -
+        uuid: 54b4ee75-6855-4ba1-827c-22fa6e8c2f24
+        key: ds_api.host.cases
+        value: http://172.25.0.1:8050/app_dev.php
+
+    -
+        uuid: 1541a433-e337-4edc-94cb-279948320dd5
+        key: ds_api.host.services
+        value: http://172.20.0.1:8051/app_dev.php
+
+    -
+        uuid: 64af30d0-908e-4c8a-9ffc-a2c0868a0e40
+        key: ds_api.host.records
+        value: ~
+
+    -
+        uuid: 6d209d8f-730a-4d01-ba9b-61e2a099202e
+        key: ds_api.host.assets
+        value: ~
+
+    -
+        uuid: 402ad1ff-ae8f-411b-b672-71f7d75117e8
+        key: ds_api.host.cms
+        value: ~
+
+    -
+        uuid: a3035378-9bb5-4fd3-b56d-4c0020fcf68e
+        key: ds_api.host.camunda
+        value: http://172.17.0.1:8055/engine-rest
+
+    -
+        uuid: 799abde9-d4c8-42a7-afff-7042bf49f089
+        key: ds_api.host.formio
+        value: ~
+
+    -
+        uuid: 165111dc-82b8-46c6-a27d-44a7dc8b99a9
+        key: ds_api.host.topics
+        value: ~
+
+    -
+        uuid: 540b7969-f464-4e2a-80da-0fd01a5a5581
+        key: ds_api.host.interactions
+        value: ~
+
+    -
+        uuid: 2460d7af-88a2-406e-83f4-bf7d5e7859e9
+        key: ds_api.host.tasks
+        value: ~
+
+prototype:
+    uuid: ~
+    owner: BusinessUnit
+    owner_uuid: c11c546e-bd01-47cf-97da-e25388357b5a # Administration
+    key: ~
+    value: ~
+    enabled: true

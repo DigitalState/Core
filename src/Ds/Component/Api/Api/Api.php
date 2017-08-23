@@ -2,7 +2,7 @@
 
 namespace Ds\Component\Api\Api;
 
-use Ds\Component\Api\Service;
+use Ds\Component\Api\Model\Service;
 use GuzzleHttp\ClientInterface;
 
 /**
@@ -13,114 +13,39 @@ use GuzzleHttp\ClientInterface;
 class Api
 {
     /**
-     * @var \Ds\Component\Api\Service\HealthService
+     * @var \Ds\Component\Api\Api\Authentication
      */
-    public $health;
+    public $authentication;
 
     /**
-     * @var \Ds\Component\Api\Service\ConfigService
+     * @var \Ds\Component\Api\Api\Identities
      */
-    public $config;
+    public $identities;
 
     /**
-     * @var \Ds\Component\Api\Service\AccessService
+     * @var \Ds\Component\Api\Api\Cases
      */
-    public $access;
+    public $cases;
 
     /**
-     * @var \Ds\Component\Api\Service\PermissionService
+     * @var \Ds\Component\Api\Api\Services
      */
-    public $permission;
+    public $services;
 
     /**
-     * @var \Ds\Component\Api\Service\UserService
+     * @var \Ds\Component\Api\Api\Records
      */
-    public $user;
+    public $records;
 
     /**
-     * @var \Ds\Component\Api\Service\AdminService
+     * @var \Ds\Component\Api\Api\Assets
      */
-    public $admin;
+    public $assets;
 
     /**
-     * @var \Ds\Component\Api\Service\AnonymousService
+     * @var \Ds\Component\Api\Api\Cms
      */
-    public $anonymous;
-
-    /**
-     * @var \Ds\Component\Api\Service\StaffService
-     */
-    public $staff;
-
-    /**
-     * @var \Ds\Component\Api\Service\IndividualService
-     */
-    public $individual;
-
-    /**
-     * @var \Ds\Component\Api\Service\SystemService
-     */
-    public $system;
-
-    /**
-     * @var \Ds\Component\Api\Service\BusinessUnitService
-     */
-    public $businessUnit;
-
-    /**
-     * @var \Ds\Component\Api\Service\CaseService
-     */
-    public $case;
-
-    /**
-     * @var \Ds\Component\Api\Service\CaseStatusService
-     */
-    public $caseStatus;
-
-    /**
-     * @var \Ds\Component\Api\Service\AssetService
-     */
-    public $asset;
-
-    /**
-     * @var \Ds\Component\Api\Service\RecordService
-     */
-    public $record;
-
-    /**
-     * @var \Ds\Component\Api\Service\CategoryService
-     */
-    public $category;
-
-    /**
-     * @var \Ds\Component\Api\Service\ServiceService
-     */
-    public $service;
-
-    /**
-     * @var \Ds\Component\Api\Service\ScenarioService
-     */
-    public $scenario;
-
-    /**
-     * @var \Ds\Component\Api\Service\SubmissionService
-     */
-    public $submission;
-
-    /**
-     * @var \Ds\Component\Api\Service\DataService
-     */
-    public $data;
-
-    /**
-     * @var \Ds\Component\Api\Service\FileService
-     */
-    public $file;
-
-    /**
-     * @var \Ds\Component\Api\Service\TextService
-     */
-    public $text;
+    public $cms;
 
     /**
      * Constructor
@@ -130,28 +55,13 @@ class Api
      */
     public function __construct(ClientInterface $client, $host = null)
     {
-        $this->health = new Service\HealthService($client, $host);
-        $this->config = new Service\ConfigService($client, $host);
-        $this->access = new Service\AccessService($client, $host);
-        $this->permission = new Service\PermissionService($client, $host);
-        $this->user = new Service\UserService($client, $host);
-        $this->admin = new Service\AdminService($client, $host);
-        $this->anonymous = new Service\AnonymousService($client, $host);
-        $this->staff = new Service\StaffService($client, $host);
-        $this->individual = new Service\IndividualService($client, $host);
-        $this->system = new Service\SystemService($client, $host);
-        $this->businessUnit = new Service\BusinessUnitService($client, $host);
-        $this->case = new Service\CaseService($client, $host);
-        $this->caseStatus = new Service\CaseStatusService($client, $host);
-        $this->asset = new Service\AssetService($client, $host);
-        $this->record = new Service\RecordService($client, $host);
-        $this->category = new Service\CategoryService($client, $host);
-        $this->service = new Service\ServiceService($client, $host);
-        $this->scenario = new Service\ScenarioService($client, $host);
-        $this->submission = new Service\SubmissionService($client, $host);
-        $this->data = new Service\DataService($client, $host);
-        $this->file = new Service\FileService($client, $host);
-        $this->text = new Service\TextService($client, $host);
+        $this->authentication = new Authentication($client, $host);
+        $this->identities = new Identities($client, $host);
+        $this->cases = new Cases($client, $host);
+        $this->services = new Services($client, $host);
+        $this->records = new Records($client, $host);
+        $this->assets = new Assets($client, $host);
+        $this->cms = new Cms($client, $host);
     }
 
     /**
@@ -162,28 +72,13 @@ class Api
      */
     public function setHost($host)
     {
-        $this->health->setHost($host);
-        $this->config->setHost($host);
-        $this->access->setHost($host);
-        $this->permission->setHost($host);
-        $this->user->setHost($host);
-        $this->admin->setHost($host);
-        $this->anonymous->setHost($host);
-        $this->staff->setHost($host);
-        $this->individual->setHost($host);
-        $this->system->setHost($host);
-        $this->businessUnit->setHost($host);
-        $this->case->setHost($host);
-        $this->caseStatus->setHost($host);
-        $this->asset->setHost($host);
-        $this->record->setHost($host);
-        $this->category->setHost($host);
-        $this->service->setHost($host);
-        $this->scenario->setHost($host);
-        $this->submission->setHost($host);
-        $this->data->setHost($host);
-        $this->file->setHost($host);
-        $this->text->setHost($host);
+        $this->authentication->setHost($host);
+        $this->identities->setHost($host);
+        $this->cases->setHost($host);
+        $this->services->setHost($host);
+        $this->records->setHost($host);
+        $this->assets->setHost($host);
+        $this->cms->setHost($host);
 
         return $this;
     }
