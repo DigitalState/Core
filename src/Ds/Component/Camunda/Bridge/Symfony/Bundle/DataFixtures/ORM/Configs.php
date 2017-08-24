@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\BpmCamunda\Bridge\Symfony\Bundle\DataFixtures\ORM;
+namespace Ds\Component\Camunda\Bridge\Symfony\Bundle\DataFixtures\ORM;
 
 use Ds\Component\Config\Fixture\ORM\ConfigFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\BpmCamunda\Service;
+namespace Ds\Component\Camunda\Service;
 
 use Ds\Component\Bpm\Service;
 use Ds\Component\Bpm\Model\Task;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Ds\Component\BpmCamunda\Api;
+namespace Ds\Component\Camunda\Api;
 
 use Ds\Component\Bpm\Api\Api as BaseApi;
 use GuzzleHttp\ClientInterface;
-use Ds\Component\BpmCamunda\Service;
+use Ds\Component\Camunda\Service;
 
 /**
  * Class Api

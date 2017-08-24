@@ -1,0 +1,5 @@
+parameters:
+    ds_camunda.api.class: Ds\Component\Camunda\Api\Api
+    ds_camunda.service.process_definition.class: Ds\Component\Camunda\Service\ProcessDefinitionService
+    ds_camunda.service.process_instance.class: Ds\Component\Camunda\Service\ProcessInstanceService
+    ds_camunda.service.task.class: Ds\Component\Camunda\Service\TaskService

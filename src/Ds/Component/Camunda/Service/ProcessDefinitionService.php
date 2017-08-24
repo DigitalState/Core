@@ -1,11 +1,10 @@
 <?php
 
-namespace Ds\Component\BpmCamunda\Service;
+namespace Ds\Component\Camunda\Service;
 
 use Ds\Component\Bpm\Service;
 use Ds\Component\Bpm\Query\ProcessDefinitionParameters as Parameters;
 use Ds\Component\Bpm\Model\ProcessDefinition;
-use stdClass;
 
 /**
  * Class ProcessDefinitionService

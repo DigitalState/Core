@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\BpmCamunda\Bridge\Symfony\Bundle\DependencyInjection;
+namespace Ds\Component\Camunda\Bridge\Symfony\Bundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -9,9 +9,9 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\Config\FileLocator;
 
 /**
- * Class DsBpmCamundaExtension
+ * Class DsCamundaExtension
  */
-class DsBpmCamundaExtension extends Extension implements PrependExtensionInterface
+class DsCamundaExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritdoc}

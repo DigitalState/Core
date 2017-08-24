@@ -1,4 +1,4 @@
-ds_bpm_camunda:
+ds_camunda:
     host:
         url: ~
         user: ~

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\BpmCamunda\Bridge\Symfony\Bundle\DependencyInjection;
+namespace Ds\Component\Camunda\Bridge\Symfony\Bundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -16,7 +16,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder;
-        $rootNode = $treeBuilder->root('ds_bpm_camunda');
+        $rootNode = $treeBuilder->root('ds_camunda');
 
         $rootNode
             ->children()
