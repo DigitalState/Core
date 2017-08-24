@@ -26,11 +26,7 @@ class TaskResolver extends AbstractResolver
 
         $id = $matches[1];
         $property = $matches[2];
-//        $task = $this->api->task->get($id);
-        $task = new \Ds\Component\Bpm\Model\Task;
-        $task
-            ->setId('123')
-            ->getVariables()->var_1 = '456';
+        $task = $this->api->task->get($id);
         $accessor = PropertyAccess::createPropertyAccessor();
         $value = $accessor->getValue($task, $property);
 

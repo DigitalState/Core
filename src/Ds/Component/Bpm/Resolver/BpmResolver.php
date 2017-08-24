@@ -12,14 +12,14 @@ class BpmResolver extends AbstractResolver
     /**
      * @const string
      */
-    const PATTERN = '/^ds\.context\.bpm\./';
+    const PATTERN = '/^ds\.context\.bpm\.(.+)/';
 
     /**
      * {@inheritdoc}
      */
     public function resolve($variable)
     {
-        if (!$this->isMatch($variable)) {
+        if (!preg_match(static::PATTERN, $variable, $matches)) {
             throw new DomainException('Variable pattern is not valid.');
         }
 

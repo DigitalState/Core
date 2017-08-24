@@ -25,8 +25,7 @@ class TasksResolver extends AbstractResolver
         }
 
         $property = $matches[1];
-//        $tasks = $this->api->task->getList();
-        $tasks = [];
+        $tasks = $this->api->task->getList();
         $accessor = PropertyAccess::createPropertyAccessor();
         $value = $accessor->getValue($tasks, $property);
 
