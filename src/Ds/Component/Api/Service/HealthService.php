@@ -32,7 +32,7 @@ class HealthService extends AbstractService
     ];
 
     /**
-     * Get admin list
+     * Get health list
      *
      * @param \Ds\Component\Api\Query\HealthParameters $parameters
      * @return array

@@ -32,7 +32,7 @@ class ConfigService extends AbstractService
     ];
 
     /**
-     * Get admin list
+     * Get config list
      *
      * @param \Ds\Component\Api\Query\ConfigParameters $parameters
      * @return array

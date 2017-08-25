@@ -32,7 +32,7 @@ class BusinessUnitService extends AbstractService
     ];
 
     /**
-     * Get admin list
+     * Get business unit list
      *
      * @param \Ds\Component\Api\Query\BusinessUnitParameters $parameters
      * @return array

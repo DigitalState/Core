@@ -32,7 +32,7 @@ class PermissionService extends AbstractService
     ];
 
     /**
-     * Get admin list
+     * Get permission list
      *
      * @param \Ds\Component\Api\Query\PermissionParameters $parameters
      * @return array

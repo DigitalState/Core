@@ -1,11 +1,11 @@
 @component @entity @access @browse
 Feature: Browse accesses
   In order to browse accesses
-  As an admin identity
+  As a system identity
   I should be able to send api requests related to accesses
 
   Background:
-    Given I am authenticated as an "admin" identity
+    Given I am authenticated as a "system" identity
 
   @createSchema @loadFixtures @dropSchema
   Scenario: Browse all permissions

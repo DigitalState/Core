@@ -1,11 +1,11 @@
 @component @permission @browse
 Feature: Browse permissions
   In order to browse permissions
-  As an admin identity
+  As a system identity
   I should be able to send api requests related to permissions
 
   Background:
-    Given I am authenticated as an "admin" identity
+    Given I am authenticated as a "system" identity
 
   @createSchema @loadFixtures @dropSchema
   Scenario: Browse all permissions

@@ -62,7 +62,7 @@ class IdentityExtension implements QueryCollectionExtensionInterface, QueryItemE
 
         $user = $this->tokenStorage->getToken()->getUser();
 
-        if (in_array($user->getIdentity(), [Identity::ADMIN, Identity::SYSTEM, Identity::STAFF], true)) {
+        if (in_array($user->getIdentity(), [Identity::SYSTEM, Identity::STAFF], true)) {
             return;
         }
 

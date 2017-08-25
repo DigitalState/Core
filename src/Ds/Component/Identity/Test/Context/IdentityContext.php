@@ -45,7 +45,7 @@ class IdentityContext implements Context
     }
 
     /**
-     * @Given I am authenticated as an :identity identity
+     * @Given I am authenticated as a :identity identity
      */
     public function iAmAuthenticatedAsAnIdentity($identity)
     {

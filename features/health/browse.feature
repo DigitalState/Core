@@ -1,11 +1,11 @@
 @component @health @browse
 Feature: Browse health statuses
   In order to browse health statuses
-  As an admin identity
+  As a system identity
   I should be able to send api requests related to health statuses
 
   Background:
-    Given I am authenticated as an "admin" identity
+    Given I am authenticated as a "system" identity
 
   @createSchema @loadFixtures @dropSchema
   Scenario: Browse all health statuses

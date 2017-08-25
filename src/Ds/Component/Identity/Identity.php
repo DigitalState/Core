@@ -12,7 +12,6 @@ class Identity
     /**
      * @const string
      */
-    const ADMIN = 'Admin';
     const SYSTEM = 'System';
     const STAFF = 'Staff';
     const INDIVIDUAL = 'Individual';

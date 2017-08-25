@@ -32,7 +32,7 @@ class AccessService extends AbstractService
     ];
 
     /**
-     * Get admin list
+     * Get access list
      *
      * @param \Ds\Component\Api\Query\AccessParameters $parameters
      * @return array
