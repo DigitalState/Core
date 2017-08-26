@@ -129,6 +129,7 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Identitiable, Ver
      * @Serializer\Groups({"access_output", "access_input"})
      * @ORM\OneToMany(targetEntity="Permission", mappedBy="access", cascade={"persist", "remove"})
      * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
+     * @Assert\Valid
      */
     protected $permissions; # region accessors
 
