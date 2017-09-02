@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Debug\Bridge\Symfony\Bundle\Action;
 
+use Ds\Component\Formio\Query\FormParameters;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -13,7 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class DebugAction
  *
  * @package Ds\Component\Debug
- * @ApiResource
  */
 class DebugAction
 {
@@ -40,7 +40,6 @@ class DebugAction
      */
     public function get()
     {
-        echo 'debug';
         exit;
     }
 }
