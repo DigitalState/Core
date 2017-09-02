@@ -2,14 +2,15 @@
 
 namespace Ds\Component\Camunda\Service;
 
-use Ds\Component\Bpm\Service;
-use Ds\Component\Bpm\Model\ProcessInstance;
-use Ds\Component\Bpm\Query\ProcessInstanceParameters as Parameters;
+use Ds\Component\Camunda\Model\ProcessInstance;
+use Ds\Component\Camunda\Query\ProcessInstanceParameters as Parameters;
 
 /**
  * Class ProcessInstanceService
+ *
+ * @package Ds\Component\Camunda
  */
-class ProcessInstanceService extends Service\AbstractService implements Service\ProcessInstanceService
+class ProcessInstanceService extends AbstractService
 {
     /**
      * @const string

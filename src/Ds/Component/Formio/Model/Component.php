@@ -4,6 +4,8 @@ namespace Ds\Component\Formio\Model;
 
 /**
  * Class Component
+ *
+ * @package Ds\Component\Formio
  */
 class Component implements Model
 {

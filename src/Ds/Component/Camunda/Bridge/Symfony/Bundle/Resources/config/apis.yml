@@ -1,0 +1,8 @@
+services:
+    ds_camunda.http.client:
+        class: '%ds_camunda.http.client.class%'
+
+    ds_camunda.api:
+        class: '%ds_camunda.api.class%'
+        arguments:
+            - '@ds_camunda.http.client'

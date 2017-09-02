@@ -9,6 +9,8 @@ use Symfony\Component\Config\FileLocator;
 
 /**
  * Class DsFormioExtension
+ *
+ * @package Ds\Component\Formio
  */
 class DsFormioExtension extends Extension
 {
@@ -22,6 +24,7 @@ class DsFormioExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
+        $loader->load('apis.yml');
         $loader->load('services.yml');
     }
 }

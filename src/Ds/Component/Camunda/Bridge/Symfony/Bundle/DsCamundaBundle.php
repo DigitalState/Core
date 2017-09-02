@@ -6,6 +6,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Class DsCamundaBundle
+ *
+ * @package Ds\Component\Camunda
  */
 class DsCamundaBundle extends Bundle
 {

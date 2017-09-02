@@ -2,14 +2,15 @@
 
 namespace Ds\Component\Camunda\Service;
 
-use Ds\Component\Bpm\Service;
-use Ds\Component\Bpm\Query\ProcessDefinitionParameters as Parameters;
-use Ds\Component\Bpm\Model\ProcessDefinition;
+use Ds\Component\Camunda\Query\ProcessDefinitionParameters as Parameters;
+use Ds\Component\Camunda\Model\ProcessDefinition;
 
 /**
  * Class ProcessDefinitionService
+ *
+ * @package Ds\Component\Camunda
  */
-class ProcessDefinitionService extends Service\AbstractService implements Service\ProcessDefinitionService
+class ProcessDefinitionService extends AbstractService
 {
     /**
      * @const string

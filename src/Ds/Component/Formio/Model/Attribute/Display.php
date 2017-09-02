@@ -4,6 +4,8 @@ namespace Ds\Component\Formio\Model\Attribute;
 
 /**
  * Trait Display
+ *
+ * @package Ds\Component\Formio
  */
 trait Display
 {

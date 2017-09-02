@@ -7,6 +7,8 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * Class Configuration
+ *
+ * @package Ds\Component\Camunda
  */
 class Configuration implements ConfigurationInterface
 {
@@ -17,20 +19,6 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder;
         $rootNode = $treeBuilder->root('ds_camunda');
-
-        $rootNode
-            ->children()
-                ->arrayNode('host')
-                    ->children()
-                        ->scalarNode('url')
-                        ->end()
-                        ->scalarNode('user')
-                        ->end()
-                        ->scalarNode('password')
-                        ->end()
-                    ->end()
-                ->end()
-            ->end();
 
         return $treeBuilder;
     }

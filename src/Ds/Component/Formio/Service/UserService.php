@@ -9,6 +9,8 @@ use DateTime;
 
 /**
  * Class UserService
+ *
+ * @package Ds\Component\Formio
  */
 class UserService extends AbstractService
 {

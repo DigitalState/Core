@@ -2,15 +2,31 @@
 
 namespace Ds\Component\Camunda\Api;
 
-use Ds\Component\Bpm\Api\Api as BaseApi;
 use GuzzleHttp\ClientInterface;
 use Ds\Component\Camunda\Service;
 
 /**
  * Class Api
+ *
+ * @package Ds\Component\Camunda
  */
-class Api extends BaseApi
+class Api
 {
+    /**
+     * @var \Ds\Component\Camunda\Service\ProcessDefinitionService
+     */
+    public $processDefinition;
+
+    /**
+     * @var \Ds\Component\Camunda\Service\ProcessInstanceService
+     */
+    public $processInstance;
+
+    /**
+     * @var \Ds\Component\Camunda\Service\TaskService
+     */
+    public $task;
+
     /**
      * Constructor
      *
@@ -28,7 +44,7 @@ class Api extends BaseApi
      * Set host
      *
      * @param string $host
-     * @return \Ds\Component\Bpm\Api\Api
+     * @return \Ds\Component\Camunda\Api\Api
      */
     public function setHost($host)
     {

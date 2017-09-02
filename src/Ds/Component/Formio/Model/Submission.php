@@ -4,6 +4,8 @@ namespace Ds\Component\Formio\Model;
 
 /**
  * Class Submission
+ *
+ * @package Ds\Component\Formio
  */
 class Submission implements Model
 {

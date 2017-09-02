@@ -2,7 +2,8 @@
 
 namespace Ds\Component\Api\Api;
 
-use Ds\Component\Api\Model\Service;
+use Ds\Component\Camunda\Api\Api as Camunda;
+use Ds\Component\Formio\Api\Api as Formio;
 use GuzzleHttp\ClientInterface;
 
 /**
@@ -48,6 +49,16 @@ class Api
     public $cms;
 
     /**
+     * @var \Ds\Component\Camunda\Api\Api
+     */
+    public $camunda;
+
+    /**
+     * @var \Ds\Component\Formio\Api\Api
+     */
+    public $formio;
+
+    /**
      * Constructor
      *
      * @param \GuzzleHttp\ClientInterface $client
@@ -62,6 +73,8 @@ class Api
         $this->records = new Records($client, $host);
         $this->assets = new Assets($client, $host);
         $this->cms = new Cms($client, $host);
+        $this->camunda = new Camunda($client, $host);
+        $this->formio = new Formio($client, $host);
     }
 
     /**
@@ -79,6 +92,8 @@ class Api
         $this->records->setHost($host);
         $this->assets->setHost($host);
         $this->cms->setHost($host);
+        $this->camunda->setHost($host);
+        $this->formio->setHost($host);
 
         return $this;
     }

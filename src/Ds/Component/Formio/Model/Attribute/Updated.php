@@ -6,6 +6,8 @@ use DateTime;
 
 /**
  * Trait Updated
+ *
+ * @package Ds\Component\Formio
  */
 trait Updated
 {

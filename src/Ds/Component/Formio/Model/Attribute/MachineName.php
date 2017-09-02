@@ -4,6 +4,8 @@ namespace Ds\Component\Formio\Model\Attribute;
 
 /**
  * Trait MachineName
+ *
+ * @package Ds\Component\Formio
  */
 trait MachineName
 {

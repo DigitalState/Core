@@ -4,6 +4,8 @@ namespace Ds\Component\Formio\Query\Attribute;
 
 /**
  * Trait Path
+ *
+ * @package Ds\Component\Formio
  */
 trait Path
 {

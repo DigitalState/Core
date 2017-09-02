@@ -42,7 +42,7 @@ items:
     -
         uuid: 799abde9-d4c8-42a7-afff-7042bf49f089
         key: ds_api.host.formio
-        value: ~
+        value: http://45.79.141.45:8057
 
     -
         uuid: 165111dc-82b8-46c6-a27d-44a7dc8b99a9

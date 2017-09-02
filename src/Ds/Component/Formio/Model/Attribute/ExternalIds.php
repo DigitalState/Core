@@ -3,7 +3,9 @@
 namespace Ds\Component\Formio\Model\Attribute;
 
 /**
- * Trait External ids
+ * Trait ExternalIds
+ *
+ * @package Ds\Component\Formio
  */
 trait ExternalIds
 {

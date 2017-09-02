@@ -6,6 +6,8 @@ use stdClass;
 
 /**
  * Trait Data
+ *
+ * @package Ds\Component\Formio
  */
 trait Data
 {

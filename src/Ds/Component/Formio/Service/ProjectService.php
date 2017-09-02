@@ -6,6 +6,8 @@ use Ds\Component\Formio\Model\Project;
 
 /**
  * Class ProjectService
+ *
+ * @package Ds\Component\Formio
  */
 class ProjectService extends AbstractService
 {

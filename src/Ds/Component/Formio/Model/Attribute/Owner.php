@@ -4,6 +4,8 @@ namespace Ds\Component\Formio\Model\Attribute;
 
 /**
  * Trait Owner
+ *
+ * @package Ds\Component\Formio
  */
 trait Owner
 {

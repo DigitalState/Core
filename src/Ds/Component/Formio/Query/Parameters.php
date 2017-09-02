@@ -4,6 +4,8 @@ namespace Ds\Component\Formio\Query;
 
 /**
  * Interface Parameters
+ *
+ * @package Ds\Component\Formio
  */
 interface Parameters
 {

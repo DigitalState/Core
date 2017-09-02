@@ -6,6 +6,8 @@ use Exception;
 
 /**
  * Class ValidationException
+ *
+ * @package Ds\Component\Formio
  */
 class ValidationException extends Exception
 {

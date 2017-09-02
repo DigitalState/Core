@@ -7,6 +7,8 @@ use Ds\Component\Formio\Service;
 
 /**
  * Class Api
+ *
+ * @package Ds\Component\Formio
  */
 class Api
 {

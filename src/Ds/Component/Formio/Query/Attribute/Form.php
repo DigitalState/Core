@@ -4,6 +4,8 @@ namespace Ds\Component\Formio\Query\Attribute;
 
 /**
  * Trait Form
+ *
+ * @package Ds\Component\Formio
  */
 trait Form
 {

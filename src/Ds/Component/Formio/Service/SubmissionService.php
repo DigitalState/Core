@@ -9,6 +9,8 @@ use GuzzleHttp\Exception\ClientException;
 
 /**
  * Class SubmissionService
+ *
+ * @package Ds\Component\Formio
  */
 class SubmissionService extends AbstractService
 {

@@ -1,0 +1,8 @@
+services:
+    ds_formio.http.client:
+        class: '%ds_formio.http.client.class%'
+
+    ds_formio.api:
+        class: '%ds_formio.api.class%'
+        arguments:
+            - '@ds_formio.http.client'

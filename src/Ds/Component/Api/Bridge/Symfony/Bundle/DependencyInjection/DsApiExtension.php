@@ -40,6 +40,7 @@ class DsApiExtension extends Extension implements PrependExtensionInterface
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
+        $loader->load('apis.yml');
         $loader->load('services.yml');
     }
 }

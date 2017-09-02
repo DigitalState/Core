@@ -4,6 +4,8 @@ namespace Ds\Component\Formio\Model\Attribute;
 
 /**
  * Trait Type
+ *
+ * @package Ds\Component\Formio
  */
 trait Type
 {

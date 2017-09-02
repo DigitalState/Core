@@ -2,14 +2,15 @@
 
 namespace Ds\Component\Camunda\Service;
 
-use Ds\Component\Bpm\Service;
-use Ds\Component\Bpm\Model\Task;
-use Ds\Component\Bpm\Query\TaskParameters as Parameters;
+use Ds\Component\Camunda\Model\Task;
+use Ds\Component\Camunda\Query\TaskParameters as Parameters;
 
 /**
  * Class TaskService
+ *
+ * @package Ds\Component\Camunda
  */
-class TaskService extends Service\AbstractService implements Service\TaskService
+class TaskService extends AbstractService
 {
     /**
      * @const string

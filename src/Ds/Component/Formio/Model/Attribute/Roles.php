@@ -4,6 +4,8 @@ namespace Ds\Component\Formio\Model\Attribute;
 
 /**
  * Trait Roles
+ *
+ * @package Ds\Component\Formio
  */
 trait Roles
 {
