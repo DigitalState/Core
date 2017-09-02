@@ -1,17 +1,33 @@
 services:
     ds_formio.http.client:
-        class: GuzzleHttp\Client
+        class: '%ds_formio.http.client.class%'
+
+    ds_formio.api:
+        class: '%ds_formio.api.class%'
+        arguments:
+            - '@ds_formio.http.client'
 
     ds_formio.service:
         abstract: true
         arguments:
             - '@ds_formio.http.client'
 
+    ds_formio.service.authentication:
+        parent: ds_formio.service
+        class: '%ds_formio.service.authentication.class%'
+
     ds_formio.service.form:
         parent: ds_formio.service
-        class: Ds\Component\Formio\Service\FormService
+        class: '%ds_formio.service.form.class%'
 
-    ds_formio.api:
-        class: Ds\Component\Formio\Api\Api
-        arguments:
-            - '@ds_formio.http.client'
+    ds_formio.service.project:
+        parent: ds_formio.service
+        class: '%ds_formio.service.project.class%'
+
+    ds_formio.service.submission:
+        parent: ds_formio.service
+        class: '%ds_formio.service.submission.class%'
+
+    ds_formio.service.user:
+        parent: ds_formio.service
+        class: '%ds_formio.service.user.class%'
