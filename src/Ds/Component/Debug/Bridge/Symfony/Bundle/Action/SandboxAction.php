@@ -11,11 +11,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class DebugAction
+ * Class SandboxAction
  *
  * @package Ds\Component\Debug
  */
-class DebugAction
+class SandboxAction
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
@@ -36,7 +36,7 @@ class DebugAction
      * Action
      *
      * @Method("GET")
-     * @Route(path="/debug")
+     * @Route(path="/sandbox")
      */
     public function get()
     {
