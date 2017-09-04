@@ -69,7 +69,7 @@ abstract class AbstractService implements Service
     /**
      * Cast model to object
      *
-     * @param \Ds\Component\Bpm\Model\Model $model
+     * @param \Ds\Component\Camunda\Model\Model $model
      * @return stdClass
      * @throws \LogicException
      */
@@ -120,7 +120,7 @@ abstract class AbstractService implements Service
      * Set host
      *
      * @param string $host
-     * @return \Ds\Component\Bpm\Service\Service
+     * @return \Ds\Component\Camunda\Service\Service
      */
     public function setHost($host)
     {
