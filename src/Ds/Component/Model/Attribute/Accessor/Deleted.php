@@ -33,14 +33,4 @@ trait Deleted
     {
         return null !== $this->deletedAt;
     }
-
-    /**
-     * Check if deleted
-     *
-     * @return boolean
-     */
-    public function isDeleted()
-    {
-        return null !== $this->deletedAt;
-    }
 }
