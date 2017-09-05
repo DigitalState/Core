@@ -2,6 +2,8 @@
 
 namespace Ds\Component\Api\Model;
 
+use Ds\Component\Model\Attribute;
+
 /**
  * Class System
  *

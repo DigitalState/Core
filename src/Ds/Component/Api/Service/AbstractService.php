@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Api\Service;
 
+use DateTime;
 use Ds\Component\Api\Model\Model;
 use GuzzleHttp\ClientInterface;
 use InvalidArgumentException;
@@ -49,6 +50,12 @@ abstract class AbstractService implements Service
 
             if (property_exists($object, $remote)) {
                 switch ($local) {
+                    case 'createdAt':
+                    case 'updatedAt':
+                    case 'lastLogin':
+                        $model->{'set'.ucfirst($local)}(new DateTime($object->$remote));
+                        break;
+
                     default:
                         $model->{'set'.ucfirst($local)}($object->$remote);
                 }
@@ -79,6 +86,18 @@ abstract class AbstractService implements Service
             }
 
             switch ($local) {
+                case 'createdAt':
+                case 'updatedAt':
+                case 'lastLogin':
+                    $object->$remote = null;
+                    $value = $model->{'get'.ucfirst($local)}();
+
+                    if ($value) {
+                        $object->$remote = $value->format('Y-m-d\TH:i:sP');
+                    }
+
+                    break;
+
                 default:
                     $object->$remote = $model->{'get'.ucfirst($local)}();
             }

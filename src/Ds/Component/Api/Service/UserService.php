@@ -28,7 +28,18 @@ class UserService extends AbstractService
      */
     protected static $map = [
         'id',
-        'uuid'
+        'uuid',
+        'createdAt',
+        'updatedAt',
+        'username',
+        'email',
+        'enabled',
+        'lastLogin',
+        'owner',
+        'ownerUuid',
+        'identity',
+        'identityUuid',
+        'version'
     ];
 
     /**
