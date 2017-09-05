@@ -12,3 +12,4 @@ services:
         arguments:
             - '@ds_api.api'
             - '@ds_config.service.config'
+            - '@lexik_jwt_authentication.jwt_manager'

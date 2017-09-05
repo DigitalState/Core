@@ -42,14 +42,15 @@ class Api
      *
      * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
+     * @param array $authorization
      */
-    public function __construct(ClientInterface $client, $host = null)
+    public function __construct(ClientInterface $client, $host = null, array $authorization = [])
     {
-        $this->authentication = new Service\AuthenticationService($client, $host);
-        $this->project = new Service\ProjectService($client, $host);
-        $this->form = new Service\FormService($client, $host);
-        $this->submission = new Service\SubmissionService($client, $host);
-        $this->user = new Service\UserService($client, $host);
+        $this->authentication = new Service\AuthenticationService($client, $host, $authorization);
+        $this->project = new Service\ProjectService($client, $host, $authorization);
+        $this->form = new Service\FormService($client, $host, $authorization);
+        $this->submission = new Service\SubmissionService($client, $host, $authorization);
+        $this->user = new Service\UserService($client, $host, $authorization);
     }
 
     /**
@@ -58,7 +59,7 @@ class Api
      * @param string $host
      * @return \Ds\Component\Formio\Api\Api
      */
-    public function setHost($host)
+    public function setHost($host = null)
     {
         $this->authentication->setHost($host);
         $this->project->setHost($host);
@@ -67,5 +68,20 @@ class Api
         $this->submission->setHost($host);
 
         return $this;
+    }
+
+    /**
+     * Set authorization
+     *
+     * @param array $authorization
+     * @return \Ds\Component\Formio\Api\Api
+     */
+    public function setAuthorization(array $authorization = [])
+    {
+        $this->authentication->setAuthorization($authorization);
+        $this->project->setAuthorization($authorization);
+        $this->form->setAuthorization($authorization);
+        $this->user->setAuthorization($authorization);
+        $this->submission->setAuthorization($authorization);
     }
 }

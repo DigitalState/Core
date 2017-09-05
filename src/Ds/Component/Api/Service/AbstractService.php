@@ -98,14 +98,28 @@ abstract class AbstractService implements Service
     protected $host; # region accessors
 
     /**
-     * Set host
-     *
-     * @param string $host
-     * @return \Ds\Component\Api\Service\Service
+     * {@inheritdoc}
      */
-    public function setHost($host)
+    public function setHost($host = null)
     {
         $this->host = $host;
+
+        return $this;
+    }
+
+    # endregion
+
+    /**
+     * @var array
+     */
+    protected $authorization; # region accessors
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setAuthorization(array $authorization = [])
+    {
+        $this->authorization = $authorization;
 
         return $this;
     }
@@ -117,11 +131,13 @@ abstract class AbstractService implements Service
      *
      * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
+     * @param array $authorization
      */
-    public function __construct(ClientInterface $client, $host = null)
+    public function __construct(ClientInterface $client, $host = null, array $authorization = [])
     {
         $this->client = $client;
         $this->host = $host;
+        $this->authorization = $authorization;
     }
 
     /**
@@ -135,7 +151,13 @@ abstract class AbstractService implements Service
     protected function execute($method, $resource, array $options = [])
     {
         $uri = $this->host.$resource;
-        $options += ['content-type' => 'application/json'];
+        $options['headers']['Content-Type'] = 'application/json';
+        $options['headers']['Accept'] = 'application/json';
+
+        if ($this->authorization) {
+            $options['headers']['Authorization'] = $this->authorization;
+        }
+
         $response = $this->client->request($method, $uri, $options);
 
         try {

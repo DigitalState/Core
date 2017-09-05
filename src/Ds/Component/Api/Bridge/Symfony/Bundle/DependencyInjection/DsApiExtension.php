@@ -21,14 +21,41 @@ class DsApiExtension extends Extension implements PrependExtensionInterface
     public function prepend(ContainerBuilder $container)
     {
         $container->prependExtensionConfig('ds_api', [
-            'host' => [
-                'authentication' => null,
-                'identities' => null,
-                'cases' => null,
-                'services' => null,
-                'records' => null,
-                'assets' => null,
-                'cms' => null,
+            'credential' => [
+                'username' => null,
+                'uuid' => null,
+                'roles' => null,
+                'identity' => null,
+                'identity_uuid' => null
+            ],
+            'api' => [
+                'authentication' => [
+                    'host' => null
+                ],
+                'identities' => [
+                    'host' => null
+                ],
+                'cases' => [
+                    'host' => null
+                ],
+                'services' => [
+                    'host' => null
+                ],
+                'records' => [
+                    'host' => null
+                ],
+                'assets' => [
+                    'host' => null
+                ],
+                'cms' => [
+                    'host' => null
+                ],
+                'camunda' => [
+                    'host' => null
+                ],
+                'formio' => [
+                    'host' => null
+                ]
             ]
         ]);
     }
@@ -38,9 +65,28 @@ class DsApiExtension extends Extension implements PrependExtensionInterface
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $configuration = new Configuration;
+        $config = $this->processConfiguration($configuration, $configs);
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('apis.yml');
         $loader->load('services.yml');
+
+        // @todo Move this config -> parameters logic to a common trait in the config component bridge
+        $container->setParameter('ds_config.configs.ds_api.credential.username', $config['credential']['username']);
+        $container->setParameter('ds_config.configs.ds_api.credential.uuid', $config['credential']['uuid']);
+        $container->setParameter('ds_config.configs.ds_api.credential.roles', $config['credential']['roles']);
+        $container->setParameter('ds_config.configs.ds_api.credential.identity', $config['credential']['identity']);
+        $container->setParameter('ds_config.configs.ds_api.credential.identity_uuid', $config['credential']['identity_uuid']);
+        $container->setParameter('ds_config.configs.ds_api.api.authentication.host', $config['api']['authentication']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.identities.host', $config['api']['identities']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.cases.host', $config['api']['cases']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.services.host', $config['api']['services']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.records.host', $config['api']['records']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.assets.host', $config['api']['assets']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.cms.host', $config['api']['cms']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.camunda.host', $config['api']['camunda']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.formio.host', $config['api']['formio']['host']);
     }
 }

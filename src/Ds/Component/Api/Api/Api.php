@@ -61,18 +61,19 @@ class Api
      *
      * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
+     * @param array $authorization
      */
-    public function __construct(ClientInterface $client, $host = null)
+    public function __construct(ClientInterface $client, $host = null, array $authorization = [])
     {
-        $this->authentication = new Authentication($client, $host);
-        $this->identities = new Identities($client, $host);
-        $this->cases = new Cases($client, $host);
-        $this->services = new Services($client, $host);
-        $this->records = new Records($client, $host);
-        $this->assets = new Assets($client, $host);
-        $this->cms = new Cms($client, $host);
-        $this->camunda = new Camunda($client, $host);
-        $this->formio = new Formio($client, $host);
+        $this->authentication = new Authentication($client, $host, $authorization);
+        $this->identities = new Identities($client, $host, $authorization);
+        $this->cases = new Cases($client, $host, $authorization);
+        $this->services = new Services($client, $host, $authorization);
+        $this->records = new Records($client, $host, $authorization);
+        $this->assets = new Assets($client, $host, $authorization);
+        $this->cms = new Cms($client, $host, $authorization);
+        $this->camunda = new Camunda($client, $host, $authorization);
+        $this->formio = new Formio($client, $host, $authorization);
     }
 
     /**
@@ -81,7 +82,7 @@ class Api
      * @param string $host
      * @return \Ds\Component\Api\Api\Api
      */
-    public function setHost($host)
+    public function setHost($host = null)
     {
         $this->authentication->setHost($host);
         $this->identities->setHost($host);
@@ -92,6 +93,27 @@ class Api
         $this->cms->setHost($host);
         $this->camunda->setHost($host);
         $this->formio->setHost($host);
+
+        return $this;
+    }
+
+    /**
+     * Set authorization
+     *
+     * @param array $authorization
+     * @return \Ds\Component\Api\Api\Api
+     */
+    public function setAuthorization(array $authorization = [])
+    {
+        $this->authentication->setAuthorization($authorization);
+        $this->identities->setAuthorization($authorization);
+        $this->cases->setAuthorization($authorization);
+        $this->services->setAuthorization($authorization);
+        $this->records->setAuthorization($authorization);
+        $this->assets->setAuthorization($authorization);
+        $this->cms->setAuthorization($authorization);
+        $this->camunda->setAuthorization($authorization);
+        $this->formio->setAuthorization($authorization);
 
         return $this;
     }
