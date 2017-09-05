@@ -10,9 +10,17 @@ namespace Ds\Component\Model\Type;
 interface Identifiable
 {
     /**
+     * Set id
+     *
+     * @param integer $id
+     * @return object
+     */
+    public function setId($id);
+
+    /**
      * Get id
      *
-     * @return string
+     * @return integer
      */
     public function getId();
 }
