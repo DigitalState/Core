@@ -31,6 +31,16 @@ trait Deleted
      */
     public function getDeleted()
     {
-        return $this->deletedAt !== null;
+        return null !== $this->deletedAt;
+    }
+
+    /**
+     * Check if deleted
+     *
+     * @return boolean
+     */
+    public function isDeleted()
+    {
+        return null !== $this->deletedAt;
     }
 }
