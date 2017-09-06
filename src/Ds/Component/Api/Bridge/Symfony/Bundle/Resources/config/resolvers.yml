@@ -1,0 +1,7 @@
+services:
+    ds_api.resolver.api:
+        class: '%ds_api.resolver.api.class%'
+        arguments:
+            - '@ds_api.factory'
+        tags:
+            - { name: ds_resolver.resolver, alias: ds.api }

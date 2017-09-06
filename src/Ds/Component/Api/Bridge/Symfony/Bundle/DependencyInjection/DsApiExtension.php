@@ -71,6 +71,7 @@ class DsApiExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('apis.yml');
+        $loader->load('resolvers.yml');
         $loader->load('services.yml');
 
         // @todo Move this config -> parameters logic to a common trait in the config component bridge

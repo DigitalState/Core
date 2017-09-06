@@ -2,3 +2,4 @@ parameters:
     ds_api.http.client.class: GuzzleHttp\Client
     ds_api.api.class: Ds\Component\Api\Api\Api
     ds_api.factory.class: Ds\Component\Api\Api\Factory
+    ds_api.resolver.api.class: Ds\Component\Api\Resolver\ApiResolver
