@@ -3,7 +3,7 @@
 namespace Ds\Component\Resolver\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use DomainException;
+use Ds\Component\Resolver\Exception\UnresolvedException;
 
 /**
  * Class ResolverCollection
@@ -15,7 +15,7 @@ class ResolverCollection extends ArrayCollection
      *
      * @param string $variable
      * @return mixed
-     * @throws \DomainException
+     * @throws \Ds\Component\Resolver\Exception\UnresolvedException
      */
     public function resolve($variable)
     {
@@ -25,6 +25,6 @@ class ResolverCollection extends ArrayCollection
             }
         }
 
-        throw new DomainException('Variable pattern is not valid.');
+        throw new UnresolvedException('Variable pattern is not valid.');
     }
 }
