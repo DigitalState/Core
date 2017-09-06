@@ -60,4 +60,20 @@ class UserService extends AbstractService
 
         return $list;
     }
+
+    /**
+     * Get user list
+     *
+     * @param string $id
+     * @param \Ds\Component\Api\Query\UserParameters $parameters
+     * @return \Ds\Component\Api\Model\User
+     */
+    public function get($id, Parameters $parameters = null)
+    {
+        $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT);
+        $object = $this->execute('GET', $resource);
+        $model = static::toModel($object);
+
+        return $model;
+    }
 }
