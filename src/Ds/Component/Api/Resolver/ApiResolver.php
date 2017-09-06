@@ -59,10 +59,10 @@ class ApiResolver implements Resolver
 
         $api = $this->factory->create();
         $service = $matches[1];
-        $entity = $matches[2];
+        $resource = $matches[2];
         $id = $matches[3];
         $property = $matches[4];
-        $model = $api->$service->$entity->get($id);
+        $model = $api->$service->$resource->get($id);
         $accessor = PropertyAccess::createPropertyAccessor();
         $value = $accessor->getValue($model, $property);
 
