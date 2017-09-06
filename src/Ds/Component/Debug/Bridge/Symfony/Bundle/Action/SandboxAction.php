@@ -2,12 +2,9 @@
 
 namespace Ds\Component\Debug\Bridge\Symfony\Bundle\Action;
 
-use Ds\Component\Formio\Query\FormParameters;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
