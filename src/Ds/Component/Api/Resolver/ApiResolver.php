@@ -15,11 +15,6 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 class ApiResolver implements Resolver
 {
     /**
-     * @var \Ds\Component\Api\Api\Factory
-     */
-    protected $factory;
-
-    /**
      * @var \Ds\Component\Api\Api\Api
      */
     protected $api;
@@ -31,7 +26,7 @@ class ApiResolver implements Resolver
      */
     public function __construct(Factory $factory)
     {
-        $this->factory = $factory;
+        $this->api = $factory->create();
     }
 
     /**
@@ -39,7 +34,19 @@ class ApiResolver implements Resolver
      */
     public function isMatch($variable, array &$matches = [])
     {
-        if (!preg_match('/^ds\.(authentication)\.(user)\[([-a-zA-Z0-9]+)\]\.(.+)/', $variable, $matches)) {
+        if (!preg_match('/^ds\.([a-z]+)\.([a-z]+)\[([-a-zA-Z0-9]+)\]\.(.+)/', $variable, $matches)) {
+            return false;
+        }
+
+        $service = $matches[1];
+
+        if (!property_exists($this->api, $service)) {
+            return false;
+        }
+
+        $resource = $matches[2];
+
+        if (!property_exists($this->api->$service, $resource)) {
             return false;
         }
 
@@ -57,12 +64,11 @@ class ApiResolver implements Resolver
             throw new UnresolvedException('Variable pattern is not valid.');
         }
 
-        $api = $this->factory->create();
         $service = $matches[1];
         $resource = $matches[2];
         $id = $matches[3];
         $property = $matches[4];
-        $model = $api->$service->$resource->get($id);
+        $model = $this->api->$service->$resource->get($id);
         $accessor = PropertyAccess::createPropertyAccessor();
         $value = $accessor->getValue($model, $property);
 
