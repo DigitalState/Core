@@ -5,6 +5,7 @@ namespace Ds\Component\Api\Resolver;
 use Ds\Component\Api\Api\Factory;
 use Ds\Component\Resolver\Exception\UnresolvedException;
 use Ds\Component\Resolver\Resolver\Resolver;
+use Exception;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
@@ -70,7 +71,12 @@ class ApiResolver implements Resolver
         $property = $matches[4];
         $model = $this->api->$service->$resource->get($id);
         $accessor = PropertyAccess::createPropertyAccessor();
-        $value = $accessor->getValue($model, $property);
+
+        try {
+            $value = $accessor->getValue($model, $property);
+        } catch (Exception $exception) {
+            throw new UnresolvedException('Variable pattern is not valid.', 0, $exception);
+        }
 
         return $value;
     }
