@@ -33,6 +33,11 @@ class Identities
     public $permission;
 
     /**
+     * @var \Ds\Component\Api\Service\IndividualPersonaService
+     */
+    public $individualPersona;
+
+    /**
      * Constructor
      *
      * @param \GuzzleHttp\ClientInterface $client
@@ -45,6 +50,7 @@ class Identities
         $this->config = new Service\ConfigService($client, $host, $authorization);
         $this->access = new Service\AccessService($client, $host, $authorization);
         $this->permission = new Service\PermissionService($client, $host, $authorization);
+        $this->individualPersona = new Service\IndividualPersonaService($client, $host, $authorization);
     }
 
     /**
@@ -59,6 +65,7 @@ class Identities
         $this->config->setHost($host);
         $this->access->setHost($host);
         $this->permission->setHost($host);
+        $this->individualPersona->setHost($host);
 
         return $this;
     }
@@ -75,6 +82,7 @@ class Identities
         $this->config->setAuthorization($authorization);
         $this->access->setAuthorization($authorization);
         $this->permission->setAuthorization($authorization);
+        $this->individualPersona->setAuthorization($authorization);
 
         return $this;
     }

@@ -34,7 +34,7 @@ class ApiResolver implements Resolver
      */
     public function isMatch($variable, array &$matches = [])
     {
-        if (!preg_match('/^ds\.([-a-z0-9]+)\.([-a-z0-9]+)\[([-a-zA-Z0-9]+)\]\.(.+)/', $variable, $matches)) {
+        if (!preg_match('/^ds\.([a-zA-Z0-9]+)\.([a-zA-Z0-9]+)\[([-a-zA-Z0-9]+)\]\.(.+)/', $variable, $matches)) {
             return false;
         }
 
