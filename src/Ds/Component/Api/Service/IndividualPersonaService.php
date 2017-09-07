@@ -46,7 +46,18 @@ class IndividualPersonaService extends AbstractService
      */
     public function getList(Parameters $parameters = null)
     {
-        $objects = $this->execute('GET', static::RESOURCE_LIST);
+        $options = [];
+
+        if ($parameters) {
+            $options['query'] = (array) $parameters->toObject(true);
+
+            if (array_key_exists('individualUuid', $options['query'])) {
+                $options['query']['individual.uuid'] = $options['query']['individualUuid'];
+                unset($options['query']['individualUuid']);
+            }
+        }
+
+        $objects = $this->execute('GET', static::RESOURCE_LIST, $options);
         $list = [];
 
         foreach ($objects as $object) {
