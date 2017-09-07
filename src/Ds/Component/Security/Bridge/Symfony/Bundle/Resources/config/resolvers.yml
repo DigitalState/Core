@@ -1,0 +1,8 @@
+services:
+    ds_security.resolver.context.individual:
+        class: '%ds_security.resolver.context.individual.class%'
+        arguments:
+            - '@ds_api.factory'
+            - '@security.token_storage'
+        tags:
+            - { name: ds_resolver.resolver, alias: ds.context.individual }

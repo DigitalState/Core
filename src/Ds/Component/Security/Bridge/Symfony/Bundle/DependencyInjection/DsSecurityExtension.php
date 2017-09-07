@@ -59,6 +59,7 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         $loader->load('doctrine.yml');
         $loader->load('event_listeners.yml');
         $loader->load('repositories.yml');
+        $loader->load('resolvers.yml');
         $loader->load('serializers.yml');
         $loader->load('services.yml');
         $loader->load('voters.yml');

@@ -18,6 +18,7 @@ parameters:
     ds_security.serializer.normalizer.acl.property.class: Ds\Component\Security\Serializer\Normalizer\Acl\PropertyNormalizer
     ds_security.repository.access.class: Ds\Component\Security\Repository\AccessRepository
     ds_security.repository.permission.class: Ds\Component\Security\Repository\PermissionRepository
+    ds_security.resolver.context.individual.class: Ds\Component\Security\Resolver\Context\IndividualResolver
     ds_security.service.access.class: Ds\Component\Security\Service\AccessService
     ds_security.service.permission.class: Ds\Component\Security\Service\PermissionService
     ds_security.voter.permission.custom.class: Ds\Component\Security\Voter\Permission\CustomVoter
