@@ -2,8 +2,10 @@
 
 namespace Ds\Component\Config\Service;
 
+use Doctrine\ORM\EntityManager;
 use Ds\Component\Config\Collection\ConfigCollection;
-use Ds\Component\Config\Repository\ConfigRepository;
+use Ds\Component\Config\Entity\Config;
+use Ds\Component\Entity\Service\EntityService;
 use OutOfRangeException;
 
 /**
@@ -11,28 +13,25 @@ use OutOfRangeException;
  *
  * @package Ds\Component\Config
  */
-class ConfigService
+class ConfigService extends EntityService
 {
     /**
      * @var \Ds\Component\Config\Collection\ConfigCollection
      */
-    protected $configCollection;
-
-    /**
-     * @var \Ds\Component\Config\Repository\ConfigRepository
-     */
-    protected $configRepository;
+    protected $collection;
 
     /**
      * Constructor
      *
-     * @param \Ds\Component\Config\Collection\ConfigCollection $configCollection
-     * @param \Ds\Component\Config\Repository\ConfigRepository $configRepository
+     * @param \Doctrine\ORM\EntityManager $manager
+     * @param \Ds\Component\Config\Collection\ConfigCollection $collection
+     * @param string $entity
      */
-    public function __construct(ConfigCollection $configCollection, ConfigRepository $configRepository)
+    public function __construct(EntityManager $manager, ConfigCollection $collection, $entity = Config::class)
     {
-        $this->configCollection = $configCollection;
-        $this->configRepository = $configRepository;
+        parent::__construct($manager, $entity);
+
+        $this->collection = $collection;
     }
 
     /**
@@ -44,14 +43,14 @@ class ConfigService
      */
     public function get($key)
     {
-        $config = $this->configRepository->findOneBy(['key' => $key]);
+        $config = $this->repository->findOneBy(['key' => $key]);
 
         if (!$config) {
             throw new OutOfRangeException('Config does not exist.');
         }
 
         if (!$config->getEnabled()) {
-            return $this->configCollection->get($key);
+            return $this->collection->get($key);
         }
 
         return $config->getValue();
@@ -64,8 +63,20 @@ class ConfigService
      * @param mixed $value
      * @param boolean $enabled
      */
-    public function set($key, $value, $enabled = null)
+    public function set($key, $value, $enabled = true)
     {
+        $config = $this->repository->findOneBy(['key' => $key]);
 
+        if (!$config) {
+            throw new OutOfRangeException('Config does not exist.');
+        }
+
+        $config
+            ->setKey($key)
+            ->setValue($value)
+            ->setEnabled($enabled);
+
+        $this->manager->persist($config);
+        $this->manager->flush();
     }
 }

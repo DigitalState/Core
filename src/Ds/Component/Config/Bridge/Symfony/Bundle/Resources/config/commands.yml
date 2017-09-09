@@ -1,0 +1,14 @@
+services:
+    ds_config.command.config.get:
+        class: Ds\Component\Config\Command\Config\GetCommand
+        arguments:
+            - '@ds_config.service.config'
+        tags:
+            - { name: console.command }
+
+    ds_config.command.config.set:
+        class: Ds\Component\Config\Command\Config\SetCommand
+        arguments:
+            - '@ds_config.service.config'
+        tags:
+            - { name: console.command }

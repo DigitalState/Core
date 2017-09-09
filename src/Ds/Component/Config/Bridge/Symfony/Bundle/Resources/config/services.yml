@@ -1,6 +1,6 @@
 services:
     ds_config.service.config:
         class: '%ds_config.service.config.class%'
+        parent: ds_entity.service.entity
         arguments:
             - '@ds_config.collection.config'
-            - '@ds_config.repository.config'
