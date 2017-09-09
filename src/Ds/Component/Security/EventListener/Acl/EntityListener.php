@@ -2,7 +2,7 @@
 
 namespace Ds\Component\Security\EventListener\Acl;
 
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
+use ApiPlatform\Core\DataProvider\PaginatorInterface as Paginator;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Security\Model\Permission;
 use Ds\Component\Security\Model\Subject;

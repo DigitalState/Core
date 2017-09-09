@@ -2,7 +2,7 @@
 
 namespace Ds\Component\Translation\EventListener;
 
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
+use ApiPlatform\Core\DataProvider\PaginatorInterface as Paginator;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ds\Component\Translation\Model\Type\Translatable;
 use Ds\Component\Translation\Service\TranslationService;

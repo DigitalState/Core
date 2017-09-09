@@ -2,7 +2,7 @@
 
 namespace Ds\Component\Locale\EventListener;
 
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
+use ApiPlatform\Core\DataProvider\PaginatorInterface as Paginator;
 use Ds\Component\Locale\Model\Annotation\Locale;
 use Ds\Component\Locale\Model\Type\Localizable;
 use Doctrine\Common\Annotations\Reader;
