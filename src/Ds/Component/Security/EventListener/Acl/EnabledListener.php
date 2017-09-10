@@ -4,7 +4,6 @@ namespace Ds\Component\Security\EventListener\Acl;
 
 use ApiPlatform\Core\DataProvider\PaginatorInterface as Paginator;
 use Ds\Component\Model\Type\Enableable;
-use Ds\Component\Model\Type\Identitiable;
 use Ds\Component\Security\Voter\EnabledVoter;
 use LogicException;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
