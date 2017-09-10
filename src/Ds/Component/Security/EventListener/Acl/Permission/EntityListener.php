@@ -89,7 +89,7 @@ class EntityListener
             ->setType(Permission::ENTITY)
             ->setValue($entity);
 
-        if ($data instanceof Paginator) {
+        if ($data instanceof Paginator || is_array($data)) {
             foreach ($data as $item) {
                 $subject
                     ->setEntity($item->getOwner())

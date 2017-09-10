@@ -47,7 +47,7 @@ class LocaleListener
         $controllerResult = $event->getControllerResult();
         $locale = $request->query->get('locale');
 
-        if ($controllerResult instanceof Paginator) {
+        if ($controllerResult instanceof Paginator || is_array($controllerResult)) {
             foreach ($controllerResult as $entity) {
                 if ($entity instanceof Localizable) {
                     $this->localize($entity, $locale);

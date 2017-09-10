@@ -65,7 +65,7 @@ class IdentityListener
 
         $data = $request->attributes->get('data');
 
-        if ($data instanceof Paginator) {
+        if ($data instanceof Paginator || is_array($data)) {
             foreach ($data as $item) {
                 $vote = $this->identityVoter->vote($token, $item, ['*']);
 

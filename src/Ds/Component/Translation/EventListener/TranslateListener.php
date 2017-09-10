@@ -54,7 +54,7 @@ class TranslateListener
 
         $data = $request->attributes->get('data');
 
-        if ($data instanceof Paginator) {
+        if ($data instanceof Paginator || is_array($data)) {
             foreach ($data as $item) {
                 $this->load($item);
             }
