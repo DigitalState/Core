@@ -7,6 +7,7 @@ parameters:
     ds_security.doctrine.orm.query_extension.identity.class: Ds\Component\Security\Doctrine\ORM\QueryExtension\IdentityExtension
     ds_security.doctrine.orm.query_extension.permission.entity.class: Ds\Component\Security\Doctrine\ORM\QueryExtension\Permission\EntityExtension
     ds_security.event_listener.acl.permission.entity.class: Ds\Component\Security\EventListener\Acl\Permission\EntityListener
+    ds_security.event_listener.acl.deleted.class: Ds\Component\Security\EventListener\Acl\DeletedListener
     ds_security.event_listener.acl.enabled.class: Ds\Component\Security\EventListener\Acl\EnabledListener
     ds_security.event_listener.acl.identity.class: Ds\Component\Security\EventListener\Acl\IdentityListener
     ds_security.event_listener.access.permissions.class: Ds\Component\Security\EventListener\Access\PermissionsListener
@@ -26,5 +27,6 @@ parameters:
     ds_security.voter.permission.custom.class: Ds\Component\Security\Voter\Permission\CustomVoter
     ds_security.voter.permission.entity.class: Ds\Component\Security\Voter\Permission\EntityVoter
     ds_security.voter.permission.property.class: Ds\Component\Security\Voter\Permission\PropertyVoter
+    ds_security.voter.deleted.class: Ds\Component\Security\Voter\DeletedVoter
     ds_security.voter.enabled.class: Ds\Component\Security\Voter\EnabledVoter
     ds_security.voter.identity.class: Ds\Component\Security\Voter\IdentityVoter
