@@ -60,18 +60,37 @@ class IdentityExtension implements QueryCollectionExtensionInterface, QueryItemE
             return;
         }
 
-        $user = $this->tokenStorage->getToken()->getUser();
+        $identity = null;
+        $identityUuid = null;
+        $token = $this->tokenStorage->getToken();
 
-        if (in_array($user->getIdentity(), [Identity::SYSTEM, Identity::STAFF], true)) {
-            return;
+        if ($token) {
+            $user = $token->getUser();
+
+            if (in_array($user->getIdentity(), [Identity::SYSTEM, Identity::STAFF], true)) {
+                return;
+            }
+
+            $identity = $user->getIdentity();
+            $identityUuid = $user->getIdentityUuid();
         }
 
-        $user = $this->tokenStorage->getToken()->getUser();
         $rootAlias = $queryBuilder->getRootAliases()[0];
-        $queryBuilder
-            ->andWhere(sprintf('%s.identity = :identity', $rootAlias))
-            ->setParameter('identity', $user->getIdentity())
-            ->andWhere(sprintf('%s.identityUuid = :identityUuid', $rootAlias))
-            ->setParameter('identityUuid', $user->getIdentityUuid());
+
+        if (null === $identity) {
+            $queryBuilder->andWhere(sprintf('%s.identity IS NULL', $rootAlias));
+        } else {
+            $queryBuilder
+                ->andWhere(sprintf('%s.identity = :identity', $rootAlias))
+                ->setParameter('identity', $identity);
+        }
+
+        if (null === $identityUuid) {
+            $queryBuilder->andWhere(sprintf('%s.identityUuid IS NULL', $rootAlias));
+        } else {
+            $queryBuilder
+                ->andWhere(sprintf('%s.identityUuid = :identityUuid', $rootAlias))
+                ->setParameter('identityUuid', $identityUuid);
+        }
     }
 }

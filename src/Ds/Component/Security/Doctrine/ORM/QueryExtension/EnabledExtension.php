@@ -60,10 +60,14 @@ class EnabledExtension implements QueryCollectionExtensionInterface, QueryItemEx
             return;
         }
 
-        $user = $this->tokenStorage->getToken()->getUser();
+        $token = $this->tokenStorage->getToken();
 
-        if (in_array($user->getIdentity(), [Identity::SYSTEM, Identity::STAFF], true)) {
-            return;
+        if ($token) {
+            $user = $token->getUser();
+
+            if (in_array($user->getIdentity(), [Identity::SYSTEM, Identity::STAFF], true)) {
+                return;
+            }
         }
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
