@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Security\EventListener\Acl;
+namespace Ds\Component\Security\EventListener\Acl\Permission;
 
 use ApiPlatform\Core\DataProvider\PaginatorInterface as Paginator;
 use Ds\Component\Model\Type\Ownable;

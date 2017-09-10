@@ -20,3 +20,8 @@ services:
             - '@ds_security.service.access'
         tags:
            - { name: security.voter }
+
+    ds_security.voter.identity:
+        class: '%ds_security.voter.identity.class%'
+        tags:
+           - { name: security.voter }
