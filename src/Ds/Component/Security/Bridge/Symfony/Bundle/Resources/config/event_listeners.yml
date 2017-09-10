@@ -7,6 +7,14 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 1 }
 
+    ds_security.event_listener.acl.enabled:
+        class: '%ds_security.event_listener.acl.enabled.class%'
+        arguments:
+            - '@security.token_storage'
+            - '@ds_security.voter.enabled'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 1 }
+
     ds_security.event_listener.acl.identity:
         class: '%ds_security.event_listener.acl.identity.class%'
         arguments:

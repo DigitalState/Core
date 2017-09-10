@@ -25,3 +25,8 @@ services:
         class: '%ds_security.voter.identity.class%'
         tags:
            - { name: security.voter }
+
+    ds_security.voter.enabled:
+        class: '%ds_security.voter.enabled.class%'
+        tags:
+           - { name: security.voter }
