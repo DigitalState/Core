@@ -168,10 +168,16 @@ abstract class AbstractService implements Service
     protected function execute($method, $resource, array $options = [])
     {
         $uri = $this->host.$resource;
-        $options['headers']['Content-Type'] = 'application/json';
-        $options['headers']['Accept'] = 'application/json';
 
-        if ($this->authorization) {
+        if (!isset($options['headers']['Content-Type'])) {
+            $options['headers']['Content-Type'] = 'application/json';
+        }
+
+        if (!isset($options['headers']['Accept'])) {
+            $options['headers']['Accept'] = 'application/json';
+        }
+
+        if (!isset($options['headers']['Authorization']) && $this->authorization) {
             $options['headers']['Authorization'] = $this->authorization;
         }
 

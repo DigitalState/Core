@@ -108,10 +108,10 @@ class SubmissionService extends AbstractService
 
         try {
             $object = $this->execute('POST', $resource, [
-                'form_params' => [
-                    'data' => (array)static::toObject($submission)->data
+                'json' => [
+                    'data' => (array) static::toObject($submission)->data
                 ],
-                'query' => (array)$parameters->toObject(true)
+                'query' => (array) $parameters->toObject(true)
             ]);
         } catch (ClientException $exception) {
             $response = $exception->getResponse();
