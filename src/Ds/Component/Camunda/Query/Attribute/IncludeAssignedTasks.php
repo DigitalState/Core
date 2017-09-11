@@ -23,7 +23,7 @@ trait IncludeAssignedTasks
     public function setIncludeAssignedTasks($includeAssignedTasks)
     {
         $this->includeAssignedTasks = $includeAssignedTasks;
-        $this->_includeAssignedTasks = true;
+        $this->_includeAssignedTasks = null !== $includeAssignedTasks;
 
         return $this;
     }

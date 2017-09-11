@@ -23,7 +23,7 @@ trait CandidateGroup
     public function setCandidateGroup($candidateGroup)
     {
         $this->candidateGroup = $candidateGroup;
-        $this->_candidateGroup = true;
+        $this->_candidateGroup = null !== $candidateGroup;
 
         return $this;
     }

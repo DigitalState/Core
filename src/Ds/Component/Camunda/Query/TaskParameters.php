@@ -9,6 +9,8 @@ namespace Ds\Component\Camunda\Query;
  */
 class TaskParameters extends AbstractParameters
 {
+    use Attribute\Assignee;
+    use Attribute\AssigneeLike;
     use Attribute\CandidateGroup;
     use Attribute\IncludeAssignedTasks;
 }

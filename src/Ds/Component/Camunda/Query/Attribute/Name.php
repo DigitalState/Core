@@ -23,7 +23,7 @@ trait Name
     public function setName($name)
     {
         $this->name = $name;
-        $this->_name = true;
+        $this->_name = null !== $name;
 
         return $this;
     }

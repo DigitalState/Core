@@ -23,7 +23,7 @@ trait Key
     public function setKey($key)
     {
         $this->key = $key;
-        $this->_key = true;
+        $this->_key = null !== $key;
 
         return $this;
     }
