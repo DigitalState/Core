@@ -55,7 +55,9 @@ class TaskService extends AbstractService
      */
     public function getList(Parameters $parameters = null)
     {
-        $objects = $this->execute('GET', static::TASK_LIST);
+        $objects = $this->execute('GET', static::TASK_LIST, [
+            'query' => (array)  $parameters->toObject(true)
+        ]);
         $list = [];
 
         foreach ($objects as $object) {
