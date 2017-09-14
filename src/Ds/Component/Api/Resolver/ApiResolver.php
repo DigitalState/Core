@@ -16,6 +16,11 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 class ApiResolver implements Resolver
 {
     /**
+     * \Ds\Component\Api\Api\Factory
+     */
+    protected $factory;
+
+    /**
      * @var \Ds\Component\Api\Api\Api
      */
     protected $api;
@@ -27,7 +32,7 @@ class ApiResolver implements Resolver
      */
     public function __construct(Factory $factory)
     {
-        $this->api = $factory->create();
+        $this->factory = $factory;
     }
 
     /**
@@ -69,6 +74,11 @@ class ApiResolver implements Resolver
         $resource = $matches[2];
         $id = $matches[3];
         $property = $matches[4];
+
+        if (!$this->api) {
+            $this->api = $this->factory->create();
+        }
+
         $model = $this->api->$service->$resource->get($id);
         $accessor = PropertyAccess::createPropertyAccessor();
 

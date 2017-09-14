@@ -19,6 +19,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class IndividualResolver implements Resolver
 {
     /**
+     * \Ds\Component\Api\Api\Factory
+     */
+    protected $factory;
+
+    /**
      * @var \Ds\Component\Api\Api\Api
      */
     protected $api;
@@ -36,7 +41,7 @@ class IndividualResolver implements Resolver
      */
     public function __construct(Factory $factory, TokenStorageInterface $tokenStorage)
     {
-        $this->api = $factory->create();
+        $this->factory = $factory;
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -79,6 +84,11 @@ class IndividualResolver implements Resolver
         $user = $token->getUser();
         $parameters = new Parameters;
         $parameters->setIndividualUuid($user->getIdentityUuid());
+
+        if (!$this->api) {
+            $this->api = $this->factory->create();
+        }
+
         $models = $this->api->identities->individualPersona->getList($parameters);
 
         if (!$models) {
