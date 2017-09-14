@@ -3,7 +3,10 @@
 namespace Ds\Component\Camunda\Service;
 
 use Ds\Component\Camunda\Model\Task;
+use Ds\Component\Camunda\Model\Variable;
 use Ds\Component\Camunda\Query\TaskParameters as Parameters;
+use InvalidArgumentException;
+use stdClass;
 
 /**
  * Class TaskService
@@ -23,6 +26,7 @@ class TaskService extends AbstractService
     const TASK_LIST = '/task';
     const TASK_COUNT = '/task/count';
     const TASK_OBJECT = '/task/{id}';
+    const TASK_SUBMIT = '/task/{id}/submit-form';
 
     /**
      * @var array
@@ -51,7 +55,10 @@ class TaskService extends AbstractService
     ];
 
     /**
-     * {@inheritdoc}
+     * Get task list
+     *
+     * @param \Ds\Component\Camunda\Query\TaskParameters $parameters
+     * @return array
      */
     public function getList(Parameters $parameters = null)
     {
@@ -69,7 +76,10 @@ class TaskService extends AbstractService
     }
 
     /**
-     * {@inheritdoc}
+     * Get count
+     *
+     * @param \Ds\Component\Camunda\Query\TaskParameters $parameters
+     * @return integer
      */
     public function getCount(Parameters $parameters = null)
     {
@@ -79,13 +89,65 @@ class TaskService extends AbstractService
     }
 
     /**
-     * {@inheritdoc}
+     * Get task
+     *
+     * @param string $id
+     * @return \Ds\Component\Camunda\Model\Task
      */
-    public function get($id, Parameters $parameters = null)
+    public function get($id)
     {
         $resource = str_replace('{id}', $id, static::TASK_OBJECT);
-        $object = $this->execute('GET', $resource);
+        $options = ['headers' => ['Accept' => 'application/hal+json']];
+        $object = $this->execute('GET', $resource, $options);
         $model = static::toModel($object);
+
+        return $model;
+    }
+
+    /**
+     * Submit task data
+     *
+     * @param string $id
+     * @param array $variables
+     * @throws \InvalidArgumentException
+     */
+    public function submit($id, array $variables)
+    {
+        foreach ($variables as $variable) {
+            if (!$variable instanceof Variable) {
+                throw new InvalidArgumentException('Array of variables is not valid.');
+            }
+        }
+
+        $resource = str_replace('{id}', $id, static::TASK_SUBMIT);
+        $options = ['json' => []];
+
+        foreach ($variables as $variable) {
+            $options['json'][$variable->getName()] = $variable->toObject(true);
+        }
+
+        $this->execute('POST', $resource, $options);
+    }
+
+    /**
+     * Cast object to model
+     *
+     * @param \stdClass $object
+     * @return \Ds\Component\Camunda\Model\Model
+     * @throws \LogicException
+     */
+    public static function toModel(stdClass $object)
+    {
+        $model = parent::toModel($object);
+
+        // @todo Parse everything that is embedded
+        if (isset($object->_embedded->identityLink)) {
+            foreach ($object->_embedded->identityLink as $identity) {
+                if ('candidate' === $identity->type) {
+                    $model->setCandidateGroup($identity->groupId);
+                }
+            }
+        }
 
         return $model;
     }

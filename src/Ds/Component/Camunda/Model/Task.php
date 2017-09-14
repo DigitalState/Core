@@ -32,6 +32,7 @@ class Task implements Model
     use Attribute\FormKey;
     use Attribute\TenantId;
     use Attribute\Variables;
+    use Attribute\CandidateGroup;
 
     /**
      * Constructor

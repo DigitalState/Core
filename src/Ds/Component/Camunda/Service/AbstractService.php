@@ -31,7 +31,7 @@ abstract class AbstractService implements Service
      * Cast object to model
      *
      * @param \stdClass $object
-     * @return \Ds\Component\Formio\Model\Model
+     * @return \Ds\Component\Camunda\Model\Model
      * @throws \LogicException
      */
     public static function toModel(stdClass $object)
@@ -190,13 +190,16 @@ abstract class AbstractService implements Service
         }
 
         $response = $this->client->request($method, $uri, $options);
+        $body = (string) $response->getBody();
 
-        try {
-            $data = \GuzzleHttp\json_decode($response->getBody());
-        } catch (InvalidArgumentException $exception) {
-            throw new UnexpectedValueException('Service response is not valid.', 0, $exception);
+        if ('' !== $body) {
+            try {
+                $body = \GuzzleHttp\json_decode($body);
+            } catch (InvalidArgumentException $exception) {
+                throw new UnexpectedValueException('Service response is not valid.', 0, $exception);
+            }
         }
 
-        return $data;
+        return $body;
     }
 }

@@ -14,7 +14,7 @@ class Variable implements Model
     use Attribute\Name;
     use Attribute\Value;
     use Attribute\Type;
-    use Attribute\Meta;
+    use Attribute\ValueInfo;
 
     /**
      * @const string
@@ -28,15 +28,15 @@ class Variable implements Model
      * @param string $name
      * @param mixed $value
      * @param string $type
-     * @param \stdClass $meta
+     * @param \stdClass $valueInfo
      */
-    public function __construct($name, $value, $type = self::TYPE_STRING, stdClass $meta = null)
+    public function __construct($name, $value, $type = self::TYPE_STRING, stdClass $valueInfo = null)
     {
         $this
             ->setName($name)
             ->setValue($value)
             ->setType($type)
-            ->setMeta($meta);
+            ->setValueInfo($valueInfo);
     }
 
     /**
@@ -55,7 +55,7 @@ class Variable implements Model
 
         $object->value = $this->getValue();
         $object->type = $this->getType();
-        $object->meta = $this->getMeta();
+        $object->valueInfo = $this->getValueInfo();
 
         return $object;
     }
