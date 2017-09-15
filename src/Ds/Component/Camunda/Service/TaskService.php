@@ -120,10 +120,10 @@ class TaskService extends AbstractService
         }
 
         $resource = str_replace('{id}', $id, static::TASK_SUBMIT);
-        $options = ['json' => []];
+        $options = ['json' => ['variables' => []]];
 
         foreach ($variables as $variable) {
-            $options['json'][$variable->getName()] = $variable->toObject(true);
+            $options['json']['variables'][$variable->getName()] = (array) $variable->toObject(true);
         }
 
         $this->execute('POST', $resource, $options);
