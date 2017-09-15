@@ -2,8 +2,10 @@
 
 namespace Ds\Component\Camunda\Service;
 
+use Ds\Component\Camunda\Model\Xml;
 use Ds\Component\Camunda\Query\ProcessDefinitionParameters as Parameters;
 use Ds\Component\Camunda\Model\ProcessDefinition;
+use SimpleXMLElement;
 
 /**
  * Class ProcessDefinitionService
@@ -23,6 +25,9 @@ class ProcessDefinitionService extends AbstractService
     const RESOURCE_LIST = '/process-definition';
     const RESOURCE_COUNT = '/process-definition/count';
     const RESOURCE_OBJECT = '/process-definition/{id}';
+    const RESOURCE_OBJECT_BY_KEY = '/process-definition/key/{key}';
+    const RESOURCE_OBJECT_XML = '/process-definition/{id}/xml';
+    const RESOURCE_OBJECT_XML_BY_KEY = '/process-definition/key/{key}/xml';
     const RESOURCE_OBJECT_START = '/process-definition/{id}/start';
     const RESOURCE_OBJECT_START_BY_KEY = '/process-definition/key/{key}/start';
     const RESOURCE_OBJECT_START_FORM = '/process-definition/{id}/startForm';
@@ -76,9 +81,34 @@ class ProcessDefinitionService extends AbstractService
      */
     public function get($id, Parameters $parameters = null)
     {
-        $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT);
+        if (null !== $id) {
+            $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT);
+        } else {
+            $resource = str_replace('{key}', $parameters->getKey(), static::RESOURCE_OBJECT_BY_KEY);
+        }
+
         $object = $this->execute('GET', $resource);
         $model = static::toModel($object);
+
+        return $model;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getXml($id, Parameters $parameters = null)
+    {
+        if (null !== $id) {
+            $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT_XML);
+        } else {
+            $resource = str_replace('{key}', $parameters->getKey(), static::RESOURCE_OBJECT_XML_BY_KEY);
+        }
+
+        $object = $this->execute('GET', $resource);
+        $model = new Xml;
+        $model
+            ->setId($object->id)
+            ->setXml(new SimpleXMLElement($object->bpmn20Xml));
 
         return $model;
     }
