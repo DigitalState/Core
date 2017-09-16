@@ -3,7 +3,7 @@
 namespace Ds\Component\Resolver\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ds\Component\Resolver\Exception\UnresolvedException;
+use Ds\Component\Resolver\Exception\UnmatchedException;
 
 /**
  * Class ResolverCollection
@@ -25,6 +25,6 @@ class ResolverCollection extends ArrayCollection
             }
         }
 
-        throw new UnresolvedException('Variable pattern is not valid.');
+        throw new UnmatchedException('Variable pattern is not valid.');
     }
 }
