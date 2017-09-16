@@ -2,26 +2,26 @@
 
 namespace Ds\Component\Api\Service;
 
-use Ds\Component\Api\Model\IndividualPersona;
-use Ds\Component\Api\Query\IndividualPersonaParameters as Parameters;
+use Ds\Component\Api\Model\StaffPersona;
+use Ds\Component\Api\Query\StaffPersonaParameters as Parameters;
 
 /**
- * Class IndividualPersonaService
+ * Class StaffPersonaService
  *
  * @package Ds\Component\Api
  */
-class IndividualPersonaService extends AbstractService
+class StaffPersonaService extends AbstractService
 {
     /**
      * @const string
      */
-    const MODEL = IndividualPersona::class;
+    const MODEL = StaffPersona::class;
 
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/individual-personas';
-    const RESOURCE_OBJECT = '/individual-personas/{id}';
+    const RESOURCE_LIST = '/staff-personas';
+    const RESOURCE_OBJECT = '/staff-personas/{id}';
 
     /**
      * @var array
@@ -39,9 +39,9 @@ class IndividualPersonaService extends AbstractService
     ];
 
     /**
-     * Get individual persona list
+     * Get staff persona list
      *
-     * @param \Ds\Component\Api\Query\IndividualPersonaParameters $parameters
+     * @param \Ds\Component\Api\Query\StaffPersonaParameters $parameters
      * @return array
      */
     public function getList(Parameters $parameters = null)
@@ -51,9 +51,9 @@ class IndividualPersonaService extends AbstractService
         if ($parameters) {
             $options['query'] = (array) $parameters->toObject(true);
 
-            if (array_key_exists('individualUuid', $options['query'])) {
-                $options['query']['individual.uuid'] = $options['query']['individualUuid'];
-                unset($options['query']['individualUuid']);
+            if (array_key_exists('staffUuid', $options['query'])) {
+                $options['query']['staff.uuid'] = $options['query']['staffUuid'];
+                unset($options['query']['staffUuid']);
             }
         }
 
@@ -69,11 +69,11 @@ class IndividualPersonaService extends AbstractService
     }
 
     /**
-     * Get individual persona
+     * Get staff persona
      *
      * @param string $id
-     * @param \Ds\Component\Api\Query\IndividualPersonaParameters $parameters
-     * @return \Ds\Component\Api\Model\IndividualPersona
+     * @param \Ds\Component\Api\Query\StaffPersonaParameters $parameters
+     * @return \Ds\Component\Api\Model\StaffPersona
      */
     public function get($id, Parameters $parameters = null)
     {

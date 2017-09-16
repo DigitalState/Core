@@ -2,26 +2,26 @@
 
 namespace Ds\Component\Api\Service;
 
-use Ds\Component\Api\Model\IndividualPersona;
-use Ds\Component\Api\Query\IndividualPersonaParameters as Parameters;
+use Ds\Component\Api\Model\AnonymousPersona;
+use Ds\Component\Api\Query\AnonymousPersonaParameters as Parameters;
 
 /**
- * Class IndividualPersonaService
+ * Class AnonymousPersonaService
  *
  * @package Ds\Component\Api
  */
-class IndividualPersonaService extends AbstractService
+class AnonymousPersonaService extends AbstractService
 {
     /**
      * @const string
      */
-    const MODEL = IndividualPersona::class;
+    const MODEL = AnonymousPersona::class;
 
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/individual-personas';
-    const RESOURCE_OBJECT = '/individual-personas/{id}';
+    const RESOURCE_LIST = '/anonymous-personas';
+    const RESOURCE_OBJECT = '/anonymous-personas/{id}';
 
     /**
      * @var array
@@ -39,9 +39,9 @@ class IndividualPersonaService extends AbstractService
     ];
 
     /**
-     * Get individual persona list
+     * Get anonymous persona list
      *
-     * @param \Ds\Component\Api\Query\IndividualPersonaParameters $parameters
+     * @param \Ds\Component\Api\Query\AnonymousPersonaParameters $parameters
      * @return array
      */
     public function getList(Parameters $parameters = null)
@@ -51,9 +51,9 @@ class IndividualPersonaService extends AbstractService
         if ($parameters) {
             $options['query'] = (array) $parameters->toObject(true);
 
-            if (array_key_exists('individualUuid', $options['query'])) {
-                $options['query']['individual.uuid'] = $options['query']['individualUuid'];
-                unset($options['query']['individualUuid']);
+            if (array_key_exists('anonymousUuid', $options['query'])) {
+                $options['query']['anonymous.uuid'] = $options['query']['anonymousUuid'];
+                unset($options['query']['anonymousUuid']);
             }
         }
 
@@ -69,11 +69,11 @@ class IndividualPersonaService extends AbstractService
     }
 
     /**
-     * Get individual persona
+     * Get anonymous persona
      *
      * @param string $id
-     * @param \Ds\Component\Api\Query\IndividualPersonaParameters $parameters
-     * @return \Ds\Component\Api\Model\IndividualPersona
+     * @param \Ds\Component\Api\Query\AnonymousPersonaParameters $parameters
+     * @return \Ds\Component\Api\Model\AnonymousPersona
      */
     public function get($id, Parameters $parameters = null)
     {

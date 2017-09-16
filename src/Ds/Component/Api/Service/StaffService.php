@@ -50,4 +50,20 @@ class StaffService extends AbstractService
 
         return $list;
     }
+
+    /**
+     * Get staff
+     *
+     * @param string $id
+     * @param \Ds\Component\Api\Query\StaffParameters $parameters
+     * @return \Ds\Component\Api\Model\Staff
+     */
+    public function get($id, Parameters $parameters = null)
+    {
+        $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT);
+        $object = $this->execute('GET', $resource);
+        $model = static::toModel($object);
+
+        return $model;
+    }
 }

@@ -49,4 +49,20 @@ class SystemService extends AbstractService
 
         return $list;
     }
+
+    /**
+     * Get system
+     *
+     * @param string $id
+     * @param \Ds\Component\Api\Query\SystemParameters $parameters
+     * @return \Ds\Component\Api\Model\System
+     */
+    public function get($id, Parameters $parameters = null)
+    {
+        $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT);
+        $object = $this->execute('GET', $resource);
+        $model = static::toModel($object);
+
+        return $model;
+    }
 }
