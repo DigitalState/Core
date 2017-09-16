@@ -21,7 +21,7 @@ class ResolverCollection extends ArrayCollection
     {
         foreach ($this as $resolver) {
             if ($resolver->isMatch($variable)) {
-                return $resolver->get($variable);
+                return $resolver->resolve($variable);
             }
         }
 
