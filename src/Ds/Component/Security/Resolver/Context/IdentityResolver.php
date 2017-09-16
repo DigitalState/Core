@@ -2,7 +2,7 @@
 
 namespace Ds\Component\Security\Resolver\Context;
 
-use Ds\Component\Api\Query\IndividualPersonaParameters as Parameters;
+use DomainException;
 use Ds\Component\Api\Api\Factory;
 use Ds\Component\Identity\Identity;
 use Ds\Component\Resolver\Exception\UnresolvedException;
@@ -12,12 +12,17 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
- * Class IndividualResolver
+ * Class IdentityResolver
  *
  * @package Ds\Component\Security
  */
-class IndividualResolver implements Resolver
+class IdentityResolver implements Resolver
 {
+    /**
+     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
+     */
+    protected $tokenStorage;
+
     /**
      * \Ds\Component\Api\Api\Factory
      */
@@ -29,20 +34,15 @@ class IndividualResolver implements Resolver
     protected $api;
 
     /**
-     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
-     */
-    protected $tokenStorage;
-
-    /**
      * Constructor
      *
-     * @param \Ds\Component\Api\Api\Factory $factory
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
+     * @param \Ds\Component\Api\Api\Factory $factory
      */
-    public function __construct(Factory $factory, TokenStorageInterface $tokenStorage)
+    public function __construct(TokenStorageInterface $tokenStorage, Factory $factory)
     {
-        $this->factory = $factory;
         $this->tokenStorage = $tokenStorage;
+        $this->factory = $factory;
     }
 
     /**
@@ -50,19 +50,13 @@ class IndividualResolver implements Resolver
      */
     public function isMatch($variable, array &$matches = [])
     {
-        if (!preg_match('/^ds\[individual\]\.persona\.(.+)/', $variable, $matches)) {
-            return false;
-        }
-
         $token = $this->tokenStorage->getToken();
 
         if (!$token) {
             return false;
         }
 
-        $user = $token->getUser();
-
-        if (Identity::INDIVIDUAL !== $user->getIdentity()) {
+        if (!preg_match('/^ds\[identity\]\.(.+)/', $variable, $matches)) {
             return false;
         }
 
@@ -82,20 +76,36 @@ class IndividualResolver implements Resolver
 
         $token = $this->tokenStorage->getToken();
         $user = $token->getUser();
-        $parameters = new Parameters;
-        $parameters->setIndividualUuid($user->getIdentityUuid());
 
         if (!$this->api) {
             $this->api = $this->factory->create();
         }
 
-        $models = $this->api->identities->individualPersona->getList($parameters);
+        switch ($user->getIdentity()) {
+            case Identity::ANONYMOUS:
+                $model = $this->api->identities->anonymous->get($user->getIdentityUuid());
+                break;
 
-        if (!$models) {
+            case Identity::INDIVIDUAL:
+                $model = $this->api->identities->individual->get($user->getIdentityUuid());
+                break;
+
+            case Identity::STAFF:
+                $model = $this->api->identities->staff->get($user->getIdentityUuid());
+                break;
+
+            case Identity::SYSTEM:
+                $model = $this->api->identities->system->get($user->getIdentityUuid());
+                break;
+
+            default:
+                throw new DomainException('User identity is not valid.');
+        }
+
+        if (!$model) {
             throw new UnresolvedException('Variable pattern did not resolve to data.');
         }
 
-        $model = array_shift($models);
         $property = $matches[1];
         $accessor = PropertyAccess::createPropertyAccessor();
 
