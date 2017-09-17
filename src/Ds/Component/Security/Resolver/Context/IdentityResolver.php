@@ -19,6 +19,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class IdentityResolver implements Resolver
 {
     /**
+     * @const string
+     */
+    const PATTERN = '/^ds\[identity\]\.(.+)/';
+
+    /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
      */
     protected $tokenStorage;
@@ -56,7 +61,7 @@ class IdentityResolver implements Resolver
             return false;
         }
 
-        if (!preg_match('/^ds\[identity\]\.(.+)/', $variable, $matches)) {
+        if (!preg_match(static::PATTERN, $variable, $matches)) {
             return false;
         }
 

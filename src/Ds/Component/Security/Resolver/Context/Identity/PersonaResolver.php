@@ -23,6 +23,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class PersonaResolver implements Resolver
 {
     /**
+     * @const string
+     */
+    const PATTERN = '/^ds\[identity\]\.persona\.(.+)/';
+
+    /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
      */
     protected $tokenStorage;
@@ -60,7 +65,7 @@ class PersonaResolver implements Resolver
             return false;
         }
 
-        if (!preg_match('/^ds\[identity\]\.persona\.(.+)/', $variable, $matches)) {
+        if (!preg_match(static::PATTERN, $variable, $matches)) {
             return false;
         }
 

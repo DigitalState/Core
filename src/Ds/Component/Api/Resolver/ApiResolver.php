@@ -16,6 +16,11 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 class ApiResolver implements Resolver
 {
     /**
+     * @const string
+     */
+    const PATTERN = '/^ds\.([_a-zA-Z0-9]+)\.([_a-zA-Z0-9]+)\[([-a-zA-Z0-9]+)\]\.(.+)/';
+
+    /**
      * \Ds\Component\Api\Api\Factory
      */
     protected $factory;
@@ -40,7 +45,7 @@ class ApiResolver implements Resolver
      */
     public function isMatch($variable, array &$matches = [])
     {
-        if (!preg_match('/^ds\.([_a-zA-Z0-9]+)\.([_a-zA-Z0-9]+)\[([-a-zA-Z0-9]+)\]\.(.+)/', $variable, $matches)) {
+        if (!preg_match(static::PATTERN, $variable, $matches)) {
             return false;
         }
 
