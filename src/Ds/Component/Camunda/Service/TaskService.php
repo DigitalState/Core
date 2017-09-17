@@ -55,6 +55,11 @@ class TaskService extends AbstractService
     ];
 
     /**
+     * @var \Ds\Component\Camunda\Service\Task\VariableService
+     */
+    public $variable;
+
+    /**
      * Get task list
      *
      * @param \Ds\Component\Camunda\Query\TaskParameters $parameters
@@ -62,9 +67,10 @@ class TaskService extends AbstractService
      */
     public function getList(Parameters $parameters = null)
     {
-        $objects = $this->execute('GET', static::TASK_LIST, [
+        $options = [
             'query' => (array)  $parameters->toObject(true)
-        ]);
+        ];
+        $objects = $this->execute('GET', static::TASK_LIST, $options);
         $list = [];
 
         foreach ($objects as $object) {
@@ -97,7 +103,11 @@ class TaskService extends AbstractService
     public function get($id)
     {
         $resource = str_replace('{id}', $id, static::TASK_OBJECT);
-        $options = ['headers' => ['Accept' => 'application/hal+json']];
+        $options = [
+            'headers' => [
+                'Accept' => 'application/hal+json'
+            ]
+        ];
         $object = $this->execute('GET', $resource, $options);
         $model = static::toModel($object);
 

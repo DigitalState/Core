@@ -39,6 +39,7 @@ class Api
         $this->processDefinition = new Service\ProcessDefinitionService($client, $host, $authorization);
         $this->processInstance = new Service\ProcessInstanceService($client, $host, $authorization);
         $this->task = new Service\TaskService($client, $host, $authorization);
+        $this->task->variable = new Service\Task\VariableService($client, $host, $authorization);
     }
 
     /**
@@ -52,6 +53,7 @@ class Api
         $this->processDefinition->setHost($host);
         $this->processInstance->setHost($host);
         $this->task->setHost($host);
+        $this->task->variable->setHost($host);
     }
 
     /**
@@ -65,5 +67,6 @@ class Api
         $this->processDefinition->setAuthorization($authorization);
         $this->processInstance->setAuthorization($authorization);
         $this->task->setAuthorization($authorization);
+        $this->task->variable->setAuthorization($authorization);
     }
 }

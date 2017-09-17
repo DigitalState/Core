@@ -19,8 +19,8 @@ class Variable implements Model
     /**
      * @const string
      */
-    const TYPE_STRING = 'string';
-    const TYPE_JSON = 'json';
+    const TYPE_STRING = 'String';
+    const TYPE_JSON = 'Json';
 
     /**
      * Constructor
@@ -30,7 +30,7 @@ class Variable implements Model
      * @param string $type
      * @param \stdClass $valueInfo
      */
-    public function __construct($name, $value, $type = self::TYPE_STRING, stdClass $valueInfo = null)
+    public function __construct($name = null, $value = null, $type = self::TYPE_STRING, stdClass $valueInfo = null)
     {
         $this
             ->setName($name)
