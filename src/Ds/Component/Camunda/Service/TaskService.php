@@ -23,10 +23,12 @@ class TaskService extends AbstractService
     /**
      * @const string
      */
-    const TASK_LIST = '/task';
-    const TASK_COUNT = '/task/count';
-    const TASK_OBJECT = '/task/{id}';
-    const TASK_SUBMIT = '/task/{id}/submit-form';
+    const RESOURCE_LIST = '/task';
+    const RESOURCE_COUNT = '/task/count';
+    const RESOURCE_OBJECT = '/task/{id}';
+    const RESOURCE_SUBMIT = '/task/{id}/submit-form';
+    const RESOURCE_CLAIM = '/task/{id}/claim';
+    const RESOURCE_UNCLAIM = '/task/{id}/unclaim';
 
     /**
      * @var array
@@ -70,7 +72,7 @@ class TaskService extends AbstractService
         $options = [
             'query' => (array)  $parameters->toObject(true)
         ];
-        $objects = $this->execute('GET', static::TASK_LIST, $options);
+        $objects = $this->execute('GET', static::RESOURCE_LIST, $options);
         $list = [];
 
         foreach ($objects as $object) {
@@ -89,7 +91,7 @@ class TaskService extends AbstractService
      */
     public function getCount(Parameters $parameters = null)
     {
-        $result = $this->execute('GET', static::TASK_COUNT);
+        $result = $this->execute('GET', static::RESOURCE_COUNT);
 
         return $result->count;
     }
@@ -102,7 +104,7 @@ class TaskService extends AbstractService
      */
     public function get($id)
     {
-        $resource = str_replace('{id}', $id, static::TASK_OBJECT);
+        $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT);
         $options = [
             'headers' => [
                 'Accept' => 'application/hal+json'
@@ -129,14 +131,46 @@ class TaskService extends AbstractService
             }
         }
 
-        $resource = str_replace('{id}', $id, static::TASK_SUBMIT);
-        $options = ['json' => ['variables' => []]];
+        $resource = str_replace('{id}', $id, static::RESOURCE_SUBMIT);
+        $options = [
+            'json' => [
+                'variables' => []
+            ]
+        ];
 
         foreach ($variables as $variable) {
             $options['json']['variables'][$variable->getName()] = (array) $variable->toObject(true);
         }
 
         $this->execute('POST', $resource, $options);
+    }
+
+    /**
+     * Claim task
+     *
+     * @param string $id
+     * @param string $userId
+     */
+    public function claim($id, $userId)
+    {
+        $resource = str_replace('{id}', $id, static::RESOURCE_CLAIM);
+        $options = [
+            'json' => [
+                'userId' => $userId
+            ]
+        ];
+        $this->execute('POST', $resource, $options);
+    }
+
+    /**
+     * Unclaim task
+     *
+     * @param string $id
+     */
+    public function unclaim($id)
+    {
+        $resource = str_replace('{id}', $id, static::RESOURCE_UNCLAIM);
+        $this->execute('POST', $resource);
     }
 
     /**
