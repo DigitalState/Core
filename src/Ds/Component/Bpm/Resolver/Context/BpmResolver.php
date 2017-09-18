@@ -97,7 +97,7 @@ class BpmResolver
             case 'task.variable':
                 $task = $this->contexts[static::CONTEXT_TASK];
                 $variable = $matches[2];
-                $property = array_key_exists(5, $matches) ? $matches[5] : null;
+                $property = array_key_exists(4, $matches) ? $matches[4] : null;
                 $parameters = new VariableParameters;
                 $parameters->setDeserializeValues(true);
                 $variables = $this->api->camunda->task->variable->getList($task, $parameters);
