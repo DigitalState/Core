@@ -27,22 +27,22 @@ items:
     -
         uuid: c344e1ef-04a7-492a-83d4-c86fce4a7a3e
         key: ds_api.api.authentication.host
-        value: http://172.18.0.1:8010/app_dev.php
+        value: http://172.19.0.1:8010/app_dev.php
 
     -
         uuid: d91c984f-48f4-4d8b-a3db-a83a398e0c54
         key: ds_api.api.identities.host
-        value: http://172.19.0.1:8054/app_dev.php
+        value: http://172.18.0.1:8054/app_dev.php
 
     -
         uuid: 54b4ee75-6855-4ba1-827c-22fa6e8c2f24
         key: ds_api.api.cases.host
-        value: http://172.25.0.1:8050/app_dev.php
+        value: http://172.20.0.1:8050/app_dev.php
 
     -
         uuid: 1541a433-e337-4edc-94cb-279948320dd5
         key: ds_api.api.services.host
-        value: http://172.20.0.1:8051/app_dev.php
+        value: http://172.23.0.1:8051/app_dev.php
 
     -
         uuid: 64af30d0-908e-4c8a-9ffc-a2c0868a0e40
