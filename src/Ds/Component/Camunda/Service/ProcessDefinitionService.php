@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Camunda\Service;
 
+use Ds\Component\Camunda\Model\Variable;
 use Ds\Component\Camunda\Model\Xml;
 use Ds\Component\Camunda\Query\ProcessDefinitionParameters as Parameters;
 use Ds\Component\Camunda\Model\ProcessDefinition;
@@ -133,9 +134,8 @@ class ProcessDefinitionService extends AbstractService
                     'type' => $variable->getType()
                 ];
 
-                if ('json' === $variable->getType()) {
-                    $options['json']['variables'][$variable->getName()]['value'] =
-                        json_encode($options['json']['variables'][$variable->getName()]['value']);
+                if (Variable::TYPE_JSON === $variable->getType()) {
+                    $options['json']['variables'][$variable->getName()]['value'] = json_encode($options['json']['variables'][$variable->getName()]['value']);
                 }
             }
         }
