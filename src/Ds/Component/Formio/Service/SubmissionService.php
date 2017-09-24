@@ -105,23 +105,14 @@ class SubmissionService extends AbstractService
     public function create(Submission $submission, Parameters $parameters = null)
     {
         $resource = str_replace('{form}', $submission->getForm(), static::RESOURCE_LIST);
+        $options = [];
+        $options['json']['data'] = (array) $submission->getData();
 
-        try {
-            $object = $this->execute('POST', $resource, [
-                'json' => [
-                    'data' => (array) static::toObject($submission)->data
-                ],
-                'query' => (array) $parameters->toObject(true)
-            ]);
-        } catch (ClientException $exception) {
-            $response = $exception->getResponse();
-
-            if (400 === $response->getStatusCode()) {
-                throw new ValidationException('Formio validation errors', 0, $exception);
-            }
-
-            throw $exception;
+        if ($parameters) {
+            $options['query'] = (array) $parameters->toObject(true);
         }
+
+        $object = $this->execute('POST', $resource, $options);
 
         if (!is_bool($object)) {
             $submission = static::toModel($object);

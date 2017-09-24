@@ -2,7 +2,11 @@
 
 namespace Ds\Component\Formio\Service;
 
+use Ds\Component\Formio\Exception\RequestException;
+use Ds\Component\Formio\Exception\ResponseException;
+use Ds\Component\Formio\Exception\ValidationException;
 use Ds\Component\Formio\Model\Model;
+use GuzzleHttp\Exception\ClientException;
 use stdClass;
 use DateTime;
 use GuzzleHttp\ClientInterface;
@@ -164,6 +168,9 @@ abstract class AbstractService implements Service
      * @param string $resource
      * @param array $options
      * @return mixed
+     * @throws \Ds\Component\Formio\Exception\RequestException
+     * @throws \Ds\Component\Formio\Exception\ResponseException
+     * @throws \Ds\Component\Formio\Exception\ValidationException
      */
     protected function execute($method, $resource, array $options = [])
     {
@@ -181,12 +188,28 @@ abstract class AbstractService implements Service
             $options['headers']['Authorization'] = $this->authorization;
         }
 
-        $response = $this->client->request($method, $uri, $options);
+        try {
+            $response = $this->client->request($method, $uri, $options);
+        } catch (ClientException $exception) {
+            $response = $exception->getResponse();
+
+            switch ($response->getStatusCode()) {
+                case 400:
+                    $validation = new ValidationException('Data is not valid.', 0, $exception);
+                    $data = \GuzzleHttp\json_decode($response->getBody());
+                    $validation->setErrors($data->details);
+                    throw $validation;
+                    break;
+
+                default:
+                    throw new RequestException('Request failed.', 0, $exception);
+            }
+        }
 
         try {
             $data = \GuzzleHttp\json_decode($response->getBody());
         } catch (InvalidArgumentException $exception) {
-            throw new UnexpectedValueException('Service response is not valid.', 0, $exception);
+            throw new ResponseException('Response body is not valid json.', 0, $exception);
         }
 
         return $data;
