@@ -56,7 +56,10 @@ abstract class AbstractService implements Service
                 switch ($local) {
                     case 'created':
                     case 'updated':
-                        $model->{'set'.ucfirst($local)}(new DateTime($object->$remote));
+                        if (null !== $object->$remote) {
+                            $model->{'set' . ucfirst($local)}(new DateTime($object->$remote));
+                        }
+
                         break;
 
                     default:
@@ -94,8 +97,8 @@ abstract class AbstractService implements Service
                     $object->$remote = null;
                     $value = $model->{'get'.ucfirst($local)}();
 
-                    if ($value) {
-                        $object->$remote = $value->format('Y-m-d H:i:s');
+                    if (null !== $value) {
+                        $object->$remote = $value->format('Y-m-dTH:i:s');
                     }
 
                     break;
