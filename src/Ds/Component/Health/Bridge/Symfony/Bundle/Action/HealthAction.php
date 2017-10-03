@@ -2,12 +2,14 @@
 
 namespace Ds\Component\Health\Bridge\Symfony\Bundle\Action;
 
+use Ds\Component\Health\Exception\InvalidAliasException;
 use Ds\Component\Health\Service\HealthService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -76,7 +78,13 @@ class HealthAction
     public function get($alias)
     {
         $alias = str_replace('/', '.', $alias);
-        $status = $this->healthService->check($alias);
+
+        try {
+            $status = $this->healthService->check($alias);
+        } catch (InvalidAliasException $exception) {
+            throw new NotFoundHttpException('Health alias not found.', $exception);
+        }
+
         $data = $status->toObject();
         $data->timestamp = $data->timestamp->format(static::TIMESTAMP_FORMAT);
         unset($data->alias);

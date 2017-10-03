@@ -3,6 +3,7 @@
 namespace Ds\Component\Health\Service;
 
 use Ds\Component\Health\Collection\CheckCollection;
+use Ds\Component\Health\Exception\InvalidAliasException;
 use Ds\Component\Health\Model\Statuses;
 
 /**
@@ -32,6 +33,7 @@ class HealthService
      *
      * @param string $alias
      * @return \Ds\Component\Health\Model\Statuses|\Ds\Component\Health\Model\Status
+     * @throws \Ds\Component\Health\Exception\InvalidAliasException
      */
     public function check($alias = null)
     {
@@ -50,7 +52,15 @@ class HealthService
 
             return $statuses;
         } else {
-            $status = $this->checkCollection->get($alias)->execute();
+            $check = $this->checkCollection->filter(function($element) use($alias) {
+                return $element->getAlias() === $alias;
+            })->first();
+
+            if (!$check) {
+                throw new InvalidAliasException('Check alias does not exist.');
+            }
+
+            $status = $check->execute();
 
             return $status;
         }
