@@ -3,6 +3,7 @@
 namespace Ds\Component\Health\Check;
 
 use Ds\Component\Health\Model\Status;
+use Ds\Component\Model\Attribute;
 
 /**
  * Class PingCheck
@@ -11,6 +12,8 @@ use Ds\Component\Health\Model\Status;
  */
 class PingCheck implements Check
 {
+    use Attribute\Alias;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +21,7 @@ class PingCheck implements Check
     {
         $status = new Status;
         $status
-            ->setAlias('ping')
+            ->setAlias($this->alias)
             ->setHealthy(true);
 
         return $status;

@@ -4,6 +4,8 @@ namespace Ds\Component\Health\Model;
 
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Ds\Component\Health\Model\Attribute as HealthAttribute;
+use Ds\Component\Model\Attribute;
 use stdClass;
 
 /**
@@ -13,7 +15,7 @@ use stdClass;
  */
 class Statuses
 {
-    use Attribute\Healthy;
+    use HealthAttribute\Healthy;
     use Attribute\Collection;
     use Attribute\Timestamp;
 

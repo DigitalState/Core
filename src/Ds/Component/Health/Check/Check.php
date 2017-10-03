@@ -10,6 +10,21 @@ namespace Ds\Component\Health\Check;
 interface Check
 {
     /**
+     * Set alias
+     *
+     * @param string $alias
+     * @return object
+     */
+    public function setAlias($alias);
+
+    /**
+     * Get alias
+     *
+     * @return string
+     */
+    public function getAlias();
+
+    /**
      * Execute an health check
      *
      * @return \Ds\Component\Health\Model\Status

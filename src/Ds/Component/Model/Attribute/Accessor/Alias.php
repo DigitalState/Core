@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Health\Model\Attribute\Accessor;
+namespace Ds\Component\Model\Attribute\Accessor;
 
 /**
  * Trait Alias

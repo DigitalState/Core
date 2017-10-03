@@ -52,8 +52,9 @@ class HealthAction
         $data->timestamp = $data->timestamp->format(static::TIMESTAMP_FORMAT);
         $data->statuses = new stdClass;
 
-        foreach ($data->collection as $alias => $status) {
+        foreach ($data->collection as $status) {
             $status->timestamp = $status->timestamp->format(static::TIMESTAMP_FORMAT);
+            $alias = $status->alias;
             unset($status->alias);
             $data->statuses->{$alias} = $status;
         }

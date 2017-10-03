@@ -3,6 +3,8 @@
 namespace Ds\Component\Health\Model;
 
 use DateTime;
+use Ds\Component\Health\Model\Attribute as HealthAttribute;
+use Ds\Component\Model\Attribute;
 
 /**
  * Class Status
@@ -12,7 +14,7 @@ use DateTime;
 class Status
 {
     use Attribute\Alias;
-    use Attribute\Healthy;
+    use HealthAttribute\Healthy;
     use Attribute\Timestamp;
 
     /**

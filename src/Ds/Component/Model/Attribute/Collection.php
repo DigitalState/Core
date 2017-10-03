@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Health\Model\Attribute;
+namespace Ds\Component\Model\Attribute;
 
 /**
  * Trait Collection

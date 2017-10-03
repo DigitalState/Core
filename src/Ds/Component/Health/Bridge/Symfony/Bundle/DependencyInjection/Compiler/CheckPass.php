@@ -26,16 +26,18 @@ class CheckPass implements CompilerPassInterface
             return;
         }
 
-        $definition = $container->findDefinition('ds_health.collection.check');
-        $services = $container->findTaggedServiceIds('ds_health.check');
+        $collection = $container->findDefinition('ds_health.collection.check');
+        $checks = $container->findTaggedServiceIds('ds_health.check');
 
-        foreach ($services as $id => $tags) {
+        foreach ($checks as $id => $tags) {
             foreach ($tags as $tag) {
                 if (!array_key_exists('alias', $tag)) {
                     throw new LogicException('Tag attribute is missing.');
                 }
 
-                $definition->addMethodCall('set', [$tag['alias'], new Reference($id)]);
+                $check = $container->findDefinition($id);
+                $check->addMethodCall('setAlias', [$tag['alias']]);
+                $collection->addMethodCall('set', [$tag['alias'], new Reference($id)]);
             }
         }
     }
