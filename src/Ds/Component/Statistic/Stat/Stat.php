@@ -3,7 +3,7 @@
 namespace Ds\Component\Statistic\Stat;
 
 /**
- * Interface Check
+ * Interface Stat
  *
  * @package Ds\Component\Statistic
  */
