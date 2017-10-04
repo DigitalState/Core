@@ -1,0 +1,3 @@
+parameters:
+    ds_statistic.collection.stat.class: Ds\Component\Statistic\Collection\StatCollection
+    ds_statistic.service.statistic.class: Ds\Component\Statistic\Service\StatisticService

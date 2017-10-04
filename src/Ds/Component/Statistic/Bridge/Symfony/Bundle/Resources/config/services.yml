@@ -1,0 +1,5 @@
+services:
+    ds_statistic.service.statistic:
+        class: '%ds_statistic.service.statistic.class%'
+        arguments:
+            - '@ds_statistic.collection.stat'

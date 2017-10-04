@@ -1,0 +1,3 @@
+ds_security:
+    permissions:
+        statistic: { title: ds.statistic.permissions.statistic, custom: Statistic, attributes: [BROWSE, READ] }
