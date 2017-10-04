@@ -43,7 +43,7 @@ class StatisticAction
      * Action
      *
      * @Method("GET")
-     * @Route(path="/statistic")
+     * @Route(path="/statistics")
      * @Security("is_granted('BROWSE', 'statistic')")
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
@@ -70,7 +70,7 @@ class StatisticAction
      * Action
      *
      * @Method("GET")
-     * @Route(path="/statistic/{alias}", requirements={"alias"=".+"})
+     * @Route(path="/statistics/{alias}", requirements={"alias"=".+"})
      * @Security("is_granted('READ', 'statistic')")
      * @param string $alias
      * @return \Symfony\Component\HttpFoundation\JsonResponse
