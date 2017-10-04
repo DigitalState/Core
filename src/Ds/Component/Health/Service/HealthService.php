@@ -41,9 +41,9 @@ class HealthService
             $statuses = new Statuses;
             $statuses->setHealthy(true);
 
-            foreach ($this->checkCollection as $alias => $check) {
+            foreach ($this->checkCollection as $check) {
                 $status = $check->execute();
-                $statuses->getCollection()->set($alias, $status);
+                $statuses->getCollection()->add($status);
 
                 if (!$status->getHealthy()) {
                     $statuses->setHealthy(false);
