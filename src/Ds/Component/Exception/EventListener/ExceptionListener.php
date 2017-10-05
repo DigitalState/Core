@@ -4,6 +4,7 @@ namespace Ds\Component\Exception\EventListener;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class ExceptionListener
@@ -35,6 +36,11 @@ class ExceptionListener
     public function kernelException(GetResponseForExceptionEvent $event)
     {
         $exception = $event->getException();
+
+        if ($exception instanceof HttpException) {
+            return;
+        }
+
         $data = [
             'type' => 'https://tools.ietf.org/html/rfc2616#section-10',
             'title' =>'An error occurred',
