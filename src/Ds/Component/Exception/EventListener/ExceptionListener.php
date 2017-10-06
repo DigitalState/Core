@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Exception\EventListener;
 
+use ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -37,7 +38,7 @@ class ExceptionListener
     {
         $exception = $event->getException();
 
-        if ($exception instanceof HttpException) {
+        if ($exception instanceof HttpException || $exception instanceof ValidationException) {
             return;
         }
 
