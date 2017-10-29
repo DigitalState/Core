@@ -33,6 +33,9 @@ class IndividualPersonaService extends AbstractService
         'updatedAt',
         'owner',
         'ownerUuid',
+        'identity',
+        'identityUuid',
+        'individual',
         'title',
         'data',
         'version'
@@ -82,5 +85,27 @@ class IndividualPersonaService extends AbstractService
         $model = static::toModel($object);
 
         return $model;
+    }
+
+    /**
+     * Create individual persona
+     *
+     * @param \Ds\Component\Api\Model\IndividualPersona $persona
+     * @param \Ds\Component\Api\Query\IndividualPersonaParameters $parameters
+     * @return \Ds\Component\Api\Model\IndividualPersona
+     */
+    public function create(IndividualPersona $persona, Parameters $parameters = null)
+    {
+        $options = [];
+        $options['json'] = (array) static::toObject($persona);
+
+        if ($parameters) {
+            $options['query'] = (array) $parameters->toObject(true);
+        }
+
+        $object = $this->execute('POST', static::RESOURCE_LIST, $options);
+        $persona = static::toModel($object);
+
+        return $persona;
     }
 }

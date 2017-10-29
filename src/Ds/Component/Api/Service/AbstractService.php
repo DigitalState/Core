@@ -56,6 +56,10 @@ abstract class AbstractService implements Service
                         $model->{'set'.ucfirst($local)}(new DateTime($object->$remote));
                         break;
 
+                    case 'individual':
+                        // @todo reverse load for relationships
+                        break;
+
                     default:
                         $model->{'set'.ucfirst($local)}($object->$remote);
                 }
@@ -85,12 +89,13 @@ abstract class AbstractService implements Service
                 $local = $remote;
             }
 
+            $value = $model->{'get'.ucfirst($local)}();
+
             switch ($local) {
                 case 'createdAt':
                 case 'updatedAt':
                 case 'lastLogin':
                     $object->$remote = null;
-                    $value = $model->{'get'.ucfirst($local)}();
 
                     if ($value) {
                         $object->$remote = $value->format('Y-m-d\TH:i:sP');
@@ -98,8 +103,12 @@ abstract class AbstractService implements Service
 
                     break;
 
+                case 'individual':
+                    $object->$remote = '/individuals/'.$value->getUuid();
+                    break;
+
                 default:
-                    $object->$remote = $model->{'get'.ucfirst($local)}();
+                    $object->$remote = $value;
             }
         }
 

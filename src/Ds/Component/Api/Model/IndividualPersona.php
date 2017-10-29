@@ -3,6 +3,7 @@
 namespace Ds\Component\Api\Model;
 
 use Ds\Component\Model\Attribute;
+use Ds\Component\Api\Model\Attribute as ApiAttribute;
 
 /**
  * Class IndividualPersona
@@ -17,7 +18,18 @@ class IndividualPersona implements Model
     use Attribute\UpdatedAt;
     use Attribute\Owner;
     use Attribute\OwnerUuid;
+    use Attribute\Identity;
+    use Attribute\IdentityUuid;
+    use ApiAttribute\Individual;
     use Attribute\Title;
     use Attribute\Data;
     use Attribute\Version;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->version = 1;
+    }
 }
