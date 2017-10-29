@@ -114,6 +114,11 @@ abstract class AbstractService implements Service
     /**
      * @var string
      */
+    protected $proxy;
+
+    /**
+     * @var string
+     */
     protected $host; # region accessors
 
     /**
@@ -149,12 +154,14 @@ abstract class AbstractService implements Service
      * Constructor
      *
      * @param \GuzzleHttp\ClientInterface $client
+     * @param string $proxy
      * @param string $host
      * @param array $authorization
      */
-    public function __construct(ClientInterface $client, $host = null, array $authorization = [])
+    public function __construct(ClientInterface $client, $proxy, $host = null, array $authorization = [])
     {
         $this->client = $client;
+        $this->proxy = $proxy;
         $this->host = $host;
         $this->authorization = $authorization;
     }
@@ -170,6 +177,7 @@ abstract class AbstractService implements Service
     protected function execute($method, $resource, array $options = [])
     {
         $uri = $this->host.$resource;
+        $options['headers']['Host'] = $this->proxy;
         $options['headers']['Content-Type'] = 'application/json';
         $options['headers']['Accept'] = 'application/json';
 

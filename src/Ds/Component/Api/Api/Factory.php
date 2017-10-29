@@ -50,23 +50,23 @@ class Factory
     public function create()
     {
         $api = clone $this->api;
-        $user = User::createFromPayload($this->configService->get('ds_api.credential.username'), [
-            'uuid' => $this->configService->get('ds_api.credential.uuid'),
-            'roles' => [$this->configService->get('ds_api.credential.roles')],
-            'identity' => $this->configService->get('ds_api.credential.identity'),
-            'identityUuid' => $this->configService->get('ds_api.credential.identity_uuid')
+        $user = User::createFromPayload($this->configService->get('ds_api.user.username'), [
+            'uuid' => $this->configService->get('ds_api.user.uuid'),
+            'roles' => [$this->configService->get('ds_api.user.roles')],
+            'identity' => $this->configService->get('ds_api.user.identity'),
+            'identityUuid' => $this->configService->get('ds_api.user.identity_uuid')
         ]);
         $token = $this->tokenManager->create($user);
         $api->setAuthorization(['Authorization' => 'Bearer '.$token]);
-        $api->authentication->setHost($this->configService->get('ds_api.api.authentication.host'));
-        $api->identities->setHost($this->configService->get('ds_api.api.identities.host'));
-        $api->cases->setHost($this->configService->get('ds_api.api.cases.host'));
-        $api->services->setHost($this->configService->get('ds_api.api.services.host'));
-        $api->records->setHost($this->configService->get('ds_api.api.records.host'));
-        $api->assets->setHost($this->configService->get('ds_api.api.assets.host'));
-        $api->cms->setHost($this->configService->get('ds_api.api.cms.host'));
-        $api->camunda->setHost($this->configService->get('ds_api.api.camunda.host'));
-        $api->formio->setHost($this->configService->get('ds_api.api.formio.host'));
+        $api->authentication->setHost($this->configService->get('ds_api.api.host'));
+        $api->identities->setHost($this->configService->get('ds_api.api.host'));
+        $api->cases->setHost($this->configService->get('ds_api.api.host'));
+        $api->services->setHost($this->configService->get('ds_api.api.host'));
+        $api->records->setHost($this->configService->get('ds_api.api.host'));
+        $api->assets->setHost($this->configService->get('ds_api.api.host'));
+        $api->cms->setHost($this->configService->get('ds_api.api.host'));
+        $api->camunda->setHost($this->configService->get('ds_api.api.host'));
+        $api->formio->setHost($this->configService->get('ds_api.api.host'));
 
         return $api;
     }

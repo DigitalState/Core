@@ -13,6 +13,11 @@ use GuzzleHttp\ClientInterface;
 class Assets
 {
     /**
+     * @const string
+     */
+    const PROXY = 'api.assets.ds';
+
+    /**
      * @var \Ds\Component\Api\Service\HealthService
      */
     public $health;
@@ -41,10 +46,10 @@ class Assets
      */
     public function __construct(ClientInterface $client, $host = null, array $authorization = [])
     {
-        $this->health = new Service\HealthService($client, $host, $authorization);
-        $this->config = new Service\ConfigService($client, $host, $authorization);
-        $this->access = new Service\AccessService($client, $host, $authorization);
-        $this->permission = new Service\PermissionService($client, $host, $authorization);
+        $this->health = new Service\HealthService($client, static::PROXY, $host, $authorization);
+        $this->config = new Service\ConfigService($client, static::PROXY, $host, $authorization);
+        $this->access = new Service\AccessService($client, static::PROXY, $host, $authorization);
+        $this->permission = new Service\PermissionService($client, static::PROXY, $host, $authorization);
     }
 
     /**

@@ -13,6 +13,11 @@ use GuzzleHttp\ClientInterface;
 class Identities
 {
     /**
+     * @const string
+     */
+    const PROXY = 'api.identities.ds';
+
+    /**
      * @var \Ds\Component\Api\Service\HealthService
      */
     public $health;
@@ -68,11 +73,6 @@ class Identities
     public $system;
 
     /**
-     * @var \Ds\Component\Api\Service\SystemPersonaService
-     */
-    public $systemPersona;
-
-    /**
      * Constructor
      *
      * @param \GuzzleHttp\ClientInterface $client
@@ -81,18 +81,17 @@ class Identities
      */
     public function __construct(ClientInterface $client, $host = null, array $authorization = [])
     {
-        $this->health = new Service\HealthService($client, $host, $authorization);
-        $this->config = new Service\ConfigService($client, $host, $authorization);
-        $this->access = new Service\AccessService($client, $host, $authorization);
-        $this->permission = new Service\PermissionService($client, $host, $authorization);
-        $this->anonymous = new Service\AnonymousService($client, $host, $authorization);
-        $this->anonymousPersona = new Service\AnonymousPersonaService($client, $host, $authorization);
-        $this->individual = new Service\IndividualService($client, $host, $authorization);
-        $this->individualPersona = new Service\IndividualPersonaService($client, $host, $authorization);
-        $this->staff = new Service\StaffService($client, $host, $authorization);
-        $this->staffPersona = new Service\StaffPersonaService($client, $host, $authorization);
-        $this->system = new Service\SystemService($client, $host, $authorization);
-        $this->systemPersona = new Service\SystemPersonaService($client, $host, $authorization);
+        $this->health = new Service\HealthService($client, static::PROXY, $host, $authorization);
+        $this->config = new Service\ConfigService($client, static::PROXY, $host, $authorization);
+        $this->access = new Service\AccessService($client, static::PROXY, $host, $authorization);
+        $this->permission = new Service\PermissionService($client, static::PROXY, $host, $authorization);
+        $this->anonymous = new Service\AnonymousService($client, static::PROXY, $host, $authorization);
+        $this->anonymousPersona = new Service\AnonymousPersonaService($client, static::PROXY, $host, $authorization);
+        $this->individual = new Service\IndividualService($client, static::PROXY, $host, $authorization);
+        $this->individualPersona = new Service\IndividualPersonaService($client, static::PROXY, $host, $authorization);
+        $this->staff = new Service\StaffService($client, static::PROXY, $host, $authorization);
+        $this->staffPersona = new Service\StaffPersonaService($client, static::PROXY, $host, $authorization);
+        $this->system = new Service\SystemService($client, static::PROXY, $host, $authorization);
     }
 
     /**
@@ -114,7 +113,6 @@ class Identities
         $this->staff->setHost($host);
         $this->staffPersona->setHost($host);
         $this->system->setHost($host);
-        $this->systemPersona->setHost($host);
 
         return $this;
     }
@@ -138,7 +136,6 @@ class Identities
         $this->staff->setAuthorization($authorization);
         $this->staffPersona->setAuthorization($authorization);
         $this->system->setAuthorization($authorization);
-        $this->systemPersona->setAuthorization($authorization);
 
         return $this;
     }

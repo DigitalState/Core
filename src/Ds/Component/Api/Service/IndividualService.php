@@ -28,7 +28,12 @@ class IndividualService extends AbstractService
      */
     protected static $map = [
         'id',
-        'uuid'
+        'uuid',
+        'createdAt',
+        'updatedAt',
+        'owner',
+        'ownerUuid',
+        'version'
     ];
 
     /**
@@ -64,5 +69,27 @@ class IndividualService extends AbstractService
         $model = static::toModel($object);
 
         return $model;
+    }
+
+    /**
+     * Create individual
+     *
+     * @param \Ds\Component\Api\Model\Individual $individual
+     * @param \Ds\Component\Api\Query\IndividualParameters $parameters
+     * @return \Ds\Component\Api\Model\Individual
+     */
+    public function create(Individual $individual, Parameters $parameters = null)
+    {
+        $options = [];
+        $options['json'] = (array) static::toObject($individual);
+
+        if ($parameters) {
+            $options['query'] = (array) $parameters->toObject(true);
+        }
+
+        $object = $this->execute('POST', static::RESOURCE_LIST, $options);
+        $individual = static::toModel($object);
+
+        return $individual;
     }
 }
