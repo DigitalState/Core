@@ -6,6 +6,7 @@ use DomainException;
 use Ds\Component\Api\Api\Factory;
 use Ds\Component\Api\Query\AnonymousPersonaParameters;
 use Ds\Component\Api\Query\IndividualPersonaParameters;
+use Ds\Component\Api\Query\OrganizationPersonaParameters;
 use Ds\Component\Api\Query\StaffPersonaParameters;
 use Ds\Component\Api\Query\SystemPersonaParameters;
 use Ds\Component\Identity\Identity;
@@ -101,6 +102,12 @@ class PersonaResolver implements Resolver
                 $parameters = new IndividualPersonaParameters;
                 $parameters->setIndividualUuid($user->getIdentityUuid());
                 $models = $this->api->identities->individualPersona->getList($parameters);
+                break;
+
+            case Identity::ORGANIZATION:
+                $parameters = new OrganizationPersonaParameters;
+                $parameters->setOrganizationUuid($user->getIdentityUuid());
+                $models = $this->api->identities->organizationPersona->getList($parameters);
                 break;
 
             case Identity::STAFF:

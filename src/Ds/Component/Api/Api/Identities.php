@@ -58,6 +58,16 @@ class Identities
     public $individualPersona;
 
     /**
+     * @var \Ds\Component\Api\Service\OrganizationService
+     */
+    public $organization;
+
+    /**
+     * @var \Ds\Component\Api\Service\OrganizationPersonaService
+     */
+    public $organizationPersona;
+
+    /**
      * @var \Ds\Component\Api\Service\StaffService
      */
     public $staff;
@@ -89,6 +99,8 @@ class Identities
         $this->anonymousPersona = new Service\AnonymousPersonaService($client, static::PROXY, $host, $authorization);
         $this->individual = new Service\IndividualService($client, static::PROXY, $host, $authorization);
         $this->individualPersona = new Service\IndividualPersonaService($client, static::PROXY, $host, $authorization);
+        $this->organization = new Service\OrganizationService($client, static::PROXY, $host, $authorization);
+        $this->organizationPersona = new Service\OrganizationPersonaService($client, static::PROXY, $host, $authorization);
         $this->staff = new Service\StaffService($client, static::PROXY, $host, $authorization);
         $this->staffPersona = new Service\StaffPersonaService($client, static::PROXY, $host, $authorization);
         $this->system = new Service\SystemService($client, static::PROXY, $host, $authorization);
@@ -110,6 +122,8 @@ class Identities
         $this->anonymousPersona->setHost($host);
         $this->individual->setHost($host);
         $this->individualPersona->setHost($host);
+        $this->organization->setHost($host);
+        $this->organizationPersona->setHost($host);
         $this->staff->setHost($host);
         $this->staffPersona->setHost($host);
         $this->system->setHost($host);
@@ -133,6 +147,8 @@ class Identities
         $this->anonymousPersona->setAuthorization($authorization);
         $this->individual->setAuthorization($authorization);
         $this->individualPersona->setAuthorization($authorization);
+        $this->organization->setAuthorization($authorization);
+        $this->organizationPersona->setAuthorization($authorization);
         $this->staff->setAuthorization($authorization);
         $this->staffPersona->setAuthorization($authorization);
         $this->system->setAuthorization($authorization);

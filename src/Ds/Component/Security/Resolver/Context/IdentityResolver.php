@@ -95,6 +95,10 @@ class IdentityResolver implements Resolver
                 $model = $this->api->identities->individual->get($user->getIdentityUuid());
                 break;
 
+            case Identity::ORGANIZATION:
+                $model = $this->api->identities->organization->get($user->getIdentityUuid());
+                break;
+
             case Identity::STAFF:
                 $model = $this->api->identities->staff->get($user->getIdentityUuid());
                 break;

@@ -46,7 +46,7 @@ class Configuration implements ConfigurationInterface
                     ->arrayNode('roles')
                         ->prototype('scalar')->end()
                     ->end()
-                    ->enumNode('identity')->values([Identity::SYSTEM, Identity::STAFF, Identity::INDIVIDUAL, Identity::ANONYMOUS])->end()
+                    ->enumNode('identity')->values([Identity::SYSTEM, Identity::STAFF, Identity::ORGANIZATION, Identity::INDIVIDUAL, Identity::ANONYMOUS])->end()
                     ->scalarNode('identityUuid')->end()
                 ->end()
             ->end();

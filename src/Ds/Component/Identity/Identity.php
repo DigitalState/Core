@@ -14,6 +14,7 @@ class Identity
      */
     const SYSTEM = 'System';
     const STAFF = 'Staff';
+    const ORGANIZATION = 'Organization';
     const INDIVIDUAL = 'Individual';
     const ANONYMOUS = 'Anonymous';
 }
