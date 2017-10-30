@@ -60,6 +60,10 @@ abstract class AbstractService implements Service
                         // @todo reverse load for relationships
                         break;
 
+                    case 'organization':
+                        // @todo reverse load for relationships
+                        break;
+
                     default:
                         $model->{'set'.ucfirst($local)}($object->$remote);
                 }
@@ -105,6 +109,10 @@ abstract class AbstractService implements Service
 
                 case 'individual':
                     $object->$remote = '/individuals/'.$value->getUuid();
+                    break;
+
+                case 'organization':
+                    $object->$remote = '/organizations/'.$value->getUuid();
                     break;
 
                 default:
