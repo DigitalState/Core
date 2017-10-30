@@ -18,10 +18,10 @@ interface Service
     public function setHost($host = null);
 
     /**
-     * Set authorization
+     * Set headers
      *
-     * @param array $authorization
+     * @param array $headers
      * @return \Ds\Component\Camunda\Service\Service
      */
-    public function setAuthorization(array $authorization = []);
+    public function setHeaders(array $headers = []);
 }

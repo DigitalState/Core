@@ -15,7 +15,7 @@ class Identities
     /**
      * @const string
      */
-    const PROXY = 'api.identities.ds';
+    const HOST = 'api.identities.ds';
 
     /**
      * @var \Ds\Component\Api\Service\HealthService
@@ -87,23 +87,27 @@ class Identities
      *
      * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
-     * @param array $authorization
+     * @param array $headers
      */
-    public function __construct(ClientInterface $client, $host = null, array $authorization = [])
+    public function __construct(ClientInterface $client, $host = null, array $headers = [])
     {
-        $this->health = new Service\HealthService($client, static::PROXY, $host, $authorization);
-        $this->config = new Service\ConfigService($client, static::PROXY, $host, $authorization);
-        $this->access = new Service\AccessService($client, static::PROXY, $host, $authorization);
-        $this->permission = new Service\PermissionService($client, static::PROXY, $host, $authorization);
-        $this->anonymous = new Service\AnonymousService($client, static::PROXY, $host, $authorization);
-        $this->anonymousPersona = new Service\AnonymousPersonaService($client, static::PROXY, $host, $authorization);
-        $this->individual = new Service\IndividualService($client, static::PROXY, $host, $authorization);
-        $this->individualPersona = new Service\IndividualPersonaService($client, static::PROXY, $host, $authorization);
-        $this->organization = new Service\OrganizationService($client, static::PROXY, $host, $authorization);
-        $this->organizationPersona = new Service\OrganizationPersonaService($client, static::PROXY, $host, $authorization);
-        $this->staff = new Service\StaffService($client, static::PROXY, $host, $authorization);
-        $this->staffPersona = new Service\StaffPersonaService($client, static::PROXY, $host, $authorization);
-        $this->system = new Service\SystemService($client, static::PROXY, $host, $authorization);
+        if (!array_key_exists('Host', $headers)) {
+            $headers['Host'] = static::HOST;
+        }
+
+        $this->health = new Service\HealthService($client, $host, $headers);
+        $this->config = new Service\ConfigService($client, $host, $headers);
+        $this->access = new Service\AccessService($client, $host, $headers);
+        $this->permission = new Service\PermissionService($client, $host, $headers);
+        $this->anonymous = new Service\AnonymousService($client, $host, $headers);
+        $this->anonymousPersona = new Service\AnonymousPersonaService($client, $host, $headers);
+        $this->individual = new Service\IndividualService($client, $host, $headers);
+        $this->individualPersona = new Service\IndividualPersonaService($client, $host, $headers);
+        $this->organization = new Service\OrganizationService($client, $host, $headers);
+        $this->organizationPersona = new Service\OrganizationPersonaService($client, $host, $headers);
+        $this->staff = new Service\StaffService($client, $host, $headers);
+        $this->staffPersona = new Service\StaffPersonaService($client, $host, $headers);
+        $this->system = new Service\SystemService($client, $host, $headers);
     }
 
     /**
@@ -132,26 +136,26 @@ class Identities
     }
 
     /**
-     * Set authorization
+     * Set headers
      *
-     * @param array $authorization
+     * @param array $headers
      * @return \Ds\Component\Api\Api\Identities
      */
-    public function setAuthorization(array $authorization = [])
+    public function setHeaders(array $headers = [])
     {
-        $this->health->setAuthorization($authorization);
-        $this->config->setAuthorization($authorization);
-        $this->access->setAuthorization($authorization);
-        $this->permission->setAuthorization($authorization);
-        $this->anonymous->setAuthorization($authorization);
-        $this->anonymousPersona->setAuthorization($authorization);
-        $this->individual->setAuthorization($authorization);
-        $this->individualPersona->setAuthorization($authorization);
-        $this->organization->setAuthorization($authorization);
-        $this->organizationPersona->setAuthorization($authorization);
-        $this->staff->setAuthorization($authorization);
-        $this->staffPersona->setAuthorization($authorization);
-        $this->system->setAuthorization($authorization);
+        $this->health->setHeaders($headers);
+        $this->config->setHeaders($headers);
+        $this->access->setHeaders($headers);
+        $this->permission->setHeaders($headers);
+        $this->anonymous->setHeaders($headers);
+        $this->anonymousPersona->setHeaders($headers);
+        $this->individual->setHeaders($headers);
+        $this->individualPersona->setHeaders($headers);
+        $this->organization->setHeaders($headers);
+        $this->organizationPersona->setHeaders($headers);
+        $this->staff->setHeaders($headers);
+        $this->staffPersona->setHeaders($headers);
+        $this->system->setHeaders($headers);
 
         return $this;
     }

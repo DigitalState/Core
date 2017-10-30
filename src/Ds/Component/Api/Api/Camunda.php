@@ -11,4 +11,8 @@ use Ds\Component\Camunda\Api\Api;
  */
 class Camunda extends Api
 {
+    /**
+     * @const string
+     */
+    const PROXY = 'api.camunda.ds';
 }

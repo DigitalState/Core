@@ -15,7 +15,7 @@ class Cases
     /**
      * @const string
      */
-    const PROXY = 'api.cases.ds';
+    const HOST = 'api.cases.ds';
 
     /**
      * @var \Ds\Component\Api\Service\HealthService
@@ -42,14 +42,18 @@ class Cases
      *
      * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
-     * @param array $authorization
+     * @param array $headers
      */
-    public function __construct(ClientInterface $client, $host = null, array $authorization = [])
+    public function __construct(ClientInterface $client, $host = null, array $headers = [])
     {
-        $this->health = new Service\HealthService($client, static::PROXY, $host, $authorization);
-        $this->config = new Service\ConfigService($client, static::PROXY, $host, $authorization);
-        $this->access = new Service\AccessService($client, static::PROXY, $host, $authorization);
-        $this->permission = new Service\PermissionService($client, static::PROXY, $host, $authorization);
+        if (!array_key_exists('Host', $headers)) {
+            $headers['Host'] = static::HOST;
+        }
+
+        $this->health = new Service\HealthService($client, $host, $headers);
+        $this->config = new Service\ConfigService($client, $host, $headers);
+        $this->access = new Service\AccessService($client, $host, $headers);
+        $this->permission = new Service\PermissionService($client, $host, $headers);
     }
 
     /**
@@ -69,17 +73,17 @@ class Cases
     }
 
     /**
-     * Set authorization
+     * Set headers
      *
-     * @param array $authorization
+     * @param array $headers
      * @return \Ds\Component\Api\Api\Cases
      */
-    public function setAuthorization(array $authorization = [])
+    public function setHeaders(array $headers = [])
     {
-        $this->health->setAuthorization($authorization);
-        $this->config->setAuthorization($authorization);
-        $this->access->setAuthorization($authorization);
-        $this->permission->setAuthorization($authorization);
+        $this->health->setHeaders(headers);
+        $this->config->setHeaders(headers);
+        $this->access->setHeaders(headers);
+        $this->permission->setHeaders(headers);
 
         return $this;
     }

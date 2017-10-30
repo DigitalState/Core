@@ -139,17 +139,17 @@ abstract class AbstractService implements Service
     /**
      * @var array
      */
-    protected $authorization; # region accessors
+    protected $headers; # region accessors
 
     /**
-     * Set authorization
+     * Set headers
      *
-     * @param array $authorization
+     * @param array $headers
      * @return \Ds\Component\Camunda\Service\Service
      */
-    public function setAuthorization(array $authorization = [])
+    public function setHeaders(array $headers = [])
     {
-        $this->authorization = $authorization;
+        $this->headers = $headers;
 
         return $this;
     }
@@ -161,13 +161,22 @@ abstract class AbstractService implements Service
      *
      * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
-     * @param array $authorization
+     * @param array $headers
      */
-    public function __construct(ClientInterface $client, $host = null, array $authorization = [])
+    public function __construct(ClientInterface $client, $host = null, array $headers = [])
     {
         $this->client = $client;
         $this->host = $host;
-        $this->authorization = $authorization;
+
+        if (!array_key_exists('Content-Type', $headers)) {
+            $headers['Content-Type'] = 'application/json';
+        }
+
+        if (!array_key_exists('Content-Type', $headers)) {
+            $headers['Accept'] = 'application/json';
+        }
+
+        $this->headers = $headers;
     }
 
     /**
@@ -183,15 +192,15 @@ abstract class AbstractService implements Service
         $uri = $this->host.$resource;
 
         if (!isset($options['headers']['Content-Type'])) {
-            $options['headers']['Content-Type'] = 'application/json';
+            $options['headers']['Content-Type'] = $this->headers['Content-Type'];
         }
 
         if (!isset($options['headers']['Accept'])) {
-            $options['headers']['Accept'] = 'application/json';
+            $options['headers']['Accept'] = $this->headers['Accept'];
         }
 
-        if (!isset($options['headers']['Authorization']) && $this->authorization) {
-            $options['headers']['Authorization'] = $this->authorization;
+        if (!isset($options['headers']['Authorization']) && array_key_exists('Authorization', $this->headers)) {
+            $options['headers']['Authorization'] = $this->headers['Authorization'];
         }
 
         $response = $this->client->request($method, $uri, $options);
