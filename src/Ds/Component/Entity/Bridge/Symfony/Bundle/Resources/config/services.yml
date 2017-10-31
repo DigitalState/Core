@@ -3,7 +3,6 @@ services:
         abstract: true
         arguments:
             - '@doctrine.orm.entity_manager'
-        public: false
 
     ds_entity.service.sequence:
         class: '%ds_entity.service.sequence.class%'
