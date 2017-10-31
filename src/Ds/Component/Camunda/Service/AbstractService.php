@@ -122,10 +122,7 @@ abstract class AbstractService implements Service
     protected $host; # region accessors
 
     /**
-     * Set host
-     *
-     * @param string $host
-     * @return \Ds\Component\Camunda\Service\Service
+     * {@inheritdoc}
      */
     public function setHost($host = null)
     {
@@ -142,14 +139,21 @@ abstract class AbstractService implements Service
     protected $headers; # region accessors
 
     /**
-     * Set headers
-     *
-     * @param array $headers
-     * @return \Ds\Component\Camunda\Service\Service
+     * {@inheritdoc}
      */
     public function setHeaders(array $headers = [])
     {
         $this->headers = $headers;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setHeader($name, $value)
+    {
+        $this->headers[$name] = $value;
 
         return $this;
     }
@@ -168,11 +172,11 @@ abstract class AbstractService implements Service
         $this->client = $client;
         $this->host = $host;
 
-        if (!array_key_exists('Content-Type', $headers)) {
+        if (!isset($headers['Content-Type'])) {
             $headers['Content-Type'] = 'application/json';
         }
 
-        if (!array_key_exists('Content-Type', $headers)) {
+        if (!isset($headers['Accept'])) {
             $headers['Accept'] = 'application/json';
         }
 
@@ -191,29 +195,23 @@ abstract class AbstractService implements Service
     {
         $uri = $this->host.$resource;
 
-        if (!isset($options['headers']['Content-Type'])) {
-            $options['headers']['Content-Type'] = $this->headers['Content-Type'];
-        }
-
-        if (!isset($options['headers']['Accept'])) {
-            $options['headers']['Accept'] = $this->headers['Accept'];
-        }
-
-        if (!isset($options['headers']['Authorization']) && array_key_exists('Authorization', $this->headers)) {
-            $options['headers']['Authorization'] = $this->headers['Authorization'];
+        foreach ($this->headers as $key => $value) {
+            if (!isset($options['headers'][$key])) {
+                $options['headers'][$key] = $value;
+            }
         }
 
         $response = $this->client->request($method, $uri, $options);
-        $body = (string) $response->getBody();
+        $data = (string) $response->getBody();
 
-        if ('' !== $body) {
+        if ('' !== $data) {
             try {
-                $body = \GuzzleHttp\json_decode($body);
+                $data = \GuzzleHttp\json_decode($data);
             } catch (InvalidArgumentException $exception) {
                 throw new UnexpectedValueException('Service response is not valid.', 0, $exception);
             }
         }
 
-        return $body;
+        return $data;
     }
 }

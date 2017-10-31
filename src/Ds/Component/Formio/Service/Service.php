@@ -18,10 +18,19 @@ interface Service
     public function setHost($host = null);
 
     /**
-     * Set authorization
+     * Set headers
      *
-     * @param array $authorization
+     * @param array $headers
      * @return \Ds\Component\Formio\Service\Service
      */
-    public function setAuthorization(array $authorization = []);
+    public function setHeaders(array $headers = []);
+
+    /**
+     * Set header
+     *
+     * @param string $name
+     * @param string $value
+     * @return \Ds\Component\Formio\Service\Service
+     */
+    public function setHeader($name, $value);
 }

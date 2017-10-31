@@ -2,6 +2,6 @@ services:
     ds_bpm.resolver.context.bpm:
         class: '%ds_bpm.resolver.context.bpm.class%'
         arguments:
-            - '@ds_api.factory'
+            - '@ds_api.api'
         tags:
             - { name: ds_resolver.resolver, alias: ds.context.bpm }

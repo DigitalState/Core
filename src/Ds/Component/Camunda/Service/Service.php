@@ -24,4 +24,13 @@ interface Service
      * @return \Ds\Component\Camunda\Service\Service
      */
     public function setHeaders(array $headers = []);
+
+    /**
+     * Set header
+     *
+     * @param string $name
+     * @param string $value
+     * @return \Ds\Component\Camunda\Service\Service
+     */
+    public function setHeader($name, $value);
 }

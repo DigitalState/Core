@@ -3,7 +3,7 @@
 namespace Ds\Component\Bpm\Resolver\Context;
 
 use DomainException;
-use Ds\Component\Api\Api\Factory;
+use Ds\Component\Api\Api\Api;
 use Ds\Component\Camunda\Query\VariableParameters;
 use Ds\Component\Resolver\Exception\UnresolvedException;
 use Exception;
@@ -26,11 +26,6 @@ class BpmResolver
     const CONTEXT_TASK = 'task';
 
     /**
-     * \Ds\Component\Api\Api\Factory
-     */
-    protected $factory;
-
-    /**
      * @var \Ds\Component\Api\Api\Api
      */
     protected $api;
@@ -43,11 +38,11 @@ class BpmResolver
     /**
      * Constructor
      *
-     * @param \Ds\Component\Api\Api\Factory $factory
+     * @param \Ds\Component\Api\Api\Api $api
      */
-    public function __construct(Factory $factory)
+    public function __construct(Api $api)
     {
-        $this->factory = $factory;
+        $this->api = $api;
         $this->contexts = [];
     }
 
@@ -87,11 +82,8 @@ class BpmResolver
             throw new UnresolvedException('Variable pattern is not valid.');
         }
 
-        if (!$this->api) {
-            $this->api = $this->factory->create();
-        }
-
-        $resource = $this->toProperty($matches[1]);
+        $value = null;
+        $resource = $matches[1];
 
         switch ($resource) {
             case 'task.variable':
@@ -100,7 +92,7 @@ class BpmResolver
                 $property = array_key_exists(4, $matches) ? $matches[4] : null;
                 $parameters = new VariableParameters;
                 $parameters->setDeserializeValues(true);
-                $variables = $this->api->camunda->task->variable->getList($task, $parameters);
+                $variables = $this->api->get('camunda.task.variable')->getList($task, $parameters);
 
                 if (!array_key_exists($variable, $variables)) {
                     throw new UnresolvedException('Variable pattern did not resolve to data.');
@@ -141,17 +133,5 @@ class BpmResolver
         $this->contexts[$context] = $value;
 
         return $this;
-    }
-
-    /**
-     * @todo This is duplicated in ApiResolver. Figure out a pattern to remove duplication.
-     * Transform variable pattern to property name
-     *
-     * @param string $variable
-     * @return string
-     */
-    protected function toProperty($variable)
-    {
-        return lcfirst(str_replace('_', '', ucwords($variable, '_')));
     }
 }

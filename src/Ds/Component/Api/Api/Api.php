@@ -2,7 +2,11 @@
 
 namespace Ds\Component\Api\Api;
 
-use GuzzleHttp\ClientInterface;
+use Ds\Component\Api\Collection\ServiceCollection;
+use Ds\Component\Config\Service\ConfigService;
+use Ds\Component\Security\User\User;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use OutOfRangeException;
 
 /**
  * Class Api
@@ -12,109 +16,78 @@ use GuzzleHttp\ClientInterface;
 class Api
 {
     /**
-     * @var \Ds\Component\Api\Api\Authentication
+     * @var \Ds\Component\Api\Collection\ServiceCollection
      */
-    public $authentication;
+    protected $serviceCollection;
 
     /**
-     * @var \Ds\Component\Api\Api\Identities
+     * @var \Ds\Component\Config\Service\ConfigService
      */
-    public $identities;
+    protected $configService;
 
     /**
-     * @var \Ds\Component\Api\Api\Cases
+     * @var \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface
      */
-    public $cases;
+    protected $tokenManager;
 
     /**
-     * @var \Ds\Component\Api\Api\Services
+     * @var string
      */
-    public $services;
-
-    /**
-     * @var \Ds\Component\Api\Api\Records
-     */
-    public $records;
-
-    /**
-     * @var \Ds\Component\Api\Api\Assets
-     */
-    public $assets;
-
-    /**
-     * @var \Ds\Component\Api\Api\Cms
-     */
-    public $cms;
-
-    /**
-     * @var \Ds\Component\Camunda\Api\Api
-     */
-    public $camunda;
-
-    /**
-     * @var \Ds\Component\Formio\Api\Api
-     */
-    public $formio;
+    protected $token;
 
     /**
      * Constructor
      *
-     * @param \GuzzleHttp\ClientInterface $client
-     * @param string $host
-     * @param array $authorization
+     * @param \Ds\Component\Api\Collection\ServiceCollection $serviceCollection
+     * @param \Ds\Component\Config\Service\ConfigService $configService
+     * @param \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface $tokenManager
      */
-    public function __construct(ClientInterface $client, $host = null, array $authorization = [])
+    public function __construct(ServiceCollection $serviceCollection, ConfigService $configService, JWTTokenManagerInterface $tokenManager)
     {
-        $this->authentication = new Authentication($client, $host, $authorization);
-        $this->identities = new Identities($client, $host, $authorization);
-        $this->cases = new Cases($client, $host, $authorization);
-        $this->services = new Services($client, $host, $authorization);
-        $this->records = new Records($client, $host, $authorization);
-        $this->assets = new Assets($client, $host, $authorization);
-        $this->cms = new Cms($client, $host, $authorization);
-        $this->camunda = new Camunda($client, $host, $authorization);
-        $this->formio = new Formio($client, $host, $authorization);
+        $this->serviceCollection = $serviceCollection;
+        $this->configService = $configService;
+        $this->tokenManager = $tokenManager;
     }
 
     /**
-     * Set host
+     * Get service
      *
-     * @param string $host
-     * @return \Ds\Component\Api\Api\Api
+     * @param string $alias
+     * @return \Ds\Component\Api\Service\Service
+     * @throws \OutOfRangeException
      */
-    public function setHost($host = null)
+    public function get($alias)
     {
-        $this->authentication->setHost($host);
-        $this->identities->setHost($host);
-        $this->cases->setHost($host);
-        $this->services->setHost($host);
-        $this->records->setHost($host);
-        $this->assets->setHost($host);
-        $this->cms->setHost($host);
-        $this->camunda->setHost($host);
-        $this->formio->setHost($host);
+        if (!$this->serviceCollection->containsKey($alias)) {
+            throw new OutOfRangeException('Service does not exist.');
+        }
 
-        return $this;
+        $service = $this->serviceCollection->get($alias);
+        // @todo Refactor (config name pattern guessing is not proper)
+        $service->setHost($this->configService->get('ds_api.api.'.explode('.', $alias)[0].'.host'));
+        $service->setHeader('host', 'api.'.explode('.', $alias)[0].'.ds');
+        $service->setHeader('Authorization', 'Bearer '.$this->getToken());
+
+        return $service;
     }
 
     /**
-     * Set authorization
+     * Get token
      *
-     * @param array $authorization
-     * @return \Ds\Component\Api\Api\Api
+     * @return string
      */
-    public function setAuthorization(array $authorization = [])
+    protected function getToken()
     {
-        $this->authentication->setAuthorization($authorization);
-        $this->identities->setAuthorization($authorization);
-        $this->cases->setAuthorization($authorization);
-        $this->services->setAuthorization($authorization);
-        $this->records->setAuthorization($authorization);
-        $this->assets->setAuthorization($authorization);
-        $this->cms->setAuthorization($authorization);
-        $this->camunda->setAuthorization($authorization);
-        $this->formio->setAuthorization($authorization);
+        if (!$this->token) {
+            $username = $this->configService->get('ds_api.user.username');
+            $uuid = $this->configService->get('ds_api.user.uuid');
+            $roles = [$this->configService->get('ds_api.user.roles')];
+            $identity = $this->configService->get('ds_api.user.identity');
+            $identityUuid = $this->configService->get('ds_api.user.identity_uuid');
+            $user = User::createFromPayload($username, compact('uuid', 'roles', 'identity', 'identityUuid'));
+            $this->token = $this->tokenManager->create($user);
+        }
 
-        return $this;
+        return $this->token;
     }
 }

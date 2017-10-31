@@ -3,7 +3,7 @@ services:
         class: '%ds_security.resolver.context.identity.persona.class%'
         arguments:
             - '@security.token_storage'
-            - '@ds_api.factory'
+            - '@ds_api.api'
         tags:
             - { name: ds_resolver.resolver, alias: ds.context.identity.persona }
 
@@ -11,6 +11,6 @@ services:
         class: '%ds_security.resolver.context.identity.class%'
         arguments:
             - '@security.token_storage'
-            - '@ds_api.factory'
+            - '@ds_api.api'
         tags:
             - { name: ds_resolver.resolver, alias: ds.context.identity }

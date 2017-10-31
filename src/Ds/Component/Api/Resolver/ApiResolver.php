@@ -2,7 +2,7 @@
 
 namespace Ds\Component\Api\Resolver;
 
-use Ds\Component\Api\Api\Factory;
+use Ds\Component\Api\Api\Api;
 use Ds\Component\Resolver\Exception\UnresolvedException;
 use Ds\Component\Resolver\Resolver\Resolver;
 use Exception;
@@ -21,11 +21,6 @@ class ApiResolver implements Resolver
     const PATTERN = '/^ds\.([_a-zA-Z0-9]+)\.([_a-zA-Z0-9]+)\[([-a-zA-Z0-9]+)\]\.(.+)/';
 
     /**
-     * \Ds\Component\Api\Api\Factory
-     */
-    protected $factory;
-
-    /**
      * @var \Ds\Component\Api\Api\Api
      */
     protected $api;
@@ -33,11 +28,11 @@ class ApiResolver implements Resolver
     /**
      * Constructor
      *
-     * @param \Ds\Component\Api\Api\Factory $factory
+     * @param \Ds\Component\Api\Api\Api $api
      */
-    public function __construct(Factory $factory)
+    public function __construct(Api $api)
     {
-        $this->factory = $factory;
+        $this->api = $api;
     }
 
     /**
@@ -47,10 +42,6 @@ class ApiResolver implements Resolver
     {
         if (!preg_match(static::PATTERN, $variable, $matches)) {
             return false;
-        }
-
-        if (!$this->api) {
-            $this->api = $this->factory->create();
         }
 
         $service = $this->toProperty($matches[1]);
@@ -79,16 +70,11 @@ class ApiResolver implements Resolver
             throw new UnresolvedException('Variable pattern is not valid.');
         }
 
-        $service = $this->toProperty($matches[1]);
-        $resource = $this->toProperty($matches[2]);
+        $service = $matches[1];
+        $resource = $matches[2];
         $id = $matches[3];
         $property = $matches[4];
-
-        if (!$this->api) {
-            $this->api = $this->factory->create();
-        }
-
-        $model = $this->api->$service->$resource->get($id);
+        $model = $this->api->get($service.'.'.$resource)->get($id);
         $accessor = PropertyAccess::createPropertyAccessor();
 
         try {
@@ -98,16 +84,5 @@ class ApiResolver implements Resolver
         }
 
         return $value;
-    }
-
-    /**
-     * Transform variable pattern to property name
-     *
-     * @param string $variable
-     * @return string
-     */
-    protected function toProperty($variable)
-    {
-        return lcfirst(str_replace('_', '', ucwords($variable, '_')));
     }
 }

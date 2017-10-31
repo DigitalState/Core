@@ -136,14 +136,24 @@ abstract class AbstractService implements Service
     /**
      * @var array
      */
-    protected $authorization; # region accessors
+    protected $headers; # region accessors
 
     /**
      * {@inheritdoc}
      */
-    public function setAuthorization(array $authorization = [])
+    public function setHeaders(array $headers = [])
     {
-        $this->authorization = $authorization;
+        $this->headers = $headers;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setHeader($name, $value)
+    {
+        $this->headers[$name] = $value;
 
         return $this;
     }
@@ -155,13 +165,22 @@ abstract class AbstractService implements Service
      *
      * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
-     * @param array $authorization
+     * @param array $headers
      */
-    public function __construct(ClientInterface $client, $host = null, array $authorization = [])
+    public function __construct(ClientInterface $client, $host = null, array $headers = [])
     {
         $this->client = $client;
         $this->host = $host;
-        $this->authorization = $authorization;
+
+        if (!isset($headers['Content-Type'])) {
+            $headers['Content-Type'] = 'application/json';
+        }
+
+        if (!isset($headers['Accept'])) {
+            $headers['Accept'] = 'application/json';
+        }
+
+        $this->headers = $headers;
     }
 
     /**
@@ -179,16 +198,10 @@ abstract class AbstractService implements Service
     {
         $uri = $this->host.$resource;
 
-        if (!isset($options['headers']['Content-Type'])) {
-            $options['headers']['Content-Type'] = 'application/json';
-        }
-
-        if (!isset($options['headers']['Accept'])) {
-            $options['headers']['Accept'] = 'application/json';
-        }
-
-        if (!isset($options['headers']['Authorization']) && $this->authorization) {
-            $options['headers']['Authorization'] = $this->authorization;
+        foreach ($this->headers as $key => $value) {
+            if (!isset($options['headers'][$key])) {
+                $options['headers'][$key] = $value;
+            }
         }
 
         try {
@@ -209,10 +222,14 @@ abstract class AbstractService implements Service
             }
         }
 
-        try {
-            $data = \GuzzleHttp\json_decode($response->getBody());
-        } catch (InvalidArgumentException $exception) {
-            throw new ResponseException('Response body is not valid json.', 0, $exception);
+        $data = (string) $response->getBody();
+
+        if ('' !== $data) {
+            try {
+                $data = \GuzzleHttp\json_decode($response->getBody());
+            } catch (InvalidArgumentException $exception) {
+                throw new ResponseException('Service response is not valid.', 0, $exception);
+            }
         }
 
         return $data;

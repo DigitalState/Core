@@ -1,8 +1,0 @@
-parameters:
-    ds_formio.http.client.class: GuzzleHttp\Client
-    ds_formio.api.class: Ds\Component\Formio\Api\Api
-    ds_formio.service.authentication.class: Ds\Component\Formio\Service\AuthenticationService
-    ds_formio.service.form.class: Ds\Component\Formio\Service\FormService
-    ds_formio.service.project.class: Ds\Component\Formio\Service\ProjectService
-    ds_formio.service.submission.class: Ds\Component\Formio\Service\SubmissionService
-    ds_formio.service.user.class: Ds\Component\Formio\Service\UserService

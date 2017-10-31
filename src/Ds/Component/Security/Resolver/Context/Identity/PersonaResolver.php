@@ -3,7 +3,7 @@
 namespace Ds\Component\Security\Resolver\Context\Identity;
 
 use DomainException;
-use Ds\Component\Api\Api\Factory;
+use Ds\Component\Api\Api\Api;
 use Ds\Component\Api\Query\AnonymousPersonaParameters;
 use Ds\Component\Api\Query\IndividualPersonaParameters;
 use Ds\Component\Api\Query\OrganizationPersonaParameters;
@@ -34,11 +34,6 @@ class PersonaResolver implements Resolver
     protected $tokenStorage;
 
     /**
-     * \Ds\Component\Api\Api\Factory
-     */
-    protected $factory;
-
-    /**
      * @var \Ds\Component\Api\Api\Api
      */
     protected $api;
@@ -47,12 +42,12 @@ class PersonaResolver implements Resolver
      * Constructor
      *
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Ds\Component\Api\Api\Factory $factory
+     * @param \Ds\Component\Api\Api\Api $api
      */
-    public function __construct(TokenStorageInterface $tokenStorage, Factory $factory)
+    public function __construct(TokenStorageInterface $tokenStorage, Api $api)
     {
         $this->tokenStorage = $tokenStorage;
-        $this->factory = $factory;
+        $this->api = $api;
     }
 
     /**
@@ -87,39 +82,35 @@ class PersonaResolver implements Resolver
         $token = $this->tokenStorage->getToken();
         $user = $token->getUser();
 
-        if (!$this->api) {
-            $this->api = $this->factory->create();
-        }
-
         switch ($user->getIdentity()) {
             case Identity::ANONYMOUS:
                 $parameters = new AnonymousPersonaParameters;
                 $parameters->setAnonymousUuid($user->getIdentityUuid());
-                $models = $this->api->identities->anonymousPersona->getList($parameters);
+                $models = $this->api->get('identities.anonymous_persona')->getList($parameters);
                 break;
 
             case Identity::INDIVIDUAL:
                 $parameters = new IndividualPersonaParameters;
                 $parameters->setIndividualUuid($user->getIdentityUuid());
-                $models = $this->api->identities->individualPersona->getList($parameters);
+                $models = $this->api->get('identities.individual_persona')->getList($parameters);
                 break;
 
             case Identity::ORGANIZATION:
                 $parameters = new OrganizationPersonaParameters;
                 $parameters->setOrganizationUuid($user->getIdentityUuid());
-                $models = $this->api->identities->organizationPersona->getList($parameters);
+                $models = $this->api->get('identities.organization_persona')->getList($parameters);
                 break;
 
             case Identity::STAFF:
                 $parameters = new StaffPersonaParameters;
                 $parameters->setStaffUuid($user->getIdentityUuid());
-                $models = $this->api->identities->staffPersona->getList($parameters);
+                $models = $this->api->get('identities.staff_persona')->getList($parameters);
                 break;
 
             case Identity::SYSTEM:
                 $parameters = new SystemPersonaParameters;
                 $parameters->setSystemUuid($user->getIdentityUuid());
-                $models = $this->api->identities->systemPersona->getList($parameters);
+                $models = $this->api->get('identities.system_persona')->getList($parameters);
                 break;
 
             default:

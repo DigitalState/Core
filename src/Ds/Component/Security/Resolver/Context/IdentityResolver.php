@@ -3,7 +3,7 @@
 namespace Ds\Component\Security\Resolver\Context;
 
 use DomainException;
-use Ds\Component\Api\Api\Factory;
+use Ds\Component\Api\Api\Api;
 use Ds\Component\Identity\Identity;
 use Ds\Component\Resolver\Exception\UnresolvedException;
 use Ds\Component\Resolver\Resolver\Resolver;
@@ -29,11 +29,6 @@ class IdentityResolver implements Resolver
     protected $tokenStorage;
 
     /**
-     * \Ds\Component\Api\Api\Factory
-     */
-    protected $factory;
-
-    /**
      * @var \Ds\Component\Api\Api\Api
      */
     protected $api;
@@ -42,12 +37,12 @@ class IdentityResolver implements Resolver
      * Constructor
      *
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Ds\Component\Api\Api\Factory $factory
+     * @param \Ds\Component\Api\Api\Api $api
      */
-    public function __construct(TokenStorageInterface $tokenStorage, Factory $factory)
+    public function __construct(TokenStorageInterface $tokenStorage, Api $api)
     {
         $this->tokenStorage = $tokenStorage;
-        $this->factory = $factory;
+        $this->api = $api;
     }
 
     /**
@@ -82,29 +77,25 @@ class IdentityResolver implements Resolver
         $token = $this->tokenStorage->getToken();
         $user = $token->getUser();
 
-        if (!$this->api) {
-            $this->api = $this->factory->create();
-        }
-
         switch ($user->getIdentity()) {
             case Identity::ANONYMOUS:
-                $model = $this->api->identities->anonymous->get($user->getIdentityUuid());
+                $model = $this->api->get('identities.anonymous')->get($user->getIdentityUuid());
                 break;
 
             case Identity::INDIVIDUAL:
-                $model = $this->api->identities->individual->get($user->getIdentityUuid());
+                $model = $this->api->get('identities.individual')->get($user->getIdentityUuid());
                 break;
 
             case Identity::ORGANIZATION:
-                $model = $this->api->identities->organization->get($user->getIdentityUuid());
+                $model = $this->api->get('identities.organization')->get($user->getIdentityUuid());
                 break;
 
             case Identity::STAFF:
-                $model = $this->api->identities->staff->get($user->getIdentityUuid());
+                $model = $this->api->get('identities.staff')->get($user->getIdentityUuid());
                 break;
 
             case Identity::SYSTEM:
-                $model = $this->api->identities->system->get($user->getIdentityUuid());
+                $model = $this->api->get('identities.system')->get($user->getIdentityUuid());
                 break;
 
             default:

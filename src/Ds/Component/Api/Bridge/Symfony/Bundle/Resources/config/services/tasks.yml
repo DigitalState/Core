@@ -1,0 +1,24 @@
+services:
+    ds_api.service.tasks.health:
+        parent: ds_api.service
+        class: '%ds_api.service.tasks.health.class%'
+        tags:
+            - { name: ds_api.service, alias: tasks.health }
+
+    ds_api.service.tasks.config:
+        parent: ds_api.service
+        class: '%ds_api.service.tasks.config.class%'
+        tags:
+            - { name: ds_api.service, alias: tasks.config }
+
+    ds_api.service.tasks.access:
+        parent: ds_api.service
+        class: '%ds_api.service.tasks.access.class%'
+        tags:
+            - { name: ds_api.service, alias: tasks.access }
+
+    ds_api.service.tasks.permission:
+        parent: ds_api.service
+        class: '%ds_api.service.tasks.permission.class%'
+        tags:
+            - { name: ds_api.service, alias: tasks.permission }

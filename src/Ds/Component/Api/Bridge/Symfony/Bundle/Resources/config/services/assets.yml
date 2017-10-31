@@ -1,0 +1,24 @@
+services:
+    ds_api.service.assets.health:
+        parent: ds_api.service
+        class: '%ds_api.service.assets.health.class%'
+        tags:
+            - { name: ds_api.service, alias: assets.health }
+
+    ds_api.service.assets.config:
+        parent: ds_api.service
+        class: '%ds_api.service.assets.config.class%'
+        tags:
+            - { name: ds_api.service, alias: assets.config }
+
+    ds_api.service.assets.access:
+        parent: ds_api.service
+        class: '%ds_api.service.assets.access.class%'
+        tags:
+            - { name: ds_api.service, alias: assets.access }
+
+    ds_api.service.assets.permission:
+        parent: ds_api.service
+        class: '%ds_api.service.assets.permission.class%'
+        tags:
+            - { name: ds_api.service, alias: assets.permission }

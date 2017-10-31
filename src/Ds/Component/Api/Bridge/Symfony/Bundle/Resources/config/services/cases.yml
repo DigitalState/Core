@@ -1,0 +1,24 @@
+services:
+    ds_api.service.cases.health:
+        parent: ds_api.service
+        class: '%ds_api.service.cases.health.class%'
+        tags:
+            - { name: ds_api.service, alias: cases.health }
+
+    ds_api.service.cases.config:
+        parent: ds_api.service
+        class: '%ds_api.service.cases.config.class%'
+        tags:
+            - { name: ds_api.service, alias: cases.config }
+
+    ds_api.service.cases.access:
+        parent: ds_api.service
+        class: '%ds_api.service.cases.access.class%'
+        tags:
+            - { name: ds_api.service, alias: cases.access }
+
+    ds_api.service.cases.permission:
+        parent: ds_api.service
+        class: '%ds_api.service.cases.permission.class%'
+        tags:
+            - { name: ds_api.service, alias: cases.permission }
