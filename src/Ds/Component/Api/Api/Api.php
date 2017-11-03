@@ -81,7 +81,7 @@ class Api
         if (!$this->token) {
             $username = $this->configService->get('ds_api.user.username');
             $uuid = $this->configService->get('ds_api.user.uuid');
-            $roles = [$this->configService->get('ds_api.user.roles')];
+            $roles = ['ROLE_USER', $this->configService->get('ds_api.user.roles')]; // @todo Allow configs to be arrays (which will also allow to remove the hard coded ROLE_USER)
             $identity = $this->configService->get('ds_api.user.identity');
             $identityUuid = $this->configService->get('ds_api.user.identity_uuid');
             $user = User::createFromPayload($username, compact('uuid', 'roles', 'identity', 'identityUuid'));
