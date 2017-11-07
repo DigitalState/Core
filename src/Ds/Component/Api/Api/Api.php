@@ -63,9 +63,7 @@ class Api
         }
 
         $service = $this->serviceCollection->get($alias);
-        // @todo Refactor (config name pattern guessing is not proper)
         $service->setHost($this->configService->get('ds_api.api.'.explode('.', $alias)[0].'.host'));
-        $service->setHeader('host', 'api.'.explode('.', $alias)[0].'.ds');
         $service->setHeader('Authorization', 'Bearer '.$this->getToken());
 
         return $service;
