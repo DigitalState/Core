@@ -100,15 +100,15 @@ class EntityExtension implements QueryCollectionExtensionInterface, QueryItemExt
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder
-            ->andWhere(sprintf('%s.owner = :ds_owner', $rootAlias))
-            ->setParameter('ds_owner', 'BusinessUnit');
+            ->andWhere(sprintf('%s.owner = :owner', $rootAlias))
+            ->setParameter('owner', 'BusinessUnit');
 
         if (in_array(null, $ownerUuids, true)) {
             return;
         }
 
         $queryBuilder
-            ->andWhere(sprintf('%s.ownerUuid IN (:ds_owner_uuids)', $rootAlias))
-            ->setParameter('ds_owner_uuids', $ownerUuids);
+            ->andWhere(sprintf('%s.ownerUuid IN (:owner_uuids)', $rootAlias))
+            ->setParameter('owner_uuids', $ownerUuids);
     }
 }
