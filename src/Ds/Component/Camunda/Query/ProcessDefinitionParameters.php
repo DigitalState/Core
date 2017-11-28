@@ -12,6 +12,7 @@ class ProcessDefinitionParameters extends AbstractParameters
     use Attribute\Name;
     use Attribute\Key;
     use Attribute\Variables;
+    use Attribute\WithVariablesInReturn;
 
     /**
      * Constructor

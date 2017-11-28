@@ -128,14 +128,25 @@ class ProcessDefinitionService extends AbstractService
         $options = [];
 
         if ($parameters) {
-            foreach ($parameters->getVariables() as $variable) {
-                $options['json']['variables'][$variable->getName()] = [
-                    'value' => $variable->getValue(),
-                    'type' => $variable->getType()
-                ];
+            $parameters = (array) $parameters->toObject(true);
 
-                if (Variable::TYPE_JSON === $variable->getType()) {
-                    $options['json']['variables'][$variable->getName()]['value'] = json_encode($options['json']['variables'][$variable->getName()]['value']);
+            foreach ($parameters as $name => $value) {
+                switch ($name) {
+                    case 'variables':
+                        foreach ($value as $variable) {
+                            $options['json'][$name][$variable->name] = [
+                                'value' => Variable::TYPE_JSON === $variable->type ? json_encode($variable->value) : $variable->value,
+                                'type' => $variable->type
+                            ];
+                        }
+
+                        break;
+
+                    case 'key':
+                        break;
+
+                    default:
+                        $options['json'][$name] = $value;
                 }
             }
         }

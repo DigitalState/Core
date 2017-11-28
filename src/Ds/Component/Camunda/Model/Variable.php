@@ -20,6 +20,7 @@ class Variable implements Model
      * @const string
      */
     const TYPE_STRING = 'String';
+    const TYPE_INTEGER = 'Integer';
     const TYPE_JSON = 'Json';
 
     /**
@@ -37,26 +38,5 @@ class Variable implements Model
             ->setValue($value)
             ->setType($type)
             ->setValueInfo($valueInfo);
-    }
-
-    /**
-     * Cast to object
-     *
-     * @param boolean $minimal
-     * @return \stdClass
-     */
-    public function toObject($minimal = false)
-    {
-        $object = new stdClass;
-
-        if (!$minimal) {
-            $object->name = $this->getName();
-        }
-
-        $object->value = $this->getValue();
-        $object->type = $this->getType();
-        $object->valueInfo = $this->getValueInfo();
-
-        return $object;
     }
 }

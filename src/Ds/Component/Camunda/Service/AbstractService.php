@@ -4,6 +4,7 @@ namespace Ds\Component\Camunda\Service;
 
 use DateTime;
 use Ds\Component\Camunda\Model\Model;
+use Ds\Component\Camunda\Model\Variable;
 use GuzzleHttp\ClientInterface;
 use InvalidArgumentException;
 use LogicException;
@@ -56,6 +57,17 @@ abstract class AbstractService implements Service
                     case 'followUp':
                         if (null !== $object->$remote) {
                             $model->{'set' . ucfirst($local)}(new DateTime($object->$remote));
+                        }
+
+                        break;
+
+                    case 'variables':
+                        foreach ($object->$remote as $name => $variable) {
+                            if (Variable::TYPE_JSON === $variable->type) {
+                                $variable->value = json_decode($variable->value);
+                            }
+
+                            $model->addVariable(new Variable($name, $variable->value, $variable->type, $variable->valueInfo));
                         }
 
                         break;

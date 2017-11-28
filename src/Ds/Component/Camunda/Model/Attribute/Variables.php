@@ -2,7 +2,8 @@
 
 namespace Ds\Component\Camunda\Model\Attribute;
 
-use stdClass;
+use Ds\Component\Camunda\Model\Variable;
+use OutOfRangeException;
 
 /**
  * Trait Variables
@@ -12,19 +13,36 @@ use stdClass;
 trait Variables
 {
     /**
-     * @var \stdClass
+     * @var array
      */
     protected $variables; # region accessors
 
     /**
      * Set variables
      *
-     * @param \stdClass $variables
+     * @param array $variables
      * @return object
      */
-    public function setVariables(stdClass $variables)
+    public function setVariables(array $variables)
     {
-        $this->variables = $variables;
+        $this->variables = [];
+
+        foreach ($variables as $variable) {
+            $this->addVariable($variable);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add variable
+     *
+     * @param \Ds\Component\Camunda\Model\Variable $variable
+     * @return object
+     */
+    public function addVariable(Variable $variable)
+    {
+        $this->variables[$variable->getName()] = $variable;
 
         return $this;
     }
@@ -32,11 +50,21 @@ trait Variables
     /**
      * Get variables
      *
-     * @return \stdClass
+     * @param string $name
+     * @return array
+     * @throws \OutOfRangeException
      */
-    public function getVariables()
+    public function getVariables($name = null)
     {
-        return $this->variables;
+        if (null === $name) {
+            return $this->variables;
+        }
+
+        if (!array_key_exists($name, $this->variables)) {
+            throw new OutOfRangeException('Variable does not exist.');
+        }
+
+        return $this->variables[$name];
     }
 
     # endregion

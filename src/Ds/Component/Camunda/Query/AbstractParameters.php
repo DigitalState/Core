@@ -31,14 +31,15 @@ abstract class AbstractParameters implements Parameters
 
             switch ($key) {
                 case 'variables':
-                    $object->$key = new stdClass;
+                    $object->$key = [];
 
-                    foreach ($value as $variable) {
-                        $object->$key->{$variable->getName()} = $variable->toObject(true);
-
-                        if (Variable::TYPE_JSON === $variable->getType()) {
-                            $object->$key->{$variable->getName()}->value = GuzzleHttp\json_encode($object->$key->{$variable->getName()}->value);
-                        }
+                    foreach ($value as $name => $variable) {
+                        $object->$key[$variable->getName()] = (object) [
+                            'name' => $variable->getName(),
+                            'value' => $variable->getValue(),
+                            'type' => $variable->getType(),
+                            'valueInfo' => $variable->getValueInfo()
+                        ];
                     }
 
                     break;

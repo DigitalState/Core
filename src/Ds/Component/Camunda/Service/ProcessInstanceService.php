@@ -28,7 +28,8 @@ class ProcessInstanceService extends AbstractService
         'suspended',
         'tenantId',
         'caseInstanceId',
-        'links'
+        'links',
+        'variables'
     ];
 
     /**

@@ -17,6 +17,7 @@ class ProcessInstance implements Model
     use Attribute\Suspended;
     use Attribute\TenantId;
     use Attribute\Links;
+    use Attribute\Variables;
 
     /**
      * Constructor
@@ -24,5 +25,6 @@ class ProcessInstance implements Model
     public function __construct()
     {
         $this->links = [];
+        $this->variables = [];
     }
 }

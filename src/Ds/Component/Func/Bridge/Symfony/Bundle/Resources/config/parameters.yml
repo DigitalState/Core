@@ -1,0 +1,2 @@
+parameters:
+    ds_func.collection.func.class: Ds\Component\Func\Collection\FuncCollection
