@@ -1,0 +1,6 @@
+services:
+    ds_audit.repository.audit:
+        class: '%ds_audit.repository.audit.class%'
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - '%ds_audit.entity.audit.class%'

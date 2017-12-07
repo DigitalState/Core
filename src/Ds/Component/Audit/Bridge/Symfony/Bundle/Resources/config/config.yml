@@ -1,0 +1,9 @@
+doctrine:
+    orm:
+        mappings:
+            DsAudit:
+                type: annotation
+                is_bundle: false
+                dir: '%kernel.root_dir%/../vendor/digitalstate/core/src/Ds/Component/Audit/Entity'
+                prefix: Ds\Component\Audit\Entity
+                alias: DsAudit
