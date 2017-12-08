@@ -7,3 +7,19 @@ doctrine:
                 dir: '%kernel.root_dir%/../vendor/digitalstate/core/src/Ds/Component/Audit/Entity'
                 prefix: Ds\Component\Audit\Entity
                 alias: DsAudit
+
+ds_security:
+    permissions:
+        audit:                { title: ds.security.permissions.audit,                  entity:   Ds\Component\Security\Entity\Audit,                attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
+        audit_property:       { title: ds.security.permissions.audit.property,         property: Ds\Component\Security\Entity\Audit.*,              attributes: [BROWSE, READ, EDIT] }
+        audit_id:             { title: ds.security.permissions.audit.id,               property: Ds\Component\Security\Entity\Audit.id,             attributes: [BROWSE, READ, EDIT] }
+        audit_uuid:           { title: ds.security.permissions.audit.uiid,             property: Ds\Component\Security\Entity\Audit.uuid,           attributes: [BROWSE, READ, EDIT] }
+        audit_created_at:     { title: ds.security.permissions.audit.created_at,       property: Ds\Component\Security\Entity\Audit.createdAt,      attributes: [BROWSE, READ, EDIT] }
+        audit_updated_at:     { title: ds.security.permissions.audit.updated_at,       property: Ds\Component\Security\Entity\Audit.updatedAt,      attributes: [BROWSE, READ, EDIT] }
+        audit_owner:          { title: ds.security.permissions.audit.owner,            property: Ds\Component\Security\Entity\Audit.owner,          attributes: [BROWSE, READ, EDIT] }
+        audit_owner_uuid:     { title: ds.security.permissions.audit.owner_uuid,       property: Ds\Component\Security\Entity\Audit.ownerUuid,      attributes: [BROWSE, READ, EDIT] }
+        audit_user_uuid:      { title: ds.security.permissions.audit.user_uuid,        property: Ds\Component\Security\Entity\Audit.userUuid,       attributes: [BROWSE, READ, EDIT] }
+        audit_identity:       { title: ds.security.permissions.audit.identity,         property: Ds\Component\Security\Entity\Audit.identity,       attributes: [BROWSE, READ, EDIT] }
+        audit_identity_uuid:  { title: ds.security.permissions.audit.identity_uuid,    property: Ds\Component\Security\Entity\Audit.identityUuid,   attributes: [BROWSE, READ, EDIT] }
+        audit_action:         { title: ds.security.permissions.audit.action,           property: Ds\Component\Security\Entity\Audit.action,         attributes: [BROWSE, READ, EDIT] }
+        audit_data:           { title: ds.security.permissions.audit.data,             property: Ds\Component\Security\Entity\Audit.data,           attributes: [BROWSE, READ, EDIT] }
