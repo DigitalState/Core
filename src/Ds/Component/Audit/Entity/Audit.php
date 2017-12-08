@@ -162,7 +162,7 @@ class Audit implements Identifiable, Uuidentifiable, Ownable
     /**
      * @var array
      * @ApiProperty
-     * @Serializer\Groups({"assessment_output", "assessment_input"})
+     * @Serializer\Groups({"audit_output", "audit_input"})
      * @ORM\Column(name="data", type="json_array")
      * @Assert\Type("array")
      */
