@@ -12,6 +12,7 @@ services:
         class: '%ds_security.doctrine.orm.query_extension.deleted.class%'
         public: false
         arguments:
+            - '@request_stack'
             - '@security.token_storage'
         tags:
             - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
