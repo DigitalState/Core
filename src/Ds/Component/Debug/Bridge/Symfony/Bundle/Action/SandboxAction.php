@@ -3,6 +3,7 @@
 namespace Ds\Component\Debug\Bridge\Symfony\Bundle\Action;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,6 +38,6 @@ class SandboxAction
      */
     public function get()
     {
-        exit;
+        return new JsonResponse;
     }
 }
