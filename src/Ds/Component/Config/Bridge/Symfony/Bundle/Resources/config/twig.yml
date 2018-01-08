@@ -1,0 +1,7 @@
+services:
+    ds_config.twig.extension.config:
+        class: '%ds_config.twig.extension.config.class%'
+        arguments:
+            - '@ds_config.service.config'
+        tags:
+            - { name: twig.extension }

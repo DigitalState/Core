@@ -5,3 +5,4 @@ parameters:
     ds_config.collection.config.class: Ds\Component\Config\Collection\ConfigCollection
     ds_config.repository.config.class: Ds\Component\Config\Repository\ConfigRepository
     ds_config.service.config.class: Ds\Component\Config\Service\ConfigService
+    ds_config.twig.extension.config.class: Ds\Component\Config\Twig\Extension\ConfigExtension

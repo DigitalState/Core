@@ -36,5 +36,6 @@ class DsConfigExtension extends Extension implements PrependExtensionInterface
         $loader->load('commands.yml');
         $loader->load('repositories.yml');
         $loader->load('services.yml');
+        $loader->load('twig.yml');
     }
 }
