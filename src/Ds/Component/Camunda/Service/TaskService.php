@@ -132,14 +132,14 @@ class TaskService extends AbstractService
         }
 
         $resource = str_replace('{id}', $id, static::RESOURCE_SUBMIT);
-        $options = [
-            'json' => [
-                'variables' => []
-            ]
-        ];
+        $options = [];
 
         foreach ($variables as $variable) {
-            $options['json']['variables'][$variable->getName()] = (array) $variable->toObject(true);
+            // @todo Standardize variable toObject logic (see ProcessInstanceService::start)
+            $options['json']['variables'][$variable->getName()] = [
+                'value' => Variable::TYPE_JSON === $variable->getType() ? json_encode($variable->getValue()) : $variable->getValue(),
+                'type' => $variable->getType()
+            ];
         }
 
         $this->execute('POST', $resource, $options);
