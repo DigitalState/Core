@@ -29,31 +29,34 @@ class DsApiExtension extends Extension implements PrependExtensionInterface
                 'identity_uuid' => null
             ],
             'api' => [
-                'authentication' => [
-                    'host' => null
-                ],
-                'identities' => [
-                    'host' => null
-                ],
-                'cases' => [
-                    'host' => null
-                ],
-                'services' => [
-                    'host' => null
-                ],
-                'records' => [
-                    'host' => null
-                ],
                 'assets' => [
                     'host' => null
                 ],
-                'cms' => [
+                'authentication' => [
                     'host' => null
                 ],
                 'camunda' => [
                     'host' => null
                 ],
+                'cases' => [
+                    'host' => null
+                ],
+                'cms' => [
+                    'host' => null
+                ],
                 'formio' => [
+                    'host' => null
+                ],
+                'identities' => [
+                    'host' => null
+                ],
+                'records' => [
+                    'host' => null
+                ],
+                'services' => [
+                    'host' => null
+                ],
+                'tasks' => [
                     'host' => null
                 ]
             ]
@@ -80,14 +83,15 @@ class DsApiExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('ds_config.configs.ds_api.credential.roles', $config['credential']['roles']);
         $container->setParameter('ds_config.configs.ds_api.credential.identity', $config['credential']['identity']);
         $container->setParameter('ds_config.configs.ds_api.credential.identity_uuid', $config['credential']['identity_uuid']);
-        $container->setParameter('ds_config.configs.ds_api.api.authentication.host', $config['api']['authentication']['host']);
-        $container->setParameter('ds_config.configs.ds_api.api.identities.host', $config['api']['identities']['host']);
-        $container->setParameter('ds_config.configs.ds_api.api.cases.host', $config['api']['cases']['host']);
-        $container->setParameter('ds_config.configs.ds_api.api.services.host', $config['api']['services']['host']);
-        $container->setParameter('ds_config.configs.ds_api.api.records.host', $config['api']['records']['host']);
         $container->setParameter('ds_config.configs.ds_api.api.assets.host', $config['api']['assets']['host']);
-        $container->setParameter('ds_config.configs.ds_api.api.cms.host', $config['api']['cms']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.authentication.host', $config['api']['authentication']['host']);
         $container->setParameter('ds_config.configs.ds_api.api.camunda.host', $config['api']['camunda']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.cases.host', $config['api']['cases']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.cms.host', $config['api']['cms']['host']);
         $container->setParameter('ds_config.configs.ds_api.api.formio.host', $config['api']['formio']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.identities.host', $config['api']['identities']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.records.host', $config['api']['records']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.services.host', $config['api']['services']['host']);
+        $container->setParameter('ds_config.configs.ds_api.api.tasks.host', $config['api']['tasks']['host']);
     }
 }
