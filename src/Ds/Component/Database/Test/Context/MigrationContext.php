@@ -13,24 +13,13 @@ use Symfony\Component\Process\Process;
 class MigrationContext implements Context
 {
     /**
-     * Run migrations
+     * Load migrations
      *
-     * @BeforeScenario @runMigrations
+     * @BeforeScenario @loadMigrations
      */
-    public function runMigrations()
+    public function loadMigrations()
     {
         $process = new Process('php bin/console doctrine:migrations:migrate --env=test --no-interaction');
-        $process->run();
-    }
-
-    /**
-     * Load Fixtures
-     *
-     * @BeforeScenario @loadFixtures
-     */
-    public function loadFixtures()
-    {
-        $process = new Process('php bin/console doctrine:fixtures:load --env=test --no-interaction');
         $process->run();
     }
 }
