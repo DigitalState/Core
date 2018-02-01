@@ -17,7 +17,7 @@ The security component provides a flexible framework to configure access control
 
 Permissions describes very specific actions that can occur within the system. Whether it is **browsing** a list of cases, **editing** a case, or **deleting** a case, all actions are protected by permissions.
 
-The permissions model provides a flexible way to define possible actions within a system and has two main values: type and attributes. 
+The permissions model provides a flexible way to define possible actions within a system and has two main values: **type** and **attributes**. 
 
 ### Types
 
