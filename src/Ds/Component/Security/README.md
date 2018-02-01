@@ -45,5 +45,7 @@ case:       { entity:   Case,        attributes: [BROWSE, READ, EDIT, ADD, DELET
 case_title: { property: Case.title,  attributes: [BROWSE, READ, EDIT]              }
 ```
 
-The first permission definition is named `case` and defines access to the Case records. The possible attributes are `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE`. The second permission definition is named `case_title` and defines access to the Case records title column. The possible attributes are `BROWSE`, `READ` and `EDIT`.
+The first permission definition is named `case` and defines access to the Case records. The possible attributes are `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE`. 
+
+The second permission definition is named `case_title` and defines access to the Case records title column. The possible attributes are `BROWSE`, `READ` and `EDIT`.
 
