@@ -38,15 +38,14 @@ Permission attributes describe the actions possible towards the type.
 - **DELETE**: Allows a user to delete a record.
 - **EXECUTE**: Allows a user to execute something.
 
-Examples:
+For example, we could create a permissions configuration file with the following:
 
-`case: {  entity: Case, attributes: [BROWSE, READ, EDIT, ADD, DELETE] }`
+```
+case: {  entity: Case, attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
+case_title: {  property: Case.title, attributes: [BROWSE, READ, EDIT] }
+```
 
-This permission is named `case` and defines access to the Case records. The possible attributes are `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE`.
-
-`case_title: {  property: Case.title, attributes: [BROWSE, READ, EDIT] }`
-
-This permission is named `case_title` and defines access to the Case records title column. The possible attributes are `BROWSE`, `READ` and `EDIT`.
+The first permission is named `case` and defines access to the Case records. The possible attributes are `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE`. The second permission is named `case_title` and defines access to the Case records title column. The possible attributes are `BROWSE`, `READ` and `EDIT`.
 
 A user could be granted read access to Case records and its title property with the following:
 
