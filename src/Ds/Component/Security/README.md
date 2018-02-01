@@ -41,11 +41,13 @@ Permission attributes describe the actions possible towards the type.
 For example, we could create a permissions configuration file with the following:
 
 ```
-case:       { entity:   Case,        attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
-case_title: { property: Case.title,  attributes: [BROWSE, READ, EDIT]              }
+case:            { entity:   Case,            attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
+case_title:      { property: Case.title,      attributes: [BROWSE, READ, EDIT]              }
+case_created_at: { property: Case.createdAt,  attributes: [BROWSE, READ, EDIT]              }
+case_purge:      { custom:   CasePurge,       attributes: [EXECUTE]                         }
 ```
 
-The first permission definition is named `case` and defines access to the Case records. The possible attributes are `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE`. 
+The first permission definition is named `case` and defines access to the Case entity. The possible actions are `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE`. 
 
-The second permission definition is named `case_title` and defines access to the Case records title column. The possible attributes are `BROWSE`, `READ` and `EDIT`.
+The second permission definition is named `case_title` and defines access to the Case records title column. The possible actions are `BROWSE`, `READ` and `EDIT`.
 
