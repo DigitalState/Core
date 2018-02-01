@@ -24,7 +24,7 @@ The permissions model provides a flexible way to define possible actions within 
 Permission types describe the kind of access.
 
 - **Entity**: This type of permission controls access to a database record.
-- **Property**: This type of permission controls access to a database record property.
+- **Property**: This type of permission controls access to a database record column.
 - **Custom**: This type of permission controls access to something generic.
 
 ### Attributes
