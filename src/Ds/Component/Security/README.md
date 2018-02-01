@@ -42,11 +42,11 @@ Examples:
 
 `case: {  entity: Case, attributes: [BROWSE, READ, EDIT, ADD, DELETE] }`
 
-This permission is named `case` and defines access to the Case records. The possible attributes are Browse, Read, Edit, Add and Delete.
+This permission is named `case` and defines access to the Case records. The possible attributes are `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE`.
 
 `case_title: {  property: Case.title, attributes: [BROWSE, READ, EDIT] }`
 
-This permission is named `case_title` and defines access to the Case records title property. The possible attributes are Browse, Read and Edit.
+This permission is named `case_title` and defines access to the Case records title property. The possible attributes are `BROWSE`, `READ` and `EDIT`.
 
 A user could be granted read access to Case records and its title property with the following:
 
