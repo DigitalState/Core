@@ -46,7 +46,7 @@ This permission is named `case` and defines access to the Case records. The poss
 
 `case_title: {  property: Case.title, attributes: [BROWSE, READ, EDIT] }`
 
-This permission is named `case_title` and defines access to the Case records title property. The possible attributes are `BROWSE`, `READ` and `EDIT`.
+This permission is named `case_title` and defines access to the Case records title column. The possible attributes are `BROWSE`, `READ` and `EDIT`.
 
 A user could be granted read access to Case records and its title property with the following:
 
