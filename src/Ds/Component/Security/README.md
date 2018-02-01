@@ -41,7 +41,7 @@ Permission attributes describe the actions possible towards the type.
 For example, we could create a permissions configuration file with the following:
 
 ```
-case: {  entity: Case, attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
+case:       {  entity:   Case,       attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
 case_title: {  property: Case.title, attributes: [BROWSE, READ, EDIT] }
 ```
 
