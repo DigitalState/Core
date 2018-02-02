@@ -5,7 +5,7 @@ Feature: Browse accesses
   I should be able to send api requests related to accesses
 
   Background:
-    Given I am authenticated as a "system" identity
+    Given I am authenticated as the "system" identity
 
   @createSchema @loadFixtures @dropSchema
   Scenario: Browse all permissions

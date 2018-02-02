@@ -5,7 +5,7 @@ Feature: Browse health statuses
   I should be able to send api requests related to health statuses
 
   Background:
-    Given I am authenticated as a "system" identity
+    Given I am authenticated as the "system" identity
 
   @createSchema @loadFixtures @dropSchema
   Scenario: Browse all health statuses
