@@ -2,35 +2,31 @@ ds_identity_test:
     identities:
         system:
             username: system
-            uuid: 9eb213e2-e108-4d4f-ab6b-62d1e50052ae
+            uuid: 85726ec8-7685-4655-ac91-4746ae71c2cc
             roles: [ROLE_SYSTEM]
             identity: System
-            identityUuid: 5386e249-8ad0-45f1-a30e-d5a055cc5993
-
+            identityUuid: aa18b644-a503-49fa-8f53-10f4c1f8e3a1
         staff:
             username: staff
-            uuid: b4df246d-0307-4bb9-a732-58326c133839
+            uuid: da7bde0e-9690-43b3-abbb-043fb61c679a
             roles: [ROLE_STAFF]
             identity: Staff
-            identityUuid: f8f05002-f00a-4d6d-b21c-3408a8c24991
-
+            identityUuid: e9111144-71fa-4743-91d0-178653d2e385
         organization:
             username: organization
-            uuid: 2533b68a-36d3-44b8-a9db-9f88426a9b19
+            uuid: 765eaf87-51f9-44f4-8758-c28f380a0855
             roles: [ROLE_ORGANIZATION]
             identity: Organization
-            identityUuid: 0ac24776-475d-4d82-ad5f-c3cafc420747
-
+            identityUuid: cedcdc35-84a8-4fa1-8cf1-ff8fea926222
         individual:
             username: individual
-            uuid: 536f60f4-f357-4dff-8f8f-a6bcfbd6dfb3
+            uuid: 0bf2117e-56b4-47ae-87cd-88d7a8bfc758
             roles: [ROLE_INDIVIDUAL]
             identity: Individual
-            identityUuid: 458d54d9-8aa4-417d-a58b-d7f84df909ae
-
+            identityUuid: 5da1504c-68a4-4968-a03a-36e6ac39e8f2
         anonymous:
             username: anonymous
-            uuid: cca27a98-8691-4caa-96b5-015fc6068e8b
+            uuid: f9df049a-fe95-405f-ba7c-734f1a0ce558
             roles: [ROLE_ANONYMOUS]
             identity: Anonymous
-            identityUuid: c0391d20-2122-4234-838b-521bd716a54c
+            identityUuid: ad1a4ee4-b707-4135-b8e9-498286d5830c
