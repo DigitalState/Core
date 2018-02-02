@@ -45,9 +45,9 @@ class IdentityContext implements Context
     }
 
     /**
-     * @Given I am authenticated as a :identity identity
+     * @Given I am authenticated as the :identity identity
      */
-    public function iAmAuthenticatedAsAnIdentity($identity)
+    public function iAmAuthenticatedAsTheIdentity($identity)
     {
         if (!$this->identityCollection->containsKey($identity)) {
             throw new DomainException('Identity does not exist.');
