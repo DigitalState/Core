@@ -38,7 +38,7 @@ class ListAction
      * Action
      *
      * @Method("GET")
-     * @Route(path="/security/permissions/list")
+     * @Route(path="/permissions/list")
      * @Security("is_granted('BROWSE', 'permissions_list')")
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
