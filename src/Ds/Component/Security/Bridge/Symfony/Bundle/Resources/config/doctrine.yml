@@ -18,8 +18,8 @@ services:
             - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
             - { name: api_platform.doctrine.orm.query_extension.item }
 
-    ds_security.doctrine.orm.query_extension.identity:
-        class: '%ds_security.doctrine.orm.query_extension.identity.class%'
+    ds_security.doctrine.orm.query_extension.possessor:
+        class: '%ds_security.doctrine.orm.query_extension.possessor.class%'
         public: false
         arguments:
             - '@security.token_storage'

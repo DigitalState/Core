@@ -24,8 +24,8 @@ class AccessService extends EntityService
         $permissions = new ArrayCollection;
 
         $accesses = $this->repository->findBy([
-            'identity' => $user->getIdentity(),
-            'identityUuid' => null
+            'possessor' => $user->getIdentity(),
+            'possessorUuid' => null
         ]);
 
         foreach ($accesses as $access) {
@@ -35,8 +35,8 @@ class AccessService extends EntityService
         }
 
         $accesses = $this->repository->findBy([
-            'identity' => $user->getIdentity(),
-            'identityUuid' => $user->getIdentityUuid()
+            'possessor' => $user->getIdentity(),
+            'possessorUuid' => $user->getIdentityUuid()
         ]);
 
         foreach ($accesses as $access) {

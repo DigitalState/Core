@@ -6,17 +6,17 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInter
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use Doctrine\ORM\QueryBuilder;
-use Ds\Component\Model\Type\Identitiable;
+use Ds\Component\Model\Type\Possessable;
 use Ds\Component\Identity\Identity;
 use ReflectionClass;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
- * Class IdentityExtension
+ * Class PossessorExtension
  *
  * @package Ds\Component\Security
  */
-class IdentityExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
+class PossessorExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
     /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
@@ -57,7 +57,7 @@ class IdentityExtension implements QueryCollectionExtensionInterface, QueryItemE
      */
     protected function apply(QueryBuilder $queryBuilder, string $resourceClass)
     {
-        if (!in_array(Identitiable::class, class_implements($resourceClass), true)) {
+        if (!in_array(Possessable::class, class_implements($resourceClass), true)) {
             return;
         }
 
@@ -76,55 +76,22 @@ class IdentityExtension implements QueryCollectionExtensionInterface, QueryItemE
             $identityUuid = $user->getIdentityUuid();
         }
 
-        $entity = basename(str_replace('\\', '/', $resourceClass));
-        $reflection = new ReflectionClass(Identity::class);
-        $identities = $reflection->getConstants();
         $rootAlias = $queryBuilder->getRootAliases()[0];
 
-        switch (true) {
-            case null === $identity && in_array($entity, $identities):
-                break;
-
-            case null === $identity && !in_array($entity, $identities):
-                $queryBuilder->andWhere(sprintf('%s.identity IS NULL', $rootAlias));
-
-                break;
-
-            case null !== $identity && in_array($entity, $identities):
-                break;
-
-            case null !== $identity && !in_array($entity, $identities):
-                $queryBuilder
-                    ->andWhere(sprintf('%s.identity = :identity', $rootAlias))
-                    ->setParameter('identity', $identity);
-
-                break;
+        if (null === $identity) {
+            $queryBuilder->andWhere(sprintf('%s.possessor IS NULL', $rootAlias));
+        } else {
+            $queryBuilder
+                ->andWhere(sprintf('%s.possessor = :possessor', $rootAlias))
+                ->setParameter('possessor', $identity);
         }
 
-        switch (true) {
-            case null === $identityUuid && in_array($entity, $identities):
-                $queryBuilder->andWhere(sprintf('%s.uuid IS NULL', $rootAlias));
-
-                break;
-
-            case null === $identityUuid && !in_array($entity, $identities):
-                $queryBuilder->andWhere(sprintf('%s.identityUuid IS NULL', $rootAlias));
-
-                break;
-
-            case null !== $identityUuid && in_array($entity, $identities):
-                $queryBuilder
-                    ->andWhere(sprintf('%s.uuid = :identityUuid', $rootAlias))
-                    ->setParameter('identityUuid', $identityUuid);
-
-                break;
-
-            case null !== $identityUuid && !in_array($entity, $identities):
-                $queryBuilder
-                    ->andWhere(sprintf('%s.identityUuid = :identityUuid', $rootAlias))
-                    ->setParameter('identityUuid', $identityUuid);
-
-                break;
+        if (null === $identityUuid) {
+            $queryBuilder->andWhere(sprintf('%s.possessorUuid IS NULL', $rootAlias));
+        } else {
+            $queryBuilder
+                ->andWhere(sprintf('%s.possessorUuid = :possessorUuid', $rootAlias))
+                ->setParameter('possessorUuid', $identityUuid);
         }
     }
 }

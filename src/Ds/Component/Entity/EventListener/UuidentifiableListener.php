@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
 class UuidentifiableListener
 {
     /**
-     * Generate an uuid before persisting the entity
+     * Generate an uuid before persisting the entity, if none provided
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      */

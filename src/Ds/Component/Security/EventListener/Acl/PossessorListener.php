@@ -3,19 +3,19 @@
 namespace Ds\Component\Security\EventListener\Acl;
 
 use ApiPlatform\Core\DataProvider\PaginatorInterface as Paginator;
-use Ds\Component\Model\Type\Identitiable;
-use Ds\Component\Security\Voter\IdentityVoter;
+use Ds\Component\Model\Type\Possessable;
+use Ds\Component\Security\Voter\PossessorVoter;
 use LogicException;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Class IdentityListener
+ * Class PossessorListener
  *
  * @package Ds\Component\Security
  */
-class IdentityListener
+class PossessorListener
 {
     /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
@@ -23,20 +23,20 @@ class IdentityListener
     protected $tokenStorage;
 
     /**
-     * @var \Ds\Component\Security\Voter\IdentityVoter
+     * @var \Ds\Component\Security\Voter\PossessorVoter
      */
-    protected $identityVoter;
+    protected $possessorVoter;
 
     /**
      * Constructor
      *
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Ds\Component\Security\Voter\IdentityVoter $identityVoter
+     * @param \Ds\Component\Security\Voter\PossessorVoter $possessorVoter
      */
-    public function __construct(TokenStorageInterface $tokenStorage, IdentityVoter $identityVoter)
+    public function __construct(TokenStorageInterface $tokenStorage, PossessorVoter $possessorVoter)
     {
         $this->tokenStorage = $tokenStorage;
-        $this->identityVoter = $identityVoter;
+        $this->possessorVoter = $possessorVoter;
     }
 
     /**
@@ -59,7 +59,7 @@ class IdentityListener
             return;
         }
 
-        if (!in_array(Identitiable::class, class_implements($entity), true)) {
+        if (!in_array(Possessable::class, class_implements($entity), true)) {
             return;
         }
 
@@ -67,24 +67,24 @@ class IdentityListener
 
         if ($data instanceof Paginator || is_array($data)) {
             foreach ($data as $item) {
-                $vote = $this->identityVoter->vote($token, $item, ['*']);
+                $vote = $this->possessorVoter->vote($token, $item, ['*']);
 
-                if (IdentityVoter::ACCESS_ABSTAIN === $vote) {
+                if (PossessorVoter::ACCESS_ABSTAIN === $vote) {
                     throw new LogicException('Voter cannot abstain from voting.');
                 }
 
-                if (IdentityVoter::ACCESS_GRANTED !== $vote) {
+                if (PossessorVoter::ACCESS_GRANTED !== $vote) {
                     throw new AccessDeniedException('Access denied.');
                 }
             }
         } else {
-            $vote = $this->identityVoter->vote($token, $data, ['*']);
+            $vote = $this->possessorVoter->vote($token, $data, ['*']);
 
-            if (IdentityVoter::ACCESS_ABSTAIN === $vote) {
+            if (PossessorVoter::ACCESS_ABSTAIN === $vote) {
                 throw new LogicException('Voter cannot abstain from voting.');
             }
 
-            if (IdentityVoter::ACCESS_GRANTED !== $vote) {
+            if (PossessorVoter::ACCESS_GRANTED !== $vote) {
                 throw new AccessDeniedException('Access denied.');
             }
         }

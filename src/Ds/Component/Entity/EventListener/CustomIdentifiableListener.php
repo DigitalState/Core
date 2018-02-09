@@ -29,7 +29,7 @@ class CustomIdentifiableListener
     }
 
     /**
-     * Generate a custom id before persisting the entity
+     * Generate a custom id before persisting the entity, if none provided
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      */

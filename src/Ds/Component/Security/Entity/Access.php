@@ -3,9 +3,9 @@
 namespace Ds\Component\Security\Entity;
 
 use Ds\Component\Model\Type\Identifiable;
+use Ds\Component\Model\Type\Possessable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Ownable;
-use Ds\Component\Model\Type\Identitiable;
 use Ds\Component\Model\Type\Versionable;
 use Ds\Component\Model\Attribute\Accessor;
 use Knp\DoctrineBehaviors\Model as Behavior;
@@ -38,7 +38,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @ORMAssert\UniqueEntity(fields="uuid")
  */
-class Access implements Identifiable, Uuidentifiable, Ownable, Identitiable, Versionable
+class Access implements Identifiable, Uuidentifiable, Ownable, Possessable, Versionable
 {
     use Behavior\Timestampable\Timestampable;
 
@@ -46,8 +46,8 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Identitiable, Ver
     use Accessor\Uuid;
     use Accessor\Owner;
     use Accessor\OwnerUuid;
-    use Accessor\Identity;
-    use Accessor\IdentityUuid;
+    use Accessor\Possessor;
+    use Accessor\PossessorUuid;
     use Accessor\Version;
 
     /**
@@ -107,21 +107,21 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Identitiable, Ver
      * @var string
      * @ApiProperty
      * @Serializer\Groups({"access_output", "access_input"})
-     * @ORM\Column(name="identity", type="string", length=255, nullable=true)
+     * @ORM\Column(name="possessor", type="string", length=255, nullable=true)
      * @Assert\NotBlank
      * @Assert\Length(min=1, max=255)
      */
-    protected $identity;
+    protected $possessor;
 
     /**
      * @var string
      * @ApiProperty
      * @Serializer\Groups({"access_output", "access_input"})
-     * @ORM\Column(name="identity_uuid", type="guid", nullable=true)
+     * @ORM\Column(name="possessor_uuid", type="guid", nullable=true)
      * @Assert\NotBlank
      * @Assert\Uuid
      */
-    protected $identityUuid;
+    protected $possessorUuid;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
