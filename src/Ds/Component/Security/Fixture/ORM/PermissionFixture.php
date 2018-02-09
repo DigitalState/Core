@@ -30,6 +30,7 @@ abstract class PermissionFixture extends ResourceFixture
                 $entity = new Permission;
                 $entity
                     ->setAccess($manager->getRepository(Access::class)->findOneBy(['uuid' => $permission['access']]))
+                    ->setScope($permission['scope'])
                     ->setEntity($permission['entity'])
                     ->setEntityUuid($permission['entity_uuid'])
                     ->setKey($key)

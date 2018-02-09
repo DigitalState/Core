@@ -37,11 +37,17 @@ class Permission implements Identifiable
     use Accessor\Id;
     use Accessor\Entity;
     use Accessor\EntityUuid;
+    use Accessor\Scope;
     use EntityAccessor\Access;
     use SecurityAccessor\Key;
     use SecurityAccessor\Type;
     use SecurityAccessor\Value;
     use SecurityAccessor\Attributes;
+
+    /**
+     * @const string
+     */
+    const SCOPE_OWNED_BY = 'owned_by';
 
     /**
      * @var integer
@@ -60,6 +66,16 @@ class Permission implements Identifiable
      * @Assert\Valid
      */
     protected $access;
+
+    /**
+     * @var string
+     * @ApiProperty
+     * @Serializer\Groups({"permission_output", "permission_input"})
+     * @ORM\Column(name="scope", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(min=1, max=255)
+     */
+    protected $scope;
 
     /**
      * @var string
@@ -112,4 +128,12 @@ class Permission implements Identifiable
      * })
      */
     protected $attributes;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->scope = static::SCOPE_OWNED_BY;
+    }
 }
