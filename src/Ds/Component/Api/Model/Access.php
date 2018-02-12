@@ -13,4 +13,12 @@ class Access implements Model
 {
     use Attribute\Id;
     use Attribute\Uuid;
+    use Attribute\CreatedAt;
+    use Attribute\UpdatedAt;
+    use Attribute\Owner;
+    use Attribute\OwnerUuid;
+    use Attribute\Possessor;
+    use Attribute\PossessorUuid;
+    use Attribute\Permissions;
+    use Attribute\Version;
 }

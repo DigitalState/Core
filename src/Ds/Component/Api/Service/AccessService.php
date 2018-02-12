@@ -28,7 +28,15 @@ class AccessService extends AbstractService
      */
     protected static $map = [
         'id',
-        'uuid'
+        'uuid',
+        'createdAt',
+        'updatedAt',
+        'owner',
+        'ownerUuid',
+        'possessor',
+        'possessorUuid',
+        'permissions',
+        'version'
     ];
 
     /**
