@@ -26,7 +26,7 @@ class ClientListener
     /**
      * @var string
      */
-    protected $client;
+    protected $attribute;
 
     /**
      * @var integer
@@ -38,14 +38,14 @@ class ClientListener
      *
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param boolean $validate
-     * @param string $client
+     * @param string $attribute
      * @param integer $length
      */
-    public function __construct(RequestStack $requestStack, $validate = true, $client = 'cli', $length = 8)
+    public function __construct(RequestStack $requestStack, $validate = true, $attribute = 'cli', $length = 8)
     {
         $this->requestStack = $requestStack;
         $this->validate = $validate;
-        $this->client = $client;
+        $this->attribute = $attribute;
         $this->length = $length;
     }
 
@@ -57,7 +57,7 @@ class ClientListener
     public function created(JWTCreatedEvent $event)
     {
         $payload = $event->getData();
-        $payload[$this->client] = $this->getIdentifier();
+        $payload[$this->attribute] = $this->getIdentifier();
         $event->setData($payload);
     }
 
@@ -70,9 +70,9 @@ class ClientListener
     {
         $payload = $event->getPayload();
 
-        if (!array_key_exists($this->client, $payload)) {
+        if (!array_key_exists($this->attribute, $payload)) {
             $event->markAsInvalid();
-        } elseif ($this->validate && $payload[$this->client] !== $this->getIdentifier()) {
+        } elseif ($this->validate && $payload[$this->attribute] !== $this->getIdentifier()) {
             $event->markAsInvalid();
         }
     }

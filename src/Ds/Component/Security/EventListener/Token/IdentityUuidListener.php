@@ -15,16 +15,16 @@ class IdentityUuidListener
     /**
      * @var string
      */
-    protected $identityUuid;
+    protected $attribute;
 
     /**
      * Constructor
      *
-     * @param string $identityUuid
+     * @param string $attribute
      */
-    public function __construct($identityUuid = 'identityUuid')
+    public function __construct($attribute = 'identityUuid')
     {
-        $this->identityUuid = $identityUuid;
+        $this->attribute = $attribute;
     }
 
     /**
@@ -37,7 +37,7 @@ class IdentityUuidListener
     {
         $payload = $event->getData();
         $user = $event->getUser();
-        $payload[$this->identityUuid] = $user->getIdentityUuid();
+        $payload[$this->attribute] = $user->getIdentityUuid();
         $event->setData($payload);
     }
 
@@ -50,7 +50,7 @@ class IdentityUuidListener
     {
         $payload = $event->getPayload();
 
-        if (!array_key_exists($this->identityUuid, $payload)) {
+        if (!array_key_exists($this->attribute, $payload)) {
             $event->markAsInvalid();
         }
     }

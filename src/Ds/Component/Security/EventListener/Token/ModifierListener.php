@@ -16,16 +16,16 @@ class ModifierListener
     /**
      * @var array
      */
-    protected $remove;
+    protected $attributes;
 
     /**
      * Constructor
      *
-     * @param array $remove
+     * @param array $attributes
      */
-    public function __construct(array $remove = [])
+    public function __construct(array $attributes = [])
     {
-        $this->remove = $remove;
+        $this->attributes = $attributes;
     }
 
     /**
@@ -38,7 +38,7 @@ class ModifierListener
     {
         $payload = $event->getData();
 
-        foreach ($this->remove as $attribute) {
+        foreach ($this->attributes as $attribute) {
             if (!array_key_exists($attribute, $payload)) {
                 throw new OutOfRangeException('Payload attribute does not exist.');
             }
@@ -58,7 +58,7 @@ class ModifierListener
     {
         $payload = $event->getPayload();
 
-        foreach ($this->remove as $attribute) {
+        foreach ($this->attributes as $attribute) {
             if (array_key_exists($attribute, $payload)) {
                 $event->markAsInvalid();
                 break;

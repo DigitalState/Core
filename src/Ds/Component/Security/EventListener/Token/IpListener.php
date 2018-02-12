@@ -26,20 +26,20 @@ class IpListener
     /**
      * @var string
      */
-    protected $ip;
+    protected $attribute;
 
     /**
      * Constructor
      *
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param boolean $validate
-     * @param string $ip
+     * @param string $attribute
      */
-    public function __construct(RequestStack $requestStack, $validate = true, $ip = 'ip')
+    public function __construct(RequestStack $requestStack, $validate = true, $attribute = 'ip')
     {
         $this->requestStack = $requestStack;
         $this->validate = $validate;
-        $this->ip = $ip;
+        $this->attribute = $attribute;
     }
 
     /**
@@ -51,7 +51,7 @@ class IpListener
     {
         $request = $this->requestStack->getCurrentRequest();
         $payload = $event->getData();
-        $payload[$this->ip] = $request->getClientIp();
+        $payload[$this->attribute] = $request->getClientIp();
         $event->setData($payload);
     }
 
@@ -65,9 +65,9 @@ class IpListener
         $request = $this->requestStack->getCurrentRequest();
         $payload = $event->getPayload();
 
-        if (!array_key_exists($this->ip, $payload)) {
+        if (!array_key_exists($this->attribute, $payload)) {
             $event->markAsInvalid();
-        } elseif ($this->validate && $payload[$this->ip] !== $request->getClientIp()) {
+        } elseif ($this->validate && $payload[$this->attribute] !== $request->getClientIp()) {
             $event->markAsInvalid();
         }
     }
