@@ -17,6 +17,7 @@ parameters:
     ds_security.event_listener.token.identity_uuid.class: Ds\Component\Security\EventListener\Token\IdentityUuidListener
     ds_security.event_listener.token.ip.class: Ds\Component\Security\EventListener\Token\IpListener
     ds_security.event_listener.token.client.class: Ds\Component\Security\EventListener\Token\ClientListener
+    ds_security.event_listener.token.roles.class: Ds\Component\Security\EventListener\Token\RolesListener
     ds_security.event_listener.token.modifier.class: Ds\Component\Security\EventListener\Token\ModifierListener
     ds_security.serializer.normalizer.acl.property.class: Ds\Component\Security\Serializer\Normalizer\Acl\PropertyNormalizer
     ds_security.repository.access.class: Ds\Component\Security\Repository\AccessRepository

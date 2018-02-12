@@ -46,6 +46,7 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('identity_uuid')->defaultFalse()->end()
                 ->booleanNode('ip')->defaultFalse()->end()
                 ->booleanNode('client')->defaultFalse()->end()
+                ->booleanNode('roles')->defaultFalse()->end()
                 ->booleanNode('modifier')->defaultFalse()->end()
             ->end();
 

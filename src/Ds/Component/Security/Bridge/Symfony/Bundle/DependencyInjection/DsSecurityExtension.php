@@ -29,6 +29,7 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
                 'identity_uuid' => true,
                 'ip' => false,
                 'client' => false,
+                'roles' => true,
                 'modifier' => false
             ],
             'permissions' => []
