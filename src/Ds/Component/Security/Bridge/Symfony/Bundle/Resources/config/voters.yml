@@ -30,8 +30,3 @@ services:
         class: '%ds_security.voter.enabled.class%'
         tags:
            - { name: security.voter }
-
-    ds_security.voter.possessor:
-        class: '%ds_security.voter.possessor.class%'
-        tags:
-           - { name: security.voter }

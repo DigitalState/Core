@@ -3,12 +3,15 @@
 namespace Ds\Component\Security\Doctrine\ORM\QueryExtension\Permission;
 
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use Doctrine\ORM\QueryBuilder;
+use Ds\Component\Model\Type\Identitiable;
 use Ds\Component\Model\Type\Ownable;
+use Ds\Component\Security\Exception\NoPermissionsException;
 use Ds\Component\Security\Model\Permission;
+use Ds\Component\Security\Model\Type\Secured;
 use Ds\Component\Security\Service\AccessService;
+use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
@@ -16,7 +19,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  *
  * @package Ds\Component\Security
  */
-class EntityExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
+class EntityExtension implements QueryCollectionExtensionInterface
 {
     /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
@@ -45,70 +48,95 @@ class EntityExtension implements QueryCollectionExtensionInterface, QueryItemExt
      */
     public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, string $operationName = null)
     {
-        $this->apply($queryBuilder, $resourceClass, Permission::BROWSE);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function applyToItem(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, array $identifiers, string $operationName = null, array $context = [])
-    {
-        $this->apply($queryBuilder, $resourceClass, Permission::READ);
-    }
-
-    /**
-     * Apply condition
-     *
-     * @param \Doctrine\ORM\QueryBuilder $queryBuilder
-     * @param string $resourceClass
-     */
-    protected function apply(QueryBuilder $queryBuilder, string $resourceClass, string $attribute)
-    {
-        if (!in_array(Ownable::class, class_implements($resourceClass), true)) {
+        if (!in_array(Secured::class, class_implements($resourceClass), true)) {
             return;
         }
 
         $token = $this->tokenStorage->getToken();
 
         if (!$token) {
-            return;
+            throw new LogicException('Token is not defined.');
         }
 
         $user = $token->getUser();
-        $permissions = $this->accessService->getCompiled($user);
-        $ownerUuids = [];
+        $permissions = $this->accessService->getPermissions($user);
+        $rootAlias = $queryBuilder->getRootAliases()[0];
+        $conditions = [];
+        $parameters = [];
+        $i = 0;
 
         foreach ($permissions as $permission) {
-            if ('BusinessUnit' !== $permission->getEntity()) {
-                continue;
-            }
-
             if (Permission::ENTITY !== $permission->getType()) {
+                // Skip permissions that are not of type "entity".
                 continue;
             }
 
-            if ('*' !== $permission->getValue() && $resourceClass !== $permission->getValue()) {
+            if (!fnmatch($permission->getValue(), $resourceClass, FNM_NOESCAPE)) {
+                // Skip permissions that are not related to the entity.
+                // The fnmatch function is used to match asterisk patterns.
                 continue;
             }
 
-            if (!in_array($attribute, $permission->getAttributes(), true)) {
+            if (!in_array(Permission::BROWSE, $permission->getAttributes(), true)) {
+                // Skip permissions that do not have the required attribute.
                 continue;
             }
 
-            $ownerUuids[] = $permission->getEntityUuid();
+            switch ($permission->getScope()) {
+                case 'identity':
+                    if (!in_array(Identitiable::class, class_implements($resourceClass), true)) {
+                        // Skip permissions that is related to identity if the entity is not identitiable.
+                        continue;
+                    }
+
+                    if (null === $permission->getEntityUuid()) {
+                        $conditions[] = $queryBuilder->expr()->eq(sprintf('%s.identity', $rootAlias), ':identity'.$i);
+                        $parameters['identity'.$i] = $permission->getEntity();
+                    } else {
+                        $conditions[] = $queryBuilder->expr()->andX(
+                            $queryBuilder->expr()->eq(sprintf('%s.identity', $rootAlias), ':identity'.$i),
+                            $queryBuilder->expr()->eq(sprintf('%s.identityUuid', $rootAlias), ':identityUuid'.$i)
+                        );
+                        $parameters['identity'.$i] = $permission->getEntity();
+                        $parameters['identityUuid'.$i] = $permission->getEntityUuid();
+                    }
+
+                    $i++;
+
+                    break;
+
+                case 'owner':
+                    if (!in_array(Ownable::class, class_implements($resourceClass), true)) {
+                        // Skip permissions that is related to owners if the entity is not ownable.
+                        continue;
+                    }
+
+                    if (null === $permission->getEntityUuid()) {
+                        $conditions[] = $queryBuilder->expr()->eq(sprintf('%s.owner', $rootAlias), ':owner'.$i);
+                        $parameters['owner'.$i] = $permission->getEntity();
+                    } else {
+                        $conditions[] = $queryBuilder->expr()->andX(
+                            $queryBuilder->expr()->eq(sprintf('%s.owner', $rootAlias), ':owner'.$i),
+                            $queryBuilder->expr()->eq(sprintf('%s.ownerUuid', $rootAlias), ':ownerUuid'.$i)
+                        );
+                        $parameters['owner'.$i] = $permission->getEntity();
+                        $parameters['ownerUuid'.$i] = $permission->getEntityUuid();
+                    }
+
+                    $i++;
+
+                    break;
+            }
         }
 
-        $rootAlias = $queryBuilder->getRootAliases()[0];
-        $queryBuilder
-            ->andWhere(sprintf('%s.owner = :owner', $rootAlias))
-            ->setParameter('owner', 'BusinessUnit');
-
-        if (in_array(null, $ownerUuids, true)) {
-            return;
+        if (!$conditions) {
+            throw new NoPermissionsException;
         }
 
-        $queryBuilder
-            ->andWhere(sprintf('%s.ownerUuid IN (:owner_uuids)', $rootAlias))
-            ->setParameter('owner_uuids', $ownerUuids);
+        $queryBuilder->andWhere(call_user_func_array([$queryBuilder->expr(), 'orX'], $conditions));
+
+        foreach ($parameters as $key => $value) {
+            $queryBuilder->setParameter($key, $value);
+        }
     }
 }

@@ -38,7 +38,7 @@ class Configuration implements ConfigurationInterface
         $node = $builder->root('behavior');
         $node
             ->children()
-                ->booleanNode('possessable')->defaultFalse()->end()
+                ->booleanNode('identitiable')->defaultFalse()->end()
                 ->booleanNode('uuidentifiable')->defaultFalse()->end()
                 ->booleanNode('custom_identifiable')->defaultFalse()->end()
             ->end();

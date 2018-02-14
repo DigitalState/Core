@@ -3,16 +3,16 @@
 namespace Ds\Component\Model\Attribute;
 
 /**
- * Trait Possessor
+ * Trait Assignee
  *
  * @package Ds\Component\Model
  */
-trait Possessor
+trait Assignee
 {
-    use Accessor\Possessor;
+    use Accessor\Assignee;
 
     /**
      * @var string
      */
-    protected $possessor;
+    protected $assignee;
 }

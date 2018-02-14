@@ -46,12 +46,6 @@ class EnabledListener
      */
     public function kernelRequest(GetResponseEvent $event)
     {
-        $token = $this->tokenStorage->getToken();
-
-        if (!$token) {
-            return;
-        }
-
         $request = $event->getRequest();
         $entity = $request->attributes->get('_api_resource_class');
 
@@ -63,6 +57,7 @@ class EnabledListener
             return;
         }
 
+        $token = $this->tokenStorage->getToken();
         $data = $request->attributes->get('data');
 
         if ($data instanceof Paginator || is_array($data)) {

@@ -19,14 +19,14 @@ class AccessService extends EntityService
      * @param \Ds\Component\Security\User\User $user
      * @return ArrayCollection
      */
-    public function getCompiled(User $user)
+    public function getPermissions(User $user)
     {
         $permissions = new ArrayCollection;
 
         // Generic identity permissions
         $accesses = $this->repository->findBy([
-            'possessor' => $user->getIdentity(),
-            'possessorUuid' => null
+            'assignee' => $user->getIdentity(),
+            'assigneeUuid' => null
         ]);
 
         foreach ($accesses as $access) {
@@ -37,8 +37,8 @@ class AccessService extends EntityService
 
         // Specific identity permissions
         $accesses = $this->repository->findBy([
-            'possessor' => $user->getIdentity(),
-            'possessorUuid' => $user->getIdentityUuid()
+            'assignee' => $user->getIdentity(),
+            'assigneeUuid' => $user->getIdentityUuid()
         ]);
 
         foreach ($accesses as $access) {
@@ -57,8 +57,8 @@ class AccessService extends EntityService
         }
 
         $accesses = $this->repository->findBy([
-            'possessor' => 'Role',
-            'possessorUuid' => $roles
+            'assignee' => 'Role',
+            'assigneeUuid' => $roles
         ]);
 
         foreach ($accesses as $access) {

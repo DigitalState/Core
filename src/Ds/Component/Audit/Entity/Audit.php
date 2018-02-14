@@ -6,6 +6,7 @@ use Ds\Component\Model\Attribute\Accessor;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Type\Uuidentifiable;
+use Ds\Component\Security\Model\Type\Secured;
 use Knp\DoctrineBehaviors\Model as Behavior;
 
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -45,7 +46,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="ds_audit")
  * @ORMAssert\UniqueEntity(fields="uuid")
  */
-class Audit implements Identifiable, Uuidentifiable, Ownable
+class Audit implements Identifiable, Uuidentifiable, Ownable, Secured
 {
     use Behavior\Timestampable\Timestampable;
 

@@ -2,12 +2,13 @@
 
 namespace Ds\Component\Security\Entity;
 
+use Ds\Component\Model\Type\Assignable;
 use Ds\Component\Model\Type\Identifiable;
-use Ds\Component\Model\Type\Possessable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Type\Versionable;
 use Ds\Component\Model\Attribute\Accessor;
+use Ds\Component\Security\Model\Type\Secured;
 use Knp\DoctrineBehaviors\Model as Behavior;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -38,7 +39,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @ORMAssert\UniqueEntity(fields="uuid")
  */
-class Access implements Identifiable, Uuidentifiable, Ownable, Possessable, Versionable
+class Access implements Identifiable, Uuidentifiable, Ownable, Assignable, Versionable, Secured
 {
     use Behavior\Timestampable\Timestampable;
 
@@ -46,8 +47,8 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Possessable, Vers
     use Accessor\Uuid;
     use Accessor\Owner;
     use Accessor\OwnerUuid;
-    use Accessor\Possessor;
-    use Accessor\PossessorUuid;
+    use Accessor\Assignee;
+    use Accessor\AssigneeUuid;
     use Accessor\Version;
 
     /**
@@ -107,21 +108,21 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Possessable, Vers
      * @var string
      * @ApiProperty
      * @Serializer\Groups({"access_output", "access_input"})
-     * @ORM\Column(name="possessor", type="string", length=255, nullable=true)
+     * @ORM\Column(name="assignee", type="string", length=255, nullable=true)
      * @Assert\NotBlank
      * @Assert\Length(min=1, max=255)
      */
-    protected $possessor;
+    protected $assignee;
 
     /**
      * @var string
      * @ApiProperty
      * @Serializer\Groups({"access_output", "access_input"})
-     * @ORM\Column(name="possessor_uuid", type="guid", nullable=true)
+     * @ORM\Column(name="assignee_uuid", type="guid", nullable=true)
      * @Assert\NotBlank
      * @Assert\Uuid
      */
-    protected $possessorUuid;
+    protected $assigneeUuid;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection

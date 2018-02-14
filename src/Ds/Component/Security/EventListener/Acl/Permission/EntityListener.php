@@ -3,9 +3,8 @@
 namespace Ds\Component\Security\EventListener\Acl\Permission;
 
 use ApiPlatform\Core\DataProvider\PaginatorInterface as Paginator;
-use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Security\Model\Permission;
-use Ds\Component\Security\Model\Subject;
+use Ds\Component\Security\Model\Type\Secured;
 use Ds\Component\Security\Voter\Permission\EntityVoter;
 use LogicException;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -48,12 +47,6 @@ class EntityListener
      */
     public function kernelRequest(GetResponseEvent $event)
     {
-        $token = $this->tokenStorage->getToken();
-
-        if (!$token) {
-            return;
-        }
-
         $request = $event->getRequest();
         $entity = $request->attributes->get('_api_resource_class');
 
@@ -61,41 +54,46 @@ class EntityListener
             return;
         }
 
-        if (!in_array(Ownable::class, class_implements($entity), true)) {
+        if (!in_array(Secured::class, class_implements($entity), true)) {
             return;
         }
 
-        $permission = null;
+        $token = $this->tokenStorage->getToken();
 
-        if ('get' === $request->attributes->get('_api_collection_operation_name')) {
-            $permission = Permission::BROWSE;
-        } elseif ('get' === $request->attributes->get('_api_item_operation_name')) {
-            $permission = Permission::READ;
-        } elseif ('post' === $request->attributes->get('_api_collection_operation_name')) {
-            $permission = Permission::ADD;
-        } elseif ('put' === $request->attributes->get('_api_item_operation_name')) {
-            $permission = Permission::EDIT;
-        } elseif ('delete' === $request->attributes->get('_api_item_operation_name')) {
-            $permission = Permission::DELETE;
+        if (!$token) {
+            return;
         }
 
-        if (null === $permission) {
-            return;
+        switch (true) {
+            case 'get' === $request->attributes->get('_api_collection_operation_name'):
+                $attribute = Permission::BROWSE;
+                break;
+
+            case 'get' === $request->attributes->get('_api_item_operation_name'):
+                $attribute = Permission::READ;
+                break;
+
+            case 'put' === $request->attributes->get('_api_item_operation_name'):
+                $attribute = Permission::EDIT;
+                break;
+
+            case 'post' === $request->attributes->get('_api_collection_operation_name'):
+                $attribute = Permission::ADD;
+                break;
+
+            case 'delete' === $request->attributes->get('_api_item_operation_name'):
+                $attribute = Permission::DELETE;
+                break;
+
+            default:
+                return;
         }
 
         $data = $request->attributes->get('data');
-        $subject = new Subject;
-        $subject
-            ->setType(Permission::ENTITY)
-            ->setValue($entity);
 
         if ($data instanceof Paginator || is_array($data)) {
             foreach ($data as $item) {
-                $subject
-                    ->setEntity($item->getOwner())
-                    ->setEntityUuid($item->getOwnerUuid());
-
-                $vote = $this->entityVoter->vote($token, $subject, [$permission]);
+                $vote = $this->entityVoter->vote($token, $item, [$attribute]);
 
                 if (EntityVoter::ACCESS_ABSTAIN === $vote) {
                     throw new LogicException('Voter cannot abstain from voting.');
@@ -106,11 +104,7 @@ class EntityListener
                 }
             }
         } else {
-            $subject
-                ->setEntity($data->getOwner())
-                ->setEntityUuid($data->getOwnerUuid());
-
-            $vote = $this->entityVoter->vote($token, $subject, [$permission]);
+            $vote = $this->entityVoter->vote($token, $data, [$attribute]);
 
             if (EntityVoter::ACCESS_ABSTAIN === $vote) {
                 throw new LogicException('Voter cannot abstain from voting.');

@@ -42,10 +42,10 @@ class EnabledVoter extends Voter
             return true;
         }
 
-        if (!$subject->getEnabled()) {
-            return false;
+        if ($subject->getEnabled()) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 }

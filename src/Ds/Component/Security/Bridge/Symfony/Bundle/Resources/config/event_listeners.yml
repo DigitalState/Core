@@ -23,13 +23,10 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 1 }
 
-    ds_security.event_listener.acl.possessor:
-        class: '%ds_security.event_listener.acl.possessor.class%'
-        arguments:
-            - '@security.token_storage'
-            - '@ds_security.voter.possessor'
+    ds_security.event_listener.acl.exception:
+        class: '%ds_security.event_listener.acl.exception.class%'
         tags:
-            - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 1 }
+            - { name: kernel.event_listener, event: kernel.exception, method: kernelException }
 
     ds_security.event_listener.access.permissions:
         class: '%ds_security.event_listener.access.permissions.class%'

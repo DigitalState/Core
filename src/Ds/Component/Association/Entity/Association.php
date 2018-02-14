@@ -8,6 +8,7 @@ use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Versionable;
+use Ds\Component\Security\Model\Type\Secured;
 use Knp\DoctrineBehaviors\Model As Behavior;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
@@ -20,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package Ds\Component\Association
  */
-class Association implements Identifiable, Uuidentifiable, Associable, Ownable, Versionable
+class Association implements Identifiable, Uuidentifiable, Associable, Ownable, Versionable, Secured
 {
     use Behavior\Timestampable\Timestampable;
     use Behavior\SoftDeletable\SoftDeletable;

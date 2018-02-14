@@ -3,16 +3,16 @@
 namespace Ds\Component\Model\Attribute;
 
 /**
- * Trait PossessorUuid
+ * Trait AssigneeUuid
  *
  * @package Ds\Component\Model
  */
-trait PossessorUuid
+trait AssigneeUuid
 {
-    use Accessor\PossessorUuid;
+    use Accessor\AssigneeUuid;
 
     /**
      * @var string
      */
-    protected $possessorUuid;
+    protected $assigneeUuid;
 }

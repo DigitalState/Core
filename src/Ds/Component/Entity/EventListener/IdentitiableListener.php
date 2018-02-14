@@ -3,15 +3,15 @@
 namespace Ds\Component\Entity\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Ds\Component\Model\Type\Possessable;
+use Ds\Component\Model\Type\Identitiable;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
- * Class PossessableListener
+ * Class IdentitiableListener
  *
  * @package Ds\Component\Entity
  */
-class PossessableListener
+class IdentitiableListener
 {
     /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage
@@ -29,7 +29,7 @@ class PossessableListener
     }
 
     /**
-     * Assign the current session identity to possessor, if none provided
+     * Assign the current session identity, if none provided
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      */
@@ -37,17 +37,17 @@ class PossessableListener
     {
         $entity = $args->getEntity();
 
-        if (!$entity instanceof Possessable) {
+        if (!$entity instanceof Identitiable) {
             return;
         }
 
-        if (null !== $entity->getPossessable()) {
+        if (null !== $entity->getIdentity()) {
             return;
         }
 
         $user = $this->tokenStorage->getToken()->getUser();
         $entity
-            ->setPossessable($user->getIdentity())
-            ->setPossessableUuid($user->getIdentityUuid());
+            ->setIdentity($user->getIdentity())
+            ->setIdentityUuid($user->getIdentityUuid());
     }
 }

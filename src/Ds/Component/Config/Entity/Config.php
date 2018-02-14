@@ -7,6 +7,7 @@ use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Type\Versionable;
 use Ds\Component\Model\Attribute\Accessor;
+use Ds\Component\Security\Model\Type\Secured;
 use Knp\DoctrineBehaviors\Model as Behavior;
 
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -43,7 +44,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * @ORMAssert\UniqueEntity(fields="uuid")
  * @ORMAssert\UniqueEntity(fields="key")
  */
-class Config implements Identifiable, Uuidentifiable, Ownable, Versionable
+class Config implements Identifiable, Uuidentifiable, Ownable, Versionable, Secured
 {
     use Behavior\Timestampable\Timestampable;
 

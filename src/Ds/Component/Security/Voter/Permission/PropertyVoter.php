@@ -2,8 +2,10 @@
 
 namespace Ds\Component\Security\Voter\Permission;
 
+use Ds\Component\Model\Type\Identitiable;
+use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Security\Model\Permission;
-use Ds\Component\Security\Model\Subject;
+use Ds\Component\Security\Model\Type\Secured;
 use Ds\Component\Security\Service\AccessService;
 use Ds\Component\Security\User\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -13,6 +15,10 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  * Class PropertyVoter
  *
  * @package Ds\Component\Security
+ * @example Grant access if the user can browse the object's uuid property
+ * <code>
+ * @Security("is_granted('BROWSE', [object, 'uuid'])")
+ * </code>
  */
 class PropertyVoter extends Voter
 {
@@ -36,15 +42,31 @@ class PropertyVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-        if (!$subject instanceof Subject) {
+        if (!in_array($attribute, [Permission::BROWSE, Permission::READ, Permission::EDIT, Permission::ADD, Permission::DELETE, Permission::EXECUTE], true)) {
             return false;
         }
 
-        if (Permission::PROPERTY !== $subject->getType()) {
+        if (!is_array($subject)) {
             return false;
         }
 
-        if (!in_array($attribute, [Permission::BROWSE, Permission::READ, Permission::EDIT], true)) {
+        if (2 !== count($subject)) {
+            return false;
+        }
+
+        if (!array_key_exists(0, $subject)) {
+            return false;
+        }
+
+        if (!$subject[0] instanceof Secured) {
+            return false;
+        }
+
+        if (!array_key_exists(1, $subject)) {
+            return false;
+        }
+
+        if (!is_string($subject[1])) {
             return false;
         }
 
@@ -62,29 +84,66 @@ class PropertyVoter extends Voter
             return false;
         }
 
-        $permissions = $this->accessService->getCompiled($user)->filter(function($permission) use ($subject) {
-            if ($subject->getType() !== $permission->getType()) {
-                return false;
-            }
-
-            if (!fnmatch($permission->getValue(), $subject->getValue(), FNM_NOESCAPE)) {
-                return false;
-            }
-
-            if ($subject->getEntity() !== $permission->getEntity()) {
-                return false;
-            }
-
-            if (null !== $permission->getEntityUuid()) {
-                if ($subject->getEntityUuid() !== $permission->getEntityUuid()) {
-                    return false;
-                }
-            }
-
-            return true;
-        });
+        $permissions = $this->accessService->getPermissions($user);
 
         foreach ($permissions as $permission) {
+            if (Permission::PROPERTY !== $permission->getType()) {
+                // Skip permissions that are not of type "property".
+                continue;
+            }
+
+            if (!fnmatch($permission->getValue(), get_class($subject[0]).'.'.$subject[1], FNM_NOESCAPE)) {
+                // Skip permissions that are not related to the subject entity property.
+                // The fnmatch function is used to match asterisk patterns.
+                continue;
+            }
+
+            switch ($permission->getScope()) {
+                case 'identity':
+                    if (!$subject[0] instanceof Identitiable) {
+                        // Skip permissions with scope "identity" if the subject entity is not identitiable.
+                        continue;
+                    }
+
+                    if (null !== $permission->getEntity()) {
+                        if ($permission->getEntity() !== $subject[0]->getIdentity()) {
+                            // Skip permissions that do not match the identity field.
+                            continue;
+                        }
+                    }
+
+                    if (null !== $permission->getEntityUuid()) {
+                        if ($permission->getEntityUuid() !== $subject[0]->getIdentityUuid()) {
+                            // Skip permissions that do not match the identity uuid field.
+                            continue;
+                        }
+                    }
+
+                    break;
+
+                case 'owner':
+                    if (!$subject[0] instanceof Ownable) {
+                        // Skip permissions with scope "owner" if the subject entity is not ownable.
+                        continue;
+                    }
+
+                    if (null !== $permission->getEntity()) {
+                        if ($permission->getEntity() !== $subject[0]->getOwner()) {
+                            // Skip permissions that do not match the owner field.
+                            continue;
+                        }
+                    }
+
+                    if (null !== $permission->getEntityUuid()) {
+                        if ($permission->getEntityUuid() !== $subject[0]->getOwnerUuid()) {
+                            // Skip permissions that do not match the owner uuid field.
+                            continue;
+                        }
+                    }
+
+                    break;
+            }
+
             if (in_array($attribute, $permission->getAttributes(), true)) {
                 return true;
             }

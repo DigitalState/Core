@@ -1,11 +1,11 @@
 <?php
 
-namespace Ds\Component\Security\Model\Attribute;
+namespace Ds\Component\Model\Attribute;
 
 /**
  * Trait Attributes
  *
- * @package Ds\Component\Security
+ * @package Ds\Component\Model
  */
 trait Attributes
 {

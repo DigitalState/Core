@@ -19,9 +19,9 @@ trait Scope
      * @return object
      * @throws \DomainException
      */
-    public function setScope($scope)
+    public function setScope($scope = null)
     {
-        if ($this->getScopes() && !in_array($scope, $this->getScopes(), true)) {
+        if (null !== $scope && $this->getScopes() && !in_array($scope, $this->getScopes(), true)) {
             throw new DomainException('Scope does not exist.');
         }
 

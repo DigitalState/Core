@@ -17,8 +17,8 @@ class Access implements Model
     use Attribute\UpdatedAt;
     use Attribute\Owner;
     use Attribute\OwnerUuid;
-    use Attribute\Possessor;
-    use Attribute\PossessorUuid;
+    use Attribute\Assignee;
+    use Attribute\AssigneeUuid;
     use Attribute\Permissions;
     use Attribute\Version;
 }

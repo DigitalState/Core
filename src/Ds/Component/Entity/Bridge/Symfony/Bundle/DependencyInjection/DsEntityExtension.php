@@ -22,7 +22,7 @@ class DsEntityExtension extends Extension implements PrependExtensionInterface
     {
         $container->prependExtensionConfig('ds_entity', [
             'behavior' => [
-                'possessable' => false,
+                'identitiable' => false,
                 'uuidentifiable' => false,
                 'custom_identifiable' => false
             ]

@@ -4,11 +4,11 @@ namespace Ds\Component\Security\Entity;
 
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Attribute\Accessor;
-use Ds\Component\Security\Model\Attribute\Accessor as SecurityAccessor;
 use Ds\Component\Security\Entity\Attribute\Accessor as EntityAccessor;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use Ds\Component\Security\Model\Type\Secured;
 use Symfony\Component\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,22 +32,23 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * @ORM\Table(name="ds_access_permission")
  * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  */
-class Permission implements Identifiable
+class Permission implements Identifiable, Secured
 {
     use Accessor\Id;
     use Accessor\Entity;
     use Accessor\EntityUuid;
     use Accessor\Scope;
     use EntityAccessor\Access;
-    use SecurityAccessor\Key;
-    use SecurityAccessor\Type;
-    use SecurityAccessor\Value;
-    use SecurityAccessor\Attributes;
+    use Accessor\Key;
+    use Accessor\Type;
+    use Accessor\Value;
+    use Accessor\Attributes;
 
     /**
      * @const string
      */
-    const SCOPE_OWNED_BY = 'owned_by';
+    const SCOPE_IDENTITY = 'identity';
+    const SCOPE_OWNER = 'owner';
 
     /**
      * @var integer
@@ -128,12 +129,4 @@ class Permission implements Identifiable
      * })
      */
     protected $attributes;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->scope = static::SCOPE_OWNED_BY;
-    }
 }

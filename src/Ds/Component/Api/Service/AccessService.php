@@ -33,8 +33,8 @@ class AccessService extends AbstractService
         'updatedAt',
         'owner',
         'ownerUuid',
-        'possessor',
-        'possessorUuid',
+        'assignee',
+        'assigneeUuid',
         'permissions',
         'version'
     ];

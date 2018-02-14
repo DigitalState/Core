@@ -42,10 +42,10 @@ class DeletedVoter extends Voter
             return true;
         }
 
-        if ($subject->getDeleted()) {
-            return false;
+        if (!$subject->getDeleted()) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 }

@@ -1,6 +1,6 @@
 services:
-    ds_entity.event_listener.possessable:
-        class: '%ds_entity.event_listener.possessable.class%'
+    ds_entity.event_listener.identitiable:
+        class: '%ds_entity.event_listener.identitiable.class%'
         arguments:
             - '@security.token_storage'
         tags:

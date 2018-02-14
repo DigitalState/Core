@@ -46,12 +46,6 @@ class DeletedListener
      */
     public function kernelRequest(GetResponseEvent $event)
     {
-        $token = $this->tokenStorage->getToken();
-
-        if (!$token) {
-            return;
-        }
-
         $request = $event->getRequest();
         $entity = $request->attributes->get('_api_resource_class');
 
@@ -60,6 +54,12 @@ class DeletedListener
         }
 
         if (!in_array(Deletable::class, class_implements($entity), true)) {
+            return;
+        }
+
+        $token = $this->tokenStorage->getToken();
+
+        if (!$token) {
             return;
         }
 
