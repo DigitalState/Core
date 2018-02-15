@@ -87,7 +87,7 @@ class EntityExtension implements QueryCollectionExtensionInterface
             switch ($permission->getScope()) {
                 case null:
                 case 'class':
-                    $conditions[] = $queryBuilder->expr()->eq('class', 'class');
+                    $conditions[] = $queryBuilder->expr()->eq(1, 1);
                     break;
 
                 case 'object':
