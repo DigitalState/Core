@@ -4,6 +4,7 @@ namespace Ds\Component\Security\Voter\Permission;
 
 use Ds\Component\Model\Type\Identitiable;
 use Ds\Component\Model\Type\Ownable;
+use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Security\Model\Permission;
 use Ds\Component\Security\Model\Type\Secured;
 use Ds\Component\Security\Service\AccessService;
@@ -79,6 +80,24 @@ class EntityVoter extends Voter
             }
 
             switch ($permission->getScope()) {
+                case null:
+                case 'class':
+                    // Nothing to specifically validate, since the class was validated above.
+                    break;
+
+                case 'object':
+                    if (!$subject instanceof Uuidentifiable) {
+                        // Skip permissions with scope "object" if the subject entity is not uuidentitiable.
+                        continue;
+                    }
+
+                    if ($permission->getEntityUuid() !== $subject->getUuid()) {
+                        // Skip permissions that do not match the subject entity uuid.
+                        continue;
+                    }
+
+                    break;
+
                 case 'identity':
                     if (!$subject instanceof Identitiable) {
                         // Skip permissions with scope "identity" if the subject entity is not identitiable.
@@ -87,14 +106,14 @@ class EntityVoter extends Voter
 
                     if (null !== $permission->getEntity()) {
                         if ($permission->getEntity() !== $subject->getIdentity()) {
-                            // Skip permissions that do not match the identity field.
+                            // Skip permissions that do not match the subject entity identity.
                             continue;
                         }
                     }
 
                     if (null !== $permission->getEntityUuid()) {
                         if ($permission->getEntityUuid() !== $subject->getIdentityUuid()) {
-                            // Skip permissions that do not match the identity uuid field.
+                            // Skip permissions that do not match the subject entity identity uuid.
                             continue;
                         }
                     }
@@ -109,14 +128,14 @@ class EntityVoter extends Voter
 
                     if (null !== $permission->getEntity()) {
                         if ($permission->getEntity() !== $subject->getOwner()) {
-                            // Skip permissions that do not match the owner field.
+                            // Skip permissions that do not match the subject entity owner.
                             continue;
                         }
                     }
 
                     if (null !== $permission->getEntityUuid()) {
                         if ($permission->getEntityUuid() !== $subject->getOwnerUuid()) {
-                            // Skip permissions that do not match the owner uuid field.
+                            // Skip permissions that do not match the subject entity owner uuid.
                             continue;
                         }
                     }

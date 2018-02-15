@@ -7,6 +7,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use Doctrine\ORM\QueryBuilder;
 use Ds\Component\Model\Type\Identitiable;
 use Ds\Component\Model\Type\Ownable;
+use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Security\Exception\NoPermissionsException;
 use Ds\Component\Security\Model\Permission;
 use Ds\Component\Security\Model\Type\Secured;
@@ -60,6 +61,7 @@ class EntityExtension implements QueryCollectionExtensionInterface
 
         $user = $token->getUser();
         $permissions = $this->accessService->getPermissions($user);
+        $applicable = false;
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $conditions = [];
         $parameters = [];
@@ -83,9 +85,26 @@ class EntityExtension implements QueryCollectionExtensionInterface
             }
 
             switch ($permission->getScope()) {
+                case null:
+                case 'class':
+                    $conditions[] = $queryBuilder->expr()->eq('class', 'class');
+                    break;
+
+                case 'object':
+                    if (!in_array(Uuidentifiable::class, class_implements($resourceClass), true)) {
+                        // Skip permissions with scope "object" if the entity is not uuidentifiable.
+                        continue;
+                    }
+
+                    $conditions[] = $queryBuilder->expr()->eq(sprintf('%s.uuid', $rootAlias), ':uuid'.$i);
+                    $parameters['uuid'.$i] = $permission->getEntityUuid();
+                    $i++;
+
+                    break;
+
                 case 'identity':
                     if (!in_array(Identitiable::class, class_implements($resourceClass), true)) {
-                        // Skip permissions that is related to identity if the entity is not identitiable.
+                        // Skip permissions with scope "identity" if the entity is not identitiable.
                         continue;
                     }
 
@@ -107,7 +126,7 @@ class EntityExtension implements QueryCollectionExtensionInterface
 
                 case 'owner':
                     if (!in_array(Ownable::class, class_implements($resourceClass), true)) {
-                        // Skip permissions that is related to owners if the entity is not ownable.
+                        // Skip permissions with scope "owner" if the entity is not ownable.
                         continue;
                     }
 

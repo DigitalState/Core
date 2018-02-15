@@ -47,6 +47,8 @@ class Permission implements Identifiable, Secured
     /**
      * @const string
      */
+    const SCOPE_CLASS = 'class';
+    const SCOPE_OBJECT = 'object';
     const SCOPE_IDENTITY = 'identity';
     const SCOPE_OWNER = 'owner';
 
