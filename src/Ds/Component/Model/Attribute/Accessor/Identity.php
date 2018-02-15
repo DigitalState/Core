@@ -2,6 +2,8 @@
 
 namespace Ds\Component\Model\Attribute\Accessor;
 
+use DomainException;
+
 /**
  * Trait Identity
  *
@@ -14,9 +16,16 @@ trait Identity
      *
      * @param string $identity
      * @return object
+     * @throws \DomainException
      */
-    public function setIdentity($identity)
+    public function setIdentity($identity = null)
     {
+        if (null !== $identity) {
+            if (!preg_match('/^[a-z]$/i', $identity)) {
+                throw new DomainException('Identity is not valid.');
+            }
+        }
+
         $this->identity = $identity;
 
         return $this;

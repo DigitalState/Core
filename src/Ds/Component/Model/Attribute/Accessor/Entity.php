@@ -2,6 +2,8 @@
 
 namespace Ds\Component\Model\Attribute\Accessor;
 
+use DomainException;
+
 /**
  * Trait Entity
  *
@@ -14,9 +16,16 @@ trait Entity
      *
      * @param string $entity
      * @return object
+     * @throws \DomainException
      */
-    public function setEntity($entity)
+    public function setEntity($entity = null)
     {
+        if (null !== $entity) {
+            if (!preg_match('/^[a-z]$/i', $entity)) {
+                throw new DomainException('Entity is not valid.');
+            }
+        }
+
         $this->entity = $entity;
 
         return $this;

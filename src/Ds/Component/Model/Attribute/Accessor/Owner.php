@@ -2,6 +2,8 @@
 
 namespace Ds\Component\Model\Attribute\Accessor;
 
+use DomainException;
+
 /**
  * Trait Owner
  *
@@ -14,9 +16,16 @@ trait Owner
      *
      * @param string $owner
      * @return object
+     * @throws \DomainException
      */
     public function setOwner($owner)
     {
+        if (null !== $owner) {
+            if (!preg_match('/^[a-z]$/i', $owner)) {
+                throw new DomainException('Owner is not valid.');
+            }
+        }
+
         $this->owner = $owner;
 
         return $this;
