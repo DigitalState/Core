@@ -21,7 +21,7 @@ trait Identity
     public function setIdentity($identity = null)
     {
         if (null !== $identity) {
-            if (!preg_match('/^[a-z]$/i', $identity)) {
+            if (!preg_match('/^[a-z]+$/i', $identity)) {
                 throw new DomainException('Identity is not valid.');
             }
         }

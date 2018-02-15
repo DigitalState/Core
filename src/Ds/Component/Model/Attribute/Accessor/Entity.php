@@ -21,7 +21,7 @@ trait Entity
     public function setEntity($entity = null)
     {
         if (null !== $entity) {
-            if (!preg_match('/^[a-z]$/i', $entity)) {
+            if (!preg_match('/^[a-z]+$/i', $entity)) {
                 throw new DomainException('Entity is not valid.');
             }
         }

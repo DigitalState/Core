@@ -21,7 +21,7 @@ trait Assignee
     public function setAssignee($assignee = null)
     {
         if (null !== $assignee) {
-            if (!preg_match('/^[a-z]$/i', $assignee)) {
+            if (!preg_match('/^[a-z]+$/i', $assignee)) {
                 throw new DomainException('Assignee is not valid.');
             }
         }

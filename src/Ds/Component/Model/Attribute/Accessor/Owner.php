@@ -21,7 +21,7 @@ trait Owner
     public function setOwner($owner)
     {
         if (null !== $owner) {
-            if (!preg_match('/^[a-z]$/i', $owner)) {
+            if (!preg_match('/^[a-z]+$/i', $owner)) {
                 throw new DomainException('Owner is not valid.');
             }
         }
