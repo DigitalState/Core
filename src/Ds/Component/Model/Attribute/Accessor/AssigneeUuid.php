@@ -2,6 +2,8 @@
 
 namespace Ds\Component\Model\Attribute\Accessor;
 
+use InvalidArgumentException;
+
 /**
  * Trait AssigneeUuid
  *
@@ -14,9 +16,16 @@ trait AssigneeUuid
      *
      * @param string $assigneeUuid
      * @return object
+     * @throws \InvalidArgumentException
      */
     public function setAssigneeUuid($assigneeUuid)
     {
+        if (null !== $assigneeUuid) {
+            if (!preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $assigneeUuid)) {
+                throw new InvalidArgumentException('Owner uuid is not valid.');
+            }
+        }
+
         $this->assigneeUuid = $assigneeUuid;
 
         return $this;
