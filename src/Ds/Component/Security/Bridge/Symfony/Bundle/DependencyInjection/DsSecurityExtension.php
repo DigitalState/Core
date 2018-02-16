@@ -121,8 +121,8 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         foreach ($permissions as $key => $element) {
             $element['key'] = $key;
 
-            if (!array_key_exists('title', $element)) {
-                $element['title'] = null;
+            if (!array_key_exists('attributes', $element)) {
+                $element['attributes'] = [];
             }
 
             if (!array_key_exists('type', $element)) {
@@ -133,13 +133,13 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
                 $element['value'] = null;
             }
 
-            if (!array_key_exists('attributes', $element)) {
-                $element['attributes'] = [];
+            if (!array_key_exists('title', $element)) {
+                $element['title'] = null;
             }
 
-            foreach (['custom', 'entity', 'property'] as $type) {
+            foreach ([Permission::GENERIC, Permission::ENTITY, Permission::PROPERTY] as $type) {
                 if (array_key_exists($type, $element)) {
-                    $element['type'] = constant(Permission::class.'::'.strtoupper($type));
+                    $element['type'] = $type;
                     $element['value'] = $element[$type];
                     unset($element[$type]);
                 }

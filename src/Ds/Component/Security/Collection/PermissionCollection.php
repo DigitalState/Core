@@ -104,16 +104,16 @@ class PermissionCollection extends ArrayCollection
         }
 
         if (!is_array($element)) {
-            throw new InvalidArgumentException('Element is not an array or object.');
+            throw new InvalidArgumentException('Element is not an array.');
         }
 
-        foreach (['title', 'type', 'value', 'attributes'] as $key) {
+        foreach (['attributes', 'type', 'value', 'title'] as $key) {
             if (!array_key_exists($key, $element)) {
                 throw new InvalidArgumentException('Element is missing key "'.$key.'".');
             }
         }
 
-        $permission = new Permission($element['title'], $element['key'], $element['type'], $element['value'], $element['attributes']);
+        $permission = new Permission($element['key'], $element['attributes'], $element['type'], $element['value'], $element['title']);
 
         return $permission;
     }

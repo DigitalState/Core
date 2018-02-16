@@ -1,6 +1,6 @@
 services:
-    ds_security.voter.permission.custom:
-        class: '%ds_security.voter.permission.custom.class%'
+    ds_security.voter.permission.generic:
+        class: '%ds_security.voter.permission.generic.class%'
         arguments:
             - '@ds_security.service.access'
             - '@ds_security.collection.permission'

@@ -4,23 +4,21 @@ namespace Ds\Component\Security\Voter\Permission;
 
 use Ds\Component\Security\Collection\PermissionCollection;
 use Ds\Component\Security\Model\Permission;
-use Ds\Component\Security\Model\Subject;
 use Ds\Component\Security\Service\AccessService;
 use Ds\Component\Security\User\User;
-use InvalidArgumentException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
- * Class CustomVoter
+ * Class GenericVoter
  *
  * @package Ds\Component\Security
- *  @example Grant access if the user can execute the custom permission
+ * @example Grant access if the user can execute the cache_clear permission
  * <code>
  * @Security("is_granted('EXECUTE', 'cache_clear')")
  * </code>
  */
-class CustomVoter extends Voter
+class GenericVoter extends Voter
 {
     /**
      * @var \Ds\Component\Security\Service\AccessService
@@ -53,9 +51,17 @@ class CustomVoter extends Voter
             return false;
         }
 
+        if (!is_string($subject)) {
+            return false;
+        }
+
         $permission = $this->permissionCollection->get($subject);
 
         if (!$permission) {
+            return false;
+        }
+
+        if (Permission::GENERIC !== $permission->getType()) {
             return false;
         }
 
@@ -77,8 +83,8 @@ class CustomVoter extends Voter
         $permissions = $this->accessService->getPermissions($user);
 
         foreach ($permissions as $permission) {
-            if (Permission::CUSTOM !== $permission->getType()) {
-                // Skip permissions that are not of type "custom".
+            if (Permission::GENERIC !== $permission->getType()) {
+                // Skip permissions that are not of type "generic".
                 continue;
             }
 

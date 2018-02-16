@@ -80,9 +80,8 @@ class EntityVoter extends Voter
             }
 
             switch ($permission->getScope()) {
-                case null:
-                case 'class':
-                    // Nothing to specifically validate, since the class was validated above.
+                case 'generic':
+                    // Nothing to specifically validate.
                     break;
 
                 case 'object':
@@ -141,6 +140,30 @@ class EntityVoter extends Voter
                     }
 
                     break;
+
+                case 'session':
+                    if (!$subject instanceof Identitiable) {
+                        // Skip permissions with scope "session" if the subject entity is not identitiable.
+                        continue;
+                    }
+
+                    if ($user->getIdentity() !== $subject->getIdentity()) {
+                        // Skip permissions that do not match the subject entity identity.
+                        continue;
+                    }
+
+                    if ($user->getIdentityUuid() !== $subject->getIdentityUuid()) {
+                        // Skip permissions that do not match the subject entity identity uuid.
+                        continue;
+                    }
+
+                    break;
+
+                default:
+                    // Skip permissions with unknown scopes. In theory, this case should never
+                    // be selected unless there are data integrity issues.
+                    // @todo Add notice logs
+                    continue;
             }
 
             if (in_array($attribute, $permission->getAttributes(), true)) {

@@ -25,7 +25,7 @@ Permission types describe the kind of access.
 
 - **Entity**: This type of permission controls access to a database record.
 - **Property**: This type of permission controls access to a database record column.
-- **Custom**: This type of permission controls access to something generic.
+- **Generic**: This type of permission controls access to something generic.
 
 ### Attributes
 
@@ -41,10 +41,10 @@ Permission attributes describe the actions possible towards the type.
 For example, we could create a permissions configuration file with the following:
 
 ```
-case:            { entity:   Case,            attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
-case_title:      { property: Case.title,      attributes: [BROWSE, READ, EDIT]              }
-case_created_at: { property: Case.createdAt,  attributes: [BROWSE, READ, EDIT]              }
-case_purge:      { custom:   CasePurge,       attributes: [EXECUTE]                         }
+case:            { attributes: [BROWSE, READ, EDIT, ADD, DELETE], entity:   AppBundle\Entity\Case           }
+case_title:      { attributes: [BROWSE, READ, EDIT],              property: AppBundle\Entity\Case.title     }
+case_created_at: { attributes: [BROWSE, READ, EDIT],              property: AppBundle\Entity\Case.createdAt }
+case_purge:      { attributes: [EXECUTE],                         generic:  CasePurge                       }
 ```
 
 The first permission definition is named `case` and defines access to the Case entity. The possible actions are `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE`. 

@@ -61,7 +61,6 @@ class EntityExtension implements QueryCollectionExtensionInterface
 
         $user = $token->getUser();
         $permissions = $this->accessService->getPermissions($user);
-        $applicable = false;
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $conditions = [];
         $parameters = [];
@@ -85,10 +84,9 @@ class EntityExtension implements QueryCollectionExtensionInterface
             }
 
             switch ($permission->getScope()) {
-                case null:
-                case 'class':
-                    $conditions[] = $queryBuilder->expr()->eq(1, 1);
-                    break;
+                case 'generic':
+                    // This permission grants access to all entities of the class, no conditions need to be applied.
+                    return;
 
                 case 'object':
                     if (!in_array(Uuidentifiable::class, class_implements($resourceClass), true)) {
@@ -145,6 +143,28 @@ class EntityExtension implements QueryCollectionExtensionInterface
                     $i++;
 
                     break;
+
+                case 'session':
+                    if (!in_array(Identitiable::class, class_implements($resourceClass), true)) {
+                        // Skip permissions with scope "session" if the entity is not identitiable.
+                        continue;
+                    }
+
+                    $conditions[] = $queryBuilder->expr()->andX(
+                        $queryBuilder->expr()->eq(sprintf('%s.identity', $rootAlias), ':identity'.$i),
+                        $queryBuilder->expr()->eq(sprintf('%s.identityUuid', $rootAlias), ':identityUuid'.$i)
+                    );
+                    $parameters['identity'.$i] = $user->getIdentity();
+                    $parameters['identityUuid'.$i] = $user->getIdentityUuid();
+                    $i++;
+
+                    break;
+
+                default:
+                    // Skip permissions with unknown scopes. In theory, this case should never
+                    // be selected unless there are data integrity issues.
+                    // @todo Add notice logs
+                    continue;
             }
         }
 
