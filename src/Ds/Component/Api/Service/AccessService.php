@@ -57,4 +57,26 @@ class AccessService extends AbstractService
 
         return $list;
     }
+
+    /**
+     * Create access
+     *
+     * @param \Ds\Component\Api\Model\Access $access
+     * @param \Ds\Component\Api\Query\AccessParameters $parameters
+     * @return \Ds\Component\Api\Model\Individual
+     */
+    public function create(Access $access, Parameters $parameters = null)
+    {
+        $options = [];
+        $options['json'] = (array) static::toObject($access);
+
+        if ($parameters) {
+            $options['query'] = (array) $parameters->toObject(true);
+        }
+
+        $object = $this->execute('POST', static::RESOURCE_LIST, $options);
+        $access = static::toModel($object);
+
+        return $access;
+    }
 }

@@ -21,4 +21,12 @@ class Access implements Model
     use Attribute\AssigneeUuid;
     use Attribute\Permissions;
     use Attribute\Version;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->permissions = [];
+    }
 }

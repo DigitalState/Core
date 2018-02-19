@@ -64,6 +64,10 @@ abstract class AbstractService implements Service
                         // @todo reverse load for relationships
                         break;
 
+                    case 'permissions':
+                        // @todo reverse load for relationships
+                        break;
+
                     default:
                         $model->{'set'.ucfirst($local)}($object->$remote);
                 }
@@ -98,6 +102,12 @@ abstract class AbstractService implements Service
             switch ($local) {
                 case 'createdAt':
                 case 'updatedAt':
+                    if ($value) {
+                        $object->$remote = $value->format('Y-m-d\TH:i:sP');
+                    }
+
+                    break;
+
                 case 'lastLogin':
                     $object->$remote = null;
 
@@ -113,6 +123,15 @@ abstract class AbstractService implements Service
 
                 case 'organization':
                     $object->$remote = '/organizations/'.$value->getUuid();
+                    break;
+
+                case 'permissions':
+                    $object->$remote = [];
+
+                    foreach ($value as $permission) {
+                        $object->$remote[] = PermissionService::toObject($permission);
+                    }
+
                     break;
 
                 default:

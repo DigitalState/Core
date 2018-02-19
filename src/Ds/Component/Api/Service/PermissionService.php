@@ -28,7 +28,14 @@ class PermissionService extends AbstractService
      */
     protected static $map = [
         'id',
-        'uuid'
+        'uuid',
+        'createdAt',
+        'updatedAt',
+        'scope',
+        'entity',
+        'entityUuid',
+        'key',
+        'attributes'
     ];
 
     /**
