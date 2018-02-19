@@ -22,7 +22,7 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
     public function prepend(ContainerBuilder $container)
     {
         $container->prependExtensionConfig('ds_security', [
-            'acl' => false,
+            'acl' => true,
             'token' => [
                 'uuid' => true,
                 'identity' => true,

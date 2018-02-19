@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
         $node = $builder->root('ds_security');
         $node
             ->children()
-                ->booleanNode('acl')->defaultFalse()->end()
+                ->booleanNode('acl')->defaultTrue()->end()
                 ->append($this->getTokenNode())
                 ->append($this->getFilterNode())
                 ->append($this->getPermissionsNode())
