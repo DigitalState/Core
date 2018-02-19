@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Model\Attribute\Accessor;
 
+use Ds\Component\Api\Model\Permission;
 use OutOfRangeException;
 
 /**
@@ -17,9 +18,22 @@ trait Permissions
      * @param array $permissions
      * @return object
      */
-    public function setPermissions($permissions)
+    public function setPermissions(array $permissions)
     {
         $this->permissions = $permissions;
+
+        return $this;
+    }
+
+    /**
+     * Add permission
+     *
+     * @param $permission
+     * @return $this
+     */
+    public function addPermission(Permission $permission)
+    {
+        $this->permissions[] = $permission;
 
         return $this;
     }
