@@ -84,12 +84,10 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         if (!$acl) {
             $container->removeDefinition('ds_security.doctrine.orm.query_extension.enabled');
             $container->removeDefinition('ds_security.doctrine.orm.query_extension.deleted');
-            $container->removeDefinition('ds_security.doctrine.orm.query_extension.identity');
             $container->removeDefinition('ds_security.doctrine.orm.query_extension.permission.entity');
             $container->removeDefinition('ds_security.event_listener.acl.permission.entity');
             $container->removeDefinition('ds_security.event_listener.acl.deleted');
             $container->removeDefinition('ds_security.event_listener.acl.enabled');
-            $container->removeDefinition('ds_security.event_listener.acl.identity');
             $container->removeDefinition('ds_security.serializer.normalizer.acl.property');
             $container->removeDefinition('ds_security.serializer.jsonld.normalizer.acl.property');
         }
