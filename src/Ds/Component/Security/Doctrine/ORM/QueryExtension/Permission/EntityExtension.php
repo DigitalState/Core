@@ -94,8 +94,8 @@ class EntityExtension implements QueryCollectionExtensionInterface
                         continue;
                     }
 
-                    $conditions[] = $queryBuilder->expr()->eq(sprintf('%s.uuid', $rootAlias), ':uuid'.$i);
-                    $parameters['uuid'.$i] = $permission->getEntityUuid();
+                    $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_uuid_'.$i);
+                    $parameters['ds_uuid_'.$i] = $permission->getEntityUuid();
                     $i++;
 
                     break;
@@ -106,16 +106,39 @@ class EntityExtension implements QueryCollectionExtensionInterface
                         continue;
                     }
 
-                    if (null === $permission->getEntityUuid()) {
-                        $conditions[] = $queryBuilder->expr()->eq(sprintf('%s.identity', $rootAlias), ':identity'.$i);
-                        $parameters['identity'.$i] = $permission->getEntity();
+                    if (in_array($resourceClass, [
+                        'AppBundle\\Entity\\Anonymous',
+                        'AppBundle\\Entity\\Individual',
+                        'AppBundle\\Entity\\Organization',
+                        'AppBundle\\Entity\\Staff'
+                    ])) {
+                        $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_identity_'.$i);
+                        $parameters['ds_identity_'.$i] = $permission->getEntity();
+                    } else if (in_array($resourceClass, [
+                        'AppBundle\\Entity\\AnonymousPersona',
+                        'AppBundle\\Entity\\IndividualPersona',
+                        'AppBundle\\Entity\\OrganizationPersona',
+                        'AppBundle\\Entity\\StaffPersona'
+                    ])) {
+                        $identity = substr($resourceClass, 0, -7);
+                        $alias = strtolower(substr($resourceClass, 17, -7));
+                        $subQueryBuilder = new QueryBuilder($queryBuilder->getEntityManager());
+                        $conditions[] = $queryBuilder->expr()->in(
+                            $rootAlias.'.'.$alias,
+                            $subQueryBuilder
+                                ->select($alias)
+                                ->from($identity, $alias)
+                                ->where($alias.'.uuid = :ds_identity_uuid_'.$i)
+                                ->getDQL()
+                        );
+                        $parameters['ds_identity_uuid_'.$i] = $permission->getEntityUuid();
                     } else {
                         $conditions[] = $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->eq(sprintf('%s.identity', $rootAlias), ':identity'.$i),
-                            $queryBuilder->expr()->eq(sprintf('%s.identityUuid', $rootAlias), ':identityUuid'.$i)
+                            $queryBuilder->expr()->eq($rootAlias.'.identity', ':ds_identity_'.$i),
+                            $queryBuilder->expr()->eq($rootAlias.'.identityUuid', ':ds_identity_uuid_'.$i)
                         );
-                        $parameters['identity'.$i] = $permission->getEntity();
-                        $parameters['identityUuid'.$i] = $permission->getEntityUuid();
+                        $parameters['ds_identity_'.$i] = $permission->getEntity();
+                        $parameters['ds_identity_uuid_'.$i] = $permission->getEntityUuid();
                     }
 
                     $i++;
@@ -129,15 +152,15 @@ class EntityExtension implements QueryCollectionExtensionInterface
                     }
 
                     if (null === $permission->getEntityUuid()) {
-                        $conditions[] = $queryBuilder->expr()->eq(sprintf('%s.owner', $rootAlias), ':owner'.$i);
-                        $parameters['owner'.$i] = $permission->getEntity();
+                        $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.owner', ':ds_owner_'.$i);
+                        $parameters['ds_owner_'.$i] = $permission->getEntity();
                     } else {
                         $conditions[] = $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->eq(sprintf('%s.owner', $rootAlias), ':owner'.$i),
-                            $queryBuilder->expr()->eq(sprintf('%s.ownerUuid', $rootAlias), ':ownerUuid'.$i)
+                            $queryBuilder->expr()->eq($rootAlias.'.owner', ':ds_owner_'.$i),
+                            $queryBuilder->expr()->eq($rootAlias.'.ownerUuid', ':ds_owner_uuid_'.$i)
                         );
-                        $parameters['owner'.$i] = $permission->getEntity();
-                        $parameters['ownerUuid'.$i] = $permission->getEntityUuid();
+                        $parameters['ds_owner_'.$i] = $permission->getEntity();
+                        $parameters['ds_owner_uuid_'.$i] = $permission->getEntityUuid();
                     }
 
                     $i++;
@@ -150,12 +173,42 @@ class EntityExtension implements QueryCollectionExtensionInterface
                         continue;
                     }
 
-                    $conditions[] = $queryBuilder->expr()->andX(
-                        $queryBuilder->expr()->eq(sprintf('%s.identity', $rootAlias), ':identity'.$i),
-                        $queryBuilder->expr()->eq(sprintf('%s.identityUuid', $rootAlias), ':identityUuid'.$i)
-                    );
-                    $parameters['identity'.$i] = $user->getIdentity();
-                    $parameters['identityUuid'.$i] = $user->getIdentityUuid();
+                    // @todo Refactor this exception handling at the entity level with metadata, the core should not know about these details.
+                    if (in_array($resourceClass, [
+                        'AppBundle\\Entity\\Anonymous',
+                        'AppBundle\\Entity\\Individual',
+                        'AppBundle\\Entity\\Organization',
+                        'AppBundle\\Entity\\Staff'
+                    ])) {
+                        $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_identity_uuid_'.$i);
+                        $parameters['ds_identity_uuid_'.$i] = $user->getIdentityUuid();
+                    } else if (in_array($resourceClass, [
+                        'AppBundle\\Entity\\AnonymousPersona',
+                        'AppBundle\\Entity\\IndividualPersona',
+                        'AppBundle\\Entity\\OrganizationPersona',
+                        'AppBundle\\Entity\\StaffPersona'
+                    ])) {
+                        $identity = substr($resourceClass, 0, -7);
+                        $alias = strtolower(substr($resourceClass, 17, -7));
+                        $subQueryBuilder = new QueryBuilder($queryBuilder->getEntityManager());
+                        $conditions[] = $queryBuilder->expr()->in(
+                            $rootAlias.'.'.$alias,
+                            $subQueryBuilder
+                                ->select($alias)
+                                ->from($identity, $alias)
+                                ->where($alias.'.uuid = :ds_identity_uuid_'.$i)
+                                ->getDQL()
+                        );
+                        $parameters['ds_identity_uuid_'.$i] = $user->getIdentityUuid();
+                    } else {
+                        $conditions[] = $queryBuilder->expr()->andX(
+                            $queryBuilder->expr()->eq($rootAlias.'.identity', ':ds_identity_'.$i),
+                            $queryBuilder->expr()->eq($rootAlias.'.identityUuid', ':ds_identity_uuid_'.$i)
+                        );
+                        $parameters['ds_identity_'.$i] = $user->getIdentity();
+                        $parameters['ds_identity_uuid_'.$i] = $user->getIdentityUuid();
+                    }
+
                     $i++;
 
                     break;
