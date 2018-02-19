@@ -94,8 +94,8 @@ class EntityExtension implements QueryCollectionExtensionInterface
                         continue;
                     }
 
-                    $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_uuid_'.$i);
-                    $parameters['ds_uuid_'.$i] = $permission->getEntityUuid();
+                    $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_security_uuid_'.$i);
+                    $parameters['ds_security_uuid_'.$i] = $permission->getEntityUuid();
                     $i++;
 
                     break;
@@ -112,8 +112,8 @@ class EntityExtension implements QueryCollectionExtensionInterface
                         'AppBundle\\Entity\\Organization',
                         'AppBundle\\Entity\\Staff'
                     ])) {
-                        $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_identity_'.$i);
-                        $parameters['ds_identity_'.$i] = $permission->getEntity();
+                        $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_security_identity_'.$i);
+                        $parameters['ds_security_identity_'.$i] = $permission->getEntity();
                     } else if (in_array($resourceClass, [
                         'AppBundle\\Entity\\AnonymousPersona',
                         'AppBundle\\Entity\\IndividualPersona',
@@ -128,17 +128,17 @@ class EntityExtension implements QueryCollectionExtensionInterface
                             $subQueryBuilder
                                 ->select($alias)
                                 ->from($identity, $alias)
-                                ->where($alias.'.uuid = :ds_identity_uuid_'.$i)
+                                ->where($alias.'.uuid = :ds_security_identity_uuid_'.$i)
                                 ->getDQL()
                         );
-                        $parameters['ds_identity_uuid_'.$i] = $permission->getEntityUuid();
+                        $parameters['ds_security_identity_uuid_'.$i] = $permission->getEntityUuid();
                     } else {
                         $conditions[] = $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->eq($rootAlias.'.identity', ':ds_identity_'.$i),
-                            $queryBuilder->expr()->eq($rootAlias.'.identityUuid', ':ds_identity_uuid_'.$i)
+                            $queryBuilder->expr()->eq($rootAlias.'.identity', ':ds_security_identity_'.$i),
+                            $queryBuilder->expr()->eq($rootAlias.'.identityUuid', ':ds_security_identity_uuid_'.$i)
                         );
-                        $parameters['ds_identity_'.$i] = $permission->getEntity();
-                        $parameters['ds_identity_uuid_'.$i] = $permission->getEntityUuid();
+                        $parameters['ds_security_identity_'.$i] = $permission->getEntity();
+                        $parameters['ds_security_identity_uuid_'.$i] = $permission->getEntityUuid();
                     }
 
                     $i++;
@@ -152,15 +152,15 @@ class EntityExtension implements QueryCollectionExtensionInterface
                     }
 
                     if (null === $permission->getEntityUuid()) {
-                        $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.owner', ':ds_owner_'.$i);
-                        $parameters['ds_owner_'.$i] = $permission->getEntity();
+                        $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.owner', ':ds_security_owner_'.$i);
+                        $parameters['ds_security_owner_'.$i] = $permission->getEntity();
                     } else {
                         $conditions[] = $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->eq($rootAlias.'.owner', ':ds_owner_'.$i),
-                            $queryBuilder->expr()->eq($rootAlias.'.ownerUuid', ':ds_owner_uuid_'.$i)
+                            $queryBuilder->expr()->eq($rootAlias.'.owner', ':ds_security_owner_'.$i),
+                            $queryBuilder->expr()->eq($rootAlias.'.ownerUuid', ':ds_security_owner_uuid_'.$i)
                         );
-                        $parameters['ds_owner_'.$i] = $permission->getEntity();
-                        $parameters['ds_owner_uuid_'.$i] = $permission->getEntityUuid();
+                        $parameters['ds_security_owner_'.$i] = $permission->getEntity();
+                        $parameters['ds_security_owner_uuid_'.$i] = $permission->getEntityUuid();
                     }
 
                     $i++;
@@ -180,8 +180,8 @@ class EntityExtension implements QueryCollectionExtensionInterface
                         'AppBundle\\Entity\\Organization',
                         'AppBundle\\Entity\\Staff'
                     ])) {
-                        $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_identity_uuid_'.$i);
-                        $parameters['ds_identity_uuid_'.$i] = $user->getIdentityUuid();
+                        $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_security_identity_uuid_'.$i);
+                        $parameters['ds_security_identity_uuid_'.$i] = $user->getIdentityUuid();
                     } else if (in_array($resourceClass, [
                         'AppBundle\\Entity\\AnonymousPersona',
                         'AppBundle\\Entity\\IndividualPersona',
@@ -196,17 +196,17 @@ class EntityExtension implements QueryCollectionExtensionInterface
                             $subQueryBuilder
                                 ->select($alias)
                                 ->from($identity, $alias)
-                                ->where($alias.'.uuid = :ds_identity_uuid_'.$i)
+                                ->where($alias.'.uuid = :ds_security_identity_uuid_'.$i)
                                 ->getDQL()
                         );
-                        $parameters['ds_identity_uuid_'.$i] = $user->getIdentityUuid();
+                        $parameters['ds_security_identity_uuid_'.$i] = $user->getIdentityUuid();
                     } else {
                         $conditions[] = $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->eq($rootAlias.'.identity', ':ds_identity_'.$i),
-                            $queryBuilder->expr()->eq($rootAlias.'.identityUuid', ':ds_identity_uuid_'.$i)
+                            $queryBuilder->expr()->eq($rootAlias.'.identity', ':ds_security_identity_'.$i),
+                            $queryBuilder->expr()->eq($rootAlias.'.identityUuid', ':ds_security_identity_uuid_'.$i)
                         );
-                        $parameters['ds_identity_'.$i] = $user->getIdentity();
-                        $parameters['ds_identity_uuid_'.$i] = $user->getIdentityUuid();
+                        $parameters['ds_security_identity_'.$i] = $user->getIdentity();
+                        $parameters['ds_security_identity_uuid_'.$i] = $user->getIdentityUuid();
                     }
 
                     $i++;

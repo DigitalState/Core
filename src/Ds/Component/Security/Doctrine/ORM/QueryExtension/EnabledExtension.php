@@ -72,7 +72,7 @@ class EnabledExtension implements QueryCollectionExtensionInterface, QueryItemEx
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder
-            ->andWhere(sprintf('%s.enabled = :enabled', $rootAlias))
-            ->setParameter('enabled', 1);
+            ->andWhere($rootAlias.'.enabled = :ds_security_enabled')
+            ->setParameter('ds_security_enabled', 1);
     }
 }

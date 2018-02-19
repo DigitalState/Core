@@ -80,11 +80,11 @@ class DeletedExtension implements QueryCollectionExtensionInterface, QueryItemEx
 
                 switch ($deleted) {
                     case 'true':
-                        $queryBuilder->andWhere(sprintf('%s.deletedAt IS NOT NULL', $rootAlias));
+                        $queryBuilder->andWhere($rootAlias.'.deletedAt IS NOT NULL');
                         break;
 
                     case 'false':
-                        $queryBuilder->andWhere(sprintf('%s.deletedAt IS NULL', $rootAlias));
+                        $queryBuilder->andWhere($rootAlias.'.deletedAt IS NULL');
                         break;
 
                     case 'null':
@@ -96,6 +96,6 @@ class DeletedExtension implements QueryCollectionExtensionInterface, QueryItemEx
         }
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
-        $queryBuilder->andWhere(sprintf('%s.deletedAt IS NULL', $rootAlias));
+        $queryBuilder->andWhere($rootAlias.'.deletedAt IS NULL');
     }
 }
