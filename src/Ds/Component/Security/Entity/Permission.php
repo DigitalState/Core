@@ -86,7 +86,6 @@ class Permission implements Identifiable, Secured
      * @ApiProperty
      * @Serializer\Groups({"permission_output", "permission_input"})
      * @ORM\Column(name="entity", type="string", length=255, nullable=true)
-     * @Assert\NotBlank
      * @Assert\Length(min=1, max=255)
      */
     protected $entity;

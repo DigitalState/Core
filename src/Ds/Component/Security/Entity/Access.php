@@ -135,6 +135,18 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Assignable, Versi
     protected $permissions; # region accessors
 
     /**
+     * Set permissions
+     *
+     * @return object
+     */
+    public function setPermissions($permissions)
+    {
+        $this->permissions = $permissions;
+
+        return $this;
+    }
+
+    /**
      * Add permission
      *
      * @param \Ds\Component\Security\Entity\Permission $permission
