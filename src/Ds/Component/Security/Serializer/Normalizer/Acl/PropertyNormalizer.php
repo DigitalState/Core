@@ -2,11 +2,10 @@
 
 namespace Ds\Component\Security\Serializer\Normalizer\Acl;
 
-use ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Paginator;
 use ApiPlatform\Core\Serializer\AbstractItemNormalizer;
 use DomainException;
 use Ds\Component\Security\Model\Permission;
-use Ds\Component\Security\Model\Subject;
 use Ds\Component\Security\Model\Type\Secured;
 use Ds\Component\Security\Voter\Permission\PropertyVoter;
 use LogicException;
@@ -82,7 +81,10 @@ class PropertyNormalizer implements NormalizerInterface, DenormalizerInterface, 
             $object = new $context['resource_class'];
 
             foreach ($data as $property => $value) {
-                $object->{'set'.$property}($value);
+                if (in_array($property, ['uuid', 'owner', 'ownerUuid', 'identity', 'identityUuid'], true)) {
+                    // Set the required values for permission scope voters to vote on.
+                    $object->{'set'.$property}($value);
+                }
             }
 
             $subject[0] = $object;
