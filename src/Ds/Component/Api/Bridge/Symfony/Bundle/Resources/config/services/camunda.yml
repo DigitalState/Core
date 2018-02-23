@@ -1,4 +1,10 @@
 services:
+    ds_api.service.camunda.deployment:
+        parent: ds_api.service
+        class: '%ds_api.service.camunda.deployment.class%'
+        tags:
+            - { name: ds_api.service, alias: camunda.deployment }
+
     ds_api.service.camunda.process_definition:
         parent: ds_api.service
         class: '%ds_api.service.camunda.process_definition.class%'

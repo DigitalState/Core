@@ -55,6 +55,7 @@ abstract class AbstractService implements Service
                     case 'updated':
                     case 'due':
                     case 'followUp':
+                    case 'deploymentTime':
                         if (null !== $object->$remote) {
                             $model->{'set' . ucfirst($local)}(new DateTime($object->$remote));
                         }
@@ -106,6 +107,7 @@ abstract class AbstractService implements Service
                 case 'updated':
                 case 'due':
                 case 'followUp':
+                case 'deploymentTime':
                     $object->$remote = null;
                     $value = $model->{'get'.ucfirst($local)}();
 

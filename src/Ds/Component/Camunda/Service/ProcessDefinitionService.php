@@ -2,10 +2,10 @@
 
 namespace Ds\Component\Camunda\Service;
 
+use Ds\Component\Camunda\Model\ProcessDefinition;
 use Ds\Component\Camunda\Model\Variable;
 use Ds\Component\Camunda\Model\Xml;
 use Ds\Component\Camunda\Query\ProcessDefinitionParameters as Parameters;
-use Ds\Component\Camunda\Model\ProcessDefinition;
 use SimpleXMLElement;
 
 /**
@@ -52,7 +52,10 @@ class ProcessDefinitionService extends AbstractService
     ];
 
     /**
-     * {@inheritdoc}
+     * Get list of process definitions
+     *
+     * @param \Ds\Component\Camunda\Query\ProcessDefinitionParameters $parameters
+     * @return array
      */
     public function getList(Parameters $parameters = null)
     {
@@ -68,7 +71,10 @@ class ProcessDefinitionService extends AbstractService
     }
 
     /**
-     * {@inheritdoc}
+     * Get count of process definitions
+     *
+     * @param \Ds\Component\Camunda\Query\ProcessDefinitionParameters $parameters
+     * @return integer
      */
     public function getCount(Parameters $parameters = null)
     {
@@ -78,7 +84,11 @@ class ProcessDefinitionService extends AbstractService
     }
 
     /**
-     * {@inheritdoc}
+     * Get process definition
+     *
+     * @param string $id
+     * @param \Ds\Component\Camunda\Query\ProcessDefinitionParameters $parameters
+     * @return \Ds\Component\Camunda\Model\ProcessDefinition
      */
     public function get($id, Parameters $parameters = null)
     {
@@ -95,7 +105,11 @@ class ProcessDefinitionService extends AbstractService
     }
 
     /**
-     * {@inheritdoc}
+     * Get process definition xml
+     *
+     * @param string $id
+     * @param \Ds\Component\Camunda\Query\ProcessDefinitionParameters $parameters
+     * @return string
      */
     public function getXml($id, Parameters $parameters = null)
     {
@@ -115,7 +129,11 @@ class ProcessDefinitionService extends AbstractService
     }
 
     /**
-     * {@inheritdoc}
+     * Start a process definition instance
+     *
+     * @param string $id
+     * @param \Ds\Component\Camunda\Query\ProcessDefinitionParameters $parameters
+     * @return \Ds\Component\Camunda\Model\ProcessInstance
      */
     public function start($id, Parameters $parameters = null)
     {
@@ -158,7 +176,11 @@ class ProcessDefinitionService extends AbstractService
     }
 
     /**
-     * {@inheritdoc}
+     * Get process definition start form
+     *
+     * @param string $id
+     * @param \Ds\Component\Camunda\Query\ProcessDefinitionParameters $parameters
+     * @return string
      */
     public function getStartForm($id, Parameters $parameters = null)
     {

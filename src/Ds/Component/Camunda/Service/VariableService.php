@@ -4,7 +4,6 @@ namespace Ds\Component\Camunda\Service;
 
 use Ds\Component\Camunda\Model\Variable;
 use Ds\Component\Camunda\Query\VariableParameters as Parameters;
-use LogicException;
 use stdClass;
 
 /**

@@ -12,6 +12,7 @@ parameters:
     ds_api.service.assets.config.class: Ds\Component\Api\Service\ConfigService
     ds_api.service.assets.access.class: Ds\Component\Api\Service\AccessService
     ds_api.service.assets.permission.class: Ds\Component\Api\Service\PermissionService
+    ds_api.service.camunda.deployment.class: Ds\Component\Camunda\Service\DeploymentService
     ds_api.service.camunda.process_definition.class: Ds\Component\Camunda\Service\ProcessDefinitionService
     ds_api.service.camunda.process_instance.class: Ds\Component\Camunda\Service\ProcessInstanceService
     ds_api.service.camunda.task.class: Ds\Component\Camunda\Service\TaskService
