@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Database\Fixture\ORM;
+namespace Ds\Component\Database\Fixture;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Ds\Component\Container\Attribute;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Ds\Component\Security\Fixture\ORM;
+namespace Ds\Component\Security\Fixture;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Ds\Component\Security\Entity\Access;
 use Ds\Component\Security\Entity\Permission;
-use Ds\Component\Database\Fixture\ORM\ResourceFixture;
+use Ds\Component\Database\Fixture\ResourceFixture;
 
 /**
  * Class PermissionFixture
