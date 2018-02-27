@@ -57,8 +57,8 @@ class DiscoveryService
     public function get($service)
     {
         $item = $this->cache->getItem(static::CACHE_MAP);
-$test = '';
-        if (!$item->isHit()) {$test = 'cacching...';
+
+        if (!$item->isHit()) {
             $response = $this->client->request('GET', 'http://'.$this->host);
             $data = (string) $response->getBody();
             $map = \GuzzleHttp\json_decode($data, true);
@@ -70,6 +70,6 @@ $test = '';
             throw new DomainException('Service does not exist.');
         }
 
-        return $test.$item->get()[$service];
+        return $item->get()[$service];
     }
 }
