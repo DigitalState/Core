@@ -4,6 +4,7 @@ namespace Ds\Component\Api\Api;
 
 use Ds\Component\Api\Collection\ServiceCollection;
 use Ds\Component\Config\Service\ConfigService;
+use Ds\Component\Discovery\Service\DiscoveryService;
 use Ds\Component\Security\User\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use OutOfRangeException;
@@ -19,6 +20,11 @@ class Api
      * @var \Ds\Component\Api\Collection\ServiceCollection
      */
     protected $serviceCollection;
+
+    /**
+     * @var \Ds\Component\Discovery\Service\DiscoveryService
+     */
+    protected $discoveryService;
 
     /**
      * @var \Ds\Component\Config\Service\ConfigService
@@ -39,12 +45,14 @@ class Api
      * Constructor
      *
      * @param \Ds\Component\Api\Collection\ServiceCollection $serviceCollection
+     * @param \Ds\Component\Discovery\Service\DiscoveryService $discoveryService
      * @param \Ds\Component\Config\Service\ConfigService $configService
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface $tokenManager
      */
-    public function __construct(ServiceCollection $serviceCollection, ConfigService $configService, JWTTokenManagerInterface $tokenManager)
+    public function __construct(ServiceCollection $serviceCollection, DiscoveryService $discoveryService, ConfigService $configService, JWTTokenManagerInterface $tokenManager)
     {
         $this->serviceCollection = $serviceCollection;
+        $this->discoveryService = $discoveryService;
         $this->configService = $configService;
         $this->tokenManager = $tokenManager;
     }
@@ -63,7 +71,7 @@ class Api
         }
 
         $service = $this->serviceCollection->get($alias);
-        $service->setHost($this->configService->get('ds_api.api.'.explode('.', $alias)[0].'.host'));
+        $service->setHost($this->discoveryService->get(explode('.', $alias)[0]));
         $service->setHeader('Authorization', 'Bearer '.$this->getToken());
 
         return $service;

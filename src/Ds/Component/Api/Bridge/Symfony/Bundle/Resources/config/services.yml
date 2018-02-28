@@ -15,6 +15,7 @@ services:
         class: '%ds_api.api.class%'
         arguments:
             - '@ds_api.collection.service'
+            - '@ds_discovery.service.discovery'
             - '@ds_config.service.config'
             - '@lexik_jwt_authentication.jwt_manager'
 
