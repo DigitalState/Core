@@ -70,6 +70,9 @@ class TaskService extends AbstractService
     public function getList(Parameters $parameters = null)
     {
         $options = [
+            'headers' => [
+                'Accept' => 'application/json'
+            ],
             'query' => (array)  $parameters->toObject(true)
         ];
         $objects = $this->execute('GET', static::RESOURCE_LIST, $options);
@@ -91,7 +94,12 @@ class TaskService extends AbstractService
      */
     public function getCount(Parameters $parameters = null)
     {
-        $result = $this->execute('GET', static::RESOURCE_COUNT);
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json'
+            ]
+        ];
+        $result = $this->execute('GET', static::RESOURCE_COUNT, $options);
 
         return $result->count;
     }
@@ -132,7 +140,12 @@ class TaskService extends AbstractService
         }
 
         $resource = str_replace('{id}', $id, static::RESOURCE_SUBMIT);
-        $options = [];
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
 
         foreach ($variables as $variable) {
             // @todo Standardize variable toObject logic (see ProcessInstanceService::start)
@@ -155,6 +168,10 @@ class TaskService extends AbstractService
     {
         $resource = str_replace('{id}', $id, static::RESOURCE_CLAIM);
         $options = [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
             'json' => [
                 'userId' => $userId
             ]
@@ -169,8 +186,14 @@ class TaskService extends AbstractService
      */
     public function unclaim($id)
     {
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
         $resource = str_replace('{id}', $id, static::RESOURCE_UNCLAIM);
-        $this->execute('POST', $resource);
+        $this->execute('POST', $resource, $options);
     }
 
     /**

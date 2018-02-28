@@ -33,7 +33,7 @@ class DeploymentService extends AbstractService
         'id',
         'name',
         'source',
-        'DeploymentTime',
+        'deploymentTime',
     ];
 
     /**
@@ -44,7 +44,13 @@ class DeploymentService extends AbstractService
      */
     public function getList(Parameters $parameters = null)
     {
-        $objects = $this->execute('GET', static::RESOURCE_LIST);
+        $options = [];
+
+        if ($parameters) {
+            $options['query'] = (array) $parameters->toObject(true);
+        }
+
+        $objects = $this->execute('GET', static::RESOURCE_LIST, $options);
         $list = [];
 
         foreach ($objects as $object) {
@@ -95,10 +101,12 @@ class DeploymentService extends AbstractService
         $options = [
             'multipart' => [
                 [
+                    'Content-Disposition' => 'form-data',
                     'name' => 'deployment-name',
                     'contents' => $deployment->getName()
                 ],
                 [
+                    'Content-Disposition' => 'form-data',
                     'name' => 'deployment-source',
                     'contents' => $deployment->getSource()
                 ]
@@ -107,9 +115,10 @@ class DeploymentService extends AbstractService
 
         foreach ($deployment->getFiles() as $file) {
             $options['multipart'][] = [
+                'Content-Disposition' => 'form-data',
                 'name' => basename($file),
-                'contents' => fopen($file, 'r'),
-                'filename' => basename($file)
+                'filename' => basename($file),
+                'contents' => fopen($file, 'r')
             ];
         }
 
@@ -117,5 +126,23 @@ class DeploymentService extends AbstractService
         $model = static::toModel($object);
 
         return $model;
+    }
+
+    /**
+     * Delete deployment
+     *
+     * @param string $id
+     * @param \Ds\Component\Camunda\Query\DeploymentParameters $parameters
+     */
+    public function delete($id, Parameters $parameters = null)
+    {
+        $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT);
+        $options = [];
+
+        if ($parameters) {
+            $options['query'] = (array) $parameters->toObject(true);
+        }
+
+        $this->execute('DELETE', $resource, $options);
     }
 }

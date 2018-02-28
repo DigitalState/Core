@@ -44,6 +44,9 @@ abstract class VariableService extends AbstractService
     {
         $resource = str_replace('{id}', $task, static::VARIABLE_LIST);
         $options = [
+            'headers' => [
+                'Accept' => 'application/json'
+            ],
             'query' => (array)  $parameters->toObject(true)
         ];
         $objects = $this->execute('GET', $resource, $options);

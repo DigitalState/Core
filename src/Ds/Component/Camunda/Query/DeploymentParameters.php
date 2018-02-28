@@ -9,4 +9,6 @@ namespace Ds\Component\Camunda\Query;
  */
 class DeploymentParameters extends AbstractParameters
 {
+    use Attribute\Cascade;
+    use Attribute\Source;
 }

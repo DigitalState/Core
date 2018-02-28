@@ -185,15 +185,6 @@ abstract class AbstractService implements Service
     {
         $this->client = $client;
         $this->host = $host;
-
-        if (!isset($headers['Content-Type'])) {
-            $headers['Content-Type'] = 'application/json';
-        }
-
-        if (!isset($headers['Accept'])) {
-            $headers['Accept'] = 'application/json';
-        }
-
         $this->headers = $headers;
     }
 
@@ -209,9 +200,15 @@ abstract class AbstractService implements Service
     {
         $uri = $this->host.$resource;
 
-        foreach ($this->headers as $key => $value) {
-            if (!isset($options['headers'][$key])) {
-                $options['headers'][$key] = $value;
+        if ($this->headers) {
+            if (!array_key_exists('headers', $options)) {
+                $options['headers'] = [];
+            }
+
+            foreach ($this->headers as $key => $value) {
+                if (!array_key_exists($key, $options['headers'])) {
+                    $options['headers'][$key] = $value;
+                }
             }
         }
 

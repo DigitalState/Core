@@ -44,6 +44,10 @@ abstract class AbstractParameters implements Parameters
 
                     break;
 
+                case 'cascade':
+                    $object->$key = $value ? 'true' : 'false';
+                    break;
+
                 default:
                     $object->$key = $value;
             }

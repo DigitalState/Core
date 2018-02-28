@@ -59,7 +59,12 @@ class ProcessDefinitionService extends AbstractService
      */
     public function getList(Parameters $parameters = null)
     {
-        $objects = $this->execute('GET', static::RESOURCE_LIST);
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json'
+            ]
+        ];
+        $objects = $this->execute('GET', static::RESOURCE_LIST, $options);
         $list = [];
 
         foreach ($objects as $object) {
@@ -78,7 +83,12 @@ class ProcessDefinitionService extends AbstractService
      */
     public function getCount(Parameters $parameters = null)
     {
-        $result = $this->execute('GET', static::RESOURCE_COUNT);
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json'
+            ]
+        ];
+        $result = $this->execute('GET', static::RESOURCE_COUNT, $options);
 
         return $result->count;
     }
@@ -98,7 +108,12 @@ class ProcessDefinitionService extends AbstractService
             $resource = str_replace('{key}', $parameters->getKey(), static::RESOURCE_OBJECT_BY_KEY);
         }
 
-        $object = $this->execute('GET', $resource);
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json'
+            ]
+        ];
+        $object = $this->execute('GET', $resource, $options);
         $model = static::toModel($object);
 
         return $model;
@@ -119,7 +134,12 @@ class ProcessDefinitionService extends AbstractService
             $resource = str_replace('{key}', $parameters->getKey(), static::RESOURCE_OBJECT_XML_BY_KEY);
         }
 
-        $object = $this->execute('GET', $resource);
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json'
+            ]
+        ];
+        $object = $this->execute('GET', $resource, $options);
         $model = new Xml;
         $model
             ->setId($object->id)
@@ -143,7 +163,12 @@ class ProcessDefinitionService extends AbstractService
             $resource = str_replace('{key}', $parameters->getKey(), static::RESOURCE_OBJECT_START_BY_KEY);
         }
 
-        $options = [];
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
 
         if ($parameters) {
             $parameters = (array) $parameters->toObject(true);
@@ -190,7 +215,12 @@ class ProcessDefinitionService extends AbstractService
             $resource = str_replace('{key}', $parameters->getKey(), static::RESOURCE_OBJECT_START_FORM_BY_KEY);
         }
 
-        $result = $this->execute('GET', $resource);
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json'
+            ]
+        ];
+        $result = $this->execute('GET', $resource, $options);
 
         return $result->key;
     }
