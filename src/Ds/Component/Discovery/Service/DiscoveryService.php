@@ -40,7 +40,7 @@ class DiscoveryService
      * @param string $host
      * @param \Symfony\Component\Cache\Adapter\AbstractAdapter $cache
      */
-    public function __construct(ClientInterface $client, $host, AbstractAdapter $cache)
+    public function __construct(ClientInterface $client, $host, AbstractAdapter $cache = null)
     {
         $this->client = $client;
         $this->host = $host;
@@ -56,20 +56,40 @@ class DiscoveryService
      */
     public function get($service)
     {
-        $item = $this->cache->getItem(static::CACHE_MAP);
+        $map = null;
 
-        if (!$item->isHit()) {
-            $response = $this->client->request('GET', 'http://'.$this->host);
-            $data = (string) $response->getBody();
-            $map = \GuzzleHttp\json_decode($data, true);
-            $item->set($map);
-            $this->cache->save($item);
+        if ($this->cache) {
+            $item = $this->cache->getItem(static::CACHE_MAP);
+
+            if ($item->isHit()) {
+                $map = $item->get();
+            } else {
+                $map = $this->getMap();
+                $item->set($map);
+                $this->cache->save($item);
+            }
+        } else {
+            $map = $this->getMap();
         }
 
-        if (!array_key_exists($service, $item->get())) {
+        if (!array_key_exists($service, $map)) {
             throw new DomainException('Service does not exist.');
         }
 
-        return $item->get()[$service];
+        return $map[$service];
+    }
+
+    /**
+     * Get map of service endpoints
+     *
+     * @return array
+     */
+    protected function getMap()
+    {
+        $response = $this->client->request('GET', 'http://' . $this->host);
+        $body = (string) $response->getBody();
+        $map = \GuzzleHttp\json_decode($body, true);
+
+        return $map;
     }
 }
