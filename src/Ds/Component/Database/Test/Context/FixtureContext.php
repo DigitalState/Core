@@ -19,7 +19,7 @@ class FixtureContext implements Context
      */
     public function loadFixtures()
     {
-        $process = new Process('php bin/console doctrine:fixtures:load --env=test --fixtures=/srv/api-platform/src/AppBundle/Fixtures/ORM --no-interaction');
+        $process = new Process('php bin/console doctrine:fixtures:load --env=test --fixtures=/srv/api-platform/src/AppBundle/Fixtures --no-interaction');
         $process->run();
     }
 }
