@@ -120,4 +120,16 @@ class FormService extends AbstractService
 
         return $model;
     }
+
+    /**
+     * Delete form
+     *
+     * @param string $path
+     * @param \Ds\Component\Formio\Query\FormParameters $parameters
+     */
+    public function delete($path, Parameters $parameters = null)
+    {
+        $resource = str_replace('{path}', $path, static::RESOURCE_OBJECT_BY_PATH);
+        $this->execute('DELETE', $resource);
+    }
 }

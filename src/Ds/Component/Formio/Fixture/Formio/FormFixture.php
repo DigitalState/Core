@@ -3,9 +3,9 @@
 namespace Ds\Component\Formio\Fixture\Formio;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Ds\Component\Formio\Exception\ValidationException;
 use Ds\Component\Formio\Model\Form;
 use Ds\Component\Formio\Model\User;
-use Ds\Component\Formio\Query\FormParameters;
 use Ds\Component\Database\Fixture\ResourceFixture;
 
 /**
@@ -29,17 +29,15 @@ abstract class FormFixture extends ResourceFixture
         $token = $api->login($user);
         $api = $this->container->get('ds_api.api')->get('formio.form');
         $api->setHeader('x-jwt-token', $token);
-//        $parameters = new FormParameters;
-//        $forms = $api->getList($parameters);
-//
-//        foreach ($forms as $form) {
-//            $parameters = new FormParameters;
-//            $api->delete($form->getId(), $parameters);
-//        }
-
         $forms = $this->parse($this->getResource());
 
         foreach ($forms as $form) {
+            try {
+                $api->delete($form['path']);
+            } catch (ValidationException $exception) {
+                // @todo this is so first time fixtures dont cause an error, handle "Invalid alias" better
+            }
+
             $entry = new Form;
             $entry
                 ->setTitle($form['title'])

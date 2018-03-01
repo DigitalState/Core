@@ -210,9 +210,14 @@ abstract class AbstractService implements Service
 
             switch ($response->getStatusCode()) {
                 case 400:
-                    $validation = new ValidationException('Data is not valid.', 0, $exception);
-                    $data = \GuzzleHttp\json_decode($response->getBody());
-                    $validation->setErrors($data->details);
+                    $validation = new ValidationException('Request is not valid.', 0, $exception);
+                    $data = (string) $response->getBody();
+
+                    if ('' !== $data && false !== strpos($data, '{')) {
+                        $data = \GuzzleHttp\json_decode($data);
+                        $validation->setErrors((array)$data->errors);
+                    }
+
                     throw $validation;
                     break;
 
@@ -220,6 +225,8 @@ abstract class AbstractService implements Service
                     throw new RequestException('Request failed.', 0, $exception);
             }
         }
+
+        $data = null;
 
         // @todo Instead of this switch case, refactor execute() method to return header and body, instead of just body.
         switch ($resource) {
@@ -230,7 +237,7 @@ abstract class AbstractService implements Service
             default:
                 $data = (string) $response->getBody();
 
-                if ('' !== $data) {
+                if ('' !== $data && false !== strpos($data, '{')) {
                     try {
                         $data = \GuzzleHttp\json_decode($response->getBody());
                     } catch (InvalidArgumentException $exception) {
