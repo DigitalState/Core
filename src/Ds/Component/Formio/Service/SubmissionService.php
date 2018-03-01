@@ -105,8 +105,15 @@ class SubmissionService extends AbstractService
     public function create(Submission $submission, Parameters $parameters = null)
     {
         $resource = str_replace('{form}', $submission->getForm(), static::RESOURCE_LIST);
-        $options = [];
-        $options['json']['data'] = (array) $submission->getData();
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => [
+                'data' => (array) $submission->getData()
+            ]
+        ];
 
         if ($parameters) {
             $options['query'] = (array) $parameters->toObject(true);

@@ -12,7 +12,6 @@ use DateTime;
 use GuzzleHttp\ClientInterface;
 use LogicException;
 use InvalidArgumentException;
-use UnexpectedValueException;
 
 /**
  * Class AbstractService
@@ -171,15 +170,6 @@ abstract class AbstractService implements Service
     {
         $this->client = $client;
         $this->host = $host;
-
-        if (!isset($headers['Content-Type'])) {
-            $headers['Content-Type'] = 'application/json';
-        }
-
-        if (!isset($headers['Accept'])) {
-            $headers['Accept'] = 'application/json';
-        }
-
         $this->headers = $headers;
     }
 
@@ -198,11 +188,20 @@ abstract class AbstractService implements Service
     {
         $uri = $this->host.$resource;
 
-        foreach ($this->headers as $key => $value) {
-            if (!isset($options['headers'][$key])) {
-                $options['headers'][$key] = $value;
+        if ($this->headers) {
+            if (!array_key_exists('headers', $options)) {
+                $options['headers'] = [];
+            }
+
+            foreach ($this->headers as $key => $value) {
+                if (!array_key_exists($key, $options['headers'])) {
+                    $options['headers'][$key] = $value;
+                }
             }
         }
+
+        // @todo Remove this once we align formio and apip jwt tokens
+        unset($options['headers']['Authorization']);
 
         try {
             $response = $this->client->request($method, $uri, $options);
@@ -222,14 +221,22 @@ abstract class AbstractService implements Service
             }
         }
 
-        $data = (string) $response->getBody();
+        // @todo Instead of this switch case, refactor execute() method to return header and body, instead of just body.
+        switch ($resource) {
+            case AuthenticationService::RESOURCE_LOGIN:
+                $data = $response->getHeader('x-jwt-token')[0];
+                break;
 
-        if ('' !== $data) {
-            try {
-                $data = \GuzzleHttp\json_decode($response->getBody());
-            } catch (InvalidArgumentException $exception) {
-                throw new ResponseException('Service response is not valid.', 0, $exception);
-            }
+            default:
+                $data = (string) $response->getBody();
+
+                if ('' !== $data) {
+                    try {
+                        $data = \GuzzleHttp\json_decode($response->getBody());
+                    } catch (InvalidArgumentException $exception) {
+                        throw new ResponseException('Service response is not valid.', 0, $exception);
+                    }
+                }
         }
 
         return $data;

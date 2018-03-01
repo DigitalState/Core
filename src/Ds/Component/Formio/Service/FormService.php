@@ -41,7 +41,6 @@ class FormService extends AbstractService
         'components',
         'tags',
         'access',
-        'roles',
         'owner'
     ];
 
@@ -79,7 +78,44 @@ class FormService extends AbstractService
             $resource = str_replace('{path}', $parameters->getPath(), static::RESOURCE_OBJECT_BY_PATH);
         }
 
-        $object = $this->execute('GET', $resource);
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json'
+            ]
+        ];
+
+        $object = $this->execute('GET', $resource, $options);
+        $model = static::toModel($object);
+
+        return $model;
+    }
+
+    /**
+     * Create form
+     *
+     * @param \Ds\Component\Formio\Model\Form $form
+     * @param \Ds\Component\Formio\Query\FormParameters $parameters
+     * @return \Ds\Component\Formio\Model\Form
+     */
+    public function create(Form $form, Parameters $parameters = null)
+    {
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => [
+                'title' => $form->getTitle(),
+                'display' => $form->getDisplay(),
+                'type' => $form->getType(),
+                'name' => $form->getName(),
+                'path' => $form->getPath(),
+                'tags' => $form->getTags(),
+                'components' => $form->getComponents()
+            ]
+        ];
+
+        $object = $this->execute('POST', static::RESOURCE_LIST, $options);
         $model = static::toModel($object);
 
         return $model;

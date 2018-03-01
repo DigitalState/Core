@@ -18,4 +18,6 @@ class User implements Model
     use Attribute\Access;
     use Attribute\Roles;
     use Attribute\Owner;
+    use Attribute\Email;
+    use Attribute\Password;
 }

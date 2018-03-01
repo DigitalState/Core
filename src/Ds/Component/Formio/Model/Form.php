@@ -16,6 +16,7 @@ class Form implements Model
     use Attribute\Path;
     use Attribute\Title;
     use Attribute\Display;
+    use Attribute\Form;
     use Attribute\Type;
     use Attribute\Components;
     use Attribute\Tags;
