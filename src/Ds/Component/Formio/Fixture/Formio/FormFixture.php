@@ -27,6 +27,11 @@ abstract class FormFixture extends ResourceFixture
             ->setEmail('webmaster@digitalstate.ca')
             ->setPassword('changeme');
         $token = $api->login($user);
+
+        $api = $this->container->get('ds_api.api')->get('formio.role');
+        $api->setHeader('x-jwt-token', $token);
+        $roles = $api->getList();
+
         $api = $this->container->get('ds_api.api')->get('formio.form');
         $api->setHeader('x-jwt-token', $token);
         $forms = $this->parse($this->getResource());
@@ -39,6 +44,21 @@ abstract class FormFixture extends ResourceFixture
             }
 
             $entry = new Form;
+            $submissionAccess = [];
+
+            foreach ($form['submission_access'] as $access) {
+                foreach ($access['roles'] as $key => $value) {
+                    foreach ($roles as $role) {
+                        if ($role->getMachineName() === $value) {
+                            $access['roles'][$key] = $role->getId();
+                            break;
+                        }
+                    }
+                }
+
+                $submissionAccess[] = $access;
+            }
+
             $entry
                 ->setTitle($form['title'])
                 ->setDisplay($form['display'])
@@ -46,7 +66,8 @@ abstract class FormFixture extends ResourceFixture
                 ->setName($form['name'])
                 ->setPath($form['path'])
                 ->setTags($form['tags'])
-                ->setComponents($form['components']);
+                ->setComponents($form['components'])
+                ->setSubmissionAccess($submissionAccess);
             $api->create($entry);
         }
     }

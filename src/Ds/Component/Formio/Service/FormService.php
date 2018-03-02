@@ -41,7 +41,8 @@ class FormService extends AbstractService
         'components',
         'tags',
         'access',
-        'owner'
+        'owner',
+        'submissionAccess'
     ];
 
     /**
@@ -111,7 +112,8 @@ class FormService extends AbstractService
                 'name' => $form->getName(),
                 'path' => $form->getPath(),
                 'tags' => $form->getTags(),
-                'components' => $form->getComponents()
+                'components' => $form->getComponents(),
+                'submissionAccess' => $form->getSubmissionAccess()
             ]
         ];
 
