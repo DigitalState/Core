@@ -30,6 +30,7 @@ parameters:
     ds_api.service.formio.form.class: Ds\Component\Formio\Service\FormService
     ds_api.service.formio.submission.class: Ds\Component\Formio\Service\SubmissionService
     ds_api.service.formio.user.class: Ds\Component\Formio\Service\UserService
+    ds_api.service.formio.role.class: Ds\Component\Formio\Service\RoleService
     ds_api.service.identities.health.class: Ds\Component\Api\Service\HealthService
     ds_api.service.identities.config.class: Ds\Component\Api\Service\ConfigService
     ds_api.service.identities.access.class: Ds\Component\Api\Service\AccessService

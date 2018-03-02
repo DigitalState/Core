@@ -28,3 +28,9 @@ services:
         class: '%ds_api.service.formio.user.class%'
         tags:
             - { name: ds_api.service, alias: formio.user }
+
+    ds_api.service.formio.role:
+        parent: ds_api.service
+        class: '%ds_api.service.formio.role.class%'
+        tags:
+            - { name: ds_api.service, alias: formio.role }
