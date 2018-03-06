@@ -23,6 +23,7 @@ class DsApiExtension extends Extension implements PrependExtensionInterface
         $container->prependExtensionConfig('ds_api', [
             'user' => [
                 'username' => null,
+                'password' => null,
                 'uuid' => null,
                 'roles' => null,
                 'identity' => null,
@@ -47,6 +48,7 @@ class DsApiExtension extends Extension implements PrependExtensionInterface
 
         // @todo Move this config -> parameters logic to a common trait in the config component bridge
         $container->setParameter('ds_config.configs.ds_api.user.username', $config['user']['username']);
+        $container->setParameter('ds_config.configs.ds_api.user.password', $config['user']['password']);
         $container->setParameter('ds_config.configs.ds_api.user.uuid', $config['user']['uuid']);
         $container->setParameter('ds_config.configs.ds_api.user.roles', $config['user']['roles']);
         $container->setParameter('ds_config.configs.ds_api.user.identity', $config['user']['identity']);

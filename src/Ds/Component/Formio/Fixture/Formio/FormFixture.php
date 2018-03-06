@@ -20,12 +20,14 @@ abstract class FormFixture extends ResourceFixture
      */
     public function load(ObjectManager $manager)
     {
+        $configService = $this->container->get('ds_config.service.config');
+
         // @todo remove dependency on ds_api, add formio api services
         $api = $this->container->get('ds_api.api')->get('formio.authentication');
         $user = new User;
         $user
-            ->setEmail('webmaster@digitalstate.ca')
-            ->setPassword('changeme');
+            ->setEmail($configService->get('ds_api.user.username'))
+            ->setPassword($configService->get('ds_api.user.password'));
         $token = $api->login($user);
 
         $api = $this->container->get('ds_api.api')->get('formio.role');
