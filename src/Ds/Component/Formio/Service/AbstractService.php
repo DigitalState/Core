@@ -215,7 +215,7 @@ abstract class AbstractService implements Service
 
                     if ('' !== $data && false !== strpos($data, '{')) {
                         $data = \GuzzleHttp\json_decode($data);
-                        $validation->setErrors((array)$data->errors);
+                        $validation->setErrors((array)$data->details);
                     }
 
                     throw $validation;
