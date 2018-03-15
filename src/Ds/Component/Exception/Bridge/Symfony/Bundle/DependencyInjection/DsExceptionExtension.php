@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * Class DsWorkflowExtension
+ * Class DsExceptionExtension
  *
  * @package Ds\Component\Exception
  */
