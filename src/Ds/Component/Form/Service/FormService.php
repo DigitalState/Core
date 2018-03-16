@@ -164,7 +164,7 @@ class FormService
      * @param \Ds\Component\Form\Model\Form $form
      * @return \Ds\Component\Form\Model\Form
      */
-    protected function resolve(Form $form)
+    public function resolve(Form $form)
     {
         switch ($form->getType()) {
             case Form::TYPE_FORMIO:
