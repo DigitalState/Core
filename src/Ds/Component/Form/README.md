@@ -10,6 +10,7 @@ It currently supports two strategies: [Formio forms](https://form.io/#/) and [Sy
 - [Schema](#schema)
 - [Validation](#validation)
 - [Submission](#submission)
+- [Form Composition](#form-composition)
 
 ## Form
 
@@ -61,3 +62,7 @@ For example, imagine we want to use the **current logged in user's uuid** as a d
 ## Submission
 
 ...
+
+## Form Composition
+
+The form component supports form composition.
