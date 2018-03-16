@@ -13,7 +13,7 @@ It currently supports two strategies: [Formio forms](https://form.io/#/) and [Sy
 
 ## Form
 
-A form is essentially a json object describing its properties, layout, inputs and validations. Forms are created via supported strategies, such as the Formio UI or Symfony form type classes. However, forms are exposed through the api under a generic structure.
+A form is essentially a json object describing its properties, layout, inputs and validations. Forms are created via supported strategies, such as the **Formio UI** or **Symfony form type classes**. However, forms are exposed through the api under a **generic structure**.
 
 Here is a simplified form example:
 
