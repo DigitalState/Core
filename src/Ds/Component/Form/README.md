@@ -239,7 +239,8 @@ In Formio form builder, in order to tell the DigitalState to return a Multi-Form
 1. Add a `hidden` component (located in the Special Components menu) anywhere in the form.  Best practice is to add the field as the very first/top or very last/bottom position on the form (single page or wizard).
 1. In the API tab of the `hidden` component, select "custom properties", and set the following:
     1. **Key:** `ds_form`  **value:** `formio:address`.  Where `address` is the unique id of the form.  The value of ds_form will fetch the form and return it as a Form Object with the `primary: false` property value.
-    2. **Key:** `value`  **value:** `ds[identity].persona.data`.  Where the value property is a Data Resolver.  The data resolver will populate the `data` property in the form object.
+1. In the Data tab, set the Default Value field to `ds[identity].persona.data`.  Where the value of the Default Value field is a [Data Resolver](https://github.com/DigitalState/Guide/blob/master/build-your-first-service.md#data-resolvers-enterprise-feature
+).  The data resolver will populate the `data` property in the form object.
 
 You can add multiple hidden fields, which will return multiple forms in the form object.
 
