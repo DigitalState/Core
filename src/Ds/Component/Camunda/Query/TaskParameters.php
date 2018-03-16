@@ -13,6 +13,8 @@ class TaskParameters extends AbstractParameters
     use Attribute\AssigneeLike;
     use Attribute\CandidateGroup;
     use Attribute\IncludeAssignedTasks;
+    use Attribute\SortBy;
+    use Attribute\SortOrder;
     use Attribute\FirstResult;
     use Attribute\MaxResults;
 }
