@@ -242,6 +242,6 @@ In Formio form builder, in order to tell the DigitalState to return a Multi-Form
 1. In the Data tab, set the Default Value field to `ds[identity].persona.data`.  Where the value of the Default Value field is a [Data Resolver](https://github.com/DigitalState/Guide/blob/master/build-your-first-service.md#data-resolvers-enterprise-feature
 ).  The data resolver will populate the `data` property in the form object.
 
-You can add multiple hidden fields, which will return multiple forms in the form object.
+You can add multiple hidden fields, which will return multiple forms in the array of form objects.
 
 Take into consideration form loading time: for each non-input form that is added through hidden fields, the form must be fetched, added to the response, and any data resolvers in the form need to be resolved.  If you have complex forms or are loading many forms with multiple data resolvers, the response time can exponentially increase.
