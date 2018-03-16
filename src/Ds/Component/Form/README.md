@@ -12,6 +12,8 @@ It currently supports two strategies: [Formio forms](https://form.io/#/) and [Sy
 
 ## Schema
 
+...
+
 ### Default Values
 
 The form schema supports [Resolvers](../Resolver). In other words, while configuring default values for form inputs, you may not only use **literal values**, but also **resolver paths**.
