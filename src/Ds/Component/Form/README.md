@@ -6,6 +6,22 @@ It currently supports two strategies: [Formio forms](https://form.io/#/) and [Sy
 
 ## Table of Contents
 
-- [Todo](#todo)
+- [Schema](#schema)
+- [Validation](#validation)
+- [Submission](#submission)
 
-## Todo
+## Schema
+
+### Default Values
+
+The form schema supports [Resolvers](../Resolver). In other words, while configuring default values for form inputs, you may not only use **literal values**, but also **resolver paths**.
+
+For example, if you wish to populate a form input with the user's current uuid, you may use the identity resolver path, such as `ds[identity].uuid`.
+
+## Validation
+
+...
+
+## Submission
+
+...
