@@ -6,9 +6,39 @@ It currently supports two strategies: [Formio forms](https://form.io/#/) and [Sy
 
 ## Table of Contents
 
+- [Form](#form)
 - [Schema](#schema)
 - [Validation](#validation)
 - [Submission](#submission)
+
+## Form
+
+A form is essentially a json object describing its properties, layout, inputs and validations. Forms are created via supported strategies, such as the Formio UI or Symfony form type classes. However, forms are exposed through the api under a generic structure.
+
+Here is a simplified form example:
+
+```
+{
+    "id": "pothole-report",
+    "method": "POST",
+    "action": "/scenarios/e049f2b4-b249-48c2-850c-64d4c4b39527/submissions",
+    "type": "formio",
+    "display": "form",
+    "schema": [
+        {
+            "type": "textfield",
+            "key": "description",
+            "label": "Description",
+            "defaultValue": "Description of pothole here..."
+        },
+        {
+            "type": "button",
+            "key": "submit",
+            "label": "Submit"
+        }
+    ]
+}
+```
 
 ## Schema
 
@@ -16,9 +46,13 @@ It currently supports two strategies: [Formio forms](https://form.io/#/) and [Sy
 
 ### Default Values
 
-The form schema supports [Resolvers](../Resolver). In other words, while configuring default values for form inputs, you may not only use **literal values**, but also **resolver paths**.
+The form component supports [Resolvers](../Resolver). In other words, while configuring default values for form inputs, you may use **resolver paths** instead of **literal values**.
 
-For example, if you wish to populate a form input with the user's current uuid, you may use the identity resolver path, such as `ds[identity].uuid`, as the default value. Internally, the form component will resolve `ds[identity].uuid` to `294fa591-6210-4133-a7e8-d862a587792e`.
+For example, imagine we want to use the current logged in user's uuid as a default value for a form input, you may use `ds[identity].uuid` as the default value. Internally, the form component will resolve `ds[identity].uuid` to `294fa591-6210-4133-a7e8-d862a587792e` prior to returning the form object.
+
+### Translations
+
+...
 
 ## Validation
 
