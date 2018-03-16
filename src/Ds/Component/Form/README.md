@@ -66,3 +66,5 @@ For example, imagine we want to use the **current logged in user's uuid** as a d
 ## Form Composition
 
 The form component supports form composition.
+
+Hidden field with property "ds_form"="formio:address" and "value"="ds[identity].persona.data" gets transformed into an extra form.
