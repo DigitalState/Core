@@ -41,6 +41,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * )
  * @ORM\Entity(repositoryClass="Ds\Component\Config\Repository\ConfigRepository")
  * @ORM\Table(name="ds_config")
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @ORMAssert\UniqueEntity(fields="uuid")
  * @ORMAssert\UniqueEntity(fields="key")
  */

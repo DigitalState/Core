@@ -44,6 +44,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @ORM\Entity(repositoryClass="Ds\Component\Audit\Repository\AuditRepository")
  * @ORM\Table(name="ds_audit")
+ * @ORM\Cache(usage="READ_ONLY")
  * @ORMAssert\UniqueEntity(fields="uuid")
  */
 class Audit implements Identifiable, Uuidentifiable, Ownable, Secured
