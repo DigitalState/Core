@@ -12,19 +12,24 @@ The resolver component provides a flexible framework to define data resolvers an
 
 ### Api Resolver
 
-...
+The api-based resolver... It takes a dot-notation path and resolves it to the value in storage. It uses the api component as its data provider.
 
 #### Template
 
-`ds.service.resource(parameters).property`
-
-> **service:** The micro-service name.
-
-> **resource:** The resource name.
-
-> **parameters:** The search filter parameters.
-
-> **property:** The property of the resource.
+```
+ds.service.resource(parameters).property
++     +       +         +          +
+|     |       |         |          |
+|     |       |         |          +--> The property of the resource.
+|     |       |         |
+|     |       |         +--> The search filters.
+|     |       |
+|     |       +--> The resource name.
+|     |
+|     +--> The micro-service name.
+|
++--> The Digitalstate namespace.
+```
 
 #### Examples
 
@@ -46,13 +51,20 @@ The resolver component provides a flexible framework to define data resolvers an
 
 ### Identity Resolver
 
-...
+The identity-based resolver is used to resolve data based on the current logged in user. It takes a dot-notation path and resolves it to the value in session. It uses the jwt token as its data provider.
 
 #### Template
 
-`ds[identity]._property_`
-
-> **property:** The property of the resource.
+```
+ds[identity].property
++      +        +
+|      |        |
+|      |        +--> The property of the resource.
+|      |
+|      +--> The identity context.
+|
++--> The Digitalstate namespace.
+```
 
 #### Examples
 
@@ -62,15 +74,22 @@ The resolver component provides a flexible framework to define data resolvers an
 
 ### Bpm Resolver
 
-...
+The bpm-based resolver is used to resolve data based on the current bpm context. It takes a dot-notation path and resolves it to the value from the bpm engine. It uses the current active workflow as its data provider.
 
 #### Template
 
-`ds[bpm]._resource_._property_`
-
-> **resource:** The resource name.
-
-> **property:** The property of the resource.
+```
+ds[bpm].resource.property
++   +      +        +
+|   |      |        |
+|   |      |        +--> The property of the resource.
+|   |      |
+|   |      +--> The resource name.
+|   |
+|   +--> The bpm context.
+|
++--> The Digitalstate namespace.
+```
 
 #### Examples
 
