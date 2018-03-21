@@ -1,6 +1,6 @@
 # Resolver
 
-The resolver component provides a flexible framework to define data resolvers and inject in the chain of data resolvers.
+The resolver component provides a flexible framework to define data resolvers and inject them in the chain of data resolvers.
 
 ## Table of Contents
 
@@ -16,11 +16,14 @@ The resolver component provides a flexible framework to define data resolvers an
 
 #### Template
 
-`ds._service_._resource_(_parameters_)._property_`
+`ds.service.resource(parameters).property`
 
 **service:** The micro-service name.
+
 **resource:** The resource name.
+
 **parameters:** The search filter parameters.
+
 **property:** The property of the resource.
 
 #### Examples
@@ -66,6 +69,7 @@ The resolver component provides a flexible framework to define data resolvers an
 `ds[bpm]._resource_._property_`
 
 **resource:** The resource name.
+
 **property:** The property of the resource.
 
 #### Examples
