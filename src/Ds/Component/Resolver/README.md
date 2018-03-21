@@ -18,13 +18,10 @@ The resolver component provides a flexible framework to define data resolvers an
 
 `ds.service.resource(parameters).property`
 
-**service:** The micro-service name.
-
-**resource:** The resource name.
-
-**parameters:** The search filter parameters.
-
-**property:** The property of the resource.
+> **service:** The micro-service name.
+> **resource:** The resource name.
+> **parameters:** The search filter parameters.
+> **property:** The property of the resource.
 
 #### Examples
 
@@ -52,7 +49,7 @@ The resolver component provides a flexible framework to define data resolvers an
 
 `ds[identity]._property_`
 
-**property:** The property of the resource.
+> **property:** The property of the resource.
 
 #### Examples
 
@@ -68,9 +65,8 @@ The resolver component provides a flexible framework to define data resolvers an
 
 `ds[bpm]._resource_._property_`
 
-**resource:** The resource name.
-
-**property:** The property of the resource.
+> **resource:** The resource name.
+> **property:** The property of the resource.
 
 #### Examples
 
