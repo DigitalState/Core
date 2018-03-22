@@ -44,13 +44,12 @@ class ApiResolver implements Resolver
             return false;
         }
 
-        $service = $this->toProperty($matches[1]);
+        $service = $matches[1];
+        $resource = $matches[2];
 
         if (!property_exists($this->api, $service)) {
             return false;
         }
-
-        $resource = $this->toProperty($matches[2]);
 
         if (!property_exists($this->api->$service, $resource)) {
             return false;
