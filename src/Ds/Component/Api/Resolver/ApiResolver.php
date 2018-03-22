@@ -6,6 +6,7 @@ use Ds\Component\Api\Api\Api;
 use Ds\Component\Resolver\Exception\UnresolvedException;
 use Ds\Component\Resolver\Resolver\Resolver;
 use Exception;
+use OutOfRangeException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
@@ -47,11 +48,9 @@ class ApiResolver implements Resolver
         $service = $matches[1];
         $resource = $matches[2];
 
-        if (!property_exists($this->api, $service)) {
-            return false;
-        }
-
-        if (!property_exists($this->api->$service, $resource)) {
+        try {
+            $this->api->get($service.'.'.$resource);
+        } catch (OutOfRangeException $exception) {
             return false;
         }
 
