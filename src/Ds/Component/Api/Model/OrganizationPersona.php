@@ -18,8 +18,6 @@ class OrganizationPersona implements Model
     use Attribute\UpdatedAt;
     use Attribute\Owner;
     use Attribute\OwnerUuid;
-    use Attribute\Identity;
-    use Attribute\IdentityUuid;
     use ApiAttribute\Organization;
     use Attribute\Title;
     use Attribute\Data;

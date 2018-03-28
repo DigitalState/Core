@@ -18,8 +18,6 @@ class IndividualPersona implements Model
     use Attribute\UpdatedAt;
     use Attribute\Owner;
     use Attribute\OwnerUuid;
-    use Attribute\Identity;
-    use Attribute\IdentityUuid;
     use ApiAttribute\Individual;
     use Attribute\Title;
     use Attribute\Data;

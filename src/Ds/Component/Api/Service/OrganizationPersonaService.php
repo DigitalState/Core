@@ -33,8 +33,6 @@ class OrganizationPersonaService extends AbstractService
         'updatedAt',
         'owner',
         'ownerUuid',
-        'identity',
-        'identityUuid',
         'organization',
         'title',
         'data',

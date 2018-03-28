@@ -33,8 +33,6 @@ class IndividualPersonaService extends AbstractService
         'updatedAt',
         'owner',
         'ownerUuid',
-        'identity',
-        'identityUuid',
         'individual',
         'title',
         'data',
