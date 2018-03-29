@@ -1,0 +1,4 @@
+parameters:
+    ds_log.monolog.formatter.json.class: Monolog\Formatter\JsonFormatter
+    ds_log.monolog.processor.app.parameter: ~
+    ds_log.monolog.processor.app.class: Ds\Component\Log\Monolog\Processor\AppProcessor
