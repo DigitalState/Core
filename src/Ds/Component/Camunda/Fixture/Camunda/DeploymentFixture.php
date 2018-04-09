@@ -27,6 +27,12 @@ abstract class DeploymentFixture extends ResourceFixture
         // @todo remove dependency on ds_api, add camunda api services
         $app = $this->container->getParameter('app');
         $env = $this->container->get('kernel')->getEnvironment();
+
+        // @todo create mock server instead of skipping fixture
+        if ('test' === $env) {
+            return;
+        }
+
         $source = str_replace(['{app}', '{env}'], [$app, $env], static::DEPLOYMENT_SOURCE);
         $api = $this->container->get('ds_api.api')->get('camunda.deployment');
         $parameters = new DeploymentParameters;
