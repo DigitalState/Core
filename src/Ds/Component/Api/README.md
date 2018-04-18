@@ -11,7 +11,7 @@ This component comes by default with model mappings of all DigitalState microser
 
 ## Architecture
 
-The component architecture consists of 3 basic elements: [Model](#model), [QueryParameters](#queryparameters) and [Service](#service).
+The component consists of 3 elements: [Model](#model), [QueryParameters](#queryparameters) and [Service](#service).
 
 ### Model
 

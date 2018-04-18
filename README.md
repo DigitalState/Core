@@ -106,7 +106,7 @@ The api component provides a flexible framework to define and map models to micr
 
 [Security Component](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Security)
 
-The security component provides a flexible framework to define permissions and configure access to data and system functions.
+The security component provides a flexible framework to define acl in order to protect data and system functionality.
 
 [Session Component](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Session)
 
