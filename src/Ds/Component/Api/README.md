@@ -11,7 +11,7 @@ This component comes by default with model mappings for all DigitalState microse
 
 ## Architecture
 
-The framework architecture consists of 3 basic class types: [Model](#model), [QueryParameters](#queryparameters) and [Service](#service).
+The component architecture consists of 3 basic elements: [Model](#model), [QueryParameters](#queryparameters) and [Service](#service).
 
 ### Model
 
