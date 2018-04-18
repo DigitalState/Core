@@ -94,15 +94,19 @@ class CacheController
 In order to setup a protection barrier against the Individual entity endpoint, we would create a entity-typed definition.
 
 ```yml
-individual: { attributes: [BROWSE,READ,EDIT,ADD,DELETE], type: entity, value: AppBundle\Entity\Individual }
+individual: { attributes: [BROWSE, READ, EDIT, ADD, DELETE], type: entity, value: AppBundle\Entity\Individual }
 ```
+
+The definition above describes that our entity may be browsed, read, edited, added or deleted.
 
 ### Property
 
 In order to setup a protection barrier against the Individual entity properties, we would create property-typed definitions.
 
 ```yml
-individual_uuid:       { attributes: [BROWSE,READ,EDIT,ADD,DELETE], type: property, value: AppBundle\Entity\Individual.uuid }
-individual_created_at: { attributes: [BROWSE,READ,EDIT,ADD,DELETE], type: property, value: AppBundle\Entity\Individual.createdAt }
+individual_uuid:       { attributes: [BROWSE, READ, EDIT], type: property, value: AppBundle\Entity\Individual.uuid }
+individual_created_at: { attributes: [BROWSE, READ, EDIT], type: property, value: AppBundle\Entity\Individual.createdAt }
 ```
+
+The definition above describes that our entity properties may be browsed, read or edited.
 
