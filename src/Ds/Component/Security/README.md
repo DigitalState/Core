@@ -41,7 +41,7 @@ The attributes consists of a list of available actions towards the protected sub
 
 #### Type
 
-The type describes what kind of subject it is protecting. Thr possible values are:
+The type describes what kind of subject it is protecting. The possible values are:
 
 - **Generic**: Controls access to something arbitrary.
 - **Entity**: Controls access to an entity (database record).
