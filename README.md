@@ -10,6 +10,8 @@ The core repository provides a wide range of commonly used components for [Api P
 
 ## Documentation
 
+List of available components:
+
 - [Api](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Api)
 - [Association](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Association)
 - [Audit](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Audit)
