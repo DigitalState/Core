@@ -1,6 +1,6 @@
 # Api
 
-The api component provides a flexible framework to define and map models to microservice apis. It enables the developer to work with php objects and functions instead of raw curl requests.
+The api component provides a flexible framework to define and map models to microservice api endpoints. It enables the developer to work with php objects and functions instead of raw curl requests.
 
 This component comes by default with model mappings for all DigitalState microservice apis, which includes: [Assets](https://github.com/DigitalState/Assets), [Authentication](https://github.com/DigitalState/Authentication), [Camunda](https://github.com/DigitalState/Camunda), [Cases](https://github.com/DigitalState/Cases), [Cms](https://github.com/DigitalState/Cms), [Formio](https://github.com/DigitalState/Formio), [Identities](https://github.com/DigitalState/Identities), [Records](https://github.com/DigitalState/Records), [Services](https://github.com/DigitalState/Services) and [Tasks](https://github.com/DigitalState/Tasks).
 
