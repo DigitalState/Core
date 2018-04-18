@@ -15,9 +15,9 @@ The component architecture consists of 3 basic elements: [Model](#model), [Query
 
 ### Model
 
-The model classes are simple value objects that represent microservice resources. 
+The model classes are simple value objects that represent microservice resources, such as entities. 
 
-For example, the [Individual](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Model/Individual.php) model.
+For example, the [Individual](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Model/Individual.php) model, which maps to the identities/individuals endpoint:
 
 ```php
 class Individual implements Model
