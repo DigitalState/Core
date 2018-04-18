@@ -34,9 +34,9 @@ class Individual implements Model
 
 ### QueryParameters
 
-The query parameters classes are simple value objects that represent metadata about the request. This typically includes search filters, ordering, pagination, etc.
+The query parameters classes are simple value objects that represent metadata about the request. Query parameters typically includes search filters, order clauses, pagination limits, etc.
 
-For example, the [IndividualQueryParameters](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Query/IndividualParameters.php) query parameters.
+For example, the [IndividualQueryParameters](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Query/IndividualParameters.php) query parameters:
 
 ```php
 class IndividualParameters extends AbstractParameters
@@ -48,7 +48,7 @@ class IndividualParameters extends AbstractParameters
 
 The service classes are objects that defines the methods to interact with microservices.
 
-For example: the [IndividualService](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Service/IndividualService.php) service.
+For example: the [IndividualService](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Service/IndividualService.php) service:
 
 ```php
 class IndividualService extends AbstractService
