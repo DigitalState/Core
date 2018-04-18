@@ -24,11 +24,11 @@ Definitions are found in yml configurations and are defined by the developer. Th
 
 A definition has a `name`, `attributes`, `type`, and `value`.
 
-#### Name
+##### Name
 
 The name consists of a unique machine name containing alphanumeric characters and underscores.
 
-#### Attributes
+##### Attributes
 
 The attributes consists of a list of available actions towards the protected subject. The possible values are:
 
@@ -39,7 +39,7 @@ The attributes consists of a list of available actions towards the protected sub
 - **DELETE**: Delete an existing record.
 - **EXECUTE**: Execute something arbitrary.
 
-#### Type
+##### Type
 
 The type describes what kind of subject it is protecting. The possible values are:
 
@@ -47,7 +47,7 @@ The type describes what kind of subject it is protecting. The possible values ar
 - **Entity**: Controls access to an entity (database record).
 - **Property**: Controls access to an entity property (database record column).
 
-### Value
+##### Value
 
 The value describes the subject and is based on the type.
 
