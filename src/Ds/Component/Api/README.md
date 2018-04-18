@@ -61,7 +61,9 @@ class IndividualService extends AbstractService
 
 ## Usage
 
-The example below represents a typical controller that contains 2 actions which interacts with the [Identities microservice](https://github.com/DigitalState/Identities):
+DigitalState itself makes use of the api component internally when one microservice needs to communicate with another microservice. For example, when a user registers on the Authentication microservice, the registration scripts creates a new individual on the Identities microservice.
+
+The developer can also create script which interacts with microservices. Below is an example of a web controller that interacts with the [Identities microservice](https://github.com/DigitalState/Identities):
 
 ```php
 class IndividualController
