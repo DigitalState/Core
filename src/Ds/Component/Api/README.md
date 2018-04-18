@@ -11,7 +11,7 @@ This component comes by default with model mappings for all DigitalState microse
 
 ## Architecture
 
-The framework architecture comes with 3 basic class types: [Model](#model), [QueryParameters](#queryparameters) and [Service](#service).
+The framework architecture consists of 3 basic class types: [Model](#model), [QueryParameters](#queryparameters) and [Service](#service).
 
 ### Model
 
@@ -34,7 +34,7 @@ class Individual implements Model
 
 ### QueryParameters
 
-The query parameters classes are simple value objects that represent metadata about the request. This typically includes metadata such as search filters, ordering filters, pagination values, etc.
+The query parameters classes are simple value objects that represent metadata about the request. This typically includes search filters, ordering, pagination, etc.
 
 For example, the [IndividualQueryParameters](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Query/IndividualParameters.php) query parameters.
 
@@ -46,7 +46,7 @@ class IndividualParameters extends AbstractParameters
 
 ### Service
 
-The service classes are objects that contains methods to interact with a microservice. It also has the mapping information between a model and said microservice api endpoints.
+The service classes are objects that defines the methods to interact with microservices. It also contains the mappings data between models and microservice api endpoints.
 
 For example: the [IndividualService](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Service/IndividualService.php) service.
 
@@ -71,7 +71,7 @@ class IndividualService extends AbstractService
 
 ## Usage
 
-The example below represents a typical controller that contains 2 actions which interacts with the [Identities microservice][https://github.com/DigitalState/Identities]:
+The example below represents a typical controller that contains 2 actions which interacts with the [Identities microservice](https://github.com/DigitalState/Identities):
 
 ```php
 class IndividualController
