@@ -46,7 +46,7 @@ class IndividualParameters extends AbstractParameters
 
 ### Service
 
-The service classes are objects that defines the methods to interact with microservices.
+The service classes are objects that defines the methods which interacts with microservices. Services typically includes CRUD.
 
 For example: the [IndividualService](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Service/IndividualService.php) service:
 
