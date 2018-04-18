@@ -46,23 +46,13 @@ class IndividualParameters extends AbstractParameters
 
 ### Service
 
-The service classes are objects that defines the methods to interact with microservices. It also contains the mappings data between models and microservice api endpoints.
+The service classes are objects that defines the methods to interact with microservices.
 
 For example: the [IndividualService](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Service/IndividualService.php) service.
 
 ```php
 class IndividualService extends AbstractService
 {
-    protected static $map = [
-        'id',
-        'uuid',
-        'createdAt',
-        'updatedAt',
-        'owner',
-        'ownerUuid',
-        'version'
-    ];
-    
     public function getList(Parameters $parameters = null) {}
     public function get($id, Parameters $parameters = null) {}
     public function create(Individual $individual, Parameters $parameters = null) {}
