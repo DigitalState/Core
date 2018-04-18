@@ -4,11 +4,11 @@ The core repository provides a wide range of commonly used components for [Api P
 
 ## Table of Contents
 
-- [Documentation](#documentation)
+- [Components](#components)
 - [Contributing](#contributing)
 - [Credits](#credits)
 
-## Documentation
+## Components
 
 List of available components:
 
