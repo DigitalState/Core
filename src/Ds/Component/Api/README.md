@@ -7,10 +7,11 @@ This component comes by default with model mappings for all DigitalState microse
 ## Table of Contents
 
 - [Architecture](#architecture)
+- [Usage](#usage)
 
 ## Architecture
 
-The framework architecture comes with 3 basic class types: [Model](#model), [QueryParameter](#queryparameter) and [Service](#service).
+The framework architecture comes with 3 basic class types: [Model](#model), [QueryParameters](#queryparameters) and [Service](#service).
 
 ### Model
 
@@ -31,11 +32,11 @@ class Individual implements Model
 }
 ```
 
-### QueryParameter
+### QueryParameters
 
-The query parameter classes are simple value objects that represent metadata about the request. This typically includes metadata such as search filters, ordering filters, pagination values, etc.
+The query parameters classes are simple value objects that represent metadata about the request. This typically includes metadata such as search filters, ordering filters, pagination values, etc.
 
-For example, the [IndividualQueryParameter](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Query/IndividualParameters.php) query parameter.
+For example, the [IndividualQueryParameters](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Query/IndividualParameters.php) query parameters.
 
 ```php
 class IndividualParameters extends AbstractParameters
@@ -45,15 +46,58 @@ class IndividualParameters extends AbstractParameters
 
 ### Service
 
-The service classes are objects that contains the mapping information between a model and a microservice api endpoint and methods to interact with said microservice.
+The service classes are objects that contains methods to interact with a microservice. It also has the mapping information between a model and said microservice api endpoints.
 
 For example: the [IndividualService](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Api/Service/IndividualService.php) service.
 
 ```php
 class IndividualService extends AbstractService
 {
+    protected static $map = [
+        'id',
+        'uuid',
+        'createdAt',
+        'updatedAt',
+        'owner',
+        'ownerUuid',
+        'version'
+    ];
+    
     public function getList(Parameters $parameters = null) {}
     public function get($id, Parameters $parameters = null) {}
     public function create(Individual $individual, Parameters $parameters = null) {}
 }
 ```
+
+## Usage
+
+The example below represents a typical controller that contains 2 actions which interacts with the [Identities microservice][https://github.com/DigitalState/Identities]:
+
+```php
+class IndividualController
+{
+    public function indexAction()
+    {
+        $api = $this->container->get('ds_api.api');
+        $service = $api->get('identities.individual');
+        $individuals = $service->getList();
+        
+        foreach ($individuals as $individual) {
+            print_r($individual);
+        }
+    }
+    
+    public function createAction()
+    {
+        $api = $this->container->get('ds_api.api');
+        $service = $api->get('identities.individual');
+        $individual = new Individual;
+        $individual
+            ->setOwner('BusinessUnit')
+            ->setOwnerUuid('22a3d4a5-99c4-488c-98d0-6f217068a356');
+        $service->create($individual);
+        print_r($individual);
+    }
+}
+```
+
