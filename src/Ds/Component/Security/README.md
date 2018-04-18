@@ -64,9 +64,9 @@ In this section, we will give a usage example for each definition types: [Generi
 Consider the scenario below:
 
 - There is an entity class found at `AppBundle\Entity\Individual`, with the following properties: `uuid` and `createdAt`.
-- There is a CRUD api endpoint exposing the entity.
+- There is a CRUD api endpoint exposing the entity and is unprotected.
 - There is a Redis server caching database records.
-- There is an api endpoint exposing a clear-cache system functionality.
+- There is an api endpoint exposing a clear-cache system functionality and is unprotected.
 
 ### Generic
 
@@ -75,6 +75,8 @@ In order to setup a protection barrier against the clear-cache endpoint, we woul
 ```yml
 cache_clear: { attributes: [EXECUTE], type: generic, value: CacheClear }
 ```
+
+The definition above describes that our system functionality may be executed.
 
 ```php
 class CacheController
@@ -109,4 +111,6 @@ individual_created_at: { attributes: [BROWSE, READ, EDIT], type: property, value
 ```
 
 The definition above describes that our entity properties may be browsed, read or edited.
+
+At this point in time, the individual and clear-cache endpoints are protected. However, no one has been granted access yet.
 
