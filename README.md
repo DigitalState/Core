@@ -12,9 +12,9 @@ The core repository provides a wide range of commonly used components for [Api P
 
 List of available components:
 
-- [Api](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Api)
+### [Api Component](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Api)
 
-  The api component provides a flexible framework to define and map models to microservice apis. It enables the developer to work with php objects and functions instead of raw curl requests.
+The api component provides a flexible framework to define and map models to microservice apis. It enables the developer to work with php objects and functions instead of raw curl requests.
 
 - [Association](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Association)
 - [Audit](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Audit)
