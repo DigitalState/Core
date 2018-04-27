@@ -22,29 +22,22 @@ abstract class PermissionFixture extends ResourceFixture
         $permissions = $this->parse($this->getResource());
 
         foreach ($permissions as $permission) {
-            if (!is_array($permission['key'])) {
-                $permission['key'] = [$permission['key']];
+            if (!is_array($permission->key)) {
+                $permission->key = [$permission->key];
             }
 
-            foreach ($permission['key'] as $key) {
+            foreach ($permission->key as $key) {
                 $entity = new Permission;
                 $entity
-                    ->setAccess($manager->getRepository(Access::class)->findOneBy(['uuid' => $permission['access']]))
-                    ->setScope($permission['scope'])
-                    ->setEntity($permission['entity'])
-                    ->setEntityUuid($permission['entity_uuid'])
+                    ->setAccess($manager->getRepository(Access::class)->findOneBy(['uuid' => $permission->access]))
+                    ->setScope($permission->scope)
+                    ->setEntity($permission->entity)
+                    ->setEntityUuid($permission->entity_uuid)
                     ->setKey($key)
-                    ->setAttributes($permission['attributes']);
+                    ->setAttributes($permission->attributes);
                 $manager->persist($entity);
                 $manager->flush();
             }
         }
     }
-
-    /**
-     * Get resource
-     *
-     * @return string
-     */
-    abstract protected function getResource();
 }

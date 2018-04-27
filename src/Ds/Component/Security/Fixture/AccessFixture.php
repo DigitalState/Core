@@ -23,20 +23,13 @@ abstract class AccessFixture extends ResourceFixture
         foreach ($accesses as $access) {
             $entity = new Access;
             $entity
-                ->setUuid($access['uuid'])
-                ->setOwner($access['owner'])
-                ->setOwnerUuid($access['owner_uuid'])
-                ->setAssignee($access['assignee'])
-                ->setAssigneeUuid($access['assignee_uuid']);
+                ->setUuid($access->uuid)
+                ->setOwner($access->owner)
+                ->setOwnerUuid($access->owner_uuid)
+                ->setAssignee($access->assignee)
+                ->setAssigneeUuid($access->assignee_uuid);
             $manager->persist($entity);
             $manager->flush();
         }
     }
-
-    /**
-     * Get resource
-     *
-     * @return string
-     */
-    abstract protected function getResource();
 }
