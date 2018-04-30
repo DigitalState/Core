@@ -45,28 +45,21 @@ abstract class DeploymentFixture extends ResourceFixture
             $api->delete($deployment->getId(), $parameters);
         }
 
-        $deployments = $this->parse($this->getResource());
+        $objects = $this->parse($this->getResource());
 
-        foreach ($deployments as $deployment) {
-            $entry = new Deployment;
-            $entry
-                ->setName($deployment['name'])
+        foreach ($objects as $object) {
+            $deployment = new Deployment;
+            $deployment
+                ->setName($object->name)
                 ->setSource($source);
             $files = [];
 
-            foreach ($deployment['files'] as $file) {
+            foreach ($object->files as $file) {
                 $files[] = dirname(str_replace('{env}', $env, $this->getResource())).'/'.$file;
             }
 
-            $entry->setFiles($files);
-            $api->create($entry);
+            $deployment->setFiles($files);
+            $api->create($deployment);
         }
     }
-
-    /**
-     * Get resource
-     *
-     * @return string
-     */
-    abstract protected function getResource();
 }

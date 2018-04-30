@@ -43,23 +43,23 @@ abstract class FormFixture extends ResourceFixture
 
         $api = $this->container->get('ds_api.api')->get('formio.form');
         $api->setHeader('x-jwt-token', $token);
-        $forms = $this->parse($this->getResource());
+        $objects = $this->parse($this->getResource());
 
-        foreach ($forms as $form) {
+        foreach ($objects as $object) {
             try {
-                $api->delete($form['path']);
+                $api->delete($object->path);
             } catch (ValidationException $exception) {
                 // @todo this is so first time fixtures dont cause an error, handle "Invalid alias" better
             }
 
-            $entry = new Form;
+            $form = new Form;
             $submissionAccess = [];
 
-            foreach ($form['submission_access'] as $access) {
-                foreach ($access['roles'] as $key => $value) {
+            foreach ($object->submission_access as $access) {
+                foreach ($access->roles as $key => $value) {
                     foreach ($roles as $role) {
                         if ($role->getMachineName() === $value) {
-                            $access['roles'][$key] = $role->getId();
+                            $access->roles[$key] = $role->getId();
                             break;
                         }
                     }
@@ -68,23 +68,16 @@ abstract class FormFixture extends ResourceFixture
                 $submissionAccess[] = $access;
             }
 
-            $entry
-                ->setTitle($form['title'])
-                ->setDisplay($form['display'])
-                ->setType($form['type'])
-                ->setName($form['name'])
-                ->setPath($form['path'])
-                ->setTags($form['tags'])
-                ->setComponents($form['components'])
+            $form
+                ->setTitle($object->title)
+                ->setDisplay($object->display)
+                ->setType($object->type)
+                ->setName($object->name)
+                ->setPath($object->path)
+                ->setTags($object->tags)
+                ->setComponents($object->components)
                 ->setSubmissionAccess($submissionAccess);
-            $api->create($entry);
+            $api->create($form);
         }
     }
-
-    /**
-     * Get resource
-     *
-     * @return string
-     */
-    abstract protected function getResource();
 }
