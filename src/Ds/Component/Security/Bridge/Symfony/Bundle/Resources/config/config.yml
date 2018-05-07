@@ -21,8 +21,8 @@ ds_security:
         access_updated_at:    { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.updatedAt,    title: ds.security.permissions.access.updated_at    }
         access_owner:         { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.owner,        title: ds.security.permissions.access.owner         }
         access_owner_uuid:    { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.ownerUuid,    title: ds.security.permissions.access.owner_uuid    }
-        access_identity:      { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.identity,     title: ds.security.permissions.access.identity      }
-        access_identity_uuid: { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.identityUuid, title: ds.security.permissions.access.identity_uuid }
+        access_assignee:      { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.assignee,     title: ds.security.permissions.access.assignee      }
+        access_assignee_uuid: { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.assigneeUuid, title: ds.security.permissions.access.assignee_uuid }
         access_permissions:   { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.permissions,  title: ds.security.permissions.access.permissions   }
         access_version:       { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.version,      title: ds.security.permissions.access.version       }
         permissions_list:     { attributes: [BROWSE, READ],                             generic:  PermissionsList,                                  title: ds.security.permissions.permissions.list     }
