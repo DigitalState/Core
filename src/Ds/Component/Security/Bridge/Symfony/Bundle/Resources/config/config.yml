@@ -24,4 +24,5 @@ ds_security:
         access_identity:      { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.identity,     title: ds.security.permissions.access.identity      }
         access_identity_uuid: { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.identityUuid, title: ds.security.permissions.access.identity_uuid }
         access_permissions:   { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.permissions,  title: ds.security.permissions.access.permissions   }
+        access_version:       { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.version,      title: ds.security.permissions.access.version       }
         permissions_list:     { attributes: [BROWSE, READ],                             generic:  PermissionsList,                                  title: ds.security.permissions.permissions.list     }
