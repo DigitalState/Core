@@ -22,7 +22,7 @@ trait IdentityUuid
     {
         if (null !== $identityUuid) {
             if (!preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $identityUuid)) {
-                throw new InvalidArgumentException('Owner uuid is not valid.');
+                throw new InvalidArgumentException('Identity uuid is not valid.');
             }
         }
 
