@@ -1,0 +1,6 @@
+parameters:
+  ds_tenant.doctrine.orm.filter.tenant.class: Ds\Component\Tenant\Doctrine\ORM\Filter\TenantFilter
+  ds_tenant.event_listener.tenant.class: Ds\Component\Tenant\EventListener\TenantListener
+  ds_tenant.event_listener.tenantable.class: Ds\Component\Tenant\EventListener\TenantableListener
+  ds_tenant.event_listener.token.tenant.class: Ds\Component\Tenant\EventListener\Token\TenantListener
+  ds_tenant.service.tenant.class: Ds\Component\Tenant\Service\TenantService

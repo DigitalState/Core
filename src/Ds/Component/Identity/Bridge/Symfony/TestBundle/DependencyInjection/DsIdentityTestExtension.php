@@ -22,7 +22,7 @@ class DsIdentityTestExtension extends Extension implements PrependExtensionInter
     public function prepend(ContainerBuilder $container)
     {
         $container->prependExtensionConfig('ds_identity_test', [
-            'identities' => []
+            'identity' => []
         ]);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
@@ -41,18 +41,18 @@ class DsIdentityTestExtension extends Extension implements PrependExtensionInter
         $configuration = new Configuration;
         $config = $this->processConfiguration($configuration, $configs);
 
-        $this->loadIdentities($config['identities'], $container);
+        $this->loadIdentity($config['identity'], $container);
     }
 
     /**
-     * Load identities
+     * Load test identity elements
      *
-     * @param array $identities
+     * @param array $identity
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected function loadIdentities(array $identities, ContainerBuilder $container)
+    protected function loadIdentity(array $identity, ContainerBuilder $container)
     {
         $definition = $container->findDefinition('ds_identity_test.collection.identity');
-        $definition->setArguments([$identities]);
+        $definition->setArguments([$identity]);
     }
 }

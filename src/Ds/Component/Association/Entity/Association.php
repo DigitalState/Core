@@ -9,6 +9,8 @@ use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Versionable;
 use Ds\Component\Security\Model\Type\Secured;
+use Ds\Component\Tenant\Model\Attribute\Accessor as TenantAccessor;
+use Ds\Component\Tenant\Model\Type\Tenantable;
 use Knp\DoctrineBehaviors\Model As Behavior;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
@@ -21,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package Ds\Component\Association
  */
-class Association implements Identifiable, Uuidentifiable, Associable, Ownable, Versionable, Secured
+class Association implements Identifiable, Uuidentifiable, Associable, Ownable, Versionable, Tenantable, Secured
 {
     use Behavior\Timestampable\Timestampable;
     use Behavior\SoftDeletable\SoftDeletable;
@@ -33,6 +35,7 @@ class Association implements Identifiable, Uuidentifiable, Associable, Ownable, 
     use Accessor\Owner;
     use Accessor\OwnerUuid;
     use Accessor\Version;
+    use TenantAccessor\Tenant;
 
     /**
      * @var integer
@@ -124,4 +127,13 @@ class Association implements Identifiable, Uuidentifiable, Associable, Ownable, 
      * @Assert\Type("integer")
      */
     protected $version;
+
+    /**
+     * @var string
+     * @ApiProperty
+     * @Serializer\Groups({"association_output"})
+     * @ORM\Column(name="tenant", type="guid")
+     * @Assert\Uuid
+     */
+    protected $tenant;
 }

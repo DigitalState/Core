@@ -6,6 +6,7 @@ use Behat\Behat\Context\Context;
 use Behatch\HttpCall\Request;
 use DomainException;
 use Ds\Component\Identity\Collection\IdentityCollection;
+use Ds\Component\Security\User\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 /**
@@ -45,16 +46,23 @@ class IdentityContext implements Context
     }
 
     /**
-     * @Given I am authenticated as the :identity identity
+     * Set authorization header
+     *
+     * @Given I am authenticated as the :identity identity from the tenant :tenant
+     * @param string $identity
+     * @param string $tenant
      */
-    public function iAmAuthenticatedAsTheIdentity($identity)
+    public function iAmAuthenticatedAsTheIdentityFromTheTenant($identity, $tenant)
     {
-        if (!$this->identityCollection->containsKey($identity)) {
+        $element = $this->identityCollection->filter(function(User $element) use ($identity, $tenant) {
+            return $element->getIdentity() === $identity && $element->getTenant() === $tenant;
+        })->first();
+
+        if (!$element) {
             throw new DomainException('Identity does not exist.');
         }
 
-        $identity = $this->identityCollection->get($identity);
-        $token = $this->tokenManager->create($identity);
+        $token = $this->tokenManager->create($element);
         $this->request->setHttpHeader('Authorization', 'Bearer '.$token);
     }
 }

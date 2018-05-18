@@ -34,7 +34,8 @@ abstract class PermissionFixture extends ResourceFixture
                     ->setEntity($permission->entity)
                     ->setEntityUuid($permission->entity_uuid)
                     ->setKey($key)
-                    ->setAttributes($permission->attributes);
+                    ->setAttributes($permission->attributes)
+                    ->setTenant($permission->tenant);
                 $manager->persist($entity);
                 $manager->flush();
             }

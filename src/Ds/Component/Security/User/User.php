@@ -22,7 +22,8 @@ class User implements AdvancedUserInterface, JWTUserInterface
             $payload['uuid'] ?? null,
             $payload['roles'] ?? [],
             $payload['identity'] ?? null,
-            $payload['identityUuid'] ?? null
+            $payload['identityUuid'] ?? null,
+            $payload['tenant'] ?? null
         );
     }
 
@@ -52,6 +53,11 @@ class User implements AdvancedUserInterface, JWTUserInterface
     protected $identityUuid;
 
     /**
+     * @var string
+     */
+    protected $tenant;
+
+    /**
      * Constructor
      *
      * @param string $username
@@ -59,14 +65,16 @@ class User implements AdvancedUserInterface, JWTUserInterface
      * @param array $roles
      * @param string $identity
      * @param string $identityUuid
+     * @param string $tenant
      */
-    public function __construct($username, $uuid = null, array $roles = [], $identity = null, $identityUuid = null)
+    public function __construct($username, $uuid = null, array $roles = [], $identity = null, $identityUuid = null, $tenant = null)
     {
         $this->username = $username;
         $this->uuid = $uuid;
         $this->roles = $roles;
         $this->identity = $identity;
         $this->identityUuid = $identityUuid;
+        $this->tenant = $tenant;
     }
 
     /**
@@ -107,6 +115,14 @@ class User implements AdvancedUserInterface, JWTUserInterface
     public function getIdentityUuid()
     {
         return $this->identityUuid;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTenant()
+    {
+        return $this->tenant;
     }
 
     /**

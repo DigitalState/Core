@@ -1,11 +1,11 @@
-@component @entity @config @browse
+@component @api @entity @config @browse
 Feature: Browse configs
   In order to browse configs
   As a system identity
   I should be able to send api requests related to configs
 
   Background:
-    Given I am authenticated as the "system" identity
+    Given I am authenticated as the "System" identity from the tenant "b6ac25fe-3cd6-4100-a054-6bba2fc9ef18"
 
   @createSchema @loadFixtures @dropSchema
   Scenario: Browse all permissions

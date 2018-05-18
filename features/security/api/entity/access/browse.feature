@@ -1,11 +1,11 @@
-@component @entity @access @browse
+@component @api @entity @access @browse
 Feature: Browse accesses
   In order to browse accesses
   As a system identity
   I should be able to send api requests related to accesses
 
   Background:
-    Given I am authenticated as the "system" identity
+    Given I am authenticated as the "System" identity from the tenant "b6ac25fe-3cd6-4100-a054-6bba2fc9ef18"
 
   @createSchema @loadFixtures @dropSchema
   Scenario: Browse all permissions

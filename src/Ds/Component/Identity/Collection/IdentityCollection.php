@@ -16,69 +16,69 @@ class IdentityCollection extends ArrayCollection
     /**
      * {@inheritdoc}
      */
-    public function __construct(array $identities = [])
+    public function __construct(array $elements = [])
     {
-        foreach ($identities as $key => $identity) {
-            $identities[$key] = $this->cast($identity);
+        foreach ($elements as $key => $element) {
+            $elements[$key] = $this->cast($element);
         }
 
-        parent::__construct($identities);
+        parent::__construct($elements);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function removeElement($identity)
+    public function removeElement($element)
     {
-        $identity = $this->cast($identity);
+        $element = $this->cast($element);
 
-        return parent::removeElement($identity);
+        return parent::removeElement($element);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function contains($identity)
+    public function contains($element)
     {
-        $identity = $this->cast($identity);
+        $element = $this->cast($element);
 
-        return parent::contains($identity);
+        return parent::contains($element);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function indexOf($identity)
+    public function indexOf($element)
     {
-        $identity = $this->cast($identity);
+        $element = $this->cast($element);
 
-        return parent::indexOf($identity);
+        return parent::indexOf($element);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function set($key, $identity)
+    public function set($key, $element)
     {
-        $identity = $this->cast($identity);
+        $element = $this->cast($element);
 
-        return parent::set($key, $identity);
+        return parent::set($key, $element);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function add($identity)
+    public function add($element)
     {
-        $identity = $this->cast($identity);
+        $element = $this->cast($element);
 
-        return parent::add($identity);
+        return parent::add($element);
     }
 
     /**
      * Cast element to user identity object
      *
-     * @param $element
+     * @param mixed $element
      * @return \Ds\Component\Security\User\User
      * @throws \InvalidArgumentException
      */
@@ -91,7 +91,7 @@ class IdentityCollection extends ArrayCollection
             throw new InvalidArgumentException('Element is not an array.');
         }
 
-        foreach (['username', 'uuid', 'roles', 'identity', 'identityUuid'] as $key) {
+        foreach (['username', 'uuid', 'roles', 'identity', 'identityUuid', 'tenant'] as $key) {
             if (!array_key_exists($key, $element)) {
                 throw new InvalidArgumentException('Element is missing key "'.$key.'".');
             }

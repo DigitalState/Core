@@ -1,0 +1,6 @@
+services:
+  ds_tenant.service.tenant:
+    class: '%ds_tenant.service.tenant.class%'
+    arguments:
+      - '@request_stack'
+      - '@security.token_storage'

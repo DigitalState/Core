@@ -27,7 +27,8 @@ abstract class AccessFixture extends ResourceFixture
                 ->setOwner($access->owner)
                 ->setOwnerUuid($access->owner_uuid)
                 ->setAssignee($access->assignee)
-                ->setAssigneeUuid($access->assignee_uuid);
+                ->setAssigneeUuid($access->assignee_uuid)
+                ->setTenant($access->tenant);
             $manager->persist($entity);
             $manager->flush();
         }

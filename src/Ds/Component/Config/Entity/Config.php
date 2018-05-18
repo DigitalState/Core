@@ -8,6 +8,8 @@ use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Type\Versionable;
 use Ds\Component\Model\Attribute\Accessor;
 use Ds\Component\Security\Model\Type\Secured;
+use Ds\Component\Tenant\Model\Attribute\Accessor as TenantAccessor;
+use Ds\Component\Tenant\Model\Type\Tenantable;
 use Knp\DoctrineBehaviors\Model as Behavior;
 
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -40,12 +42,17 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  *     }
  * )
  * @ORM\Entity(repositoryClass="Ds\Component\Config\Repository\ConfigRepository")
- * @ORM\Table(name="ds_config")
+ * @ORM\Table(
+ *     name="ds_config",
+ *     uniqueConstraints={
+ *         @ORM\UniqueConstraint(columns={"key", "tenant"})
+ *     }
+ * )
  * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @ORMAssert\UniqueEntity(fields="uuid")
- * @ORMAssert\UniqueEntity(fields="key")
+ * @ORMAssert\UniqueEntity(fields={"key", "tenant"})
  */
-class Config implements Identifiable, Uuidentifiable, Ownable, Versionable, Secured
+class Config implements Identifiable, Uuidentifiable, Ownable, Versionable, Tenantable, Secured
 {
     use Behavior\Timestampable\Timestampable;
 
@@ -57,6 +64,7 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Versionable, Secu
     use Accessor\Value;
     use Accessor\Enabled;
     use Accessor\Version;
+    use TenantAccessor\Tenant;
 
     /**
      * @var integer
@@ -115,7 +123,7 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Versionable, Secu
      * @var string
      * @ApiProperty(writable=false)
      * @Serializer\Groups({"config_output"})
-     * @ORM\Column(name="`key`", type="string", unique=true)
+     * @ORM\Column(name="`key`", type="string")
      * @Assert\NotBlank
      * @Assert\Length(min=1, max=255)
      */
@@ -148,6 +156,15 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Versionable, Secu
      * @Assert\Type("integer")
      */
     protected $version;
+
+    /**
+     * @var string
+     * @ApiProperty
+     * @Serializer\Groups({"config_output"})
+     * @ORM\Column(name="tenant", type="guid")
+     * @Assert\Uuid
+     */
+    protected $tenant;
 
     /**
      * Constructor

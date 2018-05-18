@@ -9,6 +9,8 @@ use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Type\Versionable;
 use Ds\Component\Model\Attribute\Accessor;
 use Ds\Component\Security\Model\Type\Secured;
+use Ds\Component\Tenant\Model\Attribute\Accessor as TenantAccessor;
+use Ds\Component\Tenant\Model\Type\Tenantable;
 use Knp\DoctrineBehaviors\Model as Behavior;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -39,7 +41,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @ORMAssert\UniqueEntity(fields="uuid")
  */
-class Access implements Identifiable, Uuidentifiable, Ownable, Assignable, Versionable, Secured
+class Access implements Identifiable, Uuidentifiable, Ownable, Assignable, Versionable, Tenantable, Secured
 {
     use Behavior\Timestampable\Timestampable;
 
@@ -50,6 +52,7 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Assignable, Versi
     use Accessor\Assignee;
     use Accessor\AssigneeUuid;
     use Accessor\Version;
+    use TenantAccessor\Tenant;
 
     /**
      * @var integer
@@ -195,6 +198,15 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Assignable, Versi
      * @Assert\Type("integer")
      */
     protected $version;
+
+    /**
+     * @var string
+     * @ApiProperty
+     * @Serializer\Groups({"access_output"})
+     * @ORM\Column(name="tenant", type="guid")
+     * @Assert\Uuid
+     */
+    protected $tenant;
 
     /**
      * Constructor

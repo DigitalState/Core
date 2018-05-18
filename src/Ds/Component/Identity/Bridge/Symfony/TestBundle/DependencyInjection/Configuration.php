@@ -22,35 +22,22 @@ class Configuration implements ConfigurationInterface
         $node = $builder->root('ds_identity_test');
         $node
             ->children()
-                ->append($this->getIdentitiesNode())
-            ->end();
-
-        return $builder;
-    }
-
-    /**
-     * Get identities node
-     *
-     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition|\Symfony\Component\Config\Definition\Builder\NodeDefinition
-     */
-    protected function getIdentitiesNode()
-    {
-        $builder = new TreeBuilder;
-        $node = $builder->root('identities');
-        $node
-            ->useAttributeAsKey('name')
-            ->prototype('array')
-                ->children()
-                    ->scalarNode('username')->end()
-                    ->scalarNode('uuid')->end()
-                    ->arrayNode('roles')
-                        ->prototype('scalar')->end()
+                ->arrayNode('identity')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('username')->end()
+                            ->scalarNode('uuid')->end()
+                            ->arrayNode('roles')
+                                ->prototype('scalar')->end()
+                            ->end()
+                            ->enumNode('identity')->values([Identity::SYSTEM, Identity::STAFF, Identity::ORGANIZATION, Identity::INDIVIDUAL, Identity::ANONYMOUS])->end()
+                            ->scalarNode('identityUuid')->end()
+                            ->scalarNode('tenant')->end()
+                        ->end()
                     ->end()
-                    ->enumNode('identity')->values([Identity::SYSTEM, Identity::STAFF, Identity::ORGANIZATION, Identity::INDIVIDUAL, Identity::ANONYMOUS])->end()
-                    ->scalarNode('identityUuid')->end()
                 ->end()
             ->end();
 
-        return $node;
+        return $builder;
     }
 }

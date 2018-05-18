@@ -1,11 +1,11 @@
-@component @health @browse
+@component @api @health @browse
 Feature: Browse health statuses
   In order to browse health statuses
   As a system identity
   I should be able to send api requests related to health statuses
 
   Background:
-    Given I am authenticated as the "system" identity
+    Given I am authenticated as the "System" identity from the tenant "b6ac25fe-3cd6-4100-a054-6bba2fc9ef18"
 
   @createSchema @loadFixtures @dropSchema
   Scenario: Browse all health statuses

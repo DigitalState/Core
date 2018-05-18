@@ -5,6 +5,8 @@ namespace Ds\Component\Security\Entity;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Attribute\Accessor;
 use Ds\Component\Security\Entity\Attribute\Accessor as EntityAccessor;
+use Ds\Component\Tenant\Model\Attribute\Accessor as TenantAccessor;
+use Ds\Component\Tenant\Model\Type\Tenantable;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
@@ -32,7 +34,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * @ORM\Table(name="ds_access_permission")
  * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  */
-class Permission implements Identifiable, Secured
+class Permission implements Identifiable, Tenantable, Secured
 {
     use Accessor\Id;
     use Accessor\Entity;
@@ -43,6 +45,7 @@ class Permission implements Identifiable, Secured
     use Accessor\Type;
     use Accessor\Value;
     use Accessor\Attributes;
+    use TenantAccessor\Tenant;
 
     /**
      * @const string
@@ -131,4 +134,13 @@ class Permission implements Identifiable, Secured
      * })
      */
     protected $attributes;
+
+    /**
+     * @var string
+     * @ApiProperty
+     * @Serializer\Groups({"permission_output"})
+     * @ORM\Column(name="tenant", type="guid")
+     * @Assert\Uuid
+     */
+    protected $tenant;
 }

@@ -25,4 +25,5 @@ ds_security:
         access_assignee_uuid: { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.assigneeUuid, title: ds.security.permissions.access.assignee_uuid }
         access_permissions:   { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.permissions,  title: ds.security.permissions.access.permissions   }
         access_version:       { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.version,      title: ds.security.permissions.access.version       }
+        access_tenant:        { attributes: [BROWSE, READ, EDIT],                       property: Ds\Component\Security\Entity\Access.tenant,       title: ds.security.permissions.access.tenant        }
         permissions_list:     { attributes: [BROWSE, READ],                             generic:  PermissionsList,                                  title: ds.security.permissions.permissions.list     }
