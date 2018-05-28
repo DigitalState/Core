@@ -45,6 +45,7 @@ class DsApiExtension extends Extension implements PrependExtensionInterface
         $loader->load('collections.yml');
         $loader->load('resolvers.yml');
         $loader->load('services.yml');
+        $loader->load('tenants.yml');
 
         // @todo Move this config -> parameters logic to a common trait in the config component bridge
         $container->setParameter('ds_config.configs.ds_api.user.username', $config['user']['username']);
