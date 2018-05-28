@@ -32,6 +32,8 @@ class DsTenantExtension extends Extension implements PrependExtensionInterface
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
+        $loader->load('collections.yml');
+        $loader->load('commands.yml');
         $loader->load('event_listeners.yml');
         $loader->load('services.yml');
     }

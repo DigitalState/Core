@@ -4,3 +4,4 @@ services:
     arguments:
       - '@request_stack'
       - '@security.token_storage'
+      - '@ds_tenant.collection.initializer'

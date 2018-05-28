@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Tenant\Service;
 
+use Ds\Component\Tenant\Collection\InitializerCollection;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -23,15 +24,22 @@ class TenantService
     protected $tokenStorage;
 
     /**
+     * @var \Ds\Component\Tenant\Collection\InitializerCollection
+     */
+    protected $initializerCollection;
+
+    /**
      * Constructor
      *
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
+     * @param \Ds\Component\Tenant\Collection\InitializerCollection $initializerCollection
      */
-    public function __construct(RequestStack $requestStack, TokenStorageInterface $tokenStorage)
+    public function __construct(RequestStack $requestStack, TokenStorageInterface $tokenStorage, InitializerCollection $initializerCollection)
     {
         $this->requestStack = $requestStack;
         $this->tokenStorage = $tokenStorage;
+        $this->initializerCollection = $initializerCollection;
     }
 
     /**
@@ -39,7 +47,7 @@ class TenantService
      *
      * @return string
      */
-    public function getTenant()
+    public function getContext()
     {
         $tenant = null;
         $request = $this->requestStack->getCurrentRequest();
@@ -58,5 +66,21 @@ class TenantService
         }
 
         return $tenant;
+    }
+
+    /**
+     * Initialize tenant
+     *
+     * @param array $data
+     * @return \Ds\Component\Tenant\Service\TenantService
+     * @throws \InvalidArgumentException
+     */
+    public function initialize(array $data)
+    {
+        foreach ($this->initializerCollection as $initializer) {
+            $initializer->initialize($data);
+        }
+
+        return $this;
     }
 }

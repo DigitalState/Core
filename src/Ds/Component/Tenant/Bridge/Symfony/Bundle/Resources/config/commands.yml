@@ -1,0 +1,7 @@
+services:
+  ds_tenant.command.tenant.create:
+    class: '%ds_tenant.command.tenant.create.class%'
+    arguments:
+      - '@ds_tenant.service.tenant'
+    tags:
+      - { name: console.command }

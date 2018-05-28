@@ -1,6 +1,8 @@
 parameters:
+  ds_tenant.collection.initializer.class: Ds\Component\Tenant\Collection\InitializerCollection
+  ds_tenant.command.tenant.create.class: Ds\Component\Tenant\Command\Tenant\CreateCommand
   ds_tenant.doctrine.orm.filter.tenant.class: Ds\Component\Tenant\Doctrine\ORM\Filter\TenantFilter
-  ds_tenant.event_listener.tenant.class: Ds\Component\Tenant\EventListener\TenantListener
+  ds_tenant.event_listener.context.class: Ds\Component\Tenant\EventListener\ContextListener
   ds_tenant.event_listener.tenantable.class: Ds\Component\Tenant\EventListener\TenantableListener
   ds_tenant.event_listener.token.tenant.class: Ds\Component\Tenant\EventListener\Token\TenantListener
   ds_tenant.service.tenant.class: Ds\Component\Tenant\Service\TenantService

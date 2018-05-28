@@ -1,0 +1,3 @@
+services:
+    ds_tenant.collection.initializer:
+        class: '%ds_tenant.collection.initializer.class%'

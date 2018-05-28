@@ -1,17 +1,17 @@
 services:
-  ds_tenant.event_listener.tenant:
-    class: '%ds_tenant.event_listener.tenant.class%'
+  ds_tenant.event_listener.context:
+    class: '%ds_tenant.event_listener.context.class%'
     arguments:
       - '@doctrine.orm.entity_manager'
       - '@ds_tenant.service.tenant'
     tags:
-      - { name: kernel.event_listener, event: kernel.request, method: onPreAuthentication, priority: 255 }
-      - { name: kernel.event_listener, event: kernel.request, method: onPostAuthentication, priority: 5 }
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 255 }
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 5 }
 
   ds_tenant.event_listener.tenantable:
     class: '%ds_tenant.event_listener.tenantable.class%'
     arguments:
-      - '@ds_tenant.service.tenant'
+      - '@service_container'
     tags:
       - { name: doctrine.event_listener, event: prePersist }
 

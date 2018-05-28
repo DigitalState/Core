@@ -4,7 +4,7 @@ namespace Ds\Component\Tenant\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ds\Component\Tenant\Model\Type\Tenantable;
-use Ds\Component\Tenant\Service\TenantService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class TenantableListener
@@ -14,18 +14,18 @@ use Ds\Component\Tenant\Service\TenantService;
 class TenantableListener
 {
     /**
-     * @var \Ds\Component\Tenant\Service\TenantService
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    protected $tenantService;
+    protected $container;
 
     /**
      * Constructor
      *
-     * @param \Ds\Component\Tenant\Service\TenantService $tenantService
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      */
-    public function __construct(TenantService $tenantService)
+    public function __construct(ContainerInterface $container)
     {
-        $this->tenantService = $tenantService;
+        $this->container = $container;
     }
 
     /**
@@ -35,6 +35,10 @@ class TenantableListener
      */
     public function prePersist(LifecycleEventArgs $args)
     {
+        // @todo Fix circular logic error
+        $tenantService = $this->container->get('ds_tenant.service.tenant');
+        //
+
         $entity = $args->getEntity();
 
         if (!$entity instanceof Tenantable) {
@@ -45,7 +49,7 @@ class TenantableListener
             return;
         }
 
-        $tenant = $this->tenantService->getTenant();
+        $tenant = $tenantService->getContext();
         $entity->setTenant($tenant);
     }
 }

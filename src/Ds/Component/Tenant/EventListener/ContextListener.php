@@ -7,11 +7,11 @@ use Ds\Component\Tenant\Doctrine\ORM\Filter\TenantFilter;
 use Ds\Component\Tenant\Service\TenantService;
 
 /**
- * Class TenantListener
+ * Class ContextListener
  *
  * @package Ds\Component\Tenant
  */
-class TenantListener
+class ContextListener
 {
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -36,23 +36,13 @@ class TenantListener
     }
 
     /**
-     * Determine the contextual tenant prior to authentication
+     * Determine the contextual tenant
      */
-    public function onPreAuthentication()
+    public function onKernelRequest()
     {
         $this->entityManager->getConfiguration()->addFilter('tenant', TenantFilter::class);
         $filter = $this->entityManager->getFilters()->enable('tenant');
-        $tenant = $this->tenantService->getTenant();
-        $filter->setParameter('tenant', (string) $tenant);
-    }
-
-    /**
-     * Determine the contextual tenant after authentication
-     */
-    public function onPostAuthentication()
-    {
-        $filter = $this->entityManager->getFilters()->enable('tenant');
-        $tenant = $this->tenantService->getTenant();
+        $tenant = $this->tenantService->getContext();
         $filter->setParameter('tenant', (string) $tenant);
     }
 }
