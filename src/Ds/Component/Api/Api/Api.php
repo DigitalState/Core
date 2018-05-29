@@ -90,7 +90,8 @@ class Api
             $roles = ['ROLE_USER', $this->configService->get('ds_api.user.roles')]; // @todo Allow configs to be arrays (which will also allow to remove the hard coded ROLE_USER)
             $identity = $this->configService->get('ds_api.user.identity');
             $identityUuid = $this->configService->get('ds_api.user.identity_uuid');
-            $user = User::createFromPayload($username, compact('uuid', 'roles', 'identity', 'identityUuid'));
+            $tenant = $this->configService->get('ds_api.user.tenant');
+            $user = User::createFromPayload($username, compact('uuid', 'roles', 'identity', 'identityUuid', 'tenant'));
             $this->token = $this->tokenManager->create($user);
         }
 
