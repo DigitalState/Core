@@ -36,7 +36,8 @@ class IndividualPersonaService extends AbstractService
         'individual',
         'title',
         'data',
-        'version'
+        'version',
+        'tenant'
     ];
 
     /**

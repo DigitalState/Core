@@ -22,6 +22,7 @@ class IndividualPersona implements Model
     use Attribute\Title;
     use Attribute\Data;
     use Attribute\Version;
+    use Attribute\Tenant;
 
     /**
      * Constructor

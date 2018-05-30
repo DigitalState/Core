@@ -18,6 +18,7 @@ class Organization implements Model
     use Attribute\Owner;
     use Attribute\OwnerUuid;
     use Attribute\Version;
+    use Attribute\Tenant;
 
     /**
      * Constructor

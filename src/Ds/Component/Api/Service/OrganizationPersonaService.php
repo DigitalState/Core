@@ -36,7 +36,8 @@ class OrganizationPersonaService extends AbstractService
         'organization',
         'title',
         'data',
-        'version'
+        'version',
+        'tenant'
     ];
 
     /**

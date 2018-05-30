@@ -33,7 +33,8 @@ class IndividualService extends AbstractService
         'updatedAt',
         'owner',
         'ownerUuid',
-        'version'
+        'version',
+        'tenant'
     ];
 
     /**
