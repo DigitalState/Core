@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Tenant\Service;
 
+use Ds\Component\Security\User\User;
 use Ds\Component\Tenant\Collection\InitializerCollection;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -62,7 +63,10 @@ class TenantService
 
         if ($token) {
             $user = $token->getUser();
-            $tenant = $user->getTenant();
+
+            if ($user instanceof User) {
+                $tenant = $user->getTenant();
+            }
         }
 
         return $tenant;
