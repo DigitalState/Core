@@ -38,9 +38,19 @@ class ContextListener
     /**
      * Determine the contextual tenant
      */
-    public function onKernelRequest()
+    public function onPreAuthentication()
     {
         $this->entityManager->getConfiguration()->addFilter('tenant', TenantFilter::class);
+        $filter = $this->entityManager->getFilters()->enable('tenant');
+        $tenant = $this->tenantService->getContext();
+        $filter->setParameter('tenant', (string) $tenant);
+    }
+
+    /**
+     * Determine the contextual tenant
+     */
+    public function onPostAuthentication()
+    {
         $filter = $this->entityManager->getFilters()->enable('tenant');
         $tenant = $this->tenantService->getContext();
         $filter->setParameter('tenant', (string) $tenant);
