@@ -12,18 +12,20 @@ This part of the documentation assumes you are familiar with the Symfony framewo
 ## Synopsis
 
 1. Activate the acl library.
-2. Create a Doctrine entity and expose it with ApiPlatform.
+2. Create a Doctrine entity and expose it as an api with ApiPlatform.
 3. Protect your entity from public access.
 4. Create definitions which describes how your protected entity can be accessed.
 5. Grant users access to your protected entity.
 
 ## Framework
 
-In order to better understand the ACL framework, we will go through each steps required for creating an entity and fully protecting it.
+In order to better understand the ACL framework, we will go through each steps required for creating a new Doctrine entity, exposing it as an api endpoing and fully protecting it using the ACL framework.
 
 ### 1. Activate the acl library
 
 To begin, you will need to enable the security bundle in the Symfony app kernel:
+
+__app/AppKernel.php__
 
 ```
     // ...
@@ -43,6 +45,8 @@ To begin, you will need to enable the security bundle in the Symfony app kernel:
 
 Additionally, the acl library needs to be enabled in the Symfony configurations:
 
+__app/config/config.yml__
+
 ```
 // ...
 
@@ -50,13 +54,15 @@ ds_security:
     acl: true
 ```
 
-### 2. Create a Doctrine entity and expose it with ApiPlatform
+### 2. Create a Doctrine entity and expose it as an api with ApiPlatform
 
 For the purpose of this demo, we will be creating a directory listing of services.
 
 Services represents government-offered services available to its citizen. For example: "Report a Pothole", "Request a Birth Certificate", etc.
 
-In order to create such listing, we will create a new Doctrine entity named `Service` and annotate it with ApiPlatform to expose it as a JSON-based api endpoint at `/services`:
+In order to create such listing, we will create a new Doctrine entity named `Service` and annotate it with ApiPlatform in order to expose it as a JSON-based api endpoint at `/services`:
+
+__src/AppBundle/Entity/Service.php__
 
 ```
 <?php
@@ -92,12 +98,6 @@ class Service
      * @ORM\Column(name="description", type="string")
      */
     protected $description;
-
-    /**
-     * @ApiProperty
-     * @ORM\Column(name="notes", type="string")
-     */
-    protected $notes;
 }
 
 ```
@@ -140,9 +140,11 @@ will return a `201 CREATED` response with body:
 }
 ```
 
-### 3. Protect your resource from public access
+### 3. Protect your entity from public access
 
-Protecting a resource is fairly straight forward. Simply implementing the `Secured` interface will protect the resource:
+Protecting an entity is fairly straight forward. Simply implementing the `Secured` interface will protect the entity:
+
+__src/AppBundle/Entity/Service.php__
 
 ```
 <?php
@@ -158,15 +160,9 @@ class Service implements Secured
 
 ```
 
-The ACL library is integrated with the ApiPlatform framework through it's event system and will properly omit any protected data from read or write access.
+The ACL library is integrated with the ApiPlatform framework through it's event system and will properly omit any protected data from read or write access based on the granted permissions.
 
-Sending an HTTP GET request to `/services` will still return a `200 OK`. However, the response body will be an empty collection:
-
-```
-[]
-```
-
-This is due to the fact that no one has been granted read access to the service entity
+Sending an HTTP GET request to `/services` will return a `403 FORBIDDEN`.
 
 Sending an HTTP POST request to `/services` with body:
 
@@ -178,6 +174,8 @@ Sending an HTTP POST request to `/services` with body:
 ```
 
 will now return a `403 FORBIDDEN` response.
+
+This is due to the fact that no one has been granted read or write access to the service entity.
 
 4. Create permission definitions which describes how your protected resources can be accessed
 
