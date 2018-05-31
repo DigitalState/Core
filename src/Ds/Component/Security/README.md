@@ -1,10 +1,32 @@
 # Security
 
-The security component provides a flexible framework to define acl in order to protect data and system functionality.
+The security component provides a framework and a wide range of libraries related to securing various resources in the system.
 
-It features object and field level acl, powerful permission scope granting and is compatible with the symfony security layer.
+It features a powerful ACL, extended JWT token protection and advanced security filters based on metadata.
 
-It focuses on a decentralized approach, meaning each microservice is in charge of its own acl.
+## Table of Contents
+
+- [ACL](Bridge/Symfony/Bundle/Resources/documentation/acl.md)
+- [JWT](Bridge/Symfony/Bundle/Resources/documentation/jwt.md)
+- [Filters](Bridge/Symfony/Bundle/Resources/documentation/filters.md)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Table of Contents
 
