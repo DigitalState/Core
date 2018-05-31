@@ -248,7 +248,7 @@ __Alex's access card__
 }
 ```
 
-Here, we want Alex to have full access to the `Service` entity so that he may manage all services. The access card above essentially grants Alex all permissions possible on the `Service` entity. Alex may `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE` services and access all properties of the `Service` entity.
+Here, we want Alex to have full access to the `Service` entity so that he may manage all services. The access card above essentially grants Alex all permissions possible on the `Service` entity. Alex may `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE` any `Service` entities and `BROWSE`, `READ` and `EDIT` any properties of the `Service` entity.
 
 __Morgan's access card__
 
