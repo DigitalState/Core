@@ -1,6 +1,6 @@
 # ACL
 
-The ACL library provides a flexible framework for defining permissions and granting access on protected resources such as database records and system functionality.
+The ACL library provides a flexible framework for defining permissions and granting access to protected resources such as database records and system functionality.
 
 ## Table of Contents
 
@@ -11,8 +11,8 @@ The ACL library provides a flexible framework for defining permissions and grant
 
 1. Activate the acl library.
 2. Create a resource.
-3. Create definitions which describes how your protected resource can be accessed.
-4. Protect your resource from public access.
+3. Protect your resource from public access.
+4. Create definitions which describes how your protected resource can be accessed.
 5. Grant users access to your protected resource.
 
 ## Framework
@@ -90,6 +90,12 @@ class Service
      * @ORM\Column(name="description", type="string")
      */
     protected $description;
+
+    /**
+     * @ApiProperty
+     * @ORM\Column(name="notes", type="string")
+     */
+    protected $notes;
 }
 
 ```
@@ -167,8 +173,12 @@ Sending an HTTP POST request to `/services` with body:
 
 will now return a `403 FORBIDDEN` response.
 
-
 4. Create permission definitions which describes how your protected resources can be accessed
+
+At this point, our services listing is secured, but absolutely no one can access it through the api. The next step is to configure the ACL framework in order to describe which entity and fields are accessible and how they can be accessed.
+
+For the purpose of this demo, we will expose all three fields
+
 5. Grant permissions to users
 
 

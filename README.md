@@ -106,7 +106,7 @@ The api component provides a flexible framework to define and map models to micr
 
 [Security Component](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Security)
 
-The security component provides a framework and a wide range of libraries related to securing various resources in the system.
+The security component provides a flexible framework and a wide range of libraries for securing various resources in the system.
 
 [Session Component](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Session)
 
