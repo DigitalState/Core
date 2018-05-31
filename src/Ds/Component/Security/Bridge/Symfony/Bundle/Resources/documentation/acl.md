@@ -208,7 +208,7 @@ Despite defining all the permissions above, the `Service` entity is still not ac
 
 The next step is granting users specific permissions through what we call __access cards__.
 
-An access card is essentially a __collection of granted permissions__ saved in the database and is __associated with a user or role__. A user may have __zero__, __one__ or __multiple__ access cards associated with it through direct associations or via a role he belongs to. Access cards associated to the user are compiled early on in the execution of the request and are retrieved from the database through the identity UUID found in the JWT token.
+An access card is essentially a __collection of granted permissions__ saved in the database and is __associated with a user or role__. A user may have __zero__, __one__ or __multiple__ access cards associated with it through direct associations or via a role he belongs to. Access cards associated with a user are compiled early on in the execution of the request and are retrieved from the database through the identity UUID found in the JWT token.
 
 For the purpose of this demo, we will create two access cards: one for a __Staff__ member named Alex representing an __administrator__ and one for an __Individual__ named Morgan representing a __citizen__.
 
