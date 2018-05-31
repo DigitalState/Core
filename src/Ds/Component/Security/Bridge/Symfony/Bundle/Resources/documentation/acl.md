@@ -104,7 +104,7 @@ class Service
 
 Setting aside Symfony's firewalls configurations, the `/services` endpoint is open to the public in its current state.
 
-Sending an HTTP GET request to `/services` will return a `200 OK` response with the following body:
+Sending an HTTP __GET__ request to `/services` will return a `200 OK` response with the following body:
 
 ```
 [
@@ -121,7 +121,7 @@ Sending an HTTP GET request to `/services` will return a `200 OK` response with 
 ]
 ```
 
-Sending an HTTP POST request to `/services` with body:
+Sending an HTTP __POST__ request to `/services` with body:
 
 ```
 {
@@ -162,11 +162,26 @@ class Service implements Secured
 
 The ACL library is integrated with the ApiPlatform framework through it's [event system](https://api-platform.com/docs/core/events/) and will properly guard entities from read or write access based on the granted permissions.
 
-Sending an HTTP GET or POST request to `/services` will now return a `403 FORBIDDEN`. This is due to the fact that no one has been granted read or write access to the Service entity.
+Sending an HTTP __GET__ or __POST__ request to `/services` will now return a `403 FORBIDDEN`. This is due to the fact that no one has been granted read or write access to the Service entity.
 
 ### 4. Describe how the entity can be accessed
 
-Prior to granting access to the Service entity, the ACL library requires us to define what and how the Service entity can be
+Prior to granting access to the Service entity to various users, the ACL library requires us to define how the entity can be accessed.
+
+For the purpose of this demo, we will define all possible permissions on the Service entity. Simply add the following to the Symfony configurations:
+
+__app/config/config.yml__
+
+```
+ds_security:
+    acl: true
+    permissions:
+        service:             { attributes: [BROWSE, READ, EDIT, ADD, DELETE], entity: AppBundle\Entity\Service }
+        service_id:          { attributes: [BROWSE, READ, EDIT], property: AppBundle\Entity\Service.id }
+        service_title:       { attributes: [BROWSE, READ, EDIT], property: AppBundle\Entity\Service.title }
+        service_description: { attributes: [BROWSE, READ, EDIT], property: AppBundle\Entity\Service.description }
+
+```
 
 ### 5. Grant users access to the protected entity
 
