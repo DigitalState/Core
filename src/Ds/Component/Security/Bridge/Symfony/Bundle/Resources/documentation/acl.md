@@ -2,7 +2,7 @@
 
 The ACL library provides a flexible framework for defining permissions and granting access to protected entities and system functionality.
 
-This part of the documentation assumes you are familiar with the Symfony framework (app kernel, configurations), the ApiPlatform framework (api resources and properties) and the Doctrine ORM library.
+This section assumes you are familiar with the [Symfony framework](https://symfony.com/doc/current/index.html) (app kernel, configurations), the [ApiPlatform framework](https://api-platform.com/docs/core) (api resources and properties) and the [Doctrine ORM library](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/tutorials/getting-started.html).
 
 ## Table of Contents
 
