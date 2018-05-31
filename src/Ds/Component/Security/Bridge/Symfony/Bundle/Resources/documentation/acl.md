@@ -176,12 +176,18 @@ __app/config/config.yml__
 ds_security:
     acl: true
     permissions:
-        service:             { attributes: [BROWSE, READ, EDIT, ADD, DELETE], entity: AppBundle\Entity\Service }
-        service_id:          { attributes: [BROWSE, READ, EDIT], property: AppBundle\Entity\Service.id }
-        service_title:       { attributes: [BROWSE, READ, EDIT], property: AppBundle\Entity\Service.title }
-        service_description: { attributes: [BROWSE, READ, EDIT], property: AppBundle\Entity\Service.description }
+        service:             { entity:   AppBundle\Entity\Service,               attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
+        service_id:          { property: AppBundle\Entity\Service.id,            attributes: [BROWSE, READ, EDIT] }
+        service_title:       { property: AppBundle\Entity\Service.title,         attributes: [BROWSE, READ, EDIT] }
+        service_description: { property: AppBundle\Entity\Service.description,   attributes: [BROWSE, READ, EDIT] }
 
 ```
+
+Here, we are creating four new permissions, named `service`, `service_id`, `service_title` and `service_description`. These names must be unique and are later used when granting access.
+
+The permission named `service` is of type `entity`, meaning we are defining a permission that makes the `AppBundle\Entity\Service` entity eligible to be browsed, read, edited, added or deleted.
+
+The permission named `service_id` is of type `property`, meaning we are defining a permission that makes the `id` property of the `AppBundle\Entity\Service` entity eligible to be browsed, read and edited. The same can be said respectively for each properties described.
 
 ### 5. Grant users access to the protected entity
 
