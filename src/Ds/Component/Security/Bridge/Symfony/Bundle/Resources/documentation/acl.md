@@ -7,7 +7,7 @@ This section assumes you are familiar with the [Symfony framework](https://symfo
 ## Table of Contents
 
 - [Synopsis](#synopsis)
-- [Framework](#framework)
+- [Overview](#overview)
 
 ## Synopsis
 
@@ -17,9 +17,9 @@ This section assumes you are familiar with the [Symfony framework](https://symfo
 4. Describe how your entity can be accessed.
 5. Grant users access to your protected entity.
 
-## Framework
+## Overview
 
-In order to better understand the ACL framework, we will go through each steps required for creating a new Doctrine entity, exposing it as an api endpoint and fully protecting it using the ACL framework.
+In order to better understand the ACL framework, we will go through each steps required for __creating__ a new Doctrine entity, __exposing it__ as an api endpoint and fully __protecting it__ using the ACL framework.
 
 ### 1. Activate the acl library
 
