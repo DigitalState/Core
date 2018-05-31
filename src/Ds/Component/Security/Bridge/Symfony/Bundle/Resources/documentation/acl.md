@@ -104,7 +104,7 @@ class Service
 
 Setting aside Symfony's firewalls configurations, the `/services` endpoint is open to the public in its current state.
 
-Sending an HTTP GET request to `/services` will return a `200 OK` response with the following body:
+> Sending an HTTP GET request to `/services` will return a `200 OK` response with the following body:
 
 ```
 [
@@ -121,7 +121,7 @@ Sending an HTTP GET request to `/services` will return a `200 OK` response with 
 ]
 ```
 
-Sending an HTTP POST request to `/services` with body:
+> Sending an HTTP POST request to `/services` with body:
 
 ```
 {
@@ -130,7 +130,7 @@ Sending an HTTP POST request to `/services` with body:
 }
 ```
 
-will return a `201 CREATED` response with body:
+> will return a `201 CREATED` response with body:
 
 ```
 {
