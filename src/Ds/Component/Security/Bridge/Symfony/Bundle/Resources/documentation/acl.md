@@ -1,6 +1,8 @@
 # ACL
 
-The ACL library provides a flexible framework for defining permissions and granting access to protected resources such as database records and system functionality.
+The ACL library provides a flexible framework for defining permissions and granting access to protected entities and system functionality.
+
+This part of the documentation assumes you are familiar with the Symfony framework (app kernel, configurations), the ApiPlatform framework (api resources and properties) and the Doctrine ORM library.
 
 ## Table of Contents
 
@@ -10,16 +12,14 @@ The ACL library provides a flexible framework for defining permissions and grant
 ## Synopsis
 
 1. Activate the acl library.
-2. Create a resource.
-3. Protect your resource from public access.
-4. Create definitions which describes how your protected resource can be accessed.
-5. Grant users access to your protected resource.
+2. Create a Doctrine entity and expose it with ApiPlatform.
+3. Protect your entity from public access.
+4. Create definitions which describes how your protected entity can be accessed.
+5. Grant users access to your protected entity.
 
 ## Framework
 
-In order to better understand the ACL framework, we will start from scratch and go through each steps required to create fully-protected resource.
-
-This section assumes you are familiar with the Symfony framework (app kernel, configurations), the ApiPlatform framework (api resources and properties) and the Doctrine ORM library.
+In order to better understand the ACL framework, we will go through each steps required for creating an entity and fully protecting it.
 
 ### 1. Activate the acl library
 
@@ -50,9 +50,11 @@ ds_security:
     acl: true
 ```
 
-### 2. Create your resource
+### 2. Create a Doctrine entity and expose it with ApiPlatform
 
-For the purpose of this demo, we will be creating a directory listing of services. Services represents government-offered services available to its citizen. For example: "Report a Pothole", "Request a Birth Certificate", etc.
+For the purpose of this demo, we will be creating a directory listing of services.
+
+Services represents government-offered services available to its citizen. For example: "Report a Pothole", "Request a Birth Certificate", etc.
 
 In order to create such listing, we will create a new Doctrine entity named `Service` and annotate it with ApiPlatform to expose it as a JSON-based api endpoint at `/services`:
 
@@ -138,7 +140,7 @@ will return a `201 CREATED` response with body:
 }
 ```
 
-3. Protect your resource from public access
+### 3. Protect your resource from public access
 
 Protecting a resource is fairly straight forward. Simply implementing the `Secured` interface will protect the resource:
 
@@ -156,11 +158,15 @@ class Service implements Secured
 
 ```
 
-Sending an HTTP GET request to `/services` will still return a `200 OK`, however, the response body will be an empty collection:
+The ACL library is integrated with the ApiPlatform framework through it's event system and will properly omit any protected data from read or write access.
+
+Sending an HTTP GET request to `/services` will still return a `200 OK`. However, the response body will be an empty collection:
 
 ```
 []
 ```
+
+This is due to the fact that no one has been granted read access to the service entity
 
 Sending an HTTP POST request to `/services` with body:
 
