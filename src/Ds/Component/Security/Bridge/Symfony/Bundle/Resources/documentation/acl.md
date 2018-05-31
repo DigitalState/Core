@@ -217,6 +217,7 @@ __Alex__
 
 ```
 {
+    // ...
     "assignee": "Staff",
     "assigneeUuid": "703fb098-40df-486d-8e08-65d892b4c288", // Alex's Staff UUID
     "permissions": [
@@ -224,21 +225,25 @@ __Alex__
             "scope": "generic",
             "key": "service",
             "attributes": ["BROWSE", "READ", "EDIT", "ADD", "DELETE"]
+            // ...
         },
         {
             "scope": "generic",
             "key": "service_id",
             "attributes": ["BROWSE", "READ", "EDIT"]
+            // ...
         },
         {
             "scope": "generic",
             "key": "service_title",
             "attributes": ["BROWSE", "READ", "EDIT"]
+            // ...
         },
         {
             "scope": "generic",
             "key": "service_description",
             "attributes": ["BROWSE", "READ", "EDIT"]
+            // ...
         }
     ]
 }
@@ -250,6 +255,7 @@ __Morgan__
 
 ```
 {
+    // ...
     "assignee": "Individual",
     "assigneeUuid": "1106a13c-6673-401c-95df-56f2477627ab", // Morgan's Individual UUID
     "permissions": [
@@ -257,16 +263,19 @@ __Morgan__
             "scope": "generic",
             "key": "service",
             "attributes": ["BROWSE", "READ"]
+            // ...
         },
         {
             "scope": "generic",
             "key": "service_title",
             "attributes": ["BROWSE", "READ"]
+            // ...
         },
         {
             "scope": "generic",
             "key": "service_description",
             "attributes": ["BROWSE", "READ"]
+            // ...
         }
     ]
 }
