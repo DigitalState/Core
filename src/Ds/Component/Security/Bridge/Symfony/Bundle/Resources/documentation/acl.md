@@ -349,5 +349,8 @@ will return a `403 FORBIDDEN`.
 
 Further documentation can be found at the following pages:
 
-- [Definitions](acl/definitions.md)
-- [Accesses](acl/accesses.md)
+- [Permission definitions](acl/permissions.md)
+  A complete list of all permission definition types and their capabilities.
+
+- [Access cards](acl/accesses.md)
+  A thorough explanation of Access cards and scopes.
