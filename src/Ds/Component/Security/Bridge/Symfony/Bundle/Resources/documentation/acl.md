@@ -11,11 +11,11 @@ This section assumes you are familiar with the [Symfony framework](https://symfo
 
 ## Synopsis
 
-1. Activate the ACL library.
-2. Create a Doctrine entity and expose it as an api endpoint.
-3. Protect your entity with the ACL library.
-4. Describe how your entity can be accessed.
-5. Grant users access to your protected entity.
+1. [Activate the ACL library.](#1-activate-the-acl-library)
+2. [Create a Doctrine entity and expose it as an api endpoint.](#2-create-a-doctrine-entity-and-expose-it-as-an-api-endpoint)
+3. [Protect your entity with the ACL library.](#3-protect-your-entity-with-the-acl-library)
+4. [Describe how your entity can be accessed.](#4-describe-how-your-entity-can-be-accessed)
+5. [Grant users access to your protected entity.](#5-grant-users-access-to-your-protected-entity)
 
 ## Overview
 
