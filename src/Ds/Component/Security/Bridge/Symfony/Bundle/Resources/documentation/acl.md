@@ -13,9 +13,9 @@ This section assumes you are familiar with the [Symfony framework](https://symfo
 
 1. [Activate the ACL library.](#1-activate-the-acl-library)
 2. [Create a Doctrine entity and expose it as an api endpoint.](#2-create-a-doctrine-entity-and-expose-it-as-an-api-endpoint)
-3. [Protect your entity with the ACL library.](#3-protect-your-entity-with-the-acl-library)
-4. [Describe how your entity can be accessed.](#4-describe-how-your-entity-can-be-accessed)
-5. [Grant users access to your protected entity.](#5-grant-users-access-to-your-protected-entity)
+3. [Protect the entity with the ACL library.](#3-protect-the-entity-with-the-acl-library)
+4. [Describe how the entity can be accessed.](#4-describe-how-the-entity-can-be-accessed)
+5. [Grant users access to the protected entity.](#5-grant-users-access-to-the-protected-entity)
 
 ## Overview
 
@@ -140,7 +140,7 @@ will return a `201 CREATED` response with body:
 }
 ```
 
-### 3. Protect your entity with the ACL library
+### 3. Protect the entity with the ACL library
 
 Protecting an entity with the ACL library is fairly straight forward. Implementing the `Secured` interface will configure the ACL guard on the entity:
 
@@ -177,9 +177,9 @@ will now return a `403 FORBIDDEN` response.
 
 This is due to the fact that no one has been granted read or write access to the Service entity.
 
-### 4. Describe how your entity can be accessed
+### 4. Describe how the entity can be accessed
 
 Prior to granting access to the Service entity, the ACL library requires us to define what and how the Service entity can be
 
-### 5. Grant users access to your protected entity
+### 5. Grant users access to the protected entity
 
