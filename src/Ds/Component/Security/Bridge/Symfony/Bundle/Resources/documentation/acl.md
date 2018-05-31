@@ -8,6 +8,7 @@ This section assumes you are familiar with the [Symfony framework](https://symfo
 
 - [Synopsis](#synopsis)
 - [Overview](#overview)
+- [Documentation](#documentation)
 
 ## Synopsis
 
@@ -248,7 +249,7 @@ __Alex's access card__
 }
 ```
 
-Here, we want Alex to have full access to the `Service` entities so that he may manage all services. The access card above essentially grants Alex all permissions possible on `Service` entities. Alex may `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE` any `Service` entities and `BROWSE`, `READ` and `EDIT` any properties of the `Service` entity.
+Here, we want Alex to have full access to `Service` entities so that he may manage all services. The access card above essentially grants Alex all permissions possible on `Service` entities. Alex may `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE` any `Service` entities and `BROWSE`, `READ` and `EDIT` any properties of the `Service` entity.
 
 Sending an HTTP __GET__ request to `/services` as Alex will return a `200 OK` with the following body:
 
@@ -316,7 +317,7 @@ __Morgan's access card__
 }
 ```
 
-Here, we want Morgan to have at most read access so that he may consult government services he may be interested in. The access card above essentially grants Morgan only `BROWSE` and `READ` permissions on `Service` entities. Also, he only has access to the `title` and `description` properties.
+Here, we want Morgan to have at most read access so that he may consult government services he may be interested in. The access card above essentially grants Morgan only `BROWSE` and `READ` permissions on `Service` entities. Also, he only has `BROWSE` and `READ` permissions to the `title` and `description` properties of the `Service` entity.
 
 Sending an HTTP __GET__ request to `/services` as Morgan will return a `200 OK` with the following body:
 
@@ -343,3 +344,10 @@ Sending an HTTP __POST__ request to `/services` as Morgan with body:
 ```
 
 will return a `403 FORBIDDEN`.
+
+## Documentation
+
+Further documentation can be found at the following pages:
+
+- [Definitions](acl/definitions.md)
+- [Accesses](acl/accesses.md)
