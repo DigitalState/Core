@@ -166,7 +166,7 @@ Sending an HTTP __GET__ or __POST__ request to `/services` will now return a `40
 
 ### 4. Describe how the entity can be accessed
 
-Prior to granting access to the Service entity to various users, the ACL library requires us to define how the entity can be accessed.
+Prior to granting access to the Service entity to various users, the ACL library requires us to __define how the entity can be accessed__.
 
 For the purpose of this demo, we will define all possible permissions on the Service entity. Simply add the following to the Symfony configurations:
 
@@ -185,9 +185,28 @@ ds_security:
 
 Here, we are creating four new permissions, named `service`, `service_id`, `service_title` and `service_description`. These names must be unique and are later used when granting access.
 
-The permission named `service` is of type `entity`, meaning we are defining a permission that makes the `AppBundle\Entity\Service` entity eligible to be browsed, read, edited, added or deleted.
+The permission named `service` is of type __entity__, meaning we are defining a permission that makes the `AppBundle\Entity\Service` entity eligible to be __browsed__, __read__, __edited__, __added__ or __deleted__.
 
-The permission named `service_id` is of type `property`, meaning we are defining a permission that makes the `id` property of the `AppBundle\Entity\Service` entity eligible to be browsed, read and edited. The same can be said respectively for each properties described.
+The permission named `service_id` is of type __property__, meaning we are defining a permission that makes the `id` property of the `AppBundle\Entity\Service` entity eligible to be __browsed__, __read__ and __edited__. The same can be said respectively for each properties described.
+
+Internally, the ACL library integrates with the ApiPlatform framework and maps permission attributes to HTTP request methods. Essentially, the attribute:
+
+- `BROWSE` maps to __GET__ `/services`
+- `READ` maps to __GET__ `/services/{id}`
+- `EDIT` maps to __PUT__ `/services/{id}`
+- `ADD` maps to __POST__ `/services`
+- `DELETE` maps to __DELETE__ `/services/{id}`
+
+`BROWSE` and `READ` are both read-based attributes, however they distinguish themselves based by whether we are reading a collection of entities versus a single entity. This becomes particularly useful in scenarios where some users are only granted browsing a collection and not necessarily reading single entities or vice versa.
+
+Also, if we wanted for example to completely disable Service entities to be deleted at the architecture/code-level, simply removing the `DELETE` attribute on the entity permission would completely block the __DELETE__ HTTP method.
+
+The full documentation on permissions, including all the possible types and attributes and its intricacies, can be found [here](acl/permissions.md).
+
+One important thing to mention at this point is that the Service entity is still not accessible; we have simply made it eligible to be accessed using a nomenclature that the ACL library understands.
+
+
+
 
 ### 5. Grant users access to the protected entity
 
