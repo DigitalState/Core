@@ -104,7 +104,7 @@ class Service
 
 Setting aside Symfony's firewalls configurations, the `/services` endpoint is open to the public in its current state.
 
-> Sending an HTTP GET request to `/services` will return a `200 OK` response with the following body:
+Sending an HTTP GET request to `/services` will return a `200 OK` response with the following body:
 
 ```
 [
@@ -121,7 +121,7 @@ Setting aside Symfony's firewalls configurations, the `/services` endpoint is op
 ]
 ```
 
-> Sending an HTTP POST request to `/services` with body:
+Sending an HTTP POST request to `/services` with body:
 
 ```
 {
@@ -130,7 +130,7 @@ Setting aside Symfony's firewalls configurations, the `/services` endpoint is op
 }
 ```
 
-> will return a `201 CREATED` response with body:
+will return a `201 CREATED` response with body:
 
 ```
 {
@@ -160,22 +160,9 @@ class Service implements Secured
 
 ```
 
-The ACL library is integrated with the ApiPlatform framework through it's event system and will properly guard entities from read or write access based on the granted permissions.
+The ACL library is integrated with the ApiPlatform framework through it's [event system](https://api-platform.com/docs/core/events/) and will properly guard entities from read or write access based on the granted permissions.
 
-Sending an HTTP GET request to `/services` will now return a `403 FORBIDDEN`.
-
-Sending an HTTP POST request to `/services` with body:
-
-```
-{
-    "title": "Report a Graffiti",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-}
-```
-
-will now return a `403 FORBIDDEN` response.
-
-This is due to the fact that no one has been granted read or write access to the Service entity.
+Sending an HTTP GET or POST request to `/services` will now return a `403 FORBIDDEN`. This is due to the fact that no one has been granted read or write access to the Service entity.
 
 ### 4. Describe how the entity can be accessed
 
