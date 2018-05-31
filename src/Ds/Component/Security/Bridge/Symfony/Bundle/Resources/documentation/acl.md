@@ -12,14 +12,14 @@ This section assumes you are familiar with the [Symfony framework](https://symfo
 ## Synopsis
 
 1. [Activate the ACL library.](#1-activate-the-acl-library)
-2. [Create a Doctrine entity and expose it as an api endpoint.](#2-create-a-doctrine-entity-and-expose-it-as-an-api-endpoint)
+2. [Create a Doctrine entity and expose it as a RESTful api endpoint.](#2-create-a-doctrine-entity-and-expose-it-as-a-restful-api-endpoint)
 3. [Protect the entity with the ACL library.](#3-protect-the-entity-with-the-acl-library)
 4. [Describe how the entity can be accessed.](#4-describe-how-the-entity-can-be-accessed)
 5. [Grant users access to the protected entity.](#5-grant-users-access-to-the-protected-entity)
 
 ## Overview
 
-In order to better understand the ACL framework, we will go through each steps required for __creating__ a new Doctrine entity, __exposing it__ as an api endpoint and fully __protecting it__ using the ACL framework.
+In order to better understand the ACL framework, we will go through each steps required for __creating__ a new Doctrine entity, __exposing it__ as a RESTful api endpoint and fully __protecting it__ using the ACL framework.
 
 ### 1. Activate the acl library
 
@@ -54,7 +54,7 @@ ds_security:
     acl: true
 ```
 
-### 2. Create a Doctrine entity and expose it as an api endpoint
+### 2. Create a Doctrine entity and expose it as a RESTful api endpoint
 
 For the purpose of this demo, we will be creating a directory listing of services.
 
@@ -142,7 +142,7 @@ will return a `201 CREATED` response with body:
 
 ### 3. Protect the entity with the ACL library
 
-Protecting an entity with the ACL library is fairly straight forward. Implementing the `Secured` interface will configure the ACL guard on the entity:
+Protecting an entity with the ACL library is fairly straight forward. Implementing the `Secured` interface will activate the ACL guard on the entity:
 
 __src/AppBundle/Entity/Service.php__
 
@@ -160,7 +160,7 @@ class Service implements Secured
 
 ```
 
-The ACL library is integrated with the ApiPlatform framework through it's [event system](https://api-platform.com/docs/core/events/) and will properly guard entities from read or write access based on the granted permissions.
+The ACL library is integrated with the ApiPlatform framework through it's [event system](https://api-platform.com/docs/core/events/) and will properly guard entities from read or write access based on the granted permissions (which well talk about later).
 
 Sending an HTTP __GET__ or __POST__ request to `/services` will now return a `403 FORBIDDEN`. This is due to the fact that no one has been granted read or write access to the `Service` entity.
 
@@ -185,9 +185,8 @@ ds_security:
 
 Here, we are creating four new permissions, named `service`, `service_id`, `service_title` and `service_description`. These names must be unique and are later used when granting access.
 
-The permission named `service` is of type __entity__, meaning we are defining a permission that makes the `AppBundle\Entity\Service` entity eligible to be __browsed__, __read__, __edited__, __added__ or __deleted__.
-
-The permission named `service_id` is of type __property__, meaning we are defining a permission that makes the `id` property of the `AppBundle\Entity\Service` entity eligible to be __browsed__, __read__ or __edited__. The same can be said respectively for each other property-based permissions.
+- The permission named `service` is of type __entity__, meaning we are defining a permission that makes the `AppBundle\Entity\Service` entity eligible to be __browsed__, __read__, __edited__, __added__ or __deleted__.
+- The permission named `service_id` is of type __property__, meaning we are defining a permission that makes the `id` property of the `AppBundle\Entity\Service` entity eligible to be __browsed__, __read__ or __edited__. The same can be said respectively for each other property-based permissions.
 
 Internally, the ACL library integrates with the ApiPlatform framework and __maps permission attributes to HTTP request methods__. Essentially, the attribute:
 
@@ -205,13 +204,13 @@ You may want to consult the [full documentation on permissions](acl/permissions.
 
 ### 5. Grant users access to the protected entity
 
-Despite defining all the permissions above, the `Service` entity is still not accessible yet. We have only made it eligible to be accessed using a nomenclature that the ACL library understands and allows.
+Despite defining all the permissions above, the `Service` entity is still not accessible. We have only made it eligible to be accessed, through explicit channels, using a nomenclature that the ACL library understands.
 
-The next step is granting users specific permissions through what we call access cards.
+The next step is granting users specific permissions through what we call __access cards__.
 
-An access card is essentially a collection of granted permissions saved in the database and is associated with a user or role. A user may have zero, one or multiple access cards associated to him through direct associations or via a role he belongs to.
+An access card is essentially a __collection of granted permissions__ saved in the database and is __associated with a user or role__. A user may have __zero__, __one__ or __multiple__ access cards associated with it through direct associations or via a role he belongs to.
 
-For the purpose of this demo, we will create two access cards: one for a Staff member named Alex representing an administrator and one for an Individual named Morgan representing a citizen.
+For the purpose of this demo, we will create two access cards: one for a __Staff__ member named Alex representing an __administrator__ and one for an __Individual__ named Morgan representing a __citizen__.
 
 __Alex__
 
@@ -249,7 +248,7 @@ __Alex__
 }
 ```
 
-The access card above essentially grants Alex all permissions possible on the `Service` entity. Alex may browse, read, edit, add and delete services and access all properties of the `Service` entity.
+Here, we want Alex to full access to the `Service` entity so he may manage all services. The access card above essentially grants Alex all permissions possible on the `Service` entity. Alex may browse, read, edit, add and delete services and access all properties of the `Service` entity.
 
 __Morgan__
 
@@ -281,4 +280,4 @@ __Morgan__
 }
 ```
 
-The access card above essentially grants Morgan only browsing and reading permissions on the `Service` entity. Also, he only has access to the `title` and `description` properties.
+Here, we want Morgan to have browse and read access so he may consult government services he may be interested in. The access card above essentially grants Morgan only browsing and reading permissions on the `Service` entity. Also, he only has access to the `title` and `description` properties.
