@@ -248,7 +248,7 @@ __Alex's access card__
 }
 ```
 
-Here, we want Alex to have full access to the `Service` entity so he may manage all services. The access card above essentially grants Alex all permissions possible on the `Service` entity. Alex may __browse__, __read__, __edit_, __add__ and __delete__ services and access all properties of the `Service` entity.
+Here, we want Alex to have full access to the `Service` entity so that he may manage all services. The access card above essentially grants Alex all permissions possible on the `Service` entity. Alex may __browse__, __read__, __edit_, __add__ and __delete__ services and access all properties of the `Service` entity.
 
 __Morgan's access card__
 
@@ -280,4 +280,4 @@ __Morgan's access card__
 }
 ```
 
-Here, we want Morgan to have browse and read access so he may consult government services he may be interested in. The access card above essentially grants Morgan only __browse__ and __read__ permissions on the `Service` entity. Also, he only has access to the `title` and `description` properties.
+Here, we want Morgan to have browse and read access so that he may consult government services he may be interested in. The access card above essentially grants Morgan only __browse__ and __read__ permissions on the `Service` entity. Also, he only has access to the `title` and `description` properties.
