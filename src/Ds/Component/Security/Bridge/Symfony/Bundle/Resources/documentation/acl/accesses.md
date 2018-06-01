@@ -4,7 +4,7 @@ The concept of access cards provide a low-level mechanism for granting users per
 
 Access cards can be directly created and used on their own, or intermediately created and used by higher level permission-granting concepts such as Roles, Groups and Shares. Regardless of what is granting a particular permission to a particular user, we will always find a low-level access card responsible for granting that permission.
 
-One major advantage of this separation of concerns is it enables all kinds of high-level concepts to grant permissions in a unidirectional fashion with the ACL framework.
+One major advantage of this separation of concerns is it enables all kinds of high-level concepts to grant permissions in a unidirectional fashion understood by the ACL framework.
 
 ## Table of Contents
 
