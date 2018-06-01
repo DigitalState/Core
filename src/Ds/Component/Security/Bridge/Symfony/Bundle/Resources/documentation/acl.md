@@ -199,7 +199,7 @@ Internally, the ACL library integrates with the ApiPlatform framework and __maps
 
 `BROWSE` and `READ` are both read-based attributes. However, they distinguish themselves based on whether we are reading a collection of entities versus a single entity. This becomes particularly useful in scenarios where some users are only granted browsing a collection and only on a few properties and not necessarily reading single entities or vice versa.
 
-Also, if we wanted for example to completely disable Service entities from being deleted at the code-level, simply removing the `DELETE` attribute on the entity permission would completely block the __DELETE__ HTTP method.
+Also, if we wanted for example to completely disable `Service` entities from being deleted at the code-level, simply removing the `DELETE` attribute on the __entity__ permission would completely block the __DELETE__ HTTP method.
 
 You may want to consult the [full documentation on permissions](acl/permissions.md), which includes all the possible types and attributes and described in much more details.
 
