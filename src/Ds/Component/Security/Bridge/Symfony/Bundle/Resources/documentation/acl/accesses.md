@@ -86,7 +86,7 @@ __An access card indirectly assigned to a staff member via a role__
 
 An access card contains a collection of permissions and represents the actual granted permissions against [definitions](permissions.md).
 
-Each permissions contains a `key`, `attributes`scope`, a `scope` and are described below.
+Each permissions contains a `key`, `attributes` and a `scope`.
 
 ### Key
 
