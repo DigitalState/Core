@@ -18,7 +18,7 @@ Access cards are stored in the database and mapped under the [`Access`](https://
 
 The `Access` entity contains an assignee and a collection of `Permissions` entities.
 
-Below is a real world example found within the [Services Microservice](https://github.com/DigitalState/Services) dev fixtures of the DigitalState Platform:
+Below is a real world example found within the [Services Microservice](https://github.com/DigitalState/Services) sample data of the [DigitalState Platform](https://github.com/DigitalState/Platform):
 
 ```
 {
