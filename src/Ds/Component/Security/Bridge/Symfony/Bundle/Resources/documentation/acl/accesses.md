@@ -84,17 +84,17 @@ __An access card indirectly assigned to a staff member via a role__
 
 ## Permissions
 
-An access card contains a collection of permissions and represents the actual granted permissions against [definitions](permissions.md).
+An access card contains a collection of permissions and represents the actual granted permissions against [permission definitions](permissions.md).
 
 Each permissions contains a `key`, `attributes` and a `scope`.
 
 ### Key
 
-The permission key value contains the key name of a configured permission definition. More can be read on permission definition [here](permissions.md).
+The permission key value contains the key name of a configured [permissions definitions](permissions.md).
 
 ### Attributes
 
-The permission attributes value contains an array of actions granted. The possible values are `BROWSE`, `READ`, `EDIT`, `ADD`, `DELETE` and `EXECUTE`. More can be read on attributes [here](permissions.md#attributes).
+The permission attributes contains an array of actions granted. The possible values are `BROWSE`, `READ`, `EDIT`, `ADD`, `DELETE` and `EXECUTE`.
 
 ### Scope
 
