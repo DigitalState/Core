@@ -180,7 +180,7 @@ In the example below, whoever is inheriting this access card can `READ` the `Ser
 
 The `identity` scope grants access on a subset of entries based on the identity of such entries.
 
-This scope is sometimes when a user needs to see another users data and typically contains an Individual or Organization as the identity.
+This scope is sometimes used when a user needs to see another users data.
 
 In the example below, whoever is inheriting this access card can `READ` the `Case` entities opened by Individual `33bdd8a3-7652-4b64-afdd-658b330ac71b`.
 
@@ -208,7 +208,7 @@ The `session` scope grants access on a subset of entries based on the current lo
 
 This scope is similar to the `identity` scope, except it uses the identity value found in the user session, instead of it being explicitly defined in the database.
 
-In the example below, whoever is inheriting this access card can `READ` the `Case` entities opened by itself.
+In the example below, whoever is inheriting this access card can `READ` the `Case` entities opened by himself.
 
 ```
 {
