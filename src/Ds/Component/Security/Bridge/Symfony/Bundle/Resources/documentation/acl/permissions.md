@@ -69,7 +69,7 @@ The permission definition of type `generic` is the most abstract type of permiss
 
 This type doesn't contain any useful meta data in of itself, unlike the `entity` and `property` types. This means that this definition type does not open any access channels automatically. It is up to the developer to manually tag a resource with permission definitions of this type.
 
-It is mostly used to expose Symfony controllers and actions and is fully compatible with the `@Security` annotation of the [Symfony Security bundle](https://symfony.com/doc/current/security.html).
+It is mostly used to open access channels for Symfony controllers and actions and is fully compatible with the `@Security` annotation of the [Symfony Security bundle](https://symfony.com/doc/current/security.html).
 
 ```
 ds_security:
