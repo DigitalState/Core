@@ -35,7 +35,7 @@ Since it is explicit in nature, any other properties the `Service` entity may ha
 
 ## Types
 
-The permission definition type represents the type of resource the permission is exposing. Types essentially represents useful meta data and are used for mapping resources to permission definitions inside the ACL framework.
+The permission definition type represents the type of resource the permission is opening an access channel for. Types essentially represents useful meta data and are used for mapping resources to permission definitions inside the ACL framework.
 
 Currently, there are three types of permission definition: `entity`, `property` and `generic`.
 
@@ -49,7 +49,7 @@ ds_security:
     service: { entity: AppBundle\Entity\Service, attributes: [READ] }
 ```
 
-The example above exposes the `AppBundle\Entity\Service` entity.
+The example above opens the access channel for the `AppBundle\Entity\Service` entity in `READ` mode.
 
 ### Property
 
@@ -61,7 +61,7 @@ ds_security:
     service_id: { property: AppBundle\Entity\Service.id, attributes: [READ] }
 ```
 
-The example above exposes the `id` property of the `AppBundle\Entity\Service` entity.
+The example above opens the access channel for the `id` property of the `AppBundle\Entity\Service` entity in `READ` mode.
 
 ### Generic
 
