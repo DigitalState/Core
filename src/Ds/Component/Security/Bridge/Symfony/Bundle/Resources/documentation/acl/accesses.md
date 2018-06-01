@@ -50,7 +50,7 @@ Without going into too much details yet, the example above demonstrates the acce
 
 ## Assignee
 
-Access cards contains an assignee and it refers to who is inheriting the access card. The assignee may contain a direct assignment, such as aa user, or an indirect assignement, such as a role, etc.
+An access card contains an assignee and it refers to who is inheriting the access card. The assignee may contain a direct assignment, such as aa user, or an indirect assignement, such as a role, etc.
 
 Users may inherit __zero__, __one__ or __multiple__ access cards through direct assignment or indirect assignment, such as a Role. Access cards are compiled early on in the execution of the request based on the user information found in the JWT token. The compiled access cards are subsequently used to validate authorization.
 
