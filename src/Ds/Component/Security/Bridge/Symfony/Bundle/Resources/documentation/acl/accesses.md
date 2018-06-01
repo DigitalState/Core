@@ -12,6 +12,8 @@ One major advantage of this separation of concerns is it enables all kinds of hi
 - [Assignee](#assignee)
 - [Permissions](#permissions)
 
+# Example
+
 Access cards are stored in the database and mapped under the [`Access`](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Security/Entity/Access.php) and [`Permissions`](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Security/Entity/Permission.php) Doctrine entities provided by the [Security bundle](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Security).
 
 The 'Access' entity contains an assignee and a collection of `Permissions` entities.
