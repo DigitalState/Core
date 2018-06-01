@@ -138,7 +138,7 @@ For example: __GET__ `/services/{id}`.
 
 The `EDIT` attribute exposes the HTTP __PUT__ method on a single entity.
 
-For example: __PUT__ `{ "title": "..." }` /services/{id}`.
+For example: __PUT__ `{ "title": "..." }` `/services/{id}`.
 
 ### ADD
 
