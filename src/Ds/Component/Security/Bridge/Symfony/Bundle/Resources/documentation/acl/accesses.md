@@ -54,9 +54,9 @@ An access card contains an assignee and refers to who is inheriting the access c
 
 Users may inherit __zero__, __one__ or __multiple__ access cards through direct assignments or indirect assignments. Access cards are compiled early on in the execution of the request based on the user information found in the session. The compiled access cards are subsequently used to authorize access to protected resources.
 
-Below are examples of various types of assignment.
+Below are examples of various types of assignment:
 
-An access card directly assigned to a staff member:
+__An access card directly assigned to a staff member__
 
 ```
 {
@@ -69,7 +69,7 @@ An access card directly assigned to a staff member:
 }
 ```
 
-An access card indirectly assigned to a staff member via a role:
+__An access card indirectly assigned to a staff member via a role__
 
 ```
 {
