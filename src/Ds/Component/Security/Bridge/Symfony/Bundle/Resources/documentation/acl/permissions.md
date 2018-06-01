@@ -158,5 +158,5 @@ The `EXECUTE` attribute is abstract in nature, similarly to how the `generic` ty
 
 This attribute doesn't contain any useful meta data in of itself, unlike the `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE` attributes.
 
-It is mostly used with permission definitions of type `generic`, where we are opening access channels to generic system functionality such as clearing cache, running an update, installing a module, etc.
+It is mostly used with permission definitions of type `generic`, where we are opening access channels to generic system functionality such as clearing the cache, running an update, installing a module, etc.
 
