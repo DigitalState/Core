@@ -19,12 +19,12 @@ Below is a real world example found within the [Services Microservice](https://g
 ```
 ds_security:
   permissions:
-    service:             { attributes: [BROWSE, READ, EDIT, ADD, DELETE],  entity:    AppBundle\Entity\Service,            title: app.permissions.service            }
-    service_id:          { attributes: [BROWSE, READ, EDIT],               property:  AppBundle\Entity\Service.id,         title: app.permissions.service.id         }
-    service_uuid:        { attributes: [BROWSE, READ, EDIT],               property:  AppBundle\Entity\Service.uuid,       title: app.permissions.service.uuid       }
-    service_created_at:  { attributes: [BROWSE, READ, EDIT],               property:  AppBundle\Entity\Service.createdAt,  title: app.permissions.service.created_at }
-    service_updated_at:  { attributes: [BROWSE, READ, EDIT],               property:  AppBundle\Entity\Service.updatedAt,  title: app.permissions.service.updated_at }
-    service_deleted_at:  { attributes: [BROWSE, READ, EDIT],               property:  AppBundle\Entity\Service.deletedAt,  title: app.permissions.service.deleted_at }
+    service:             { entity:   AppBundle\Entity\Service,           attributes: [BROWSE, READ, EDIT, ADD, DELETE] }
+    service_id:          { property: AppBundle\Entity\Service.id,        attributes: [BROWSE, READ, EDIT]              }
+    service_uuid:        { property: AppBundle\Entity\Service.uuid,      attributes: [BROWSE, READ, EDIT]              }
+    service_created_at:  { property: AppBundle\Entity\Service.createdAt, attributes: [BROWSE, READ, EDIT]              }
+    service_updated_at:  { property: AppBundle\Entity\Service.updatedAt, attributes: [BROWSE, READ, EDIT]              }
+    service_deleted_at:  { property: AppBundle\Entity\Service.deletedAt, attributes: [BROWSE, READ, EDIT]              }
 ```
 
 The example above exposes the `Service` entity and some of its properties.
