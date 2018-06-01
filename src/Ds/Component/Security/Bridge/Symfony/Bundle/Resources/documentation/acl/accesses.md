@@ -25,7 +25,7 @@ Below is a real world example found within the [Services Microservice](https://g
     // ...
     "uuid": "e7c14666-e442-4097-b0b7-0c8f2647c988",
     "assignee": "Role",
-    "assigneeUuid": "3e64bbd1-4d00-47e7-a35e-92691f5a6018",
+    "assigneeUuid": "3e64bbd1-4d00-47e7-a35e-92691f5a6018", // Staff Role
     "permissions": [
         {
             "scope": "owner",
@@ -98,7 +98,7 @@ The permission attributes contains an array of actions granted. The possible val
 
 ### Scope
 
-The permission scope determines the scope of access. It allows administrator to further refine the way permissions are granted. The possible values are `generic`, `object`, `owner`, `identity` and `session`.
+The permission scope determines the scope of access. It allows administrators to further refine the way permissions are granted. The possible values are `generic`, `object`, `owner`, `identity` and `session`.
 
 #### Generic Scope
 
@@ -110,7 +110,7 @@ In the example below, whoever is inheriting this access card can `READ` all `Ser
 {
     // ...
     "assignee": "Role",
-    "assigneeUuid": "3e64bbd1-4d00-47e7-a35e-92691f5a6018",
+    "assigneeUuid": "3e64bbd1-4d00-47e7-a35e-92691f5a6018", // Staff Role
     "permissions": [
         {
             "scope": "generic",
@@ -126,9 +126,9 @@ In the example below, whoever is inheriting this access card can `READ` all `Ser
 
 #### Object Scope
 
-The `object` scope only grants access on a very specific object referenced by uuid.
+The `object` scope only grants access on a single, specific object, referenced by uuid.
 
-This scope is typically used when a user wishes to share a single, specific object with another user.
+This scope is typically used when a user wishes to share an entity with another user.
 
 In the example below, whoever is inheriting this access card can `READ` the `Service` entity with uuid `ce649cc8-c283-4e4a-af30-9e5de4e9686d`.
 
@@ -136,7 +136,7 @@ In the example below, whoever is inheriting this access card can `READ` the `Ser
 {
     // ...
     "assignee": "Role",
-    "assigneeUuid": "3e64bbd1-4d00-47e7-a35e-92691f5a6018",
+    "assigneeUuid": "3e64bbd1-4d00-47e7-a35e-92691f5a6018", // Staff Role
     "permissions": [
         {
             "scope": "object",
@@ -162,7 +162,7 @@ In the example below, whoever is inheriting this access card can `READ` the `Ser
 {
     // ...
     "assignee": "Role",
-    "assigneeUuid": "3e64bbd1-4d00-47e7-a35e-92691f5a6018",
+    "assigneeUuid": "3e64bbd1-4d00-47e7-a35e-92691f5a6018", // Staff Role
     "permissions": [
         {
             "scope": "owner",
@@ -188,7 +188,7 @@ In the example below, whoever is inheriting this access card can `READ` the `Cas
 {
     // ...
     "assignee": "Role",
-    "assigneeUuid": "3e64bbd1-4d00-47e7-a35e-92691f5a6018",
+    "assigneeUuid": "3e64bbd1-4d00-47e7-a35e-92691f5a6018", // Staff Role
     "permissions": [
         {
             "scope": "identity",
@@ -214,7 +214,7 @@ In the example below, whoever is inheriting this access card can `READ` the `Cas
 {
     // ...
     "assignee": "Role",
-    "assigneeUuid": "3e64bbd1-4d00-47e7-a35e-92691f5a6018",
+    "assigneeUuid": "3e64bbd1-4d00-47e7-a35e-92691f5a6018", // Staff Role
     "permissions": [
         {
             "scope": "session",
