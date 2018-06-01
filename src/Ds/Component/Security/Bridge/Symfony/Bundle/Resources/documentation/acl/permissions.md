@@ -154,7 +154,7 @@ For example: __DELETE__ `/services/{id}`.
 
 ### EXECUTE
 
-The `EXECUTE` attribute is abstract in nature, similarly to how the permission definition of type `generic` is abstract.
+The `EXECUTE` attribute is abstract in nature, similarly to how the `generic` type is abstract.
 
 This attribute doesn't contain any useful meta data in of itself, unlike the `BROWSE`, `READ`, `EDIT`, `ADD` and `DELETE` attributes.
 
