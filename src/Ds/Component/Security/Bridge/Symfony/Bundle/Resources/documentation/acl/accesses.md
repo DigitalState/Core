@@ -46,7 +46,7 @@ Below is a real world example found within the [Services Microservice](https://g
 }
 ```
 
-Without going into too much details yet, the example above demonstrates the access card responsible for granting permissions to all users who have the Role `3e64bbd1-4d00-47e7-a35e-92691f5a6018` (Staff Role). It grants `BROWSE` and `READ` access to all `Service` entities that are owned by the business unit `a9d68bf7-5000-49fe-8b00-33dde235b327` (Backoffice).
+Without going into too much details yet, the example above demonstrates the access card responsible for granting specific permissions to all users who have the Role `3e64bbd1-4d00-47e7-a35e-92691f5a6018` (Staff Role). It grants `BROWSE` and `READ` access to all `Service` entities found in the database that are owned by the business unit `a9d68bf7-5000-49fe-8b00-33dde235b327` (Backoffice).
 
 ## Assignee
 
