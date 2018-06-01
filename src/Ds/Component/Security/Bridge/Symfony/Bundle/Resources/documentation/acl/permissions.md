@@ -156,5 +156,5 @@ For example: __DELETE__ `/services/{id}`.
 
 The `EXECUTE` attribute is abstract in nature, similarly to how the permission definition of type `generic` is abstract.
 
-It is mostly used with permission definition of type `generic`, where the permission definition is exposing system functionality such as clearing cache, running an update, installing a module, etc.
+This attribute is mostly used with permission definitions of type `generic`, where are opening access channels to system functionality such as clearing cache, running an update, installing a module, etc.
 
