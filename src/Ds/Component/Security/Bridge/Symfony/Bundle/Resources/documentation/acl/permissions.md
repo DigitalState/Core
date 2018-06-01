@@ -27,9 +27,11 @@ ds_security:
     service_deleted_at:  { attributes: [BROWSE, READ, EDIT],               property:  AppBundle\Entity\Service.deletedAt,  title: app.permissions.service.deleted_at }
 ```
 
-The example above exposes the `Service` entity and some of its properties. It essentially reads as followed: "The `Service` entity may be __browsed__, __read__, __edited__, __added__ and __deleted__. The `id`, `uuid`, `createdAt`, `updatedAt` and `deletedAt` properties can be __browsed__, __read__ and __edited__.". Since it is explicit in nature, any other properties the `Service` entity may have cannot be accessed at all and are invisible to the user.
+The example above exposes the `Service` entity and some of its properties.
 
-It is also worth mentioning that, at this point, the entity is still not accessible by users. We have simply opened the channels of access. You can grant access to users through [access cards](accesses.md).
+It essentially reads as followed: "The `Service` entity may be __browsed__, __read__, __edited__, __added__ and __deleted__. The `id`, `uuid`, `createdAt`, `updatedAt` and `deletedAt` properties can be __browsed__, __read__ and __edited__.".
+
+Since it is explicit in nature, any other properties the `Service` entity may have cannot be accessed at all and are invisible to the user. It is also worth mentioning that, at this point, the entity is still not accessible by users. We have simply opened the channels of access. You can grant access to users through [access cards](accesses.md).
 
 ## Types
 
