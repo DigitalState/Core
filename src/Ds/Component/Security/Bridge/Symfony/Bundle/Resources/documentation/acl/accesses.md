@@ -90,7 +90,7 @@ Each permissions contains a `key`, `attributes` and a `scope`.
 
 ### Key
 
-The permission key contains the name of a configured [permissions definitions](permissions.md).
+The permission key contains the name of a configured [permission definitions](permissions.md).
 
 ### Attributes
 
@@ -98,7 +98,7 @@ The permission attributes contains an array of actions granted. The possible val
 
 ### Scope
 
-The permission scope determines the scope and further controls the way we are granting access. The possible values are `generic`, `object`, `owner`, `identity` and `session`.
+The permission scope determines the scope of access. It allows administrator to further refine the way permissions are granted. The possible values are `generic`, `object`, `owner`, `identity` and `session`.
 
 #### Generic Scope
 
