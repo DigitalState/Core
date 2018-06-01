@@ -8,11 +8,11 @@ One major advantage of this separation of concerns is it enables all kinds of hi
 
 ## Table of Contents
 
-- [Example](#example)
+- [Implementation](#implementation)
 - [Assignee](#assignee)
 - [Permissions](#permissions)
 
-# Example
+# Implementation
 
 Access cards are stored in the database and mapped under the [`Access`](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Security/Entity/Access.php) and [`Permissions`](https://github.com/DigitalState/Core/blob/develop/src/Ds/Component/Security/Entity/Permission.php) Doctrine entities provided by the [Security bundle](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Security).
 
@@ -46,7 +46,7 @@ Below is a real world example found within the [Services Microservice](https://g
 }
 ```
 
-The example above demonstrates the access card responsible for granting permissions to all users who have the Role `3e64bbd1-4d00-47e7-a35e-92691f5a6018` (Staff Role). It grants `BROWSE` and `READ` access to all `Service` entities which belongs to business unit `a9d68bf7-5000-49fe-8b00-33dde235b327` (Backoffice).
+Without going into too much details yet, the example above demonstrates the access card responsible for granting permissions to all users who have the Role `3e64bbd1-4d00-47e7-a35e-92691f5a6018` (Staff Role). It grants `BROWSE` and `READ` access to all `Service` entities that are owned by the business unit `a9d68bf7-5000-49fe-8b00-33dde235b327` (Backoffice).
 
 ## Assignee
 
