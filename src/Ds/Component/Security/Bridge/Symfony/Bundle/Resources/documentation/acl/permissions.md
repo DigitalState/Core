@@ -16,6 +16,8 @@ Permission definitions are typically configured in YAML Symfony configuration fi
 
 Below is a real world example found within the [Services Microservice](https://github.com/DigitalState/Services) of the DigitalState Platform:
 
+__src/AppBundle/Resources/config/config.yml__
+
 ```
 ds_security:
   permissions:
@@ -43,6 +45,8 @@ Currently, there are three types of permission definition: `entity`, `property` 
 
 A permission definition of type `entity` opens the access channel for a Doctrine entity mapped through ApiPlatform. It uses the entity's full class name as its value. For example:
 
+__src/AppBundle/Resources/config/config.yml__
+
 ```
 ds_security:
   permissions:
@@ -54,6 +58,8 @@ The example above opens the access channel for the `AppBundle\Entity\Service` en
 ### Property
 
 A permission definition of type `property` opens the access channel for a property of a Doctrine entity mapped by ApiPlatform. It uses the full class name, followed by a dot, and finally the property name. For example:
+
+__src/AppBundle/Resources/config/config.yml__
 
 ```
 ds_security:
@@ -71,11 +77,15 @@ This type doesn't contain any useful meta data in of itself, unlike the `entity`
 
 It is mostly used to open access channels for Symfony controllers and actions and is fully compatible with the `@Security` annotation of the [Symfony Security bundle](https://symfony.com/doc/current/security.html).
 
+__src/AppBundle/Resources/config/config.yml__
+
 ```
 ds_security:
   permissions:
     cache_clear: { generic: CacheClear, attributes: [EXECUTE] }
 ```
+
+__src/AppBundle/Action/CacheAction.php__
 
 ```
 <?php
