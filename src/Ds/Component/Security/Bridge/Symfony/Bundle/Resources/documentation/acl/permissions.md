@@ -53,7 +53,7 @@ The example above opens the access channel for the `AppBundle\Entity\Service` en
 
 ### Property
 
-A permission definition of type `property` opens the access channel for a property of a Doctrine entity mapped by ApiPlatform. It uses the fill class name, followed by a dot, and finally the property name. For example:
+A permission definition of type `property` opens the access channel for a property of a Doctrine entity mapped by ApiPlatform. It uses the full class name, followed by a dot, and finally the property name. For example:
 
 ```
 ds_security:
