@@ -35,13 +35,13 @@ Since it is explicit in nature, any other properties the `Service` entity may ha
 
 ## Types
 
-A permission definition type represents the type of resource the permission is exposing. Types are essentially useful meta data and is used for mapping resources to permission definitions inside the Symfony and ApiPlatform frameworks.
+The permission definition type represents the type of resource the permission is exposing. Types essentially represents useful meta data and are used for mapping resources to permission definitions inside the ACL framework.
 
-Currently, there are three types of permission definitions: `entity`, `property` and `generic`.
+Currently, there are three types of permission definition: `entity`, `property` and `generic`.
 
 ### Entity
 
-The permission definition of type `entity` exposes a Doctrine entity mapped through ApiPlatform. It uses the entity's full class name as its value. For example:
+A permission definition of type `entity` opens the access channel for a Doctrine entity mapped through ApiPlatform. It uses the entity's full class name as its value. For example:
 
 ```
 ds_security:
@@ -53,7 +53,7 @@ The example above exposes the `AppBundle\Entity\Service` entity.
 
 ### Property
 
-The permission definition of type `property` exposes a property of a Doctrine entity mapped by ApiPlatform. It uses the fill class name, followed by a dot, and finally the property name. For example:
+A permission definition of type `property` opens the access channel for a property of a Doctrine entity mapped by ApiPlatform. It uses the fill class name, followed by a dot, and finally the property name. For example:
 
 ```
 ds_security:
@@ -111,7 +111,7 @@ The example above guards the action controller. This means whoever is trying to 
 
 ## Attributes
 
-Permission definition attributes represent the possible actions that can be done against a resource. Attributes are essentially useful meta data and in some cases, mapped to HTTP request method inside the Symfony and ApiPlatform frameworks.
+Permission definition attributes represent the possible actions that can be done against a resource. Attributes are essentially useful meta data and in some cases, mapped to HTTP request method inside the ACL framework.
 
 Currently, there are six possible attributes for permission definitions: `BROWSE`, `READ`, `EDIT`, `ADD`, `DELETE` and`EXECUTE`.
 
