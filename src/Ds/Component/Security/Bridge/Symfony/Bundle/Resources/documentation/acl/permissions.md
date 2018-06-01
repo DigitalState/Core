@@ -92,8 +92,6 @@ __src/AppBundle/Action/CacheAction.php__
 
 namespace AppBundle\Action;
 
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -105,11 +103,10 @@ class CacheAction
     /**
      * Clear action
      *
-     * @Method("GET")
      * @Route(path="/cache/clear")
      * @Security("is_granted('EXECUTE', 'cache_clear')")
      */
-    public function clear()
+    public function clearAction()
     {
         // Clear redis cache
     }
@@ -117,11 +114,11 @@ class CacheAction
 
 ```
 
-The example above guards the action controller. This means whoever is trying to access the `/cache/clear` endpoint must be granted `EXECUTE` on the `cache_clear` permission.
+The example above guards the cache/clear action. This means whoever is trying to access the `/cache/clear` endpoint must be granted `EXECUTE` on the `cache_clear` permission.
 
 ## Attributes
 
-Permission definition attributes represent the possible actions that can be done against a resource. Attributes are essentially useful meta data and in some cases, mapped to HTTP request method inside the ACL framework.
+Permission definition attributes represent the possible actions that can be done against a resource. Attributes are essentially useful meta data and in some cases, mapped to HTTP request method inside the Symfony and ApiPlatform frameworks.
 
 Currently, there are six possible attributes for permission definitions: `BROWSE`, `READ`, `EDIT`, `ADD`, `DELETE` and`EXECUTE`.
 
@@ -141,13 +138,13 @@ For example: __GET__ `/services/{id}`.
 
 The `EDIT` attribute exposes the HTTP __PUT__ method on a single entity.
 
-For example: __PUT__ `/services/{id}`.
+For example: __PUT__ `{ "title": "..." }` ``/services/{id}`.
 
 ### ADD
 
 The `ADD` attribute exposes the HTTP __POST__ method on a collection of entities.
 
-For example: __POST__ `/services`.
+For example: __POST__ `{ "title": "..." }` `/services`.
 
 ### DELETE
 
