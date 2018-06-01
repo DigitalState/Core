@@ -154,7 +154,7 @@ In the example below, whoever is inheriting this access card can `READ` the `Ser
 
 The `owner` scope grants access on a subset of entries based on the owner of such entries.
 
-This scope is used the most and often contains a business unit as a owner.
+This scope is used the most and often contains a business unit as a reference.
 
 In the example below, whoever is inheriting this access card can `READ` the `Service` entities owned by the business unit `a9d68bf7-5000-49fe-8b00-33dde235b327`.
 
