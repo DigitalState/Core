@@ -138,7 +138,6 @@ class Permission implements Identifiable, Tenantable, Secured
     /**
      * @var string
      * @ApiProperty
-     * @Serializer\Groups({"permission_output"})
      * @ORM\Column(name="tenant", type="guid")
      * @Assert\Uuid
      */
