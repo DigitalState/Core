@@ -7,8 +7,8 @@ use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Security\Model\Permission;
 use Ds\Component\Security\Model\Type\Secured;
+use Ds\Component\Security\Model\User;
 use Ds\Component\Security\Service\AccessService;
-use Ds\Component\Security\User\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -147,12 +147,12 @@ class EntityVoter extends Voter
                         continue;
                     }
 
-                    if ($user->getIdentity() !== $subject->getIdentity()) {
+                    if ($user->getIdentity()->getType() !== $subject->getIdentity()) {
                         // Skip permissions that do not match the subject entity identity.
                         continue;
                     }
 
-                    if ($user->getIdentityUuid() !== $subject->getIdentityUuid()) {
+                    if ($user->getIdentity()->getUuid() !== $subject->getIdentityUuid()) {
                         // Skip permissions that do not match the subject entity identity uuid.
                         continue;
                     }

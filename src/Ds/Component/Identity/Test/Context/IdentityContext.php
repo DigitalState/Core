@@ -5,8 +5,8 @@ namespace Ds\Component\Identity\Test\Context;
 use Behat\Behat\Context\Context;
 use Behatch\HttpCall\Request;
 use DomainException;
-use Ds\Component\Identity\Collection\IdentityCollection;
-use Ds\Component\Security\User\User;
+use Ds\Component\Identity\Collection\UserCollection;
+use Ds\Component\Security\Model\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 /**
@@ -27,22 +27,22 @@ class IdentityContext implements Context
     protected $tokenManager;
 
     /**
-     * @var \Ds\Component\Identity\Collection\IdentityCollection
+     * @var \Ds\Component\Identity\Collection\UserCollection
      */
-    protected $identityCollection;
+    protected $userCollection;
 
     /**
      * Constructor
      *
      * @param \Behatch\HttpCall\Request $request
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface $tokenManager
-     * @param \Ds\Component\Identity\Collection\IdentityCollection $identityCollection
+     * @param \Ds\Component\Identity\Collection\UserCollection $userCollection
      */
-    public function __construct(Request $request, JWTTokenManagerInterface $tokenManager, IdentityCollection $identityCollection)
+    public function __construct(Request $request, JWTTokenManagerInterface $tokenManager, UserCollection $userCollection)
     {
         $this->request = $request;
         $this->tokenManager = $tokenManager;
-        $this->identityCollection = $identityCollection;
+        $this->userCollection = $userCollection;
     }
 
     /**
@@ -54,15 +54,15 @@ class IdentityContext implements Context
      */
     public function iAmAuthenticatedAsTheIdentityFromTheTenant($identity, $tenant)
     {
-        $element = $this->identityCollection->filter(function(User $element) use ($identity, $tenant) {
-            return $element->getIdentity() === $identity && $element->getTenant() === $tenant;
+        $user = $this->userCollection->filter(function(User $user) use ($identity, $tenant) {
+            return $user->getIdentity()->getType() === $identity && $user->getTenant() === $tenant;
         })->first();
 
-        if (!$element) {
-            throw new DomainException('Identity does not exist.');
+        if (!$user) {
+            throw new DomainException('User does not exist.');
         }
 
-        $token = $this->tokenManager->create($element);
+        $token = $this->tokenManager->create($user);
         $this->request->setHttpHeader('Authorization', 'Bearer '.$token);
     }
 }

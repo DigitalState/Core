@@ -2,9 +2,10 @@
 
 namespace Ds\Component\Security\EventListener\Token;
 
-use Symfony\Component\HttpFoundation\RequestStack;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * Class ClientListener
@@ -13,6 +14,11 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
  */
 class ClientListener
 {
+    /**
+     * @var \Symfony\Component\PropertyAccess\PropertyAccessor
+     */
+    protected $accessor;
+
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
@@ -26,7 +32,7 @@ class ClientListener
     /**
      * @var string
      */
-    protected $attribute;
+    protected $property;
 
     /**
      * @var integer
@@ -38,31 +44,32 @@ class ClientListener
      *
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param boolean $validate
-     * @param string $attribute
+     * @param string $property
      * @param integer $length
      */
-    public function __construct(RequestStack $requestStack, $validate = true, $attribute = 'cli', $length = 8)
+    public function __construct(RequestStack $requestStack, $validate = true, $property = '[client]', $length = 8)
     {
+        $this->accessor = PropertyAccess::createPropertyAccessor();
         $this->requestStack = $requestStack;
         $this->validate = $validate;
-        $this->attribute = $attribute;
+        $this->property = $property;
         $this->length = $length;
     }
 
     /**
-     * Add the client identifier to the token
+     * Add the client signature to the token
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
      */
     public function created(JWTCreatedEvent $event)
     {
-        $payload = $event->getData();
-        $payload[$this->attribute] = $this->getIdentifier();
-        $event->setData($payload);
+        $data = $event->getData();
+        $this->accessor->setValue($data, $this->property, $this->getSignature());
+        $event->setData($data);
     }
 
     /**
-     * Mark the token as invalid if the client identifier is missing or is not valid
+     * Mark the token as invalid if the client signature is missing or is not matching
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent $event
      */
@@ -70,23 +77,23 @@ class ClientListener
     {
         $payload = $event->getPayload();
 
-        if (!array_key_exists($this->attribute, $payload)) {
+        if (!$this->accessor->isReadable($payload, $this->property)) {
             $event->markAsInvalid();
-        } elseif ($this->validate && $payload[$this->attribute] !== $this->getIdentifier()) {
+        } elseif ($this->validate && $this->accessor->getValue($payload, $this->property) !== $this->getSignature()) {
             $event->markAsInvalid();
         }
     }
 
     /**
-     * Get the client identifier
+     * Get the client signature
      *
      * @return string
      */
-    protected function getIdentifier()
+    protected function getSignature()
     {
         $request = $this->requestStack->getCurrentRequest();
-        $identifier = substr(md5($request->server->get('HTTP_USER_AGENT')), 0, $this->length);
+        $signature = substr(md5($request->server->get('HTTP_USER_AGENT')), 0, $this->length);
 
-        return $identifier;
+        return $signature;
     }
 }

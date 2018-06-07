@@ -1,7 +1,8 @@
 <?php
 
-namespace Ds\Component\Security\EventListener\Token;
+namespace Ds\Component\Identity\EventListener\Token\Identity;
 
+use Ds\Component\Security\Model\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -9,7 +10,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 /**
  * Class UuidListener
  *
- * @package Ds\Component\Security
+ * @package Ds\Component\Identity
  */
 class UuidListener
 {
@@ -28,14 +29,14 @@ class UuidListener
      *
      * @param string $property
      */
-    public function __construct($property = '[uuid]')
+    public function __construct($property = '[identity][uuid]')
     {
         $this->accessor = PropertyAccess::createPropertyAccessor();
         $this->property = $property;
     }
 
     /**
-     * Add the user uuid to the token
+     * Add the identity uuid to the token
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
      * @throws \Ds\Component\Security\Exception\InvalidUserTypeException
@@ -44,12 +45,19 @@ class UuidListener
     {
         $data = $event->getData();
         $user = $event->getUser();
-        $this->accessor->setValue($data, $this->property, $user->getUuid());
+
+        // @todo Standardize interface between app user entity and security user model
+        if ($user instanceof User) {
+            $this->accessor->setValue($data, $this->property, $user->getIdentity()->getUuid());
+        } else {
+            $this->accessor->setValue($data, $this->property, $user->getIdentityUuid());
+        }
+
         $event->setData($data);
     }
 
     /**
-     * Mark the token as invalid if the user uuid is missing
+     * Mark the token as invalid if the identity uuid is missing
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent $event
      */

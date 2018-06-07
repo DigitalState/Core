@@ -9,7 +9,7 @@ use Ds\Component\Api\Query\IndividualPersonaParameters;
 use Ds\Component\Api\Query\OrganizationPersonaParameters;
 use Ds\Component\Api\Query\StaffPersonaParameters;
 use Ds\Component\Api\Query\SystemPersonaParameters;
-use Ds\Component\Identity\Identity;
+use Ds\Component\Identity\Model\Identity;
 use Ds\Component\Resolver\Exception\UnresolvedException;
 use Ds\Component\Resolver\Resolver\Resolver;
 use Exception;
@@ -81,35 +81,36 @@ class PersonaResolver implements Resolver
 
         $token = $this->tokenStorage->getToken();
         $user = $token->getUser();
+        $identity = $user->getIdentity();
 
-        switch ($user->getIdentity()) {
+        switch ($identity->getType()) {
             case Identity::ANONYMOUS:
                 $parameters = new AnonymousPersonaParameters;
-                $parameters->setAnonymousUuid($user->getIdentityUuid());
+                $parameters->setAnonymousUuid($identity->getUuid());
                 $models = $this->api->get('identities.anonymous_persona')->getList($parameters);
                 break;
 
             case Identity::INDIVIDUAL:
                 $parameters = new IndividualPersonaParameters;
-                $parameters->setIndividualUuid($user->getIdentityUuid());
+                $parameters->setIndividualUuid($identity->getUuid());
                 $models = $this->api->get('identities.individual_persona')->getList($parameters);
                 break;
 
             case Identity::ORGANIZATION:
                 $parameters = new OrganizationPersonaParameters;
-                $parameters->setOrganizationUuid($user->getIdentityUuid());
+                $parameters->setOrganizationUuid($identity->getUuid());
                 $models = $this->api->get('identities.organization_persona')->getList($parameters);
                 break;
 
             case Identity::STAFF:
                 $parameters = new StaffPersonaParameters;
-                $parameters->setStaffUuid($user->getIdentityUuid());
+                $parameters->setStaffUuid($identity->getUuid());
                 $models = $this->api->get('identities.staff_persona')->getList($parameters);
                 break;
 
             case Identity::SYSTEM:
                 $parameters = new SystemPersonaParameters;
-                $parameters->setSystemUuid($user->getIdentityUuid());
+                $parameters->setSystemUuid($identity->getUuid());
                 $models = $this->api->get('identities.system_persona')->getList($parameters);
                 break;
 

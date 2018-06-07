@@ -16,41 +16,41 @@ class ModifierListener
     /**
      * @var array
      */
-    protected $attributes;
+    protected $removed;
 
     /**
      * Constructor
      *
-     * @param array $attributes
+     * @param array $removed
      */
-    public function __construct(array $attributes = [])
+    public function __construct(array $removed = [])
     {
-        $this->attributes = $attributes;
+        $this->removed = $removed;
     }
 
     /**
-     * Remove attributes from the token
+     * Modify the jwt token
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
      * @throws \OutOfRangeException
      */
     public function created(JWTCreatedEvent $event)
     {
-        $payload = $event->getData();
+        $data = $event->getData();
 
-        foreach ($this->attributes as $attribute) {
-            if (!array_key_exists($attribute, $payload)) {
-                throw new OutOfRangeException('Payload attribute does not exist.');
+        foreach ($this->removed as $property) {
+            if (!array_key_exists($property, $data)) {
+                throw new OutOfRangeException('Property does not exist.');
             }
 
-            unset($payload[$attribute]);
+            unset($data[$property]);
         }
 
-        $event->setData($payload);
+        $event->setData($data);
     }
 
     /**
-     * Mark the token as invalid if the token still contains removed attributes
+     * Mark the token as invalid if the token is not modified
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent $event
      */
@@ -58,8 +58,8 @@ class ModifierListener
     {
         $payload = $event->getPayload();
 
-        foreach ($this->attributes as $attribute) {
-            if (array_key_exists($attribute, $payload)) {
+        foreach ($this->removed as $property) {
+            if (array_key_exists($property, $payload)) {
                 $event->markAsInvalid();
                 break;
             }

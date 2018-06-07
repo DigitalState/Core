@@ -3,15 +3,15 @@
 namespace Ds\Component\Identity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ds\Component\Security\User\User;
+use Ds\Component\Security\Model\User;
 use InvalidArgumentException;
 
 /**
- * Class IdentityCollection
+ * Class UserCollection
  *
  * @package Ds\Component\Identity
  */
-class IdentityCollection extends ArrayCollection
+class UserCollection extends ArrayCollection
 {
     /**
      * {@inheritdoc}
@@ -79,7 +79,7 @@ class IdentityCollection extends ArrayCollection
      * Cast element to user identity object
      *
      * @param mixed $element
-     * @return \Ds\Component\Security\User\User
+     * @return \Ds\Component\Security\Model\User
      * @throws \InvalidArgumentException
      */
     protected function cast($element) {
@@ -91,7 +91,7 @@ class IdentityCollection extends ArrayCollection
             throw new InvalidArgumentException('Element is not an array.');
         }
 
-        foreach (['username', 'uuid', 'roles', 'identity', 'identityUuid', 'tenant'] as $key) {
+        foreach (['username', 'roles', 'uuid', 'identity', 'tenant'] as $key) {
             if (!array_key_exists($key, $element)) {
                 throw new InvalidArgumentException('Element is missing key "'.$key.'".');
             }

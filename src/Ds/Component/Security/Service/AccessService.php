@@ -4,7 +4,7 @@ namespace Ds\Component\Security\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ds\Component\Entity\Service\EntityService;
-use Ds\Component\Security\User\User;
+use Ds\Component\Security\Model\User;
 
 /**
  * Class AccessService
@@ -16,7 +16,7 @@ class AccessService extends EntityService
     /**
      * Get user compiled permissions
      *
-     * @param \Ds\Component\Security\User\User $user
+     * @param \Ds\Component\Security\Model\User $user
      * @return ArrayCollection
      */
     public function getPermissions(User $user)
@@ -25,7 +25,7 @@ class AccessService extends EntityService
 
         // Generic identity permissions
         $accesses = $this->repository->findBy([
-            'assignee' => $user->getIdentity(),
+            'assignee' => $user->getIdentity()->getType(),
             'assigneeUuid' => null
         ]);
 
@@ -37,8 +37,8 @@ class AccessService extends EntityService
 
         // Specific identity permissions
         $accesses = $this->repository->findBy([
-            'assignee' => $user->getIdentity(),
-            'assigneeUuid' => $user->getIdentityUuid()
+            'assignee' => $user->getIdentity()->getType(),
+            'assigneeUuid' => $user->getIdentity()->getUuid()
         ]);
 
         foreach ($accesses as $access) {
@@ -48,18 +48,9 @@ class AccessService extends EntityService
         }
 
         // Roles permissions
-        $roles = [];
-
-        foreach ($user->getRoles() as $role) {
-            if (preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $role)) {
-                // @todo FosUser is uppercasing roles, look into disable that on the authentication microservice.
-                $roles[] = strtolower($role);
-            }
-        }
-
         $accesses = $this->repository->findBy([
             'assignee' => 'Role',
-            'assigneeUuid' => $roles
+            'assigneeUuid' => $user->getIdentity()->getRoles()
         ]);
 
         foreach ($accesses as $access) {

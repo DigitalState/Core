@@ -1,0 +1,18 @@
+services:
+  ds_identity.event_listener.token.identity.roles:
+    class: '%ds_identity.event_listener.token.identity.roles.class%'
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: created }
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: decoded }
+
+  ds_identity.event_listener.token.identity.type:
+    class: '%ds_identity.event_listener.token.identity.type.class%'
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: created }
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: decoded }
+
+  ds_identity.event_listener.token.identity.uuid:
+    class: '%ds_identity.event_listener.token.identity.uuid.class%'
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: created }
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: decoded }

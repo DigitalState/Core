@@ -4,8 +4,8 @@ namespace Ds\Component\Security\Voter\Permission;
 
 use Ds\Component\Security\Collection\PermissionCollection;
 use Ds\Component\Security\Model\Permission;
+use Ds\Component\Security\Model\User;
 use Ds\Component\Security\Service\AccessService;
-use Ds\Component\Security\User\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 

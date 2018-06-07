@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Identity;
+namespace Ds\Component\Identity\Model;
 
 /**
  * Class Identity
@@ -17,4 +17,8 @@ class Identity
     const ORGANIZATION = 'Organization';
     const INDIVIDUAL = 'Individual';
     const ANONYMOUS = 'Anonymous';
+
+    use Attribute\Uuid;
+    use Attribute\Type;
+    use Attribute\Roles;
 }

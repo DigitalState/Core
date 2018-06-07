@@ -47,7 +47,7 @@ class IdentitiableListener
 
         $user = $this->tokenStorage->getToken()->getUser();
         $entity
-            ->setIdentity($user->getIdentity())
-            ->setIdentityUuid($user->getIdentityUuid());
+            ->setIdentity($user->getIdentity()->getType())
+            ->setIdentityUuid($user->getIdentity()->getUuid());
     }
 }

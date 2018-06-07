@@ -48,18 +48,6 @@ services:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: created }
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: decoded }
 
-    ds_security.event_listener.token.identity:
-        class: '%ds_security.event_listener.token.identity.class%'
-        tags:
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: created }
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: decoded }
-
-    ds_security.event_listener.token.identity_uuid:
-        class: '%ds_security.event_listener.token.identity_uuid.class%'
-        tags:
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: created }
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: decoded }
-
     ds_security.event_listener.token.ip:
         class: '%ds_security.event_listener.token.ip.class%'
         arguments:
@@ -78,12 +66,6 @@ services:
 
     ds_security.event_listener.token.modifier:
         class: '%ds_security.event_listener.token.modifier.class%'
-        tags:
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: created }
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: decoded }
-
-    ds_security.event_listener.token.roles:
-        class: '%ds_security.event_listener.token.roles.class%'
         tags:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: created }
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: decoded }

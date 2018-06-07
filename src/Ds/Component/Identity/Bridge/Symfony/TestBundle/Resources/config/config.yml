@@ -1,62 +1,91 @@
 ds_identity_test:
-  identity:
+  users:
     - username: system@system.ds
+      roles: []
       uuid: 85726ec8-7685-4655-ac91-4746ae71c2cc
-      roles: [ROLE_SYSTEM]
-      identity: System
-      identityUuid: aa18b644-a503-49fa-8f53-10f4c1f8e3a1
+      identity:
+        roles: []
+        type: System
+        uuid: aa18b644-a503-49fa-8f53-10f4c1f8e3a1
       tenant: b6ac25fe-3cd6-4100-a054-6bba2fc9ef18 # Tenant 1
+
     - username: staff@staff.ds
+      roles: []
       uuid: da7bde0e-9690-43b3-abbb-043fb61c679a
-      roles: [ROLE_STAFF]
-      identity: Staff
-      identityUuid: e9111144-71fa-4743-91d0-178653d2e385
+      identity:
+        roles: []
+        type: Staff
+        uuid: e9111144-71fa-4743-91d0-178653d2e385
       tenant: b6ac25fe-3cd6-4100-a054-6bba2fc9ef18 # Tenant 1
+
     - username: organization@organization.ds
+      roles: []
       uuid: 765eaf87-51f9-44f4-8758-c28f380a0855
-      roles: [ROLE_ORGANIZATION]
-      identity: Organization
-      identityUuid: cedcdc35-84a8-4fa1-8cf1-ff8fea926222
+      identity:
+        roles: []
+        type: Organization
+        uuid: cedcdc35-84a8-4fa1-8cf1-ff8fea926222
       tenant: b6ac25fe-3cd6-4100-a054-6bba2fc9ef18 # Tenant 1
+
     - username: individual@individual.ds
+      roles: []
       uuid: 0bf2117e-56b4-47ae-87cd-88d7a8bfc758
-      roles: [ROLE_INDIVIDUAL]
-      identity: Individual
-      identityUuid: 5da1504c-68a4-4968-a03a-36e6ac39e8f2
+      identity:
+        roles: []
+        type: Individual
+        uuid: 5da1504c-68a4-4968-a03a-36e6ac39e8f2
       tenant: b6ac25fe-3cd6-4100-a054-6bba2fc9ef18 # Tenant 1
+
     - username: anonymous@anonymous.ds
+      roles: []
       uuid: f9df049a-fe95-405f-ba7c-734f1a0ce558
-      roles: [ROLE_ANONYMOUS]
-      identity: Anonymous
-      identityUuid: ad1a4ee4-b707-4135-b8e9-498286d5830c
+      identity:
+        roles: []
+        type: Anonymous
+        uuid: ad1a4ee4-b707-4135-b8e9-498286d5830c
       tenant: b6ac25fe-3cd6-4100-a054-6bba2fc9ef18 # Tenant 1
+
     - username: system@system.ds
+      roles: []
       uuid: d6a5c45e-2e14-4dd0-b1eb-7bd36db3fcf6
-      roles: [ROLE_SYSTEM]
-      identity: System
-      identityUuid: 571c4b5f-532e-48ac-aa6a-8099d57d9088
+      identity:
+        roles: []
+        type: System
+        uuid: 571c4b5f-532e-48ac-aa6a-8099d57d9088
       tenant: 92000deb-b847-4838-915c-b95d2b28e960 # Tenant 2
+
     - username: staff@staff.ds
+      roles: []
       uuid: 36dd306a-b31a-432e-9d6a-3c7d37a8091d
-      roles: [ROLE_STAFF]
-      identity: Staff
-      identityUuid: 45528ca5-5c61-4d42-9584-d62614ea6a6e
+      identity:
+        roles: []
+        type: Staff
+        uuid: 45528ca5-5c61-4d42-9584-d62614ea6a6e
       tenant: 92000deb-b847-4838-915c-b95d2b28e960 # Tenant 2
+
     - username: organization@organization.ds
+      roles: []
       uuid: 91a6830f-993e-4072-822e-64a94dfe9122
-      roles: [ROLE_ORGANIZATION]
-      identity: Organization
-      identityUuid: fca280ca-18c7-477d-bf95-de51f1a1d54d
+      identity:
+        roles: []
+        type: Organization
+        uuid: fca280ca-18c7-477d-bf95-de51f1a1d54d
       tenant: 92000deb-b847-4838-915c-b95d2b28e960 # Tenant 2
+
     - username: individual@individual.ds
+      roles: []
       uuid: a3586ba3-8b4f-4c8b-a913-0dafb57702df
-      roles: [ROLE_INDIVIDUAL]
-      identity: Individual
-      identityUuid: 3967473b-edf1-4011-807e-f6b85a7660dd
+      identity:
+        roles: []
+        type: Individual
+        uuid: 3967473b-edf1-4011-807e-f6b85a7660dd
       tenant: 92000deb-b847-4838-915c-b95d2b28e960 # Tenant 2
+
     - username: anonymous@anonymous.ds
+      roles: []
       uuid: 0f642313-3a79-4920-abb7-380e815514a6
-      roles: [ROLE_ANONYMOUS]
-      identity: Anonymous
-      identityUuid: 7fd2e84f-b8d6-435d-9339-127e244e8fd0
+      identity:
+        roles: []
+        type: Anonymous
+        uuid: 7fd2e84f-b8d6-435d-9339-127e244e8fd0
       tenant: 92000deb-b847-4838-915c-b95d2b28e960 # Tenant 2

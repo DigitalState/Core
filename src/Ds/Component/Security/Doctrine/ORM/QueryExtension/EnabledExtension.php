@@ -6,7 +6,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInter
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use Doctrine\ORM\QueryBuilder;
-use Ds\Component\Identity\Identity;
+use Ds\Component\Identity\Model\Identity;
 use Ds\Component\Model\Type\Enableable;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -65,7 +65,7 @@ class EnabledExtension implements QueryCollectionExtensionInterface, QueryItemEx
         if ($token) {
             $user = $token->getUser();
 
-            if (in_array($user->getIdentity(), [Identity::SYSTEM, Identity::STAFF], true)) {
+            if (in_array($user->getIdentity()->getType(), [Identity::SYSTEM, Identity::STAFF], true)) {
                 return;
             }
         }

@@ -4,7 +4,7 @@ namespace Ds\Component\Security\Resolver\Context;
 
 use DomainException;
 use Ds\Component\Api\Api\Api;
-use Ds\Component\Identity\Identity;
+use Ds\Component\Identity\Model\Identity;
 use Ds\Component\Resolver\Exception\UnresolvedException;
 use Ds\Component\Resolver\Resolver\Resolver;
 use Exception;
@@ -76,26 +76,27 @@ class IdentityResolver implements Resolver
 
         $token = $this->tokenStorage->getToken();
         $user = $token->getUser();
+        $identity = $user->getIdentity();
 
-        switch ($user->getIdentity()) {
+        switch ($identity->getType()) {
             case Identity::ANONYMOUS:
-                $model = $this->api->get('identities.anonymous')->get($user->getIdentityUuid());
+                $model = $this->api->get('identities.anonymous')->get($identity->getUuid());
                 break;
 
             case Identity::INDIVIDUAL:
-                $model = $this->api->get('identities.individual')->get($user->getIdentityUuid());
+                $model = $this->api->get('identities.individual')->get($identity->getUuid());
                 break;
 
             case Identity::ORGANIZATION:
-                $model = $this->api->get('identities.organization')->get($user->getIdentityUuid());
+                $model = $this->api->get('identities.organization')->get($identity->getUuid());
                 break;
 
             case Identity::STAFF:
-                $model = $this->api->get('identities.staff')->get($user->getIdentityUuid());
+                $model = $this->api->get('identities.staff')->get($identity->getyUuid());
                 break;
 
             case Identity::SYSTEM:
-                $model = $this->api->get('identities.system')->get($user->getIdentityUuid());
+                $model = $this->api->get('identities.system')->get($identity->getUuid());
                 break;
 
             default:
