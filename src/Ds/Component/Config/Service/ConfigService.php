@@ -46,7 +46,7 @@ class ConfigService extends EntityService
         $config = $this->repository->findOneBy(['key' => $key]);
 
         if (!$config) {
-            throw new OutOfRangeException('Config does not exist.');
+            throw new OutOfRangeException('Config "'.$key.'" does not exist.');
         }
 
         if (!$config->getEnabled()) {
