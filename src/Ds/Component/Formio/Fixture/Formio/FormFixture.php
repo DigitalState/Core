@@ -53,6 +53,8 @@ abstract class FormFixture extends ResourceFixture
             }
 
             $form = new Form;
+            $object->components = json_decode(file_get_contents(dirname(str_replace('{env}', $env, $this->getResource())).'/'.$object->components));
+            $object->submission_access = json_decode(file_get_contents(dirname(str_replace('{env}', $env, $this->getResource())).'/'.$object->submission_access));
             $submissionAccess = [];
 
             foreach ($object->submission_access as $access) {
