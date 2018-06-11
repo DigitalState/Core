@@ -20,6 +20,16 @@ class DsIdentityExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend(ContainerBuilder $container)
     {
+        $container->prependExtensionConfig('ds_identity', [
+            'token' => [
+                'identity' => [
+                    'roles' => true,
+                    'type' => true,
+                    'uuid' => true
+                ]
+            ]
+        ]);
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('config.yml');
     }
@@ -33,5 +43,24 @@ class DsIdentityExtension extends Extension implements PrependExtensionInterface
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('parameters.yml');
+        $loader->load('event_listeners.yml');
+
+        $this->loadToken($config['token'], $container);
+    }
+
+    /**
+     * Load token
+     *
+     * @param array $token
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function loadToken(array $token, ContainerBuilder $container)
+    {
+        foreach ($token['identity'] as $property => $enabled) {
+            if (!$enabled) {
+                $container->removeDefinition(sprintf('ds_identity.event_listener.token.identity.%s', $property));
+            }
+        }
     }
 }

@@ -1,17 +1,17 @@
 <?php
 
-namespace Ds\Component\Security\EventListener\Token;
+namespace Ds\Component\Identity\EventListener\Token\Identity;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
- * Class UuidListener
+ * Class RolesListener
  *
- * @package Ds\Component\Security
+ * @package Ds\Component\Identity
  */
-class UuidListener
+class RolesListener
 {
     /**
      * @var \Symfony\Component\PropertyAccess\PropertyAccessor
@@ -28,14 +28,14 @@ class UuidListener
      *
      * @param string $property
      */
-    public function __construct($property = '[uuid]')
+    public function __construct($property = '[identity][roles]')
     {
         $this->accessor = PropertyAccess::createPropertyAccessor();
         $this->property = $property;
     }
 
     /**
-     * Add the user uuid to the token
+     * Add the identity roles to the token
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
      * @throws \Ds\Component\Security\Exception\InvalidUserTypeException
@@ -44,12 +44,12 @@ class UuidListener
     {
         $data = $event->getData();
         $user = $event->getUser();
-        $this->accessor->setValue($data, $this->property, $user->getUuid());
+        $this->accessor->setValue($data, $this->property, []);
         $event->setData($data);
     }
 
     /**
-     * Mark the token as invalid if the user uuid is missing
+     * Mark the token as invalid if the identity roles is missing
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent $event
      */

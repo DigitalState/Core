@@ -2,7 +2,7 @@
 
 namespace Ds\Component\Identity\Bridge\Symfony\TestBundle\DependencyInjection;
 
-use Ds\Component\Identity\Identity;
+use Ds\Component\Identity\Model\Identity;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -22,17 +22,28 @@ class Configuration implements ConfigurationInterface
         $node = $builder->root('ds_identity_test');
         $node
             ->children()
-                ->arrayNode('identity')
+                ->arrayNode('users')
                     ->prototype('array')
                         ->children()
-                            ->scalarNode('username')->end()
-                            ->scalarNode('uuid')->end()
-                            ->arrayNode('roles')
-                                ->prototype('scalar')->end()
+                            ->scalarNode('username')
                             ->end()
-                            ->enumNode('identity')->values([Identity::SYSTEM, Identity::STAFF, Identity::ORGANIZATION, Identity::INDIVIDUAL, Identity::ANONYMOUS])->end()
-                            ->scalarNode('identityUuid')->end()
-                            ->scalarNode('tenant')->end()
+                            ->arrayNode('roles')
+                            ->end()
+                            ->scalarNode('uuid')
+                            ->end()
+                            ->arrayNode('identity')
+                                ->children()
+                                    ->arrayNode('roles')
+                                    ->end()
+                                    ->enumNode('type')
+                                        ->values([Identity::SYSTEM, Identity::STAFF, Identity::ORGANIZATION, Identity::INDIVIDUAL, Identity::ANONYMOUS])
+                                    ->end()
+                                    ->scalarNode('uuid')
+                                    ->end()
+                                ->end()
+                            ->end()
+                            ->scalarNode('tenant')
+                            ->end()
                         ->end()
                     ->end()
                 ->end()

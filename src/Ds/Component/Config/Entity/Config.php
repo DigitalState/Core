@@ -133,7 +133,7 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Versionable, Tena
      * @var string
      * @ApiProperty
      * @Serializer\Groups({"config_output", "config_input"})
-     * @ORM\Column(name="`value`", type="text", nullable=true)
+     * @ORM\Column(name="value", type="json_array", nullable=true)
      */
     protected $value;
 

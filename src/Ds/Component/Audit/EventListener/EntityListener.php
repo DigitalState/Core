@@ -110,8 +110,8 @@ class EntityListener
             ->setOwner($this->configService->get('ds_audit.audit.owner'))
             ->setOwnerUuid($this->configService->get('ds_audit.audit.owner_uuid'))
             ->setUserUuid($user->getUuid())
-            ->setIdentity($user->getIdentity())
-            ->setIdentityUuid($user->getIdentityUuid())
+            ->setIdentity($user->getIdentity()->getType())
+            ->setIdentityUuid($user->getIdentity()->getUuid())
             ->setAction($action)
             ->setData([
                 'entity' => basename(str_replace('\\', '/', get_class($entity))),

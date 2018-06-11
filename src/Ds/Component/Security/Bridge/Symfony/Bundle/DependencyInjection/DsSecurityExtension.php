@@ -25,12 +25,9 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
             'acl' => true,
             'token' => [
                 'uuid' => true,
-                'identity' => true,
-                'identity_uuid' => true,
                 'ip' => false,
                 'client' => false,
-                'roles' => true,
-                'modifier' => false
+                'modifier' => true
             ],
             'permissions' => []
         ]);

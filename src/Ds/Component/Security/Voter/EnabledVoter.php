@@ -2,9 +2,9 @@
 
 namespace Ds\Component\Security\Voter;
 
-use Ds\Component\Identity\Identity;
+use Ds\Component\Identity\Model\Identity;
 use Ds\Component\Model\Type\Enableable;
-use Ds\Component\Security\User\User;
+use Ds\Component\Security\Model\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -38,7 +38,7 @@ class EnabledVoter extends Voter
             return false;
         }
 
-        if (in_array($user->getIdentity(), [Identity::SYSTEM, Identity::STAFF], true)) {
+        if (in_array($user->getIdentity()->getType(), [Identity::SYSTEM, Identity::STAFF], true)) {
             return true;
         }
 

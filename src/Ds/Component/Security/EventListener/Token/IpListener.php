@@ -2,9 +2,10 @@
 
 namespace Ds\Component\Security\EventListener\Token;
 
-use Symfony\Component\HttpFoundation\RequestStack;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * Class IpListener
@@ -13,6 +14,11 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
  */
 class IpListener
 {
+    /**
+     * @var \Symfony\Component\PropertyAccess\PropertyAccessor
+     */
+    protected $accessor;
+
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
@@ -26,20 +32,21 @@ class IpListener
     /**
      * @var string
      */
-    protected $attribute;
+    protected $property;
 
     /**
      * Constructor
      *
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param boolean $validate
-     * @param string $attribute
+     * @param string $property
      */
-    public function __construct(RequestStack $requestStack, $validate = true, $attribute = 'ip')
+    public function __construct(RequestStack $requestStack, $validate = true, $property = '[ip]')
     {
+        $this->accessor = PropertyAccess::createPropertyAccessor();
         $this->requestStack = $requestStack;
         $this->validate = $validate;
-        $this->attribute = $attribute;
+        $this->property = $property;
     }
 
     /**
@@ -50,9 +57,9 @@ class IpListener
     public function created(JWTCreatedEvent $event)
     {
         $request = $this->requestStack->getCurrentRequest();
-        $payload = $event->getData();
-        $payload[$this->attribute] = $request->getClientIp();
-        $event->setData($payload);
+        $data = $event->getData();
+        $this->accessor->setValue($data, $this->property, $request->getClientIp());
+        $event->setData($data);
     }
 
     /**
@@ -65,9 +72,9 @@ class IpListener
         $request = $this->requestStack->getCurrentRequest();
         $payload = $event->getPayload();
 
-        if (!array_key_exists($this->attribute, $payload)) {
+        if (!$this->accessor->isReadable($payload, $this->property)) {
             $event->markAsInvalid();
-        } elseif ($this->validate && $payload[$this->attribute] !== $request->getClientIp()) {
+        } elseif ($this->validate && $this->accessor->getValue($payload, $this->property) !== $request->getClientIp()) {
             $event->markAsInvalid();
         }
     }

@@ -21,81 +21,55 @@ class Configuration implements ConfigurationInterface
         $node = $builder->root('ds_security');
         $node
             ->children()
-                ->booleanNode('acl')->defaultTrue()->end()
-                ->append($this->getTokenNode())
-                ->append($this->getFilterNode())
-                ->append($this->getPermissionsNode())
+                ->booleanNode('acl')
+                    ->defaultTrue()
+                ->end()
+                ->arrayNode('token')
+                    ->children()
+                        ->booleanNode('uuid')
+                            ->defaultFalse()
+                        ->end()
+                        ->booleanNode('ip')
+                            ->defaultFalse()
+                        ->end()
+                        ->booleanNode('client')
+                            ->defaultFalse()
+                        ->end()
+                        ->booleanNode('modifier')
+                            ->defaultFalse()
+                        ->end()
+                    ->end()
+                ->end()
+                ->arrayNode('filter')
+                    ->children()
+                        ->booleanNode('identity')
+                            ->defaultFalse()
+                        ->end()
+                        ->booleanNode('anonymous')
+                            ->defaultFalse()
+                        ->end()
+                        ->booleanNode('individual')
+                            ->defaultFalse()
+                        ->end()
+                    ->end()
+                ->end()
+                ->arrayNode('permissions')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('title')->end()
+                            ->enumNode('type')->values(['generic', 'entity', 'property'])->end()
+                            ->scalarNode('value')->end()
+                            ->arrayNode('attributes')
+                            ->prototype('enum')->values(['BROWSE', 'READ', 'EDIT', 'ADD', 'DELETE', 'EXECUTE'])->end()
+                        ->end()
+                        ->scalarNode('generic')->end()
+                        ->scalarNode('entity')->end()
+                        ->scalarNode('property')->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $builder;
-    }
-
-    /**
-     * Get token node
-     *
-     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition|\Symfony\Component\Config\Definition\Builder\NodeDefinition
-     */
-    protected function getTokenNode()
-    {
-        $builder = new TreeBuilder;
-        $node = $builder->root('token');
-        $node
-            ->children()
-                ->booleanNode('uuid')->defaultFalse()->end()
-                ->booleanNode('identity')->defaultFalse()->end()
-                ->booleanNode('identity_uuid')->defaultFalse()->end()
-                ->booleanNode('ip')->defaultFalse()->end()
-                ->booleanNode('client')->defaultFalse()->end()
-                ->booleanNode('roles')->defaultFalse()->end()
-                ->booleanNode('modifier')->defaultFalse()->end()
-            ->end();
-
-        return $node;
-    }
-
-    /**
-     * Get filter node
-     *
-     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition|\Symfony\Component\Config\Definition\Builder\NodeDefinition
-     */
-    protected function getFilterNode()
-    {
-        $builder = new TreeBuilder;
-        $node = $builder->root('filter');
-        $node
-            ->children()
-                ->booleanNode('identity')->defaultFalse()->end()
-                ->booleanNode('anonymous')->defaultFalse()->end()
-                ->booleanNode('individual')->defaultFalse()->end()
-            ->end();
-
-        return $node;
-    }
-
-    /**
-     * Get permissions node
-     *
-     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition|\Symfony\Component\Config\Definition\Builder\NodeDefinition
-     */
-    protected function getPermissionsNode()
-    {
-        $builder = new TreeBuilder;
-        $node = $builder->root('permissions');
-        $node
-            ->useAttributeAsKey('name')
-            ->prototype('array')
-                ->children()
-                    ->scalarNode('title')->end()
-                    ->enumNode('type')->values(['generic', 'entity', 'property'])->end()
-                    ->scalarNode('value')->end()
-                    ->arrayNode('attributes')
-                        ->prototype('enum')->values(['BROWSE', 'READ', 'EDIT', 'ADD', 'DELETE', 'EXECUTE'])->end()
-                    ->end()
-                    ->scalarNode('generic')->end()
-                    ->scalarNode('entity')->end()
-                    ->scalarNode('property')->end()
-                ->end();
-
-        return $node;
     }
 }

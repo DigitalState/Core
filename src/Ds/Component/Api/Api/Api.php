@@ -5,7 +5,7 @@ namespace Ds\Component\Api\Api;
 use Ds\Component\Api\Collection\ServiceCollection;
 use Ds\Component\Config\Service\ConfigService;
 use Ds\Component\Discovery\Service\DiscoveryService;
-use Ds\Component\Security\User\User;
+use Ds\Component\Security\Model\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use OutOfRangeException;
 
@@ -86,12 +86,17 @@ class Api
     {
         if (!$this->token) {
             $username = $this->configService->get('ds_api.user.username');
-            $uuid = $this->configService->get('ds_api.user.uuid');
-            $roles = ['ROLE_USER', $this->configService->get('ds_api.user.roles')]; // @todo Allow configs to be arrays (which will also allow to remove the hard coded ROLE_USER)
-            $identity = $this->configService->get('ds_api.user.identity');
-            $identityUuid = $this->configService->get('ds_api.user.identity_uuid');
-            $tenant = $this->configService->get('ds_api.user.tenant');
-            $user = User::createFromPayload($username, compact('uuid', 'roles', 'identity', 'identityUuid', 'tenant'));
+            $payload = [
+                'uuid' => $this->configService->get('ds_api.user.uuid'),
+                'roles' => $this->configService->get('ds_api.user.roles'),
+                'identity' => [
+                    'roles' => $this->configService->get('ds_api.user.identity.roles'),
+                    'type' => $this->configService->get('ds_api.user.identity.type'),
+                    'uuid' => $this->configService->get('ds_api.user.identity.uuid')
+                ],
+                'tenant' => $this->configService->get('ds_api.user.tenant')
+            ];
+            $user = User::createFromPayload($username, $payload);
             $this->token = $this->tokenManager->create($user);
         }
 
