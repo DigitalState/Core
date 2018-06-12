@@ -19,6 +19,16 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder;
         $node = $builder->root('ds_tenant');
+        $node
+            ->children()
+                ->arrayNode('tenant')
+                    ->children()
+                        ->scalarNode('default')
+                            ->defaultNull()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
 
         return $builder;
     }

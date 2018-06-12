@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Tenant\Service;
 
+use Ds\Component\Config\Service\ParameterService;
 use Ds\Component\Security\Model\User;
 use Ds\Component\Tenant\Collection\InitializerCollection;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -14,6 +15,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class TenantService
 {
+    /**
+     * @var \Ds\Component\Config\Service\ParameterService
+     */
+    protected $parameterService;
+
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
@@ -32,12 +38,14 @@ class TenantService
     /**
      * Constructor
      *
+     * @param \Ds\Component\Config\Service\ParameterService $parameterService
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
      * @param \Ds\Component\Tenant\Collection\InitializerCollection $initializerCollection
      */
-    public function __construct(RequestStack $requestStack, TokenStorageInterface $tokenStorage, InitializerCollection $initializerCollection)
+    public function __construct(ParameterService $parameterService, RequestStack $requestStack, TokenStorageInterface $tokenStorage, InitializerCollection $initializerCollection)
     {
+        $this->parameterService = $parameterService;
         $this->requestStack = $requestStack;
         $this->tokenStorage = $tokenStorage;
         $this->initializerCollection = $initializerCollection;
@@ -50,7 +58,7 @@ class TenantService
      */
     public function getContext()
     {
-        $tenant = null;
+        $tenant = $this->parameterService->get('ds_tenant.tenant.default');
         $request = $this->requestStack->getCurrentRequest();
 
         if ($request->request->has('tenant')) {
