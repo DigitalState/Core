@@ -1,8 +1,15 @@
 parameters:
-    ds_config.command.config.get.class: Ds\Component\Config\Command\Config\GetCommand
-    ds_config.command.config.set.class: Ds\Component\Config\Command\Config\SetCommand
-    ds_config.entity.config.class: Ds\Component\Config\Entity\Config
-    ds_config.collection.config.class: Ds\Component\Config\Collection\ConfigCollection
-    ds_config.repository.config.class: Ds\Component\Config\Repository\ConfigRepository
-    ds_config.service.config.class: Ds\Component\Config\Service\ConfigService
-    ds_config.twig.extension.config.class: Ds\Component\Config\Twig\Extension\ConfigExtension
+  ds_config.command.config.get.class: Ds\Component\Config\Command\Config\GetCommand
+  ds_config.command.config.set.class: Ds\Component\Config\Command\Config\SetCommand
+  ds_config.command.parameter.get.class: Ds\Component\Config\Command\Parameter\GetCommand
+  ds_config.command.parameter.set.class: Ds\Component\Config\Command\Parameter\SetCommand
+  ds_config.entity.config.class: Ds\Component\Config\Entity\Config
+  ds_config.entity.parameter.class: Ds\Component\Config\Entity\Parameter
+  ds_config.collection.config.class: Ds\Component\Config\Collection\ConfigCollection
+  ds_config.collection.parameter.class: Ds\Component\Config\Collection\ParameterCollection
+  ds_config.repository.config.class: Ds\Component\Config\Repository\ConfigRepository
+  ds_config.repository.parameter.class: Ds\Component\Config\Repository\ParameterRepository
+  ds_config.service.config.class: Ds\Component\Config\Service\ConfigService
+  ds_config.service.parameter.class: Ds\Component\Config\Service\ParameterService
+  ds_config.twig.extension.config.class: Ds\Component\Config\Twig\Extension\ConfigExtension
+  ds_config.twig.extension.parameter.class: Ds\Component\Config\Twig\Extension\ParameterExtension

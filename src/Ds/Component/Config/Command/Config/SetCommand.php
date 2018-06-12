@@ -21,7 +21,7 @@ class SetCommand extends Command
     protected $configService;
 
     /**
-     * Constructor.
+     * Constructor
      *
      * @param \Ds\Component\Config\Service\ConfigService $configService
      * @param string $name
@@ -29,7 +29,6 @@ class SetCommand extends Command
     public function __construct(ConfigService $configService, $name = null)
     {
         parent::__construct($name);
-
         $this->configService = $configService;
     }
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Ds\Component\Config\Command\Config;
+namespace Ds\Component\Config\Command\Parameter;
 
-use Ds\Component\Config\Service\ConfigService;
+use Ds\Component\Config\Service\ParameterService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,20 +16,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 class GetCommand extends Command
 {
     /**
-     * @var \Ds\Component\Config\Service\ConfigService
+     * @var \Ds\Component\Config\Service\ParameterService
      */
-    protected $configService;
+    protected $parameterService;
 
     /**
      * Constructor
      *
-     * @param \Ds\Component\Config\Service\ConfigService $configService
+     * @param \Ds\Component\Config\Service\ParameterService $parameterService
      * @param string $name
      */
-    public function __construct(ConfigService $configService, $name = null)
+    public function __construct(ParameterService $parameterService, $name = null)
     {
         parent::__construct($name);
-        $this->configService = $configService;
+        $this->parameterService = $parameterService;
     }
 
     /**
@@ -38,10 +38,10 @@ class GetCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ds:config:get')
-            ->addArgument('key', InputArgument::REQUIRED, 'The config key.')
-            ->setDescription('Gets a config value.')
-            ->setHelp('This command allows you to get a config value.');
+            ->setName('ds:parameter:get')
+            ->addArgument('key', InputArgument::REQUIRED, 'The parameter key.')
+            ->setDescription('Gets a parameter value.')
+            ->setHelp('This command allows you to get a parameter value.');
     }
 
     /**
@@ -50,7 +50,7 @@ class GetCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $key = $input->getArgument('key');
-        $value = $this->configService->get($key);
+        $value = $this->parameterService->get($key);
         $output->write($value);
     }
 }

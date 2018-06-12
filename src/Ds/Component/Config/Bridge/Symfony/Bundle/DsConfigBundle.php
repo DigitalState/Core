@@ -19,7 +19,7 @@ class DsConfigBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
-
         $container->addCompilerPass(new Compiler\ConfigPass);
+        $container->addCompilerPass(new Compiler\ParameterPass);
     }
 }
