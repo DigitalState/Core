@@ -18,18 +18,18 @@ abstract class AccessFixture extends ResourceFixture
      */
     public function load(ObjectManager $manager)
     {
-        $accesses = $this->parse($this->getResource());
+        $objects = $this->parse($this->getResource());
 
-        foreach ($accesses as $access) {
-            $entity = new Access;
-            $entity
-                ->setUuid($access->uuid)
-                ->setOwner($access->owner)
-                ->setOwnerUuid($access->owner_uuid)
-                ->setAssignee($access->assignee)
-                ->setAssigneeUuid($access->assignee_uuid)
-                ->setTenant($access->tenant);
-            $manager->persist($entity);
+        foreach ($objects as $object) {
+            $access = new Access;
+            $access
+                ->setUuid($object->uuid)
+                ->setOwner($object->owner)
+                ->setOwnerUuid($object->owner_uuid)
+                ->setAssignee($object->assignee)
+                ->setAssigneeUuid($object->assignee_uuid)
+                ->setTenant($object->tenant);
+            $manager->persist($access);
             $manager->flush();
         }
     }

@@ -19,24 +19,24 @@ abstract class PermissionFixture extends ResourceFixture
      */
     public function load(ObjectManager $manager)
     {
-        $permissions = $this->parse($this->getResource());
+        $objects = $this->parse($this->getResource());
 
-        foreach ($permissions as $permission) {
-            if (!is_array($permission->key)) {
-                $permission->key = [$permission->key];
+        foreach ($objects as $object) {
+            if (!is_array($object->key)) {
+                $object->key = [$object->key];
             }
 
-            foreach ($permission->key as $key) {
-                $entity = new Permission;
-                $entity
-                    ->setAccess($manager->getRepository(Access::class)->findOneBy(['uuid' => $permission->access]))
-                    ->setScope($permission->scope)
-                    ->setEntity($permission->entity)
-                    ->setEntityUuid($permission->entity_uuid)
+            foreach ($object->key as $key) {
+                $permission = new Permission;
+                $permission
+                    ->setAccess($manager->getRepository(Access::class)->findOneBy(['uuid' => $object->access]))
+                    ->setScope($object->scope)
+                    ->setEntity($object->entity)
+                    ->setEntityUuid($object->entity_uuid)
                     ->setKey($key)
-                    ->setAttributes($permission->attributes)
-                    ->setTenant($permission->tenant);
-                $manager->persist($entity);
+                    ->setAttributes($object->attributes)
+                    ->setTenant($object->tenant);
+                $manager->persist($permission);
                 $manager->flush();
             }
         }
