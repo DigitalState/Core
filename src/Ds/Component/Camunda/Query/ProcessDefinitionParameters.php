@@ -11,6 +11,7 @@ class ProcessDefinitionParameters extends AbstractParameters
 {
     use Attribute\Name;
     use Attribute\Key;
+    use Attribute\TenantId;
     use Attribute\Variables;
     use Attribute\WithVariablesInReturn;
 

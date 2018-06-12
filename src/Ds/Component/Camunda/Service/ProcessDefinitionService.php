@@ -6,6 +6,7 @@ use Ds\Component\Camunda\Model\ProcessDefinition;
 use Ds\Component\Camunda\Model\Variable;
 use Ds\Component\Camunda\Model\Xml;
 use Ds\Component\Camunda\Query\ProcessDefinitionParameters as Parameters;
+use LogicException;
 use SimpleXMLElement;
 
 /**
@@ -27,12 +28,16 @@ class ProcessDefinitionService extends AbstractService
     const RESOURCE_COUNT = '/process-definition/count';
     const RESOURCE_OBJECT = '/process-definition/{id}';
     const RESOURCE_OBJECT_BY_KEY = '/process-definition/key/{key}';
+    const RESOURCE_OBJECT_BY_KEY_AND_TENANT_ID = '/process-definition/key/{key}/tenant-id/{tenant-id}';
     const RESOURCE_OBJECT_XML = '/process-definition/{id}/xml';
     const RESOURCE_OBJECT_XML_BY_KEY = '/process-definition/key/{key}/xml';
+    const RESOURCE_OBJECT_XML_BY_KEY_AND_TENANT_ID = '/process-definition/key/{key}/xml';
     const RESOURCE_OBJECT_START = '/process-definition/{id}/start';
     const RESOURCE_OBJECT_START_BY_KEY = '/process-definition/key/{key}/start';
+    const RESOURCE_OBJECT_START_BY_KEY_AND_TENANT_ID = '/process-definition/key/{key}/tenant-id/{tenant-id}/start';
     const RESOURCE_OBJECT_START_FORM = '/process-definition/{id}/startForm';
     const RESOURCE_OBJECT_START_FORM_BY_KEY = '/process-definition/key/{key}/startForm';
+    const RESOURCE_OBJECT_START_FORM_BY_KEY_AND_TENANT_ID = '/process-definition/key/{key}/tenant-id/{tenant-id}/startForm';
 
     /**
      * @var array
@@ -99,13 +104,28 @@ class ProcessDefinitionService extends AbstractService
      * @param string $id
      * @param \Ds\Component\Camunda\Query\ProcessDefinitionParameters $parameters
      * @return \Ds\Component\Camunda\Model\ProcessDefinition
+     * @throws \LogicException
      */
     public function get($id, Parameters $parameters = null)
     {
         if (null !== $id) {
             $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT);
         } else {
-            $resource = str_replace('{key}', $parameters->getKey(), static::RESOURCE_OBJECT_BY_KEY);
+            $key = $parameters->getKey();
+            $tenantId = $parameters->getTenantId();
+
+            switch (true) {
+                case null !== $key && null !== $tenantId:
+                    $resource = str_replace(['{key}', '{tenant-id}'], [$key, $tenantId], static::RESOURCE_OBJECT_BY_KEY_AND_TENANT_ID);
+                    break;
+
+                case null !== $key:
+                    $resource = str_replace('{key}', $key, static::RESOURCE_OBJECT_BY_KEY);
+                    break;
+
+                default:
+                    throw new LogicException('"Key" and/or "TenantId" parameters are not defined.');
+            }
         }
 
         $options = [
@@ -125,13 +145,28 @@ class ProcessDefinitionService extends AbstractService
      * @param string $id
      * @param \Ds\Component\Camunda\Query\ProcessDefinitionParameters $parameters
      * @return string
+     * @throws \LogicException
      */
     public function getXml($id, Parameters $parameters = null)
     {
         if (null !== $id) {
             $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT_XML);
         } else {
-            $resource = str_replace('{key}', $parameters->getKey(), static::RESOURCE_OBJECT_XML_BY_KEY);
+            $key = $parameters->getKey();
+            $tenantId = $parameters->getTenantId();
+
+            switch (true) {
+                case null !== $key && null !== $tenantId:
+                    $resource = str_replace(['{key}', '{tenant-id}'], [$key, $tenantId], static::RESOURCE_OBJECT_XML_BY_KEY_AND_TENANT_ID);
+                    break;
+
+                case null !== $key:
+                    $resource = str_replace('{key}', $key, static::RESOURCE_OBJECT_XML_BY_KEY);
+                    break;
+
+                default:
+                    throw new LogicException('"Key" and/or "TenantId" parameters are not defined.');
+            }
         }
 
         $options = [
@@ -160,7 +195,21 @@ class ProcessDefinitionService extends AbstractService
         if (null !== $id) {
             $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT_START);
         } else {
-            $resource = str_replace('{key}', $parameters->getKey(), static::RESOURCE_OBJECT_START_BY_KEY);
+            $key = $parameters->getKey();
+            $tenantId = $parameters->getTenantId();
+
+            switch (true) {
+                case null !== $key && null !== $tenantId:
+                    $resource = str_replace(['{key}', '{tenant-id}'], [$key, $tenantId], static::RESOURCE_OBJECT_START_BY_KEY_AND_TENANT_ID);
+                    break;
+
+                case null !== $key:
+                    $resource = str_replace('{key}', $key, static::RESOURCE_OBJECT_START_BY_KEY);
+                    break;
+
+                default:
+                    throw new LogicException('"Key" and/or "TenantId" parameters are not defined.');
+            }
         }
 
         $options = [
@@ -212,7 +261,21 @@ class ProcessDefinitionService extends AbstractService
         if (null !== $id) {
             $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT_START_FORM);
         } else {
-            $resource = str_replace('{key}', $parameters->getKey(), static::RESOURCE_OBJECT_START_FORM_BY_KEY);
+            $key = $parameters->getKey();
+            $tenantId = $parameters->getTenantId();
+
+            switch (true) {
+                case null !== $key && null !== $tenantId:
+                    $resource = str_replace(['{key}', '{tenant-id}'], [$key, $tenantId], static::RESOURCE_OBJECT_START_FORM_BY_KEY_AND_TENANT_ID);
+                    break;
+
+                case null !== $key:
+                    $resource = str_replace('{key}', $key, static::RESOURCE_OBJECT_START_FORM_BY_KEY);
+                    break;
+
+                default:
+                    throw new LogicException('"Key" and/or "TenantId" parameters are not defined.');
+            }
         }
 
         $options = [
