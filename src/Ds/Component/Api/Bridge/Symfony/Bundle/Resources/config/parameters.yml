@@ -17,6 +17,7 @@ parameters:
     ds_api.service.camunda.process_instance.class: Ds\Component\Camunda\Service\ProcessInstanceService
     ds_api.service.camunda.task.class: Ds\Component\Camunda\Service\TaskService
     ds_api.service.camunda.task.variable.class: Ds\Component\Camunda\Service\Task\VariableService
+    ds_api.service.camunda.tenant.class: Ds\Component\Camunda\Service\TenantService
     ds_api.service.cases.health.class: Ds\Component\Api\Service\HealthService
     ds_api.service.cases.config.class: Ds\Component\Api\Service\ConfigService
     ds_api.service.cases.access.class: Ds\Component\Api\Service\AccessService

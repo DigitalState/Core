@@ -28,3 +28,9 @@ services:
         class: '%ds_api.service.camunda.task.variable.class%'
         tags:
             - { name: ds_api.service, alias: camunda.task.variable }
+
+    ds_api.service.camunda.tenant:
+        parent: ds_api.service
+        class: '%ds_api.service.camunda.tenant.class%'
+        tags:
+            - { name: ds_api.service, alias: camunda.tenant }
