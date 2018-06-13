@@ -1,6 +1,8 @@
 services:
   ds_identity.event_listener.token.identity.roles:
     class: '%ds_identity.event_listener.token.identity.roles.class%'
+    arguments:
+      - '@ds_api.api'
     tags:
       - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: created }
       - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: decoded }
