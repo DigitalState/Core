@@ -28,7 +28,14 @@ class AnonymousService extends AbstractService
      */
     protected static $map = [
         'id',
-        'uuid'
+        'uuid',
+        'createdAt',
+        'updatedAt',
+        'owner',
+        'ownerUuid',
+        'roles',
+        'version',
+        'tenant'
     ];
 
     /**

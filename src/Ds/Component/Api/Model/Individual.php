@@ -17,6 +17,7 @@ class Individual implements Model
     use Attribute\UpdatedAt;
     use Attribute\Owner;
     use Attribute\OwnerUuid;
+    use Attribute\Roles;
     use Attribute\Version;
     use Attribute\Tenant;
 
