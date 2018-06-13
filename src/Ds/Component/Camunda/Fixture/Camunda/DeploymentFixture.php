@@ -51,7 +51,8 @@ abstract class DeploymentFixture extends ResourceFixture
             $deployment = new Deployment;
             $deployment
                 ->setName($object->name)
-                ->setSource($source);
+                ->setSource($source)
+                ->setTenantId($object->tenant_id);
             $files = [];
 
             foreach ($object->files as $file) {

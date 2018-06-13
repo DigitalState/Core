@@ -34,6 +34,7 @@ class DeploymentService extends AbstractService
         'name',
         'source',
         'deploymentTime',
+        'tenantId'
     ];
 
     /**
@@ -109,6 +110,11 @@ class DeploymentService extends AbstractService
                     'Content-Disposition' => 'form-data',
                     'name' => 'deployment-source',
                     'contents' => $deployment->getSource()
+                ],
+                [
+                    'Content-Disposition' => 'form-data',
+                    'name' => 'tenant-id',
+                    'contents' => $deployment->getTenantId()
                 ]
             ]
         ];

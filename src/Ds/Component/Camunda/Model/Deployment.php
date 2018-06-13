@@ -14,4 +14,5 @@ class Deployment implements Model
     use Attribute\Source;
     use Attribute\DeploymentTime;
     use Attribute\Files;
+    use Attribute\TenantId;
 }
