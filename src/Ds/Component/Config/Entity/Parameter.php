@@ -35,7 +35,7 @@ class Parameter implements Identifiable
 
     /**
      * @var string
-     * @ORM\Column(name="`key`", type="string")
+     * @ORM\Column(name="`key`", type="string", unique=true)
      * @Assert\NotBlank
      * @Assert\Length(min=1, max=255)
      */
