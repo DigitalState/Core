@@ -48,6 +48,10 @@ abstract class AbstractParameters implements Parameters
                     $object->$key = $value ? 'true' : 'false';
                     break;
 
+                case 'tenantIdIn':
+                    $object->$key = implode(',', $value);
+                    break;
+
                 default:
                     $object->$key = $value;
             }
