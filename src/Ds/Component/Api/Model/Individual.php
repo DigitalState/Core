@@ -26,6 +26,7 @@ class Individual implements Model
      */
     public function __construct()
     {
+        $this->roles = [];
         $this->version = 1;
     }
 }

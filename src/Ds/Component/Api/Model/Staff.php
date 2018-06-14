@@ -20,4 +20,12 @@ class Staff implements Model
     use Attribute\Roles;
     use Attribute\Version;
     use Attribute\Tenant;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->roles = [];
+    }
 }
