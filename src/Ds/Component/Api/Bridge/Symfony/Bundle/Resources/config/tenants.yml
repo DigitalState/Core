@@ -1,7 +1,7 @@
 services:
-  ds_api.tenant.initializer.config:
-    class: '%ds_api.tenant.initializer.config.class%'
+  ds_api.tenant.loader.config:
+    class: '%ds_api.tenant.loader.config.class%'
     arguments:
       - '@ds_config.service.config'
     tags:
-      - { name: ds_tenant.initializer }
+      - { name: ds_tenant.loader }

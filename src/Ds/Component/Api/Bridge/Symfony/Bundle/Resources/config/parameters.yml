@@ -57,4 +57,4 @@ parameters:
     ds_api.service.tasks.config.class: Ds\Component\Api\Service\ConfigService
     ds_api.service.tasks.access.class: Ds\Component\Api\Service\AccessService
     ds_api.service.tasks.permission.class: Ds\Component\Api\Service\PermissionService
-    ds_api.tenant.initializer.config.class: Ds\Component\Api\Tenant\Initializer\ConfigInitializer
+    ds_api.tenant.loader.config.class: Ds\Component\Api\Tenant\Loader\ConfigLoader
