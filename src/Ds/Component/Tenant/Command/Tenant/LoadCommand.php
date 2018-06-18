@@ -10,11 +10,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class CreateCommand
+ * Class LoaderCommand
  *
  * @package Ds\Component\Tenant
  */
-class CreateCommand extends Command
+class LoaderCommand extends Command
 {
     /**
      * @var \Ds\Component\Tenant\Service\TenantService
@@ -39,10 +39,10 @@ class CreateCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ds:tenant:create')
+            ->setName('ds:tenant:load')
             ->addArgument('data', InputArgument::REQUIRED, 'The tenant data.')
-            ->setDescription('Create a tenant.')
-            ->setHelp('This command allows you to create a tenant.');
+            ->setDescription('Load a new tenant.')
+            ->setHelp('This command allows you to load a new tenant.');
     }
 
     /**
@@ -52,6 +52,6 @@ class CreateCommand extends Command
     {
         $data = $input->getArgument('data');
         $data = Yaml::parse(str_replace('\\n', "\n", $data));
-        $this->tenantService->initialize($data);
+        $this->tenantService->load($data);
     }
 }

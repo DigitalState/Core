@@ -5,8 +5,8 @@ namespace Ds\Component\Tenant\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class InitializerCollection
+ * Class LoaderCollection
  */
-class InitializerCollection extends ArrayCollection
+class LoaderCollection extends ArrayCollection
 {
 }

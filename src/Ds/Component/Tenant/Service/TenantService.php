@@ -4,7 +4,7 @@ namespace Ds\Component\Tenant\Service;
 
 use Ds\Component\Config\Service\ParameterService;
 use Ds\Component\Security\Model\User;
-use Ds\Component\Tenant\Collection\InitializerCollection;
+use Ds\Component\Tenant\Collection\LoaderCollection;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -31,9 +31,9 @@ class TenantService
     protected $tokenStorage;
 
     /**
-     * @var \Ds\Component\Tenant\Collection\InitializerCollection
+     * @var \Ds\Component\Tenant\Collection\LoaderCollection
      */
-    protected $initializerCollection;
+    protected $loaderCollection;
 
     /**
      * Constructor
@@ -41,14 +41,14 @@ class TenantService
      * @param \Ds\Component\Config\Service\ParameterService $parameterService
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Ds\Component\Tenant\Collection\InitializerCollection $initializerCollection
+     * @param \Ds\Component\Tenant\Collection\LoaderCollection $loaderCollection
      */
-    public function __construct(ParameterService $parameterService, RequestStack $requestStack, TokenStorageInterface $tokenStorage, InitializerCollection $initializerCollection)
+    public function __construct(ParameterService $parameterService, RequestStack $requestStack, TokenStorageInterface $tokenStorage, LoaderCollection $loaderCollection)
     {
         $this->parameterService = $parameterService;
         $this->requestStack = $requestStack;
         $this->tokenStorage = $tokenStorage;
-        $this->initializerCollection = $initializerCollection;
+        $this->loaderCollection = $loaderCollection;
     }
 
     /**
@@ -81,16 +81,16 @@ class TenantService
     }
 
     /**
-     * Initialize tenant
+     * Load a new tenant
      *
      * @param array $data
      * @return \Ds\Component\Tenant\Service\TenantService
      * @throws \InvalidArgumentException
      */
-    public function initialize(array $data)
+    public function load(array $data)
     {
-        foreach ($this->initializerCollection as $initializer) {
-            $initializer->initialize($data);
+        foreach ($this->loaderCollection as $loader) {
+            $loader->load($data);
         }
 
         return $this;

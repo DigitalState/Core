@@ -5,4 +5,4 @@ services:
       - '@ds_config.service.parameter'
       - '@request_stack'
       - '@security.token_storage'
-      - '@ds_tenant.collection.initializer'
+      - '@ds_tenant.collection.loader'

@@ -1,19 +1,19 @@
 <?php
 
-namespace Ds\Component\Tenant\Initializer;
+namespace Ds\Component\Tenant\Loader;
 
 /**
- * Interface Initializer
+ * Interface Loader
  *
  * @package Ds\Component\Tenant
  */
-interface Initializer
+interface Loader
 {
     /**
      * Initialize tenant
      *
      * @param array $data
-     * @return \Ds\Component\Tenant\Initializer\Initializer
+     * @return \Ds\Component\Tenant\Loader\Loader
      * @example Data array sample
      * <code>
      *   tenant:
@@ -35,5 +35,5 @@ interface Initializer
      *       uuid: 36565c23-ed22-4dc2-bc7e-ae1ce59a727c
      * </code>
      */
-    public function initialize(array $data);
+    public function load(array $data);
 }

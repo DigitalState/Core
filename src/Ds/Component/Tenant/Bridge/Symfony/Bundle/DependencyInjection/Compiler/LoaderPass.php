@@ -7,9 +7,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class InitializerPass
+ * Class LoaderPass
  */
-class InitializerPass implements CompilerPassInterface
+class LoaderPass implements CompilerPassInterface
 {
     /**
      * Process
@@ -18,12 +18,12 @@ class InitializerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has('ds_tenant.collection.initializer')) {
+        if (!$container->has('ds_tenant.collection.loader')) {
             return;
         }
 
-        $definition = $container->findDefinition('ds_tenant.collection.initializer');
-        $services = $container->findTaggedServiceIds('ds_tenant.initializer');
+        $definition = $container->findDefinition('ds_tenant.collection.loader');
+        $services = $container->findTaggedServiceIds('ds_tenant.loader');
 
         foreach ($services as $id => $tags) {
             foreach ($tags as $tag) {
