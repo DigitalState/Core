@@ -10,11 +10,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class LoaderCommand
+ * Class LoadCommand
  *
  * @package Ds\Component\Tenant
  */
-class LoaderCommand extends Command
+class LoadCommand extends Command
 {
     /**
      * @var \Ds\Component\Tenant\Service\TenantService
