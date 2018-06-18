@@ -40,7 +40,7 @@ class LoadCommand extends Command
     {
         $this
             ->setName('ds:tenant:load')
-            ->addArgument('data', InputArgument::REQUIRED, 'The tenant data.')
+            ->addArgument('file', InputArgument::REQUIRED, 'The yml file path containing the tenant data.')
             ->setDescription('Load a new tenant.')
             ->setHelp('This command allows you to load a new tenant.');
     }
@@ -50,8 +50,8 @@ class LoadCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $data = $input->getArgument('data');
-        $data = Yaml::parse(str_replace('\\n', "\n", $data));
+        $file = $input->getArgument('file');
+        $data = Yaml::parse(file_get_contents($file));
         $this->tenantService->load($data);
     }
 }
