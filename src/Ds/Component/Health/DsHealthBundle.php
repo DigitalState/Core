@@ -1,8 +1,8 @@
 <?php
 
-namespace Ds\Component\Health\Bridge\Symfony\Bundle;
+namespace Ds\Component\Health;
 
-use Ds\Component\Health\Bridge\Symfony\Bundle\DependencyInjection\Compiler;
+use Ds\Component\Health\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -19,7 +19,6 @@ class DsHealthBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
-
         $container->addCompilerPass(new Compiler\CheckPass);
     }
 }

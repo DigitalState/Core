@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Health\Bridge\Symfony\Bundle\Action;
+namespace Ds\Component\Health\Action;
 
 use Ds\Component\Health\Exception\InvalidAliasException;
 use Ds\Component\Health\Service\HealthService;
@@ -43,8 +43,7 @@ class HealthAction
      * Action
      *
      * @Method("GET")
-     * @Route(path="/health")
-     * @Security("is_granted('BROWSE', 'health')")
+     * @Route(path="/system/health")
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function cget()
@@ -70,8 +69,7 @@ class HealthAction
      * Action
      *
      * @Method("GET")
-     * @Route(path="/health/{alias}", requirements={"alias"=".+"})
-     * @Security("is_granted('READ', 'health')")
+     * @Route(path="/system/health/{alias}", requirements={"alias"=".+"})
      * @param string $alias
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */

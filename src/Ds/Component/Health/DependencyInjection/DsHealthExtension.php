@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Health\Bridge\Symfony\Bundle\DependencyInjection;
+namespace Ds\Component\Health\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

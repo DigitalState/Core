@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Health\Bridge\Symfony\Bundle\DependencyInjection\Compiler;
+namespace Ds\Component\Health\DependencyInjection\Compiler;
 
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
