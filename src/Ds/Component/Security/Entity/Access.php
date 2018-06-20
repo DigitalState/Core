@@ -34,8 +34,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  *              "groups"={"access_input", "permission_input"}
  *          },
  *          "filters"={
- *              "ds.access.search",
- *              "ds.access.date"
+ *              "ds_security.access.search",
+ *              "ds_security.access.date"
  *          }
  *      }
  * )

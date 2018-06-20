@@ -38,7 +38,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  *         "denormalization_context"={
  *             "groups"={"config_input"}
  *         },
- *         "filters"={"ds.config.search", "ds.config.date", "ds.config.boolean"}
+ *         "filters"={
+ *             "ds_config.config.search",
+ *             "ds_config.config.date",
+ *             "ds_config.config.boolean"
+ *         }
  *     }
  * )
  * @ORM\Entity(repositoryClass="Ds\Component\Config\Repository\ConfigRepository")
