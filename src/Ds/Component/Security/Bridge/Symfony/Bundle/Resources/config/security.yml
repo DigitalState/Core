@@ -1,6 +1,6 @@
 security:
   providers:
-    ds_security_jwt:
+    ds_security:
       lexik_jwt:
         class: Ds\Component\Security\Model\User
 
