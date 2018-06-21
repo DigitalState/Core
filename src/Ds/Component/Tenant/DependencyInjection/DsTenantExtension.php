@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Tenant\Bridge\Symfony\Bundle\DependencyInjection;
+namespace Ds\Component\Tenant\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -42,8 +42,8 @@ class DsTenantExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('collections.yml');
-        $loader->load('commands.yml');
         $loader->load('event_listeners.yml');
+        $loader->load('repositories.yml');
         $loader->load('services.yml');
 
         // @todo Move this config -> parameters logic to a common trait in the config component bridge

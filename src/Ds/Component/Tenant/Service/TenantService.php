@@ -4,6 +4,7 @@ namespace Ds\Component\Tenant\Service;
 
 use Doctrine\ORM\EntityManager;
 use Ds\Component\Config\Service\ParameterService;
+use Ds\Component\Entity\Service\EntityService;
 use Ds\Component\Security\Model\User;
 use Ds\Component\Tenant\Collection\LoaderCollection;
 use Exception;
@@ -15,13 +16,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  *
  * @package Ds\Component\Tenant\Service
  */
-class TenantService
+class TenantService extends EntityService
 {
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    protected $entityManager;
-
     /**
      * @var \Ds\Component\Config\Service\ParameterService
      */
@@ -45,15 +41,16 @@ class TenantService
     /**
      * Constructor
      *
-     * @param \Doctrine\ORM\EntityManager $entityManager
+     * @param \Doctrine\ORM\EntityManager $manager
      * @param \Ds\Component\Config\Service\ParameterService $parameterService
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
      * @param \Ds\Component\Tenant\Collection\LoaderCollection $loaderCollection
+     * @param string $entity
      */
-    public function __construct(EntityManager $entityManager, ParameterService $parameterService, RequestStack $requestStack, TokenStorageInterface $tokenStorage, LoaderCollection $loaderCollection)
+    public function __construct(EntityManager $manager, ParameterService $parameterService, RequestStack $requestStack, TokenStorageInterface $tokenStorage, LoaderCollection $loaderCollection, $entity)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($manager, $entity);
         $this->parameterService = $parameterService;
         $this->requestStack = $requestStack;
         $this->tokenStorage = $tokenStorage;
@@ -137,7 +134,7 @@ class TenantService
      */
     public function load(array $data)
     {
-        $connection = $this->entityManager->getConnection();
+        $connection = $this->manager->getConnection();
         $connection->beginTransaction();
 
         try {

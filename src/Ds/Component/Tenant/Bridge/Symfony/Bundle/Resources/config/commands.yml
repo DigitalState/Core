@@ -1,7 +1,0 @@
-services:
-  ds_tenant.command.tenant.load:
-    class: '%ds_tenant.command.tenant.load.class%'
-    arguments:
-      - '@ds_tenant.service.tenant'
-    tags:
-      - { name: console.command }

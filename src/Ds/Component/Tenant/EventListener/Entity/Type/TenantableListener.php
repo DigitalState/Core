@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Tenant\EventListener;
+namespace Ds\Component\Tenant\EventListener\Entity\Type;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ds\Component\Tenant\Model\Type\Tenantable;

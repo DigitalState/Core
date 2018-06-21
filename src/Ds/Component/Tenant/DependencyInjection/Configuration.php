@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Tenant\Bridge\Symfony\Bundle\DependencyInjection;
+namespace Ds\Component\Tenant\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

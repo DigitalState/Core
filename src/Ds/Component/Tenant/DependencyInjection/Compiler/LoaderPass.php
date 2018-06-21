@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Tenant\Bridge\Symfony\Bundle\DependencyInjection\Compiler;
+namespace Ds\Component\Tenant\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

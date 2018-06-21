@@ -1,9 +1,9 @@
 <?php
 
-namespace Ds\Component\Tenant\Bridge\Symfony\Bundle;
+namespace Ds\Component\Tenant;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Ds\Component\Tenant\Bridge\Symfony\Bundle\DependencyInjection\Compiler;
+use Ds\Component\Tenant\DependencyInjection\Compiler;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
