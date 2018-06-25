@@ -34,6 +34,10 @@ class DeletedVoter extends Voter
     {
         $user = $token->getUser();
 
+        if ($user instanceof \Symfony\Component\Security\Core\User\User && in_array('ROLE_SYSTEM', $user->getRoles())) {
+            return true;
+        }
+
         if (!$user instanceof User) {
             return false;
         }

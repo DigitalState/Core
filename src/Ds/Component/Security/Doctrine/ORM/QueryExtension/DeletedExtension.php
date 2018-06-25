@@ -8,6 +8,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use Doctrine\ORM\QueryBuilder;
 use Ds\Component\Identity\Model\Identity;
 use Ds\Component\Model\Type\Deletable;
+use Ds\Component\Security\Model\User;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -73,25 +74,27 @@ class DeletedExtension implements QueryCollectionExtensionInterface, QueryItemEx
         if ($token) {
             $user = $token->getUser();
 
-            if (in_array($user->getIdentity()->getType(), [Identity::SYSTEM, Identity::STAFF], true)) {
-                $request = $this->requestStack->getCurrentRequest();
-                $deleted = $request->query->get('deleted', 'false');
-                $rootAlias = $queryBuilder->getRootAliases()[0];
+            if ($user instanceof User) {
+                if (in_array($user->getIdentity()->getType(), [Identity::SYSTEM, Identity::STAFF], true)) {
+                    $request = $this->requestStack->getCurrentRequest();
+                    $deleted = $request->query->get('deleted', 'false');
+                    $rootAlias = $queryBuilder->getRootAliases()[0];
 
-                switch ($deleted) {
-                    case 'true':
-                        $queryBuilder->andWhere($rootAlias.'.deletedAt IS NOT NULL');
-                        break;
+                    switch ($deleted) {
+                        case 'true':
+                            $queryBuilder->andWhere($rootAlias . '.deletedAt IS NOT NULL');
+                            break;
 
-                    case 'false':
-                        $queryBuilder->andWhere($rootAlias.'.deletedAt IS NULL');
-                        break;
+                        case 'false':
+                            $queryBuilder->andWhere($rootAlias . '.deletedAt IS NULL');
+                            break;
 
-                    case 'null':
-                        break;
+                        case 'null':
+                            break;
+                    }
+
+                    return;
                 }
-
-                return;
             }
         }
 
