@@ -10,7 +10,7 @@ namespace Ds\Component\Api\Query;
 interface Parameters
 {
     /**
-     * Cast parameters to array
+     * Cast parameters to object
      *
      * @param boolean $minimal
      * @return \stdClass
