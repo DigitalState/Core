@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Discovery\Bridge\Symfony\Bundle;
+namespace Ds\Component\Discovery;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

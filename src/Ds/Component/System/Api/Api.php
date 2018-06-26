@@ -57,7 +57,7 @@ class Api
         }
 
         $service = $this->serviceCollection->get($alias);
-        $host = $this->discoveryService->get(explode('.', $alias)[0]);
+        $host = $this->discoveryService->get(explode('.', $alias)[0])->host;
         $service->setHost($host);
         $username = $this->parameterService->get('ds_system.user.username');
         $password = $this->parameterService->get('ds_system.user.password');

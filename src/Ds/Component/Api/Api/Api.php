@@ -71,8 +71,10 @@ class Api
         }
 
         $service = $this->serviceCollection->get($alias);
-        $service->setHost($this->discoveryService->get(explode('.', $alias)[0]));
-        $service->setHeader('Authorization', 'Bearer '.$this->getToken());
+        $host = $this->discoveryService->get(explode('.', $alias)[0])->host;
+        $service->setHost($host);
+        $credentials = 'Bearer '.$this->getToken();
+        $service->setHeader('Authorization', $credentials);
 
         return $service;
     }

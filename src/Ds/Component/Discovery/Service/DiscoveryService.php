@@ -16,7 +16,7 @@ class DiscoveryService
     /**
      * @const string
      */
-    const CACHE_MAP = 'ds_discovery.cache.map';
+    const CACHE_DATA = 'ds_discovery.cache.data';
 
     /**
      * @var \GuzzleHttp\ClientInterface
@@ -48,48 +48,52 @@ class DiscoveryService
     }
 
     /**
-     * Get service host
+     * Get discovery data
      *
      * @param string $service
-     * @return string
+     * @return \stdClass
      * @throws \DomainException
      */
-    public function get($service)
+    public function get($service = null)
     {
-        $map = null;
+        $data = null;
 
         if ($this->cache) {
-            $item = $this->cache->getItem(static::CACHE_MAP);
+            $item = $this->cache->getItem(static::CACHE_DATA);
 
             if ($item->isHit()) {
-                $map = $item->get();
+                $data = $item->get();
             } else {
-                $map = $this->getMap();
-                $item->set($map);
+                $data = $this->getData();
+                $item->set($data);
                 $this->cache->save($item);
             }
         } else {
-            $map = $this->getMap();
+            $data = $this->getData();
         }
 
-        if (!array_key_exists($service, $map)) {
+        if (null === $service) {
+            return $data;
+        }
+
+        if (!array_key_exists($service, $data)) {
             throw new DomainException('Service does not exist.');
         }
 
-        return $map[$service];
+        return $data[$service];
     }
 
     /**
-     * Get map of service endpoints
+     * Get data
      *
      * @return array
      */
-    protected function getMap()
+    protected function getData()
     {
-        $response = $this->client->request('GET', 'http://' . $this->host);
+        $response = $this->client->request('GET', 'http://'.$this->host.'/data.json');
         $body = (string) $response->getBody();
-        $map = \GuzzleHttp\json_decode($body, true);
+        $data = \GuzzleHttp\json_decode($body);
 
-        return $map;
+        return $data;
     }
 }
