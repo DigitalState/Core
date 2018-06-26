@@ -2,8 +2,8 @@
 
 namespace Ds\Component\Api\Bridge\Symfony\Bundle;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ds\Component\Api\Bridge\Symfony\Bundle\DependencyInjection\Compiler;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
