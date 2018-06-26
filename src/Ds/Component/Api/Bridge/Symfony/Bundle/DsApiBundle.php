@@ -19,6 +19,6 @@ class DsApiBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
-        $container->addCompilerPass(new Compiler\ServicePass());
+        $container->addCompilerPass(new Compiler\ServicePass);
     }
 }
