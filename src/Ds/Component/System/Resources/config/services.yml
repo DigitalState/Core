@@ -1,0 +1,27 @@
+imports:
+  - { resource: services/assets.yml }
+  - { resource: services/authentication.yml }
+  - { resource: services/cases.yml }
+  - { resource: services/cms.yml }
+  - { resource: services/identities.yml }
+  - { resource: services/records.yml }
+  - { resource: services/services.yml }
+  - { resource: services/tasks.yml }
+  - { resource: services/tenants.yml }
+
+services:
+  ds_system.api:
+    class: '%ds_system.api.class%'
+    arguments:
+      - '@ds_system.collection.service'
+      - '@ds_discovery.service.discovery'
+      - '@ds_config.service.parameter'
+
+  ds_system.client:
+    class: '%ds_system.client.class%'
+
+  ds_system.service:
+    abstract: true
+    arguments:
+      - '@ds_system.client'
+    public: false

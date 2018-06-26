@@ -1,0 +1,13 @@
+parameters:
+  ds_system.api.class: Ds\Component\System\Api\Api
+  ds_system.client.class: GuzzleHttp\Client
+  ds_system.collection.service.class: Ds\Component\System\Collection\ServiceCollection
+  ds_system.service.assets.tenant.class: Ds\Component\System\Service\TenantService
+  ds_system.service.authentication.tenant.class: Ds\Component\System\Service\TenantService
+  ds_system.service.cases.tenant.class: Ds\Component\System\Service\TenantService
+  ds_system.service.cms.tenant.class: Ds\Component\System\Service\TenantService
+  ds_system.service.identities.tenant.class: Ds\Component\System\Service\TenantService
+  ds_system.service.records.tenant.class: Ds\Component\System\Service\TenantService
+  ds_system.service.services.tenant.class: Ds\Component\System\Service\TenantService
+  ds_system.service.tasks.tenant.class: Ds\Component\System\Service\TenantService
+  ds_system.service.tenants.tenant.class: Ds\Component\System\Service\TenantService
