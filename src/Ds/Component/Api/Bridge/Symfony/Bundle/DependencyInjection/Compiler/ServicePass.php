@@ -8,6 +8,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class ServicePass
+ *
+ * @package Ds\Component\Api
  */
 class ServicePass implements CompilerPassInterface
 {
