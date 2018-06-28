@@ -6,6 +6,6 @@ security:
     ds_system:
       memory:
         users:
-          '%system_user%':
+          '%system_username%':
               password: '%system_password%'
               roles: ROLE_SYSTEM
