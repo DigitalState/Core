@@ -56,4 +56,20 @@ class AnonymousService extends AbstractService
 
         return $list;
     }
+
+    /**
+     * Get anonymous
+     *
+     * @param string $id
+     * @param \Ds\Component\Api\Query\AnonymousParameters $parameters
+     * @return \Ds\Component\Api\Model\Anonymous
+     */
+    public function get($id, Parameters $parameters = null)
+    {
+        $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT);
+        $object = $this->execute('GET', $resource);
+        $model = static::toModel($object);
+
+        return $model;
+    }
 }
