@@ -76,11 +76,11 @@ class DiscoveryService
             return $data;
         }
 
-        if (!array_key_exists($service, $data)) {
+        if (!property_exists($data, $service)) {
             throw new DomainException('Service does not exist.');
         }
 
-        return $data[$service];
+        return $data->$service;
     }
 
     /**
