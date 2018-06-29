@@ -59,34 +59,36 @@ class RolesListener
 
         // @todo remove condition when both user types are homogenized
         if ($user instanceof User) {
-            switch ($user->getIdentity()) {
-                case Identity::ANONYMOUS:
-                    $identity = $this->api->get('identities.anonymous')->get($user->getIdentityUuid());
-                    break;
+            if (null !== $user->getIdentityUuid()) {
+                switch ($user->getIdentity()) {
+                    case Identity::ANONYMOUS:
+                        $identity = $this->api->get('identities.anonymous')->get($user->getIdentityUuid());
+                        break;
 
-                case Identity::INDIVIDUAL:
-                    $identity = $this->api->get('identities.individual')->get($user->getIdentityUuid());
-                    break;
+                    case Identity::INDIVIDUAL:
+                        $identity = $this->api->get('identities.individual')->get($user->getIdentityUuid());
+                        break;
 
-                case Identity::ORGANIZATION:
-                    $identity = $this->api->get('identities.organization')->get($user->getIdentityUuid());
-                    break;
+                    case Identity::ORGANIZATION:
+                        $identity = $this->api->get('identities.organization')->get($user->getIdentityUuid());
+                        break;
 
-                case Identity::STAFF:
-                    $identity = $this->api->get('identities.staff')->get($user->getIdentityUuid());
-                    break;
+                    case Identity::STAFF:
+                        $identity = $this->api->get('identities.staff')->get($user->getIdentityUuid());
+                        break;
 
-                case Identity::SYSTEM:
-                    $identity = $this->api->get('identities.system')->get($user->getIdentityUuid());
-                    break;
+                    case Identity::SYSTEM:
+                        $identity = $this->api->get('identities.system')->get($user->getIdentityUuid());
+                        break;
 
-                default:
-                    throw new DomainException('User identity is not valid.');
-            }
+                    default:
+                        throw new DomainException('User identity is not valid.');
+                }
 
-            foreach ($identity->getRoles() as $role) {
-                // @todo Remove substr once we remove iri-based api foreign keys
-                $roles[] = substr($role, -36);
+                foreach ($identity->getRoles() as $role) {
+                    // @todo Remove substr once we remove iri-based api foreign keys
+                    $roles[] = substr($role, -36);
+                }
             }
         } else {
             $roles = $user->getIdentity()->getRoles();
