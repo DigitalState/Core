@@ -23,4 +23,12 @@ class Form implements Model
     use Attribute\SubmissionAccess;
     use Attribute\Access;
     use Attribute\Owner;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = [];
+    }
 }
