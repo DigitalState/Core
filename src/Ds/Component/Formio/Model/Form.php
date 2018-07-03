@@ -30,5 +30,6 @@ class Form implements Model
     public function __construct()
     {
         $this->tags = [];
+        $this->submissionAccess = [];
     }
 }
