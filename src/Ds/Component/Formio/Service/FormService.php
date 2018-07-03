@@ -124,6 +124,39 @@ class FormService extends AbstractService
     }
 
     /**
+     * Update form
+     *
+     * @param \Ds\Component\Formio\Model\Form $form
+     * @param \Ds\Component\Formio\Query\FormParameters $parameters
+     * @return \Ds\Component\Formio\Model\Form
+     */
+    public function update(Form $form, Parameters $parameters = null)
+    {
+        $options = [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => [
+                'title' => $form->getTitle(),
+                'display' => $form->getDisplay(),
+                'type' => $form->getType(),
+                'name' => $form->getName(),
+                'path' => $form->getPath(),
+                'tags' => $form->getTags(),
+                'components' => $form->getComponents(),
+                'submissionAccess' => $form->getSubmissionAccess()
+            ]
+        ];
+
+        $resource = str_replace('{path}', $form->getPath(), static::RESOURCE_OBJECT_BY_PATH);
+        $object = $this->execute('PUT', $resource, $options);
+        $model = static::toModel($object);
+
+        return $model;
+    }
+
+    /**
      * Delete form
      *
      * @param string $path
