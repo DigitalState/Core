@@ -1,6 +1,0 @@
-parameters:
-    ds_entity.event_listener.identitiable.class: Ds\Component\Entity\EventListener\IdentitiableListener
-    ds_entity.event_listener.uuidentifiable.class: Ds\Component\Entity\EventListener\UuidentifiableListener
-    ds_entity.event_listener.custom_identifiable.class: Ds\Component\Entity\EventListener\CustomIdentifiableListener
-    ds_entity.service.entity.class: Ds\Component\Entity\Service\EntityService
-    ds_entity.service.sequence.class: Ds\Component\Entity\Service\SequenceService

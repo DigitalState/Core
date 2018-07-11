@@ -1,3 +1,0 @@
-services:
-    ds_api.collection.service:
-        class: '%ds_api.collection.service.class%'

@@ -1,0 +1,3 @@
+services:
+  ds_security.collection.permission:
+    class: '%ds_security.collection.permission.class%'

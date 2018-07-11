@@ -1,0 +1,6 @@
+services:
+  ds_form.service.form:
+    class: '%ds_form.service.form.class%'
+    arguments:
+      - '@ds_api.api'
+      - '@ds_resolver.collection.resolver'

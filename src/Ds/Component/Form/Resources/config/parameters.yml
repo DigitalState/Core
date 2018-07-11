@@ -1,0 +1,2 @@
+parameters:
+  ds_form.service.form.class: Ds\Component\Form\Service\FormService

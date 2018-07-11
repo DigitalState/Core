@@ -1,0 +1,3 @@
+ds_security:
+  permissions:
+    functions: { attributes: [EXECUTE], generic: Functions, title: ds.func.permissions.func}

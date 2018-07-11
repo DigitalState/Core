@@ -1,3 +1,0 @@
-ds_security:
-    resource: '@DsSecurityBundle/Action/'
-    type: annotation

@@ -1,5 +1,0 @@
-services:
-    ds_translation.service.translation:
-        class: '%ds_translation.service.translation.class%'
-        arguments:
-            - '@annotation_reader'

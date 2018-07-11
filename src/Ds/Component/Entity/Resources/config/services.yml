@@ -1,0 +1,8 @@
+services:
+  ds_entity.service.entity:
+    abstract: true
+    arguments:
+      - '@doctrine.orm.entity_manager'
+
+  ds_entity.service.sequence:
+    class: '%ds_entity.service.sequence.class%'

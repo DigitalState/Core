@@ -1,0 +1,2 @@
+parameters:
+  ds_exception.event_listener.exception.class: Ds\Component\Exception\EventListener\ExceptionListener

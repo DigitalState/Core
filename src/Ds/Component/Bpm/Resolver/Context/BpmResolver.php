@@ -11,6 +11,8 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * Class BpmResolver
+ *
+ * @package Ds\Component\Bpm
  */
 class BpmResolver
 {

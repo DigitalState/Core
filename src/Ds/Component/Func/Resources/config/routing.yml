@@ -1,0 +1,3 @@
+ds_func:
+  resource: '@DsFuncBundle/Action/'
+  type: annotation

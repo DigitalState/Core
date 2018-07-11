@@ -1,3 +1,0 @@
-services:
-    ds_statistic.collection.stat:
-        class: '%ds_statistic.collection.stat.class%'
