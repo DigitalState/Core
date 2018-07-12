@@ -5,12 +5,10 @@ namespace Ds\Component\Security\Entity;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Attribute\Accessor;
 use Ds\Component\Security\Entity\Attribute\Accessor as EntityAccessor;
+use Ds\Component\Security\Model\Type\Secured;
 use Ds\Component\Tenant\Model\Attribute\Accessor as TenantAccessor;
 use Ds\Component\Tenant\Model\Type\Tenantable;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
-use Ds\Component\Security\Model\Type\Secured;
 use Symfony\Component\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,16 +18,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * Class Permission
  *
  * @package Ds\Component\Security
- * @ApiResource(
- *      attributes={
- *          "normalization_context"={
- *              "groups"={"permission_output"}
- *          },
- *          "denormalization_context"={
- *              "groups"={"permission_input"}
- *          }
- *      }
- * )
  * @ORM\Entity(repositoryClass="Ds\Component\Security\Repository\PermissionRepository")
  * @ORM\Table(name="ds_access_permission")
  * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
@@ -58,7 +46,6 @@ class Permission implements Identifiable, Tenantable, Secured
 
     /**
      * @var integer
-     * @ApiProperty(identifier=false, readable=false, writable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(name="id", type="integer")
@@ -67,7 +54,6 @@ class Permission implements Identifiable, Tenantable, Secured
 
     /**
      * @var \Ds\Component\Security\Entity\Access
-     * @ApiProperty(readable=false, writable=false)
      * @ORM\ManyToOne(targetEntity="Access", inversedBy="permissions")
      * @ORM\JoinColumn(name="access_id", referencedColumnName="id")
      * @Assert\Valid
@@ -76,7 +62,6 @@ class Permission implements Identifiable, Tenantable, Secured
 
     /**
      * @var string
-     * @ApiProperty
      * @Serializer\Groups({"permission_output", "permission_input"})
      * @ORM\Column(name="scope", type="string", length=255, nullable=true)
      * @Assert\NotBlank
@@ -86,7 +71,6 @@ class Permission implements Identifiable, Tenantable, Secured
 
     /**
      * @var string
-     * @ApiProperty
      * @Serializer\Groups({"permission_output", "permission_input"})
      * @ORM\Column(name="entity", type="string", length=255, nullable=true)
      * @Assert\Length(min=1, max=255)
@@ -95,7 +79,6 @@ class Permission implements Identifiable, Tenantable, Secured
 
     /**
      * @var string
-     * @ApiProperty
      * @Serializer\Groups({"permission_output", "permission_input"})
      * @ORM\Column(name="entity_uuid", type="guid", nullable=true)
      * @Assert\Uuid
@@ -104,7 +87,6 @@ class Permission implements Identifiable, Tenantable, Secured
 
     /**
      * @var string
-     * @ApiProperty
      * @Serializer\Groups({"permission_output", "permission_input"})
      * @ORM\Column(name="`key`", type="string", length=255)
      * @Assert\NotBlank
@@ -124,7 +106,6 @@ class Permission implements Identifiable, Tenantable, Secured
 
     /**
      * @var array
-     * @ApiProperty
      * @Serializer\Groups({"permission_output", "permission_input"})
      * @ORM\Column(name="attributes", type="json_array")
      * @Assert\NotBlank
@@ -137,7 +118,6 @@ class Permission implements Identifiable, Tenantable, Secured
 
     /**
      * @var string
-     * @ApiProperty
      * @ORM\Column(name="tenant", type="guid")
      * @Assert\Uuid
      */

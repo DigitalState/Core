@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Security\Action\Permissions;
+namespace Ds\Component\Security\Action\Meta;
 
 use Ds\Component\Security\Collection\PermissionCollection;
 use Ds\Component\Security\Model\Permission;
@@ -12,12 +12,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class ListAction
+ * Class PermissionsAction
  *
  * @package Ds\Component\Security
  * @ApiResource
  */
-class ListAction
+class PermissionsAction
 {
     /**
      * @var \Ds\Component\Security\Collection\PermissionCollection
@@ -38,8 +38,8 @@ class ListAction
      * Action
      *
      * @Method("GET")
-     * @Route(path="/permissions/list")
-     * @Security("is_granted('BROWSE', 'permissions_list')")
+     * @Route(path="/meta/permissions")
+     * @Security("is_granted('BROWSE', 'meta_permissions')")
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function cget()
