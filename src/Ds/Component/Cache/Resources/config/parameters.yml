@@ -1,2 +1,2 @@
 parameters:
-    ds_cache.doctrine.orm.query_extension.cache.class: Ds\Component\Cache\Doctrine\ORM\QueryExtension\CacheExtension
+  ds_cache.doctrine.orm.query_extension.cache.class: Ds\Component\Cache\Doctrine\ORM\QueryExtension\CacheExtension
