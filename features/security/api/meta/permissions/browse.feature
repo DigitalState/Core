@@ -10,7 +10,7 @@ Feature: Browse permissions
   @createSchema @loadFixtures @dropSchema
   Scenario: Browse all permissions
     When I add "Accept" header equal to "application/json"
-    And I send a "GET" request to "/permissions/list"
+    And I send a "GET" request to "/meta/permissions"
     Then the response status code should be 200
     And the header "Content-Type" should be equal to "application/json"
     And the response should be in JSON
