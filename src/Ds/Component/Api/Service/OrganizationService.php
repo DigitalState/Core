@@ -33,6 +33,7 @@ class OrganizationService extends AbstractService
         'updatedAt',
         'owner',
         'ownerUuid',
+        'roles',
         'version',
         'tenant'
     ];
