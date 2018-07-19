@@ -4,13 +4,13 @@ The core repository provides a wide range of commonly used components for [Api P
 
 ## Table of Contents
 
-- [Components](#components)
+- [Documentation](#documentation)
 - [Contributing](#contributing)
 - [Credits](#credits)
 
-## Components
+## Documentation
 
-List of available components:
+### Components
 
 [Api Component](https://github.com/DigitalState/Core/tree/develop/src/Ds/Component/Api)
 
