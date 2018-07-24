@@ -1,1 +1,20 @@
 services:
+  ds_security.filter.access.search:
+    parent: api_platform.doctrine.orm.search_filter
+    arguments:
+      - id: exact
+        uuid: exact
+        owner: exact
+        ownerUuid: exact
+        assignee: exact
+        assigneeUuid: exact
+    tags:
+      - { name: api_platform.filter, id: ds_security.access.search }
+
+  ds_security.filter.access.date:
+    parent: api_platform.doctrine.orm.date_filter
+    arguments:
+      - createdAt: ~
+        updatedAt: ~
+    tags:
+      - { name: api_platform.filter, id: ds_security.access.date }
