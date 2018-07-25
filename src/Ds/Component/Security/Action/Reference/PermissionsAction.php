@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Security\Action\Meta;
+namespace Ds\Component\Security\Action\Reference;
 
 use Ds\Component\Security\Collection\PermissionCollection;
 use Ds\Component\Security\Model\Permission;
@@ -38,8 +38,8 @@ class PermissionsAction
      * Action
      *
      * @Method("GET")
-     * @Route(path="/meta/permissions")
-     * @Security("is_granted('BROWSE', 'meta_permissions')")
+     * @Route(path="/reference/permissions")
+     * @Security("is_granted('BROWSE', 'reference_permissions')")
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function cget()
