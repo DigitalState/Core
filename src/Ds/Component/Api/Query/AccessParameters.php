@@ -9,4 +9,5 @@ namespace Ds\Component\Api\Query;
  */
 class AccessParameters extends AbstractParameters
 {
+
 }
