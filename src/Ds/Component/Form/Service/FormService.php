@@ -9,6 +9,7 @@ use Ds\Component\Formio\Query\FormParameters;
 use Ds\Component\Resolver\Exception\UnmatchedException;
 use Ds\Component\Resolver\Exception\UnresolvedException;
 use Ds\Component\Resolver\Collection\ResolverCollection;
+use Ds\Component\Tenant\Service\TenantService;
 use InvalidArgumentException;
 
 /**
@@ -29,15 +30,22 @@ class FormService
     protected $resolverCollection;
 
     /**
+     * @var \Ds\Component\Tenant\Service\TenantService
+     */
+    protected $tenantService;
+
+    /**
      * Constructor
      *
      * @param \Ds\Component\Api\Api\Api $api
      * @param \Ds\Component\Resolver\Collection\ResolverCollection $resolverCollection
+     * #param \Ds\Component\Tenant\Service\TenantService $tenantService
      */
-    public function __construct(Api $api, ResolverCollection $resolverCollection)
+    public function __construct(Api $api, ResolverCollection $resolverCollection, TenantService $tenantService)
     {
         $this->api = $api;
         $this->resolverCollection = $resolverCollection;
+        $this->tenantService = $tenantService;
     }
 
     /**
@@ -50,14 +58,14 @@ class FormService
      */
     public function getForm($id)
     {
-        if (!preg_match('/^([a-z]+):([-_a-z]+)$/i', $id, $matches)) {
+        if (!preg_match('/^([a-z]+):([-_a-z0-9]+)$/i', $id, $matches)) {
             throw new InvalidArgumentException('Form id is not valid.');
         }
 
         $form = new Form;
         $form
             ->setType($matches[1])
-            ->setId($matches[2]);
+            ->setId($this->tenantService->getContext().'-'.$matches[2]);
 
         switch ($form->getType()) {
             case Form::TYPE_FORMIO:

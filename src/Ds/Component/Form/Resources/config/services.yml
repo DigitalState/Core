@@ -4,3 +4,4 @@ services:
     arguments:
       - '@ds_api.api'
       - '@ds_resolver.collection.resolver'
+      - '@ds_tenant.service.tenant'
