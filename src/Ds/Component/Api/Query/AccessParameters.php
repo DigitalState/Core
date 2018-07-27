@@ -9,5 +9,6 @@ namespace Ds\Component\Api\Query;
  */
 class AccessParameters extends AbstractParameters
 {
-
+    use Attribute\Assignee;
+    use Attribute\AssigneeUuid;
 }
