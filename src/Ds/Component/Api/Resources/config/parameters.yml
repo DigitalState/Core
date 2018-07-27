@@ -32,6 +32,10 @@ parameters:
   ds_api.service.formio.submission.class: Ds\Component\Formio\Service\SubmissionService
   ds_api.service.formio.user.class: Ds\Component\Formio\Service\UserService
   ds_api.service.formio.role.class: Ds\Component\Formio\Service\RoleService
+  ds_api.service.forms.health.class: Ds\Component\Api\Service\HealthService
+  ds_api.service.forms.config.class: Ds\Component\Api\Service\ConfigService
+  ds_api.service.forms.access.class: Ds\Component\Api\Service\AccessService
+  ds_api.service.forms.permission.class: Ds\Component\Api\Service\PermissionService
   ds_api.service.identities.health.class: Ds\Component\Api\Service\HealthService
   ds_api.service.identities.config.class: Ds\Component\Api\Service\ConfigService
   ds_api.service.identities.access.class: Ds\Component\Api\Service\AccessService
@@ -57,4 +61,8 @@ parameters:
   ds_api.service.tasks.config.class: Ds\Component\Api\Service\ConfigService
   ds_api.service.tasks.access.class: Ds\Component\Api\Service\AccessService
   ds_api.service.tasks.permission.class: Ds\Component\Api\Service\PermissionService
+  ds_api.service.tenants.health.class: Ds\Component\Api\Service\HealthService
+  ds_api.service.tenants.config.class: Ds\Component\Api\Service\ConfigService
+  ds_api.service.tenants.access.class: Ds\Component\Api\Service\AccessService
+  ds_api.service.tenants.permission.class: Ds\Component\Api\Service\PermissionService
   ds_api.tenant.loader.config.class: Ds\Component\Api\Tenant\Loader\ConfigLoader

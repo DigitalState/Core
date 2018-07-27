@@ -1,0 +1,24 @@
+services:
+  ds_api.service.tenants.health:
+    parent: ds_api.service
+    class: '%ds_api.service.tenants.health.class%'
+    tags:
+      - { name: ds_api.service, alias: tenants.health }
+
+  ds_api.service.tenants.config:
+    parent: ds_api.service
+    class: '%ds_api.service.tenants.config.class%'
+    tags:
+      - { name: ds_api.service, alias: tenants.config }
+
+  ds_api.service.tenants.access:
+    parent: ds_api.service
+    class: '%ds_api.service.tenants.access.class%'
+    tags:
+      - { name: ds_api.service, alias: tenants.access }
+
+  ds_api.service.tenants.permission:
+    parent: ds_api.service
+    class: '%ds_api.service.tenants.permission.class%'
+    tags:
+      - { name: ds_api.service, alias: tenants.permission }

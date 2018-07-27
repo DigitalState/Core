@@ -1,0 +1,5 @@
+services:
+  ds_container.event_listener.container:
+    abstract: true
+    arguments:
+      - '@service_container'

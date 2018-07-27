@@ -47,7 +47,13 @@ class AccessService extends AbstractService
      */
     public function getList(Parameters $parameters = null)
     {
-        $objects = $this->execute('GET', static::RESOURCE_LIST);
+        $options = [];
+
+        if ($parameters) {
+            $options['query'] = (array) $parameters->toObject(true);
+        }
+
+        $objects = $this->execute('GET', static::RESOURCE_LIST, $options);
         $list = [];
 
         foreach ($objects as $object) {

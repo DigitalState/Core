@@ -5,10 +5,12 @@ imports:
   - { resource: services/camunda.yml }
   - { resource: services/cms.yml }
   - { resource: services/formio.yml }
+  - { resource: services/forms.yml }
   - { resource: services/identities.yml }
   - { resource: services/records.yml }
   - { resource: services/services.yml }
   - { resource: services/tasks.yml }
+  - { resource: services/tenants.yml }
 
 services:
   ds_api.api:
