@@ -6,6 +6,6 @@ It features a powerful ACL, extended JWT token protection and advanced security 
 
 ## Table of Contents
 
-- [ACL](Bridge/Symfony/Bundle/Resources/documentation/acl.md)
-- [JWT](Bridge/Symfony/Bundle/Resources/documentation/jwt.md)
-- [Filters](Bridge/Symfony/Bundle/Resources/documentation/filters.md)
+- [ACL](acl.md)
+- [JWT](jwt.md)
+- [Filters](filters.md)
