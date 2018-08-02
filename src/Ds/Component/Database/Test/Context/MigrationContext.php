@@ -13,13 +13,24 @@ use Symfony\Component\Process\Process;
 class MigrationContext implements Context
 {
     /**
-     * Load migrations
+     * Up migrations
      *
-     * @BeforeScenario @loadMigrations
+     * @BeforeScenario @upMigrations
      */
-    public function loadMigrations()
+    public function upMigrations()
     {
         $process = new Process('php bin/console doctrine:migrations:migrate --env=test --no-interaction');
+        $process->run();
+    }
+
+    /**
+     * Down migrations
+     *
+     * @AfterScenario @downMigrations
+     */
+    public function downMigrations()
+    {
+        $process = new Process('php bin/console doctrine:migrations:execute --env=test --no-interaction --down 1_0_0');
         $process->run();
     }
 }
