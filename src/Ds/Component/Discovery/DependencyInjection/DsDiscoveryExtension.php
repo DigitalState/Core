@@ -23,8 +23,7 @@ class DsDiscoveryExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('caches.yml');
         $loader->load('parameters.yml');
-        $loader->load('services.yml');
+        $loader->load('repositories.yml');
     }
 }

@@ -2,9 +2,9 @@ services:
   ds_discovery.client:
     class: '%ds_discovery.client.class%'
 
-  ds_discovery.service.discovery:
-    class: '%ds_discovery.service.discovery.class%'
+  ds_discovery.repository.config:
+    class: '%ds_discovery.repository.config.class%'
     arguments:
       - '@ds_discovery.client'
       - '%discovery_host%'
-      - '@ds_discovery.cache.default'
+      - '%discovery_credential%'

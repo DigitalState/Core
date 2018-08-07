@@ -4,7 +4,7 @@ namespace Ds\Component\Api\Api;
 
 use Ds\Component\Api\Collection\ServiceCollection;
 use Ds\Component\Config\Service\ConfigService;
-use Ds\Component\Discovery\Service\DiscoveryService;
+use Ds\Component\Discovery\Repository\ConfigRepository;
 use Ds\Component\Security\Model\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use OutOfRangeException;
@@ -22,9 +22,9 @@ class Api
     protected $serviceCollection;
 
     /**
-     * @var \Ds\Component\Discovery\Service\DiscoveryService
+     * @var \Ds\Component\Discovery\Repository\ConfigRepository
      */
-    protected $discoveryService;
+    protected $configRepository;
 
     /**
      * @var \Ds\Component\Config\Service\ConfigService
@@ -45,14 +45,14 @@ class Api
      * Constructor
      *
      * @param \Ds\Component\Api\Collection\ServiceCollection $serviceCollection
-     * @param \Ds\Component\Discovery\Service\DiscoveryService $discoveryService
+     * @param \Ds\Component\Discovery\Repository\ConfigRepository $configRepository
      * @param \Ds\Component\Config\Service\ConfigService $configService
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface $tokenManager
      */
-    public function __construct(ServiceCollection $serviceCollection, DiscoveryService $discoveryService, ConfigService $configService, JWTTokenManagerInterface $tokenManager)
+    public function __construct(ServiceCollection $serviceCollection, ConfigRepository $configRepository, ConfigService $configService, JWTTokenManagerInterface $tokenManager)
     {
         $this->serviceCollection = $serviceCollection;
-        $this->discoveryService = $discoveryService;
+        $this->configRepository = $configRepository;
         $this->configService = $configService;
         $this->tokenManager = $tokenManager;
     }
@@ -71,7 +71,7 @@ class Api
         }
 
         $service = $this->serviceCollection->get($alias);
-        $host = $this->discoveryService->get(explode('.', $alias)[0])->host;
+        $host = $this->configRepository->find('services/'.explode('.', $alias)[0].'/host')->getValue();
         $service->setHost($host);
         $credentials = 'Bearer '.$this->getToken();
         $service->setHeader('Authorization', $credentials);

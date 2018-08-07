@@ -4,7 +4,7 @@ namespace Ds\Component\System\Api;
 
 use Ds\Component\System\Collection\ServiceCollection;
 use Ds\Component\Config\Service\ParameterService;
-use Ds\Component\Discovery\Service\DiscoveryService;
+use Ds\Component\Discovery\Repository\ConfigRepository;
 use OutOfRangeException;
 
 /**
@@ -20,9 +20,9 @@ class Api
     protected $serviceCollection;
 
     /**
-     * @var \Ds\Component\Discovery\Service\DiscoveryService
+     * @var \Ds\Component\Discovery\Repository\ConfigRepository
      */
-    protected $discoveryService;
+    protected $configRepository;
 
     /**
      * @var \Ds\Component\Config\Service\ParameterService
@@ -33,13 +33,13 @@ class Api
      * Constructor
      *
      * @param \Ds\Component\System\Collection\ServiceCollection $serviceCollection
-     * @param \Ds\Component\Discovery\Service\DiscoveryService $discoveryService
+     * @param \Ds\Component\Discovery\Repository\ConfigRepository $configRepository
      * @param \Ds\Component\Config\Service\ParameterService $parameterService
      */
-    public function __construct(ServiceCollection $serviceCollection, DiscoveryService $discoveryService, ParameterService $parameterService)
+    public function __construct(ServiceCollection $serviceCollection, ConfigRepository $configRepository, ParameterService $parameterService)
     {
         $this->serviceCollection = $serviceCollection;
-        $this->discoveryService = $discoveryService;
+        $this->configRepository = $configRepository;
         $this->parameterService = $parameterService;
     }
 
@@ -57,7 +57,7 @@ class Api
         }
 
         $service = $this->serviceCollection->get($alias);
-        $host = $this->discoveryService->get(explode('.', $alias)[0])->host;
+        $host = $this->configRepository->find('services/'.explode('.', $alias)[0].'/host')->getValue();
         $service->setHost($host);
         $username = $this->parameterService->get('ds_system.user.username');
         $password = $this->parameterService->get('ds_system.user.password');

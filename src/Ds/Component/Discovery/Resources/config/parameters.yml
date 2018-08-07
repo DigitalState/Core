@@ -1,4 +1,3 @@
 parameters:
-  ds_discovery.cache.default.class: Symfony\Component\Cache\Adapter\FilesystemAdapter
   ds_discovery.client.class: GuzzleHttp\Client
-  ds_discovery.service.discovery.class: Ds\Component\Discovery\Service\DiscoveryService
+  ds_discovery.repository.config.class: Ds\Component\Discovery\Repository\ConfigRepository
