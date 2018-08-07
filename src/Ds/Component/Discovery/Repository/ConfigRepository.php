@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Discovery\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Ds\Component\Discovery\Model\Config;
 use GuzzleHttp\ClientInterface;
@@ -78,7 +79,28 @@ class ConfigRepository implements ObjectRepository
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
+        $uri = 'http://'.$this->host.'/v1/kv';
 
+        if (array_key_exists('directory', $criteria)) {
+            $uri .= '/'.$criteria['directory'];
+            unset($criteria['directory']);
+        }
+
+        $response = $this->client->request('GET', $uri, [
+            'headers' => [
+                'X-Consul-Token' => $this->credential
+            ],
+            'query' => $criteria
+        ]);
+        $body = (string) $response->getBody();
+        $objects = \GuzzleHttp\json_decode($body);
+        $models = new ArrayCollection;
+
+        foreach ($objects as $object) {
+            $models->add($this->toModel($object));
+        }
+
+        return $models;
     }
 
     /**
