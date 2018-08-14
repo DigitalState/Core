@@ -8,3 +8,4 @@ services:
       - '@ds_discovery.client'
       - '%discovery_host%'
       - '%discovery_credential%'
+      - '%namespace%'

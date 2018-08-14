@@ -28,20 +28,27 @@ class ConfigRepository implements ObjectRepository
     /**
      * @var string
      */
-    protected $credential;
+    protected $token;
+
+    /**
+     * @var string
+     */
+    protected $namespace;
 
     /**
      * Constructor
      *
      * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
-     * @param string $credential
+     * @param string $token
+     * @param string $namespace
      */
-    public function __construct(ClientInterface $client, $host, $credential)
+    public function __construct(ClientInterface $client, $host, $token, $namespace = 'ds')
     {
         $this->client = $client;
         $this->host = $host;
-        $this->credential = $credential;
+        $this->token = $token;
+        $this->namespace = $namespace;
     }
 
     /**
@@ -49,9 +56,9 @@ class ConfigRepository implements ObjectRepository
      */
     public function find($id)
     {
-        $response = $this->client->request('GET', 'http://'.$this->host.'/v1/kv/'.$id, [
+        $response = $this->client->request('GET', 'http://'.$this->host.'/v1/kv/'.$this->namespace.'/'.$id, [
             'headers' => [
-                'X-Consul-Token' => $this->credential
+                'X-Consul-Token' => $this->token
             ]
         ]);
         $body = (string) $response->getBody();
@@ -79,7 +86,7 @@ class ConfigRepository implements ObjectRepository
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        $uri = 'http://'.$this->host.'/v1/kv';
+        $uri = 'http://'.$this->host.'/v1/kv/'.$this->namespace;
 
         if (array_key_exists('directory', $criteria)) {
             $uri .= '/'.$criteria['directory'];
@@ -88,7 +95,7 @@ class ConfigRepository implements ObjectRepository
 
         $response = $this->client->request('GET', $uri, [
             'headers' => [
-                'X-Consul-Token' => $this->credential
+                'X-Consul-Token' => $this->token
             ],
             'query' => $criteria
         ]);
