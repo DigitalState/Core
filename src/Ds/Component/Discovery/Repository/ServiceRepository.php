@@ -2,23 +2,22 @@
 
 namespace Ds\Component\Discovery\Repository;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Ds\Component\Discovery\Model\Config;
+use Ds\Component\Discovery\Model\Service;
 use stdClass;
 
 /**
- * Class ConfigRepository
+ * Class ServiceRepository
  *
  * @package Ds\Component\Discovery
  */
-class ConfigRepository extends Repository
+class ServiceRepository extends Repository
 {
     /**
      * {@inheritdoc}
      */
     public function find($id)
     {
-        $response = $this->client->request('GET', 'http://'.$this->host.'/v1/kv/'.$this->namespace.'/'.$id, [
+        $response = $this->client->request('GET', 'http://'.$this->host.'/v1/catalog/service/'.$this->namespace.$id, [
             'headers' => [
                 'X-Consul-Token' => $this->token
             ]
@@ -48,28 +47,7 @@ class ConfigRepository extends Repository
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        $uri = 'http://'.$this->host.'/v1/kv/'.$this->namespace;
 
-        if (array_key_exists('directory', $criteria)) {
-            $uri .= '/'.$criteria['directory'];
-            unset($criteria['directory']);
-        }
-
-        $response = $this->client->request('GET', $uri, [
-            'headers' => [
-                'X-Consul-Token' => $this->token
-            ],
-            'query' => $criteria
-        ]);
-        $body = (string) $response->getBody();
-        $objects = \GuzzleHttp\json_decode($body);
-        $models = new ArrayCollection;
-
-        foreach ($objects as $object) {
-            $models->add($this->toModel($object));
-        }
-
-        return $models;
     }
 
     /**
@@ -85,22 +63,23 @@ class ConfigRepository extends Repository
      */
     public function getClassName()
     {
-        return Config::class;
+        return Service::class;
     }
 
     /**
      * Type cast object to model
      *
      * @param \stdClass $object
-     * @return \Ds\Component\Discovery\Model\Config
+     * @return \Ds\Component\Discovery\Model\Service
      */
     protected function toModel(stdClass $object)
     {
         $class = $this->getClassName();
         $model = new $class;
         $model
-            ->setKey($object->Key)
-            ->setValue(base64_decode($object->Value));
+            ->setId($object->ID)
+            ->setIp($object->ServiceAddress)
+            ->setPort($object->ServicePort);
 
         return $model;
     }
