@@ -4,7 +4,7 @@ namespace Ds\Component\System\Api;
 
 use Ds\Component\System\Collection\ServiceCollection;
 use Ds\Component\Config\Service\ParameterService;
-use Ds\Component\Discovery\Repository\ConfigRepository;
+use Ds\Component\Discovery\Repository\ServiceRepository;
 use OutOfRangeException;
 
 /**
@@ -20,9 +20,9 @@ class Api
     protected $serviceCollection;
 
     /**
-     * @var \Ds\Component\Discovery\Repository\ConfigRepository
+     * @var \Ds\Component\Discovery\Repository\ServiceRepository
      */
-    protected $configRepository;
+    protected $serviceRepository;
 
     /**
      * @var \Ds\Component\Config\Service\ParameterService
@@ -33,13 +33,13 @@ class Api
      * Constructor
      *
      * @param \Ds\Component\System\Collection\ServiceCollection $serviceCollection
-     * @param \Ds\Component\Discovery\Repository\ConfigRepository $configRepository
+     * @param \Ds\Component\Discovery\Repository\ServiceRepository $serviceRepository
      * @param \Ds\Component\Config\Service\ParameterService $parameterService
      */
-    public function __construct(ServiceCollection $serviceCollection, ConfigRepository $configRepository, ParameterService $parameterService)
+    public function __construct(ServiceCollection $serviceCollection, ServiceRepository $serviceRepository, ParameterService $parameterService)
     {
         $this->serviceCollection = $serviceCollection;
-        $this->configRepository = $configRepository;
+        $this->serviceRepository = $serviceRepository;
         $this->parameterService = $parameterService;
     }
 
@@ -57,8 +57,8 @@ class Api
         }
 
         $service = $this->serviceCollection->get($alias);
-        $host = $this->configRepository->find('services/'.explode('.', $alias)[0].'/host')->getValue();
-        $service->setHost($host);
+        $discovered = $this->serviceRepository->find(explode('.', $alias)[0].'_api_80');
+        $service->setHost($discovered->getIp().':'.$discovered->getPort());
         $username = $this->parameterService->get('ds_system.user.username');
         $password = $this->parameterService->get('ds_system.user.password');
         $credentials = 'Basic '.base64_encode($username.':'.$password);

@@ -15,7 +15,7 @@ services:
     class: '%ds_system.api.class%'
     arguments:
       - '@ds_system.collection.service'
-      - '@ds_discovery.repository.config'
+      - '@ds_discovery.repository.service'
       - '@ds_config.service.parameter'
 
   ds_system.client:
