@@ -32,6 +32,11 @@ class Api
     protected $configService;
 
     /**
+     * @var string
+     */
+    protected $namespace;
+
+    /**
      * @var \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface
      */
     protected $tokenManager;
@@ -47,13 +52,15 @@ class Api
      * @param \Ds\Component\Api\Collection\ServiceCollection $serviceCollection
      * @param \Ds\Component\Discovery\Repository\ServiceRepository $serviceRepository
      * @param \Ds\Component\Config\Service\ConfigService $configService
+     * @param string $namespace
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface $tokenManager
      */
-    public function __construct(ServiceCollection $serviceCollection, ServiceRepository $serviceRepository, ConfigService $configService, JWTTokenManagerInterface $tokenManager)
+    public function __construct(ServiceCollection $serviceCollection, ServiceRepository $serviceRepository, ConfigService $configService, $namespace = 'ds', JWTTokenManagerInterface $tokenManager)
     {
         $this->serviceCollection = $serviceCollection;
         $this->serviceRepository = $serviceRepository;
         $this->configService = $configService;
+        $this->namespace = $namespace;
         $this->tokenManager = $tokenManager;
     }
 
@@ -71,8 +78,12 @@ class Api
         }
 
         $service = $this->serviceCollection->get($alias);
-        $discovered = $this->serviceRepository->find(explode('.', $alias)[0].'_api_80');
-        $service->setHost($discovered->getIp().':'.$discovered->getPort());
+        $discovered = $this->serviceRepository->find($this->namespace.explode('.', $alias)[0].'_api_80');
+
+        if ($discovered) {
+            $service->setHost($discovered->getIp() . ':' . $discovered->getPort());
+        }
+
         $credentials = 'Bearer '.$this->getToken();
         $service->setHeader('Authorization', $credentials);
 

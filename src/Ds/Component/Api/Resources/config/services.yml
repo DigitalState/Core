@@ -19,6 +19,7 @@ services:
       - '@ds_api.collection.service'
       - '@ds_discovery.repository.service'
       - '@ds_config.service.config'
+      - '%namespace%'
       - '@lexik_jwt_authentication.jwt_manager'
 
   ds_api.client:
