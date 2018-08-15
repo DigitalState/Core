@@ -33,7 +33,7 @@ class ConfigLoader implements Loader
      */
     public function load(array $data)
     {
-        $yml = file_get_contents('/srv/api-platform/vendor/digitalstate/core/src/Ds/Component/Api/Bridge/Symfony/Bundle/Resources/tenant/configs.yml');
+        $yml = file_get_contents('/srv/api-platform/vendor/digitalstate/core/src/Ds/Component/Api/Resources/tenant/configs.yml');
 
         // @todo Figure out how symfony does parameter binding and use the same technique
         $yml = strtr($yml, [
