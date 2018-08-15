@@ -61,8 +61,8 @@ class Tenant implements Identifiable, Uuidentifiable, Versionable
 
     /**
      * @var string
-     * @ApiProperty(identifier=true, writable=false)
-     * @Serializer\Groups({"tenant_output"})
+     * @ApiProperty(identifier=true, writable=true)
+     * @Serializer\Groups({"tenant_input", "tenant_output"})
      * @ORM\Column(name="uuid", type="guid", unique=true)
      * @Assert\Uuid
      */
