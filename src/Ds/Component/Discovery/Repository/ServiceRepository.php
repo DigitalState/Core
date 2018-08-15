@@ -47,7 +47,42 @@ class ServiceRepository extends Repository
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
+        $response = $this->client->request('GET', 'http://'.$this->host.'/v1/catalog/services', [
+            'headers' => [
+                'X-Consul-Token' => $this->token
+            ]
+        ]);
+        $body = (string) $response->getBody();
+        $objects = \GuzzleHttp\json_decode($body);
+        $models = [];
 
+        if ($objects) {
+            foreach ($objects as $id => $tags) {
+                if (array_key_exists('id', $criteria) && !preg_match($criteria['id'], $id)) {
+                    continue;
+                }
+
+                if (array_key_exists('tag', $criteria) && !in_array($criteria['tag'], $tags)) {
+                    continue;
+                }
+
+                $response = $this->client->request('GET', 'http://'.$this->host.'/v1/catalog/service/'.$id, [
+                    'headers' => [
+                        'X-Consul-Token' => $this->token
+                    ]
+                ]);
+                $body = (string)$response->getBody();
+                $objects = \GuzzleHttp\json_decode($body);
+
+                if (!$objects) {
+                    continue;
+                }
+
+                $models[] = $this->toModel($objects[0]);
+            }
+        }
+
+        return $models;
     }
 
     /**
