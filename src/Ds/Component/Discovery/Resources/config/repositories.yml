@@ -8,7 +8,6 @@ services:
       - '@ds_discovery.client'
       - '%discovery_host%'
       - '%discovery_credential%'
-      - '%namespace%'
 
   ds_discovery.repository.config:
     class: '%ds_discovery.repository.config.class%'

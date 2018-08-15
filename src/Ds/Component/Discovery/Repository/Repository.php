@@ -28,23 +28,16 @@ abstract class Repository implements ObjectRepository
     protected $token;
 
     /**
-     * @var string
-     */
-    protected $namespace;
-
-    /**
      * Constructor
      *
      * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
      * @param string $token
-     * @param string $namespace
      */
-    public function __construct(ClientInterface $client, $host, $token, $namespace = 'ds')
+    public function __construct(ClientInterface $client, $host, $token)
     {
         $this->client = $client;
         $this->host = $host;
         $this->token = $token;
-        $this->namespace = $namespace;
     }
 }

@@ -18,7 +18,7 @@ class ConfigRepository extends Repository
      */
     public function find($id)
     {
-        $response = $this->client->request('GET', 'http://'.$this->host.'/v1/kv/'.$this->namespace.'/'.$id, [
+        $response = $this->client->request('GET', 'http://'.$this->host.'/v1/kv/'.$id, [
             'headers' => [
                 'X-Consul-Token' => $this->token
             ]
@@ -48,7 +48,7 @@ class ConfigRepository extends Repository
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        $uri = 'http://'.$this->host.'/v1/kv/'.$this->namespace;
+        $uri = 'http://'.$this->host.'/v1/kv/';
 
         if (array_key_exists('directory', $criteria)) {
             $uri .= '/'.$criteria['directory'];

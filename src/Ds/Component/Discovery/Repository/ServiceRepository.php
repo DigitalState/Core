@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Discovery\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Ds\Component\Discovery\Model\Service;
 use stdClass;
 
@@ -17,7 +18,7 @@ class ServiceRepository extends Repository
      */
     public function find($id)
     {
-        $response = $this->client->request('GET', 'http://'.$this->host.'/v1/catalog/service/'.$this->namespace.$id, [
+        $response = $this->client->request('GET', 'http://'.$this->host.'/v1/catalog/service/'.$id, [
             'headers' => [
                 'X-Consul-Token' => $this->token
             ]
@@ -54,7 +55,7 @@ class ServiceRepository extends Repository
         ]);
         $body = (string) $response->getBody();
         $objects = \GuzzleHttp\json_decode($body);
-        $models = [];
+        $models = new ArrayCollection;
 
         if ($objects) {
             foreach ($objects as $id => $tags) {
@@ -78,7 +79,7 @@ class ServiceRepository extends Repository
                     continue;
                 }
 
-                $models[] = $this->toModel($objects[0]);
+                $models->add($this->toModel($objects[0]));
             }
         }
 
@@ -112,9 +113,10 @@ class ServiceRepository extends Repository
         $class = $this->getClassName();
         $model = new $class;
         $model
-            ->setId($object->ID)
+            ->setId($object->ServiceID)
             ->setIp($object->ServiceAddress)
-            ->setPort($object->ServicePort);
+            ->setPort($object->ServicePort)
+            ->setTags($object->ServiceTags);
 
         return $model;
     }

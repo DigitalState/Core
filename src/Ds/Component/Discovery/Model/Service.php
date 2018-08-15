@@ -14,4 +14,13 @@ class Service
     use Attribute\Id;
     use Attribute\Ip;
     use Attribute\Port;
+    use Attribute\Tags;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = [];
+    }
 }
