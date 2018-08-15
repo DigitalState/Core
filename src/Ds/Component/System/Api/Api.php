@@ -25,6 +25,11 @@ class Api
     protected $serviceRepository;
 
     /**
+     * @var string
+     */
+    protected $namespace;
+
+    /**
      * @var \Ds\Component\Config\Service\ParameterService
      */
     protected $parameterService;
@@ -34,12 +39,14 @@ class Api
      *
      * @param \Ds\Component\System\Collection\ServiceCollection $serviceCollection
      * @param \Ds\Component\Discovery\Repository\ServiceRepository $serviceRepository
+     * @param string $namespace
      * @param \Ds\Component\Config\Service\ParameterService $parameterService
      */
-    public function __construct(ServiceCollection $serviceCollection, ServiceRepository $serviceRepository, ParameterService $parameterService)
+    public function __construct(ServiceCollection $serviceCollection, ServiceRepository $serviceRepository, $namespace = 'ds', ParameterService $parameterService)
     {
         $this->serviceCollection = $serviceCollection;
         $this->serviceRepository = $serviceRepository;
+        $this->namespace = $namespace;
         $this->parameterService = $parameterService;
     }
 
@@ -57,8 +64,12 @@ class Api
         }
 
         $service = $this->serviceCollection->get($alias);
-        $discovered = $this->serviceRepository->find(explode('.', $alias)[0].'_api_80');
-        $service->setHost($discovered->getIp().':'.$discovered->getPort());
+        $discovered = $this->serviceRepository->find($this->namespace.explode('.', $alias)[0].'_api_80');
+
+        if ($discovered) {
+            $service->setHost($discovered->getIp() . ':' . $discovered->getPort());
+        }
+
         $username = $this->parameterService->get('ds_system.user.username');
         $password = $this->parameterService->get('ds_system.user.password');
         $credentials = 'Basic '.base64_encode($username.':'.$password);
