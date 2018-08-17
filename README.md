@@ -2,6 +2,8 @@
 
 The core repository provides a wide range of commonly used components for [Api Platform](https://github.com/api-platform/api-platform) based microservices.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 ## Table of Contents
 
 - [Documentation](#documentation)
