@@ -1,0 +1,6 @@
+parameters:
+  ds_translation.doctrine.orm.filter.search.class: Ds\Component\Translation\Doctrine\ORM\Filter\SearchFilter
+  ds_translation.doctrine.orm.filter.order.class: Ds\Component\Translation\Doctrine\ORM\Filter\OrderFilter
+  ds_translation.event_listener.translate.class: Ds\Component\Translation\EventListener\TranslateListener
+  ds_translation.service.translation.class: Ds\Component\Translation\Service\TranslationService
+  ds_translation.validator.valid.class: Ds\Component\Translation\Validator\ValidValidator

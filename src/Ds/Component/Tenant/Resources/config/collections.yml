@@ -1,0 +1,3 @@
+services:
+  ds_tenant.collection.loader:
+    class: '%ds_tenant.collection.loader.class%'

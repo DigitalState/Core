@@ -1,0 +1,4 @@
+parameters:
+  ds_discovery.client.class: GuzzleHttp\Client
+  ds_discovery.repository.config.class: Ds\Component\Discovery\Repository\ConfigRepository
+  ds_discovery.repository.service.class: Ds\Component\Discovery\Repository\ServiceRepository

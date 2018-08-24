@@ -1,0 +1,6 @@
+services:
+  ds_metadata.service.metadata:
+    class: '%ds_metadata.service.metadata.class%'
+    arguments:
+      - '@doctrine.orm.entity_manager'
+      - '%ds_metadata.entity.metadata.class%'

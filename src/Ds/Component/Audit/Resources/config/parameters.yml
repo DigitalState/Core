@@ -1,0 +1,5 @@
+parameters:
+  ds_audit.entity.audit.class: Ds\Component\Audit\Entity\Audit
+  ds_audit.event_listener.entity.class: Ds\Component\Audit\EventListener\EntityListener
+  ds_audit.repository.audit.class: Ds\Component\Audit\Repository\AuditRepository
+  ds_audit.service.audit.class: Ds\Component\Audit\Service\AuditService

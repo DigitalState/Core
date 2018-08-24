@@ -1,0 +1,12 @@
+services:
+  ds_config.repository.config:
+    class: '%ds_config.repository.config.class%'
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - '%ds_config.entity.config.class%'
+
+  ds_config.repository.parameter:
+    class: '%ds_config.repository.parameter.class%'
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - '%ds_config.entity.parameter.class%'

@@ -1,0 +1,10 @@
+services:
+  ds_health.check.ping:
+    class: '%ds_health.check.ping.class%'
+    tags:
+      - { name: ds_health.check, alias: ping }
+
+  ds_health.check.database.connection:
+    class: '%ds_health.check.database.connection.class%'
+    tags:
+      - { name: ds_health.check, alias: database.connection }

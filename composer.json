@@ -1,0 +1,31 @@
+{
+    "name": "digitalstate/core",
+    "license": "MIT",
+    "type": "project",
+    "description": "The DigitalState Core",
+    "homepage": "https://digitalstate.ca",
+    "autoload": {
+        "psr-4": { "": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Tests\\": "tests/" }
+    },
+    "require": {
+        "php": ">=7.0",
+        "symfony/symfony": "3.2.*",
+        "api-platform/core": "^2.0",
+        "doctrine/orm": "^2.5",
+        "ramsey/uuid": "^3.6",
+        "lexik/jwt-authentication-bundle": "^2.2",
+        "guzzlehttp/guzzle": "^6.2",
+        "predis/predis": "^1.1",
+        "snc/redis-bundle": "^2.0"
+    },
+    "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^2.3"
+    },
+    "extra": {
+        "branch-alias": {
+        }
+    }
+}

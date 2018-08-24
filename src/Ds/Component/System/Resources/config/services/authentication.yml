@@ -1,0 +1,6 @@
+services:
+  ds_system.service.authentication.tenant:
+    parent: ds_system.service
+    class: '%ds_system.service.authentication.tenant.class%'
+    tags:
+      - { name: ds_system.service, alias: authentication.tenant }

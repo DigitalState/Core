@@ -1,0 +1,2 @@
+parameters:
+  ds_identity_test.collection.user.class: Ds\Component\Identity\Collection\UserCollection
