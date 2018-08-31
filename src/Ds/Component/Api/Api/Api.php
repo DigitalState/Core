@@ -78,10 +78,15 @@ class Api
         }
 
         $service = $this->serviceCollection->get($alias);
-        $discovered = $this->serviceRepository->find($this->namespace.explode('.', $alias)[0].'_api_80');
+        $discovered = $this->serviceRepository->find($this->namespace.explode('.', $alias)[0].'_api_http');
 
         if ($discovered) {
-            $service->setHost($discovered->getIp() . ':' . $discovered->getPort());
+            foreach ($discovered->getTags() as $tag) {
+                if (substr($tag, 0, 25) === 'proxy.frontend.rule=Host:') {
+                    $host = substr($tag, 25);
+                    $service->setHost($host.':'.$discovered->getPort());
+                }
+            }
         }
 
         $credentials = 'Bearer '.$this->getToken();
