@@ -23,12 +23,12 @@ class TaskService extends AbstractService
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/task';
-    const RESOURCE_COUNT = '/task/count';
-    const RESOURCE_OBJECT = '/task/{id}';
-    const RESOURCE_SUBMIT = '/task/{id}/submit-form';
-    const RESOURCE_CLAIM = '/task/{id}/claim';
-    const RESOURCE_UNCLAIM = '/task/{id}/unclaim';
+    const RESOURCE_LIST = '/engine-rest/task';
+    const RESOURCE_COUNT = '/engine-rest/task/count';
+    const RESOURCE_OBJECT = '/engine-rest/task/{id}';
+    const RESOURCE_SUBMIT = '/engine-rest/task/{id}/submit-form';
+    const RESOURCE_CLAIM = '/engine-rest/task/{id}/claim';
+    const RESOURCE_UNCLAIM = '/engine-rest/task/{id}/unclaim';
 
     /**
      * @var array

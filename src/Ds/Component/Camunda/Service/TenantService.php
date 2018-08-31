@@ -20,7 +20,7 @@ class TenantService extends AbstractService
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/tenant';
+    const RESOURCE_LIST = '/engine-rest/tenant';
 
     /**
      * @var array

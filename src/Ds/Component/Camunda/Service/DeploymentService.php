@@ -21,10 +21,10 @@ class DeploymentService extends AbstractService
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/deployment';
-    const RESOURCE_COUNT = '/deployment/count';
-    const RESOURCE_OBJECT = '/deployment/{id}';
-    const RESOURCE_CREATE = '/deployment/create';
+    const RESOURCE_LIST = '/engine-rest/deployment';
+    const RESOURCE_COUNT = '/engine-rest/deployment/count';
+    const RESOURCE_OBJECT = '/engine-rest/deployment/{id}';
+    const RESOURCE_CREATE = '/engine-rest/deployment/create';
 
     /**
      * @var array
