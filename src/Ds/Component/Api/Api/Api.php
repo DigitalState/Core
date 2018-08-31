@@ -84,7 +84,7 @@ class Api
             foreach ($discovered->getTags() as $tag) {
                 if (substr($tag, 0, 25) === 'proxy.frontend.rule=Host:') {
                     $host = substr($tag, 25);
-                    $service->setHost($host.':'.$discovered->getPort());
+                    $service->setHost($host);
                 }
             }
         }
