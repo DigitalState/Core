@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.0
+
+- Feature [Discovery] Standardize discovery service names
+
 ## 0.9.0
 
 - Feature [Discovery] Refactor discovery component to integrate with consul service catalog
