@@ -56,6 +56,7 @@ class ConfigLoader implements Loader
                 ->setOwnerUuid($object->owner_uuid)
                 ->setKey($object->key)
                 ->setValue($object->value)
+                ->setEnabled($object->enabled)
                 ->setTenant($object->tenant);
             $manager->persist($config);
             $manager->flush();
