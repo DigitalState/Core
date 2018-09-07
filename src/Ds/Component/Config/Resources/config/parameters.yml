@@ -11,5 +11,6 @@ parameters:
   ds_config.repository.parameter.class: Ds\Component\Config\Repository\ParameterRepository
   ds_config.service.config.class: Ds\Component\Config\Service\ConfigService
   ds_config.service.parameter.class: Ds\Component\Config\Service\ParameterService
+  ds_config.tenant.unloader.config.class: Ds\Component\Config\Tenant\Unloader\ConfigUnloader
   ds_config.twig.extension.config.class: Ds\Component\Config\Twig\Extension\ConfigExtension
   ds_config.twig.extension.parameter.class: Ds\Component\Config\Twig\Extension\ParameterExtension

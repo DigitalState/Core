@@ -7,6 +7,8 @@ use Ds\Component\Config\Service\ParameterService;
 use Ds\Component\Entity\Service\EntityService;
 use Ds\Component\Security\Model\User;
 use Ds\Component\Tenant\Collection\LoaderCollection;
+use Ds\Component\Tenant\Collection\UnloaderCollection;
+use Ds\Component\Tenant\Entity\Tenant;
 use Exception;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -39,6 +41,11 @@ class TenantService extends EntityService
     protected $loaderCollection;
 
     /**
+     * @var \Ds\Component\Tenant\Collection\UnloaderCollection
+     */
+    protected $unloaderCollection;
+
+    /**
      * Constructor
      *
      * @param \Doctrine\ORM\EntityManager $manager
@@ -46,15 +53,17 @@ class TenantService extends EntityService
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
      * @param \Ds\Component\Tenant\Collection\LoaderCollection $loaderCollection
+     * @param \Ds\Component\Tenant\Collection\UnloaderCollection $unloaderCollection
      * @param string $entity
      */
-    public function __construct(EntityManager $manager, ParameterService $parameterService, RequestStack $requestStack, TokenStorageInterface $tokenStorage, LoaderCollection $loaderCollection, $entity)
+    public function __construct(EntityManager $manager, ParameterService $parameterService, RequestStack $requestStack, TokenStorageInterface $tokenStorage, LoaderCollection $loaderCollection, UnloaderCollection $unloaderCollection, $entity)
     {
         parent::__construct($manager, $entity);
         $this->parameterService = $parameterService;
         $this->requestStack = $requestStack;
         $this->tokenStorage = $tokenStorage;
         $this->loaderCollection = $loaderCollection;
+        $this->unloaderCollection = $unloaderCollection;
     }
 
     /**
@@ -67,9 +76,11 @@ class TenantService extends EntityService
         $tenant = $this->parameterService->get('ds_tenant.tenant.default');
         $request = $this->requestStack->getCurrentRequest();
 
-        if ($request->request->has('tenant')) {
+        if ($request->request->has('tenant') && $request->request->get('tenant')) {
             $tenant = $request->request->get('tenant');
-        } else if ($request->query->has('tenant')) {
+        }
+
+        if ($request->query->has('tenant') && $request->query->get('tenant')) {
             $tenant = $request->query->get('tenant');
         }
 
@@ -87,9 +98,9 @@ class TenantService extends EntityService
     }
 
     /**
-     * Load a new tenant
+     * Load tenant
      *
-     * @param array $data
+     * @param \Ds\Component\Tenant\Entity\Tenant
      * @return \Ds\Component\Tenant\Service\TenantService
      * @throws \Exception
      * @example
@@ -132,14 +143,42 @@ class TenantService extends EntityService
      * ]
      * </code>
      */
-    public function load(array $data)
+    public function load(Tenant $tenant)
     {
+        $this->manager->getFilters()->disable('tenant');
         $connection = $this->manager->getConnection();
         $connection->beginTransaction();
 
         try {
             foreach ($this->loaderCollection as $loader) {
-                $loader->load($data);
+                $loader->load($tenant);
+            }
+
+            $connection->commit();
+        } catch (Exception $exception) {
+            $connection->rollBack();
+            throw $exception;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Unload tenant
+     *
+     * @param \Ds\Component\Tenant\Entity\Tenant
+     * @return $this
+     * @throws Exception
+     */
+    public function unload(Tenant $tenant)
+    {
+        $this->manager->getFilters()->disable('tenant');
+        $connection = $this->manager->getConnection();
+        $connection->beginTransaction();
+
+        try {
+            foreach ($this->unloaderCollection as $unloader) {
+                $unloader->unload($tenant);
             }
 
             $connection->commit();

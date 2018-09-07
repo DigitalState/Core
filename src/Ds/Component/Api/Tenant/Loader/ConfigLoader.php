@@ -3,6 +3,7 @@
 namespace Ds\Component\Api\Tenant\Loader;
 
 use Ds\Component\Config\Service\ConfigService;
+use Ds\Component\Tenant\Entity\Tenant;
 use Ds\Component\Tenant\Loader\Loader;
 use Symfony\Component\Yaml\Yaml;
 
@@ -31,17 +32,17 @@ class ConfigLoader implements Loader
     /**
      * {@inheritdoc}
      */
-    public function load(array $data)
+    public function load(Tenant $tenant)
     {
         $yml = file_get_contents('/srv/api-platform/vendor/digitalstate/core/src/Ds/Component/Api/Resources/tenant/configs.yml');
 
         // @todo Figure out how symfony does parameter binding and use the same technique
         $yml = strtr($yml, [
-            '%user.system.password%' => $data['user']['system']['password'],
-            '%user.system.uuid%' => $data['user']['system']['uuid'],
-            '%identity.system.uuid%' => $data['identity']['system']['uuid'],
-            '%business_unit.administration.uuid%' => $data['business_unit']['administration']['uuid'],
-            '%tenant.uuid%' => $data['tenant']['uuid']
+            '%user.system.password%' => $tenant->getData()['user']['system']['password'],
+            '%user.system.uuid%' => $tenant->getData()['user']['system']['uuid'],
+            '%identity.system.uuid%' => $tenant->getData()['identity']['system']['uuid'],
+            '%business_unit.administration.uuid%' => $tenant->getData()['business_unit']['administration']['uuid'],
+            '%tenant.uuid%' => $tenant->getUuid()
         ]);
 
         $configs = Yaml::parse($yml, YAML::PARSE_OBJECT_FOR_MAP);

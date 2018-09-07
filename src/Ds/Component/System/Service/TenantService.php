@@ -91,4 +91,25 @@ class TenantService extends AbstractService
 
         return $tenant;
     }
+
+    /**
+     * Delete tenant
+     *
+     * @param string $id
+     * @param \Ds\Component\System\Query\TenantParameters $parameters
+     * @return \Ds\Component\System\Model\Tenant
+     */
+    public function delete($id, Parameters $parameters = null)
+    {
+        $options = [];
+
+        if ($parameters) {
+            $options['query'] = (array) $parameters->toObject(true);
+        }
+
+        $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT);
+        $this->execute('DELETE', $resource, $options);
+
+        return $this;
+    }
 }

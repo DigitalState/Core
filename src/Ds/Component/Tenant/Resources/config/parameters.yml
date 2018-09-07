@@ -1,5 +1,6 @@
 parameters:
   ds_tenant.collection.loader.class: Ds\Component\Tenant\Collection\LoaderCollection
+  ds_tenant.collection.unloader.class: Ds\Component\Tenant\Collection\UnloaderCollection
   ds_tenant.doctrine.orm.filter.tenant.class: Ds\Component\Tenant\Doctrine\ORM\Filter\TenantFilter
   ds_tenant.entity.tenant.class: Ds\Component\Tenant\Entity\Tenant
   ds_tenant.event_listener.context.class: Ds\Component\Tenant\EventListener\ContextListener

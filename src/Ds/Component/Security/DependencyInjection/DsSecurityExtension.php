@@ -60,6 +60,7 @@ class DsSecurityExtension extends Extension implements PrependExtensionInterface
         $loader->load('resolvers.yml');
         $loader->load('serializers.yml');
         $loader->load('services.yml');
+        $loader->load('tenants.yml');
         $loader->load('voters.yml');
 
         $configuration = new Configuration;

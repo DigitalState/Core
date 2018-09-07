@@ -20,5 +20,6 @@ class DsTenantBundle extends Bundle
     {
         parent::build($container);
         $container->addCompilerPass(new Compiler\LoaderPass);
+        $container->addCompilerPass(new Compiler\UnloaderPass);
     }
 }

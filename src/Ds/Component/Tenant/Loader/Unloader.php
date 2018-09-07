@@ -5,17 +5,17 @@ namespace Ds\Component\Tenant\Loader;
 use Ds\Component\Tenant\Entity\Tenant;
 
 /**
- * Interface Loader
+ * Interface Unloader
  *
  * @package Ds\Component\Tenant
  */
-interface Loader
+interface Unloader
 {
     /**
-     * Load tenant data
+     * Unload tenant data
      *
      * @param \Ds\Component\Tenant\Entity\Tenant $tenant
-     * @return \Ds\Component\Tenant\Loader\Loader
+     * @return \Ds\Component\Tenant\Loader\Unloader
      */
-    public function load(Tenant $tenant);
+    public function unload(Tenant $tenant);
 }

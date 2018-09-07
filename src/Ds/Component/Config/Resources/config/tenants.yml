@@ -1,0 +1,7 @@
+services:
+  ds_config.tenant.unloader.config:
+    class: '%ds_config.tenant.unloader.config.class%'
+    arguments:
+      - '@doctrine.orm.entity_manager'
+    tags:
+      - { name: ds_tenant.unloader }
