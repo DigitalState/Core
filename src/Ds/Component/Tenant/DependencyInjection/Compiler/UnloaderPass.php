@@ -7,23 +7,23 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class LoaderPass
+ * Class UnloaderPass
  */
-class LoaderPass implements CompilerPassInterface
+class UnloaderPass implements CompilerPassInterface
 {
     /**
-     * Add tagged tenant loader services to the loader collection
+     * Add tagged tenant unloader services to the unloader collection
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has('ds_tenant.collection.loader')) {
+        if (!$container->has('ds_tenant.collection.unloader')) {
             return;
         }
 
-        $definition = $container->findDefinition('ds_tenant.collection.loader');
-        $services = $container->findTaggedServiceIds('ds_tenant.loader');
+        $definition = $container->findDefinition('ds_tenant.collection.unloader');
+        $services = $container->findTaggedServiceIds('ds_tenant.unloader');
         $items = [];
 
         foreach ($services as $id => $tags) {

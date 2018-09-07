@@ -22,6 +22,8 @@ parameters:
   ds_security.resolver.context.identity.persona.class: Ds\Component\Security\Resolver\Context\Identity\PersonaResolver
   ds_security.service.access.class: Ds\Component\Security\Service\AccessService
   ds_security.service.permission.class: Ds\Component\Security\Service\PermissionService
+  ds_security.tenant.unloader.access.class: Ds\Component\Security\Tenant\Unloader\AccessUnloader
+  ds_security.tenant.unloader.permission.class: Ds\Component\Security\Tenant\Unloader\PermissionUnloader
   ds_security.voter.permission.generic.class: Ds\Component\Security\Voter\Permission\GenericVoter
   ds_security.voter.permission.entity.class: Ds\Component\Security\Voter\Permission\EntityVoter
   ds_security.voter.permission.property.class: Ds\Component\Security\Voter\Permission\PropertyVoter
