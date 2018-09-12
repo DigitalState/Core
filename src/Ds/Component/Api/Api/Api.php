@@ -37,6 +37,11 @@ class Api
     protected $namespace;
 
     /**
+     * @var string
+     */
+    protected $environment;
+
+    /**
      * @var \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface
      */
     protected $tokenManager;
@@ -53,14 +58,16 @@ class Api
      * @param \Ds\Component\Discovery\Repository\ServiceRepository $serviceRepository
      * @param \Ds\Component\Config\Service\ConfigService $configService
      * @param string $namespace
+     * @param string $environment
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface $tokenManager
      */
-    public function __construct(ServiceCollection $serviceCollection, ServiceRepository $serviceRepository, ConfigService $configService, $namespace = 'ds', JWTTokenManagerInterface $tokenManager)
+    public function __construct(ServiceCollection $serviceCollection, ServiceRepository $serviceRepository, ConfigService $configService, $namespace = 'ds', $environment = 'prod', JWTTokenManagerInterface $tokenManager)
     {
         $this->serviceCollection = $serviceCollection;
         $this->serviceRepository = $serviceRepository;
         $this->configService = $configService;
         $this->namespace = $namespace;
+        $this->environment = $environment;
         $this->tokenManager = $tokenManager;
     }
 
@@ -84,6 +91,8 @@ class Api
             foreach ($discovered->getTags() as $tag) {
                 if (substr($tag, 0, 25) === 'proxy.frontend.rule=Host:') {
                     $host = substr($tag, 25);
+                    $entrypoint = $discovered->getMeta('entrypoint-'.$this->environment);
+                    $host = str_replace('${url}', $host, $entrypoint);
                     $service->setHost($host);
                 }
             }

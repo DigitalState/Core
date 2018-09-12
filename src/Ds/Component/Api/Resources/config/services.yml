@@ -20,6 +20,7 @@ services:
       - '@ds_discovery.repository.service'
       - '@ds_config.service.config'
       - '%namespace%'
+      - '%kernel.environment%'
       - '@lexik_jwt_authentication.jwt_manager'
 
   ds_api.client:
