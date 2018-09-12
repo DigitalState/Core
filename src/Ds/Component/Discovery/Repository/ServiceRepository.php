@@ -116,6 +116,7 @@ class ServiceRepository extends Repository
             ->setId($object->ServiceID)
             ->setIp($object->ServiceAddress)
             ->setPort($object->ServicePort)
+            ->setMeta((array) $object->ServiceMeta)
             ->setTags($object->ServiceTags);
 
         return $model;

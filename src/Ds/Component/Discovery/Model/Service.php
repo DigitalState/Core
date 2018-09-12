@@ -14,6 +14,7 @@ class Service
     use Attribute\Id;
     use Attribute\Ip;
     use Attribute\Port;
+    use Attribute\Meta;
     use Attribute\Tags;
 
     /**
@@ -21,6 +22,7 @@ class Service
      */
     public function __construct()
     {
+        $this->meta = [];
         $this->tags = [];
     }
 }

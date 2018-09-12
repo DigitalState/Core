@@ -30,6 +30,11 @@ class Api
     protected $namespace;
 
     /**
+     * @var string
+     */
+    protected $environment;
+
+    /**
      * @var \Ds\Component\Config\Service\ParameterService
      */
     protected $parameterService;
@@ -40,13 +45,15 @@ class Api
      * @param \Ds\Component\System\Collection\ServiceCollection $serviceCollection
      * @param \Ds\Component\Discovery\Repository\ServiceRepository $serviceRepository
      * @param string $namespace
+     * @param string $environment
      * @param \Ds\Component\Config\Service\ParameterService $parameterService
      */
-    public function __construct(ServiceCollection $serviceCollection, ServiceRepository $serviceRepository, $namespace = 'ds', ParameterService $parameterService)
+    public function __construct(ServiceCollection $serviceCollection, ServiceRepository $serviceRepository, $namespace = 'ds', $environment = 'prod', ParameterService $parameterService)
     {
         $this->serviceCollection = $serviceCollection;
         $this->serviceRepository = $serviceRepository;
         $this->namespace = $namespace;
+        $this->environment = $environment;
         $this->parameterService = $parameterService;
     }
 
@@ -70,7 +77,9 @@ class Api
             foreach ($discovered->getTags() as $tag) {
                 if (substr($tag, 0, 25) === 'proxy.frontend.rule=Host:') {
                     $host = substr($tag, 25);
-                    $service->setHost($host.':'.$discovered->getPort());
+                    $entrypoint = $discovered->getMeta('entrypoint-'.$this->environment);
+                    $host = str_replace('${url}', $host, $entrypoint);
+                    $service->setHost($host);
                 }
             }
         }
