@@ -83,7 +83,7 @@ class Api
                 }
             }
         }
-echo $host;exit;
+
         $username = $this->parameterService->get('ds_system.user.username');
         $password = $this->parameterService->get('ds_system.user.password');
         $credentials = 'Basic '.base64_encode($username.':'.$password);
