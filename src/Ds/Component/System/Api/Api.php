@@ -28,6 +28,7 @@ class Api
      * @var string
      */
     protected $namespace;
+
     /**
      * @var string
      */
