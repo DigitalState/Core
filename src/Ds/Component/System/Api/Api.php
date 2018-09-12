@@ -70,11 +70,13 @@ class Api
             foreach ($discovered->getTags() as $tag) {
                 if (substr($tag, 0, 25) === 'proxy.frontend.rule=Host:') {
                     $host = substr($tag, 25);
-                    $service->setHost($host.':'.$discovered->getPort());
+                    $entrypoint = $discovered->getMeta('entrypoint-'.$this->environment);
+                    $host = str_replace('${url}', $host, $entrypoint);
+                    $service->setHost($host);
                 }
             }
         }
-
+echo $host;exit;
         $username = $this->parameterService->get('ds_system.user.username');
         $password = $this->parameterService->get('ds_system.user.password');
         $credentials = 'Basic '.base64_encode($username.':'.$password);

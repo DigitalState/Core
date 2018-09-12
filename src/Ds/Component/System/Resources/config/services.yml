@@ -17,6 +17,7 @@ services:
       - '@ds_system.collection.service'
       - '@ds_discovery.repository.service'
       - '%namespace%'
+      - '%kernel.environment%'
       - '@ds_config.service.parameter'
 
   ds_system.client:
