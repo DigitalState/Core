@@ -2,7 +2,7 @@
 
 ## 0.12.0
 
-- Feature [Discovery] Add wiremock integration to mock discovery endpoints
+- Feature [Discovery] Add servermock integration to mock discovery endpoints
 - Feature [System] Add system behat context
 - Feature [Api] Synchronize api host with execution environment
 - Feature [System] Synchronize api host with execution environment
