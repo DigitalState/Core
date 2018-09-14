@@ -17,6 +17,8 @@ class ParameterPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $container->setParameter('discovery_host', 'localhost:8500');
+        if ('vendor/bin/behat' === $_SERVER['PHP_SELF']) {
+            $container->setParameter('discovery_host', 'localhost:8500');
+        }
     }
 }
