@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.0
+
+- Feature [Discovery] Add servermock integration to mock discovery endpoints
+- Feature [System] Add system behat context
+- Feature [Api] Synchronize api host with execution environment
+- Feature [System] Synchronize api host with execution environment
+- Feature [Tenant] Introduce the concept of tenant unloaders
+
 ## 0.10.0
 
 - Feature [Discovery] Standardize discovery service names

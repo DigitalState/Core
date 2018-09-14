@@ -4,6 +4,7 @@ namespace Ds\Component\Discovery\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ds\Component\Discovery\Model\Service;
+use GuzzleHttp\Exception\ClientException;
 use stdClass;
 
 /**
@@ -18,11 +19,16 @@ class ServiceRepository extends Repository
      */
     public function find($id)
     {
-        $response = $this->client->request('GET', 'http://'.$this->host.'/v1/catalog/service/'.$id, [
-            'headers' => [
-                'X-Consul-Token' => $this->token
-            ]
-        ]);
+        try {
+            $response = $this->client->request('GET', 'http://' . $this->host . '/v1/catalog/service/' . $id, [
+                'headers' => [
+                    'X-Consul-Token' => $this->token
+                ]
+            ]);
+        } catch (ClientException $exception) {
+            return null;
+        }
+
         $body = (string) $response->getBody();
         $objects = \GuzzleHttp\json_decode($body);
 
@@ -72,7 +78,7 @@ class ServiceRepository extends Repository
                         'X-Consul-Token' => $this->token
                     ]
                 ]);
-                $body = (string)$response->getBody();
+                $body = (string) $response->getBody();
                 $objects = \GuzzleHttp\json_decode($body);
 
                 if (!$objects) {
