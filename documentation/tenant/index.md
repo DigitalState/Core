@@ -1,11 +1,10 @@
 # Tenant
 
-The tenant component provides a framework to manage multiple applications on the same deployment.
+The tenant component provides a multitenancy architecture framework, meaning multiple tenants may share the __same__ deployed __application__, __servers__ and __hardware__. However, it is designed to provide __data isolation__ between tenants.
 
-It features a global tenant filter, tenant loaders for adding tenants, etc.
+It features global tenant filters, tenant data loaders, etc.
 
-## Table of Contents
+## Teable of Contents
 
-- [Todo](#todo)
-
-## Todo
+- [Global Filters](filters.md)
+- [Loaders](loaders.md)
