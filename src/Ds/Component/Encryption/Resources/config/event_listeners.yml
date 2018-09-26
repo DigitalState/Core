@@ -1,0 +1,8 @@
+services:
+  ds_encryption.event_listener.encryptable:
+    class: '%ds_encryption.event_listener.encryptable.class%'
+    arguments:
+      - '@ds_encryption.service.encryption'
+    tags:
+      - { name: doctrine.event_listener, event: preFlush }
+      - { name: doctrine.event_listener, event: postLoad }
