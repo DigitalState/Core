@@ -31,14 +31,14 @@ final class CipherService
     /**
      * Encrypt data using secret key
      *
-     * @param string $data
+     * @param mixed $data
      * @param string $key
      * @return string
      */
-    public function encrypt(string $data, string $key = null) : string
+    public function encrypt($data, string $key = null) : string
     {
         $key = $this->createKey($key);
-        $data = Crypto::encrypt($data, $key);
+        $data = Crypto::encrypt(serialize($data), $key);
 
         return $data;
     }
@@ -48,12 +48,12 @@ final class CipherService
      *
      * @param string $data
      * @param string $key
-     * @return string
+     * @return mixed
      */
-    public function decrypt(string $data, string $key = null) : string
+    public function decrypt(string $data, string $key = null)
     {
         $key = $this->createKey($key);
-        $data = Crypto::decrypt($data, $key);
+        $data = unserialize(Crypto::decrypt($data, $key));
 
         return $data;
     }

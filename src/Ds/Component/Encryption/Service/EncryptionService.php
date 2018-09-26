@@ -55,7 +55,7 @@ final class EncryptionService
 
         foreach ($properties as $property) {
             $value = $model->{'get'.$property}();
-            $value = $this->cipherService->encrypt(serialize($value));
+            $value = $this->cipherService->encrypt($value);
             $model->{'set'.$property}($value);
         }
 
@@ -74,7 +74,7 @@ final class EncryptionService
 
         foreach ($properties as $property) {
             $value = $model->{'get'.$property}();
-            $value = unserialize($this->cipherService->decrypt($value));
+            $value = $this->cipherService->decrypt($value);
             $model->{'set'.$property}($value);
         }
 
