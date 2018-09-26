@@ -34,6 +34,7 @@ abstract class ParameterFixture extends ResourceFixture
             $parameter
                 ->setKey($object->key)
                 ->setValue($object->value)
+                ->setEncrypted($object->encrypted)
                 ->setEnabled($object->enabled);
             $manager->persist($parameter);
             $manager->flush();
