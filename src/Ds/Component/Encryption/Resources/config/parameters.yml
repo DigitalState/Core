@@ -1,0 +1,4 @@
+parameters:
+  ds_encryption.event_listener.encryptable.class: Ds\Component\Encryption\EventListener\EncryptableListener
+  ds_encryption.service.cipher.class: Ds\Component\Encryption\Service\CipherService
+  ds_encryption.service.encryption.class: Ds\Component\Encryption\Service\EncryptionService

@@ -2,6 +2,8 @@
 
 namespace Ds\Component\Config\Entity;
 
+use Ds\Component\Encryption\Model\Type\Encryptable;
+use Ds\Component\Encryption\Model\Attribute\Accessor as EncryptionAccessor;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Ownable;
@@ -14,10 +16,11 @@ use Knp\DoctrineBehaviors\Model as Behavior;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use Doctrine\ORM\Mapping as ORM;
+use Ds\Component\Encryption\Model\Annotation\Encrypt;
+use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
 use Symfony\Component\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
 
 /**
  * Class Config
@@ -56,7 +59,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * @ORMAssert\UniqueEntity(fields="uuid")
  * @ORMAssert\UniqueEntity(fields={"key", "tenant"})
  */
-class Config implements Identifiable, Uuidentifiable, Ownable, Versionable, Tenantable, Secured
+class Config implements Identifiable, Uuidentifiable, Ownable, Encryptable, Versionable, Tenantable, Secured
 {
     use Behavior\Timestampable\Timestampable;
 
@@ -66,6 +69,7 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Versionable, Tena
     use Accessor\OwnerUuid;
     use Accessor\Key;
     use Accessor\Value;
+    use EncryptionAccessor\Encrypted;
     use Accessor\Enabled;
     use Accessor\Version;
     use TenantAccessor\Tenant;
@@ -138,11 +142,19 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Versionable, Tena
      * @ApiProperty
      * @Serializer\Groups({"config_output", "config_input"})
      * @ORM\Column(name="value", type="json_array", nullable=true)
+     * @Encrypt("object.getEncrypted()")
      */
     protected $value;
 
     /**
-     * @var string
+     * @var boolean
+     * @ORM\Column(name="encrypted", type="boolean")
+     * @Assert\Type("boolean")
+     */
+    protected $encrypted;
+
+    /**
+     * @var boolean
      * @ApiProperty
      * @Serializer\Groups({"config_output", "config_input"})
      * @ORM\Column(name="enabled", type="boolean")
@@ -176,6 +188,7 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Versionable, Tena
     public function __construct()
     {
         $this->value = null;
+        $this->encrypted = false;
         $this->enabled = false;
     }
 }

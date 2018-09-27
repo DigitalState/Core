@@ -2,12 +2,15 @@
 
 namespace Ds\Component\Config\Entity;
 
+use Ds\Component\Encryption\Model\Type\Encryptable;
+use Ds\Component\Encryption\Model\Attribute\Accessor as EncryptionAccessor;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Attribute\Accessor;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Ds\Component\Encryption\Model\Annotation\Encrypt;
 use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Config
@@ -18,11 +21,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
  * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @ORMAssert\UniqueEntity(fields="key")
  */
-class Parameter implements Identifiable
+class Parameter implements Identifiable, Encryptable
 {
     use Accessor\Id;
     use Accessor\Key;
     use Accessor\Value;
+    use EncryptionAccessor\Encrypted;
     use Accessor\Enabled;
 
     /**
@@ -44,8 +48,16 @@ class Parameter implements Identifiable
     /**
      * @var string
      * @ORM\Column(name="value", type="json_array", nullable=true)
+     * @Encrypt("object.getEncrypted()")
      */
     protected $value;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="encrypted", type="boolean")
+     * @Assert\Type("boolean")
+     */
+    protected $encrypted;
 
     /**
      * @var string
@@ -60,6 +72,7 @@ class Parameter implements Identifiable
     public function __construct()
     {
         $this->value = null;
+        $this->encrypted = false;
         $this->enabled = false;
     }
 }

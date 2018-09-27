@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Bpm\DependencyInjection;
+namespace Ds\Component\Encryption\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -8,11 +8,11 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\Config\FileLocator;
 
 /**
- * Class DsBpmExtension
+ * Class DsEncryptionExtension
  *
- * @package Ds\Component\Bpm
+ * @package Ds\Component\Encryption
  */
-class DsBpmExtension extends Extension
+final class DsEncryptionExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -24,6 +24,7 @@ class DsBpmExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
-        $loader->load('resolvers.yml');
+        $loader->load('event_listeners.yml');
+        $loader->load('services.yml');
     }
 }

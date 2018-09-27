@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Tenant\Entity;
 
+use Ds\Component\Encryption\Model\Type\Encryptable;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Versionable;
@@ -11,6 +12,7 @@ use Knp\DoctrineBehaviors\Model as Behavior;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
+use Ds\Component\Encryption\Model\Annotation\Encrypt;
 use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
 use Symfony\Component\Serializer\Annotation As Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -40,7 +42,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @ORMAssert\UniqueEntity(fields="uuid")
  */
-class Tenant implements Identifiable, Uuidentifiable, Versionable
+class Tenant implements Identifiable, Uuidentifiable, Encryptable, Versionable
 {
     use Behavior\Timestampable\Timestampable;
 
@@ -88,6 +90,7 @@ class Tenant implements Identifiable, Uuidentifiable, Versionable
      * @Serializer\Groups({"tenant_output", "tenant_input"})
      * @ORM\Column(name="data", type="json_array")
      * @Assert\Type("array")
+     * @Encrypt
      */
     protected $data;
 

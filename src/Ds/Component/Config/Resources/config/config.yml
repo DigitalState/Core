@@ -8,6 +8,7 @@ ds_security:
     config_owner_uuid: { attributes: [BROWSE, READ, EDIT],              property: Ds\Component\Config\Entity\Config.ownerUuid, title: ds.config.permissions.config.owner_uuid }
     config_key:        { attributes: [BROWSE, READ, EDIT],              property: Ds\Component\Config\Entity\Config.key,       title: ds.config.permissions.config.key        }
     config_value:      { attributes: [BROWSE, READ, EDIT],              property: Ds\Component\Config\Entity\Config.value,     title: ds.config.permissions.config.value      }
+    config_encrypted:  { attributes: [BROWSE, READ, EDIT],              property: Ds\Component\Config\Entity\Config.encrypted, title: ds.config.permissions.config.encrypted  }
     config_enabled:    { attributes: [BROWSE, READ, EDIT],              property: Ds\Component\Config\Entity\Config.enabled,   title: ds.config.permissions.config.enabled    }
     config_version:    { attributes: [BROWSE, READ, EDIT],              property: Ds\Component\Config\Entity\Config.version,   title: ds.config.permissions.config.version    }
     config_tenant:     { attributes: [BROWSE, READ, EDIT],              property: Ds\Component\Config\Entity\Config.tenant,    title: ds.config.permissions.config.tenant     }
