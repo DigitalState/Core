@@ -20,16 +20,8 @@ class DsApiExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend(ContainerBuilder $container)
     {
-        $container->prependExtensionConfig('ds_api', [
-            'user' => [
-                'username' => null,
-                'password' => null,
-                'uuid' => null,
-                'roles' => null,
-                'identity' => null,
-                'identity_uuid' => null
-            ]
-        ]);
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('config.yml');
     }
 
     /**
@@ -46,13 +38,5 @@ class DsApiExtension extends Extension implements PrependExtensionInterface
         $loader->load('resolvers.yml');
         $loader->load('services.yml');
         $loader->load('tenants.yml');
-
-        // @todo Move this config -> parameters logic to a common trait in the config component bridge
-        $container->setParameter('ds_config.configs.ds_api.user.username', $config['user']['username']);
-        $container->setParameter('ds_config.configs.ds_api.user.password', $config['user']['password']);
-        $container->setParameter('ds_config.configs.ds_api.user.uuid', $config['user']['uuid']);
-        $container->setParameter('ds_config.configs.ds_api.user.roles', $config['user']['roles']);
-        $container->setParameter('ds_config.configs.ds_api.user.identity', $config['user']['identity']);
-        $container->setParameter('ds_config.configs.ds_api.user.identity_uuid', $config['user']['identity_uuid']);
     }
 }

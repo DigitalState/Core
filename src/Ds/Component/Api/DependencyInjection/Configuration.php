@@ -19,19 +19,6 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder;
         $node = $builder->root('ds_api');
-        $node
-            ->children()
-                ->arrayNode('user')
-                    ->children()
-                        ->scalarNode('username')->end()
-                        ->scalarNode('password')->end()
-                        ->scalarNode('uuid')->end()
-                        ->scalarNode('roles')->end()
-                        ->scalarNode('identity')->end()
-                        ->scalarNode('identity_uuid')->end()
-                    ->end()
-                ->end()
-            ->end();
 
         return $builder;
     }

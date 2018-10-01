@@ -20,12 +20,6 @@ class DsTenantExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend(ContainerBuilder $container)
     {
-        $container->prependExtensionConfig('ds_tenant', [
-            'tenant' => [
-                'default' => null
-            ]
-        ]);
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('config.yml');
@@ -36,17 +30,11 @@ class DsTenantExtension extends Extension implements PrependExtensionInterface
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration;
-        $config = $this->processConfiguration($configuration, $configs);
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('collections.yml');
         $loader->load('event_listeners.yml');
         $loader->load('repositories.yml');
         $loader->load('services.yml');
-
-        // @todo Move this config -> parameters logic to a common trait in the config component bridge
-        $container->setParameter('ds_config.parameters.ds_tenant.tenant.default', $config['tenant']['default']);
     }
 }

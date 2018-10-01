@@ -27,7 +27,7 @@ class Parameter implements Identifiable, Encryptable
     use Accessor\Key;
     use Accessor\Value;
     use EncryptionAccessor\Encrypted;
-    use Accessor\Enabled;
+    use EncryptionAccessor\Encrypt;
 
     /**
      * @var integer
@@ -47,24 +47,20 @@ class Parameter implements Identifiable, Encryptable
 
     /**
      * @var string
-     * @ORM\Column(name="value", type="json_array", nullable=true)
-     * @Encrypt("object.getEncrypted()")
+     * @ORM\Column(name="value", type="text", nullable=true)
+     * @Encrypt("object.getEncrypt()")
      */
     protected $value;
 
     /**
      * @var boolean
-     * @ORM\Column(name="encrypted", type="boolean")
-     * @Assert\Type("boolean")
      */
-    protected $encrypted;
+    private $encrypted;
 
     /**
-     * @var string
-     * @ORM\Column(name="enabled", type="boolean")
-     * @Assert\Type("boolean")
+     * @var boolean
      */
-    protected $enabled;
+    private $encrypt;
 
     /**
      * Constructor
@@ -73,6 +69,6 @@ class Parameter implements Identifiable, Encryptable
     {
         $this->value = null;
         $this->encrypted = false;
-        $this->enabled = false;
+        $this->encrypt = false;
     }
 }

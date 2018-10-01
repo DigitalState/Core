@@ -3,6 +3,7 @@
 namespace Ds\Component\Tenant\Entity;
 
 use Ds\Component\Encryption\Model\Type\Encryptable;
+use Ds\Component\Encryption\Model\Attribute as EncryptionAccessor;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Model\Type\Versionable;
@@ -49,6 +50,7 @@ class Tenant implements Identifiable, Uuidentifiable, Encryptable, Versionable
     use Accessor\Id;
     use Accessor\Uuid;
     use Accessor\Data;
+    use EncryptionAccessor\Encrypted;
     use Accessor\Version;
 
     /**
@@ -95,6 +97,11 @@ class Tenant implements Identifiable, Uuidentifiable, Encryptable, Versionable
     protected $data;
 
     /**
+     * @var boolean
+     */
+    private $encrypted;
+
+    /**
      * @var integer
      * @ApiProperty
      * @Serializer\Groups({"tenant_output", "tenant_input"})
@@ -104,4 +111,13 @@ class Tenant implements Identifiable, Uuidentifiable, Encryptable, Versionable
      * @Assert\Type("integer")
      */
     protected $version;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->encrypted = false;
+        $this->data = [];
+    }
 }

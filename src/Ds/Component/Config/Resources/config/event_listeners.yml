@@ -1,0 +1,60 @@
+services:
+  ds_config.event_listener.entity.config.post_load:
+    class: '%ds_config.event_listener.entity.config.post_load.class%'
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 2 }
+
+  ds_config.event_listener.entity.config.serializer.post_flush:
+    class: '%ds_config.event_listener.entity.config.serializer.post_flush.class%'
+    tags:
+      - { name: doctrine.event_listener, event: postFlush, priority: 0 }
+
+  ds_config.event_listener.entity.config.serializer.post_load:
+    class: '%ds_config.event_listener.entity.config.serializer.post_load.class%'
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 0 }
+
+  ds_config.event_listener.entity.config.serializer.post_update:
+    class: '%ds_config.event_listener.entity.config.serializer.post_update.class%'
+    tags:
+      - { name: doctrine.event_listener, event: postUpdate, priority: 0 }
+
+  ds_config.event_listener.entity.config.serializer.pre_flush:
+    class: '%ds_config.event_listener.entity.config.serializer.pre_flush.class%'
+    tags:
+      - { name: doctrine.event_listener, event: preFlush, priority: 1 }
+
+  ds_config.event_listener.entity.config.serializer.pre_update:
+    class: '%ds_config.event_listener.entity.config.serializer.pre_update.class%'
+    tags:
+      - { name: doctrine.event_listener, event: preUpdate, priority: 1 }
+
+  ds_config.event_listener.entity.parameter.post_load:
+    class: '%ds_config.event_listener.entity.parameter.post_load.class%'
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 2 }
+
+  ds_config.event_listener.entity.parameter.serializer.post_flush:
+    class: '%ds_config.event_listener.entity.parameter.serializer.post_flush.class%'
+    tags:
+      - { name: doctrine.event_listener, event: postFlush, priority: 0 }
+
+  ds_config.event_listener.entity.parameter.serializer.post_load:
+    class: '%ds_config.event_listener.entity.parameter.serializer.post_load.class%'
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 0 }
+
+  ds_config.event_listener.entity.parameter.serializer.post_update:
+    class: '%ds_config.event_listener.entity.parameter.serializer.post_update.class%'
+    tags:
+      - { name: doctrine.event_listener, event: postUpdate, priority: 0 }
+
+  ds_config.event_listener.entity.parameter.serializer.pre_flush:
+    class: '%ds_config.event_listener.entity.parameter.serializer.pre_flush.class%'
+    tags:
+      - { name: doctrine.event_listener, event: preFlush, priority: 1 }
+
+  ds_config.event_listener.entity.parameter.serializer.pre_update:
+    class: '%ds_config.event_listener.entity.parameter.serializer.pre_update.class%'
+    tags:
+      - { name: doctrine.event_listener, event: preUpdate, priority: 1 }

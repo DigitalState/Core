@@ -47,6 +47,7 @@ abstract class PermissionFixture extends ResourceFixture
                     ->setTenant($object->tenant);
                 $manager->persist($permission);
                 $manager->flush();
+                $manager->detach($permission);
             }
         }
     }

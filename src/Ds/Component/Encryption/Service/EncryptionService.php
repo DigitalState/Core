@@ -51,13 +51,18 @@ final class EncryptionService
      */
     public function encrypt(Encryptable $model) : EncryptionService
     {
+        if ($model->getEncrypted()) {
+            return $this;
+        }
+
         $properties = $this->getProperties($model);
 
         foreach ($properties as $property) {
-            $value = $model->{'get'.$property}();
-            $value = $this->cipherService->encrypt($value);
-            $model->{'set'.$property}($value);
+            $property->setAccessible(true);
+            $property->setValue($model, $this->cipherService->encrypt($property->getValue($model)));
         }
+
+        $model->setEncrypted(true);
 
         return $this;
     }
@@ -70,13 +75,18 @@ final class EncryptionService
      */
     public function decrypt(Encryptable $model) : EncryptionService
     {
+        if (!$model->getEncrypted()) {
+            return $this;
+        }
+
         $properties = $this->getProperties($model);
 
         foreach ($properties as $property) {
-            $value = $model->{'get'.$property}();
-            $value = $this->cipherService->decrypt($value);
-            $model->{'set'.$property}($value);
+            $property->setAccessible(true);
+            $property->setValue($model, $this->cipherService->decrypt($property->getValue($model)));
         }
+
+        $model->setEncrypted(false);
 
         return $this;
     }
@@ -85,9 +95,9 @@ final class EncryptionService
      * Get properties with Encrypt annotation
      *
      * @param \Ds\Component\Encryption\Model\Type\Encryptable $model
-     * @return array
+     * @return \ReflectionProperty[]
      */
-    public function getProperties(Encryptable $model) : array
+    private function getProperties(Encryptable $model) : array
     {
         $properties = [];
         $reflection = new ReflectionObject($model);
@@ -103,7 +113,7 @@ final class EncryptionService
                 continue;
             }
 
-            $properties[] = $property->name;
+            $properties[] = $property;
         }
 
         return $properties;
