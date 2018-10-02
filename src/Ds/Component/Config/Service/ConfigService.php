@@ -30,7 +30,6 @@ class ConfigService extends EntityService
     public function __construct(EntityManager $manager, ConfigCollection $collection, $entity = Config::class)
     {
         parent::__construct($manager, $entity);
-
         $this->collection = $collection;
     }
 
@@ -44,13 +43,10 @@ class ConfigService extends EntityService
     public function get($key)
     {
         $config = $this->repository->findOneBy(['key' => $key]);
+        $this->manager->detach($config);
 
         if (!$config) {
             throw new OutOfRangeException('Config "'.$key.'" does not exist.');
-        }
-
-        if (!$config->getEnabled()) {
-            return $this->collection->get($key);
         }
 
         return $config->getValue();
@@ -61,9 +57,8 @@ class ConfigService extends EntityService
      *
      * @param string $key
      * @param mixed $value
-     * @param boolean $enabled
      */
-    public function set($key, $value, $enabled = true)
+    public function set($key, $value)
     {
         $config = $this->repository->findOneBy(['key' => $key]);
 
@@ -73,10 +68,9 @@ class ConfigService extends EntityService
 
         $config
             ->setKey($key)
-            ->setValue($value)
-            ->setEnabled($enabled);
-
+            ->setValue($value);
         $this->manager->persist($config);
         $this->manager->flush();
+        $this->manager->detach($config);
     }
 }

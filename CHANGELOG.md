@@ -7,6 +7,9 @@
 - Feature [Api] Synchronize api host with execution environment
 - Feature [System] Synchronize api host with execution environment
 - Feature [Tenant] Introduce the concept of tenant unloaders
+- Feature [Encryption] Add encryption component
+- Feature [Config] Add encryption to config and parameter value property
+- Feature [Tenant] Add encryption to tenant data property
 
 ## 0.10.0
 

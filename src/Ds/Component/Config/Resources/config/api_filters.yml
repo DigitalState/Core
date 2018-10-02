@@ -20,7 +20,6 @@ services:
 
   ds_config.filter.config.boolean:
     parent: api_platform.doctrine.orm.boolean_filter
-    arguments:
-      - enabled: ~
+    arguments: []
     tags:
       - { name: api_platform.filter, id: ds_config.config.boolean }

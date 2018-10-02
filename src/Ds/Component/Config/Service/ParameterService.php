@@ -30,7 +30,6 @@ class ParameterService extends EntityService
     public function __construct(EntityManager $manager, ParameterCollection $collection, $entity = Parameter::class)
     {
         parent::__construct($manager, $entity);
-
         $this->collection = $collection;
     }
 
@@ -44,13 +43,10 @@ class ParameterService extends EntityService
     public function get($key)
     {
         $parameter = $this->repository->findOneBy(['key' => $key]);
+        $this->manager->detach($parameter);
 
         if (!$parameter) {
             throw new OutOfRangeException('Parameter "'.$key.'" does not exist.');
-        }
-
-        if (!$parameter->getEnabled()) {
-            return $this->collection->get($key);
         }
 
         return $parameter->getValue();
@@ -61,9 +57,8 @@ class ParameterService extends EntityService
      *
      * @param string $key
      * @param mixed $value
-     * @param boolean $enabled
      */
-    public function set($key, $value, $enabled = true)
+    public function set($key, $value)
     {
         $parameter = $this->repository->findOneBy(['key' => $key]);
 
@@ -73,10 +68,9 @@ class ParameterService extends EntityService
 
         $parameter
             ->setKey($key)
-            ->setValue($value)
-            ->setEnabled($enabled);
-
+            ->setValue($value);
         $this->manager->persist($parameter);
         $this->manager->flush();
+        $this->manager->detach($parameter);
     }
 }

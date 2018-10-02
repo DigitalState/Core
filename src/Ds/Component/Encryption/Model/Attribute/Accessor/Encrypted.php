@@ -2,6 +2,8 @@
 
 namespace Ds\Component\Encryption\Model\Attribute\Accessor;
 
+use Ds\Component\Encryption\Model\Type\Encryptable;
+
 /**
  * Trait Encrypted
  *
@@ -13,9 +15,9 @@ trait Encrypted
      * Set encrypted status
      *
      * @param boolean $encrypted
-     * @return object
+     * @return \Ds\Component\Encryption\Model\Type\Encryptable
      */
-    public function setEncrypted(bool $encrypted)
+    public function setEncrypted(bool $encrypted) : Encryptable
     {
         $this->encrypted = $encrypted;
 
@@ -27,7 +29,7 @@ trait Encrypted
      *
      * @return boolean
      */
-    public function getEncrypted()
+    public function getEncrypted() : bool
     {
         return $this->encrypted;
     }

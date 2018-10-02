@@ -70,7 +70,7 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Encryptable, Vers
     use Accessor\Key;
     use Accessor\Value;
     use EncryptionAccessor\Encrypted;
-    use Accessor\Enabled;
+    use EncryptionAccessor\Encrypt;
     use Accessor\Version;
     use TenantAccessor\Tenant;
 
@@ -141,26 +141,20 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Encryptable, Vers
      * @var string
      * @ApiProperty
      * @Serializer\Groups({"config_output", "config_input"})
-     * @ORM\Column(name="value", type="json_array", nullable=true)
-     * @Encrypt("object.getEncrypted()")
+     * @ORM\Column(name="value", type="text", nullable=true)
+     * @Encrypt("object.getEncrypt()")
      */
     protected $value;
 
     /**
      * @var boolean
-     * @ORM\Column(name="encrypted", type="boolean")
-     * @Assert\Type("boolean")
      */
-    protected $encrypted;
+    private $encrypted;
 
     /**
      * @var boolean
-     * @ApiProperty
-     * @Serializer\Groups({"config_output", "config_input"})
-     * @ORM\Column(name="enabled", type="boolean")
-     * @Assert\Type("boolean")
      */
-    protected $enabled;
+    private $encrypt;
 
     /**
      * @var integer
@@ -189,6 +183,6 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Encryptable, Vers
     {
         $this->value = null;
         $this->encrypted = false;
-        $this->enabled = false;
+        $this->encrypt = false;
     }
 }

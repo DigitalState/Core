@@ -5,6 +5,18 @@ parameters:
   ds_config.command.parameter.set.class: Ds\Component\Config\Command\Parameter\SetCommand
   ds_config.entity.config.class: Ds\Component\Config\Entity\Config
   ds_config.entity.parameter.class: Ds\Component\Config\Entity\Parameter
+  ds_config.event_listener.entity.config.encrypt.class: Ds\Component\Config\EventListener\Entity\Config\EncryptListener
+  ds_config.event_listener.entity.config.serializer.post_flush.class: Ds\Component\Config\EventListener\Entity\Config\Serializer\PostFlushListener
+  ds_config.event_listener.entity.config.serializer.post_load.class: Ds\Component\Config\EventListener\Entity\Config\Serializer\PostLoadListener
+  ds_config.event_listener.entity.config.serializer.post_update.class: Ds\Component\Config\EventListener\Entity\Config\Serializer\PostUpdateListener
+  ds_config.event_listener.entity.config.serializer.pre_flush.class: Ds\Component\Config\EventListener\Entity\Config\Serializer\PreFlushListener
+  ds_config.event_listener.entity.config.serializer.pre_update.class: Ds\Component\Config\EventListener\Entity\Config\Serializer\PreUpdateListener
+  ds_config.event_listener.entity.parameter.encrypt.class: Ds\Component\Config\EventListener\Entity\Parameter\EncryptListener
+  ds_config.event_listener.entity.parameter.serializer.post_flush.class: Ds\Component\Config\EventListener\Entity\Parameter\Serializer\PostFlushListener
+  ds_config.event_listener.entity.parameter.serializer.post_load.class: Ds\Component\Config\EventListener\Entity\Parameter\Serializer\PostLoadListener
+  ds_config.event_listener.entity.parameter.serializer.post_update.class: Ds\Component\Config\EventListener\Entity\Parameter\Serializer\PostUpdateListener
+  ds_config.event_listener.entity.parameter.serializer.pre_flush.class: Ds\Component\Config\EventListener\Entity\Parameter\Serializer\PreFlushListener
+  ds_config.event_listener.entity.parameter.serializer.pre_update.class: Ds\Component\Config\EventListener\Entity\Parameter\Serializer\PreUpdateListener
   ds_config.collection.config.class: Ds\Component\Config\Collection\ConfigCollection
   ds_config.collection.parameter.class: Ds\Component\Config\Collection\ParameterCollection
   ds_config.repository.config.class: Ds\Component\Config\Repository\ConfigRepository

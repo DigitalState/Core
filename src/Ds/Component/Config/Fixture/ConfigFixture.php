@@ -37,11 +37,10 @@ abstract class ConfigFixture extends ResourceFixture
                 ->setOwnerUuid($object->owner_uuid)
                 ->setKey($object->key)
                 ->setValue($object->value)
-                ->setEncrypted($object->encrypted)
-                ->setEnabled($object->enabled)
                 ->setTenant($object->tenant);
             $manager->persist($config);
             $manager->flush();
+            $manager->detach($config);
         }
     }
 }

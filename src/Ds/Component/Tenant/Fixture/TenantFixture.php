@@ -48,6 +48,7 @@ abstract class TenantFixture extends ResourceFixture
                 ->setData((array) $object->data);
             $manager->persist($tenant);
             $manager->flush();
+            $manager->detach($tenant);
         }
     }
 }

@@ -40,6 +40,7 @@ abstract class AccessFixture extends ResourceFixture
                 ->setTenant($object->tenant);
             $manager->persist($access);
             $manager->flush();
+            $manager->detach($access);
         }
     }
 }
