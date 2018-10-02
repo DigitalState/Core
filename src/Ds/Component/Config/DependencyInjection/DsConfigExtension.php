@@ -45,7 +45,9 @@ class DsConfigExtension extends Extension implements PrependExtensionInterface
         $loader->load('twig.yml');
 
         foreach (['config', 'parameter'] as $type) {
-            foreach ($config[$type.'s'] as $key => $element) {
+            $elements = [];
+
+            foreach ($config[$type.'s'] as $element) {
                 if (!array_key_exists('key', $element)) {
                     throw new LogicException('Config key is missing.');
                 }
@@ -58,11 +60,11 @@ class DsConfigExtension extends Extension implements PrependExtensionInterface
                     $element['title'] = null;
                 }
 
-                $config[$type.'s'][$key] = $element;
+                $elements[$element['key']] = $element;
             }
 
             $definition = $container->findDefinition('ds_config.collection.'.$type);
-            $definition->setArguments([$config[$type.'s']]);
+            $definition->setArguments([$elements]);
         }
     }
 }

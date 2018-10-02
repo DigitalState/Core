@@ -1,8 +1,12 @@
 services:
-  ds_config.event_listener.entity.config.post_load:
-    class: '%ds_config.event_listener.entity.config.post_load.class%'
+  ds_config.event_listener.entity.config.encrypt:
+    class: '%ds_config.event_listener.entity.config.encrypt.class%'
+    arguments:
+      - '@ds_config.collection.config'
     tags:
       - { name: doctrine.event_listener, event: postLoad, priority: 2 }
+      - { name: doctrine.event_listener, event: preUpdate, priority: 2 }
+      - { name: doctrine.event_listener, event: preFlush, priority: 2 }
 
   ds_config.event_listener.entity.config.serializer.post_flush:
     class: '%ds_config.event_listener.entity.config.serializer.post_flush.class%'
@@ -29,10 +33,14 @@ services:
     tags:
       - { name: doctrine.event_listener, event: preUpdate, priority: 1 }
 
-  ds_config.event_listener.entity.parameter.post_load:
-    class: '%ds_config.event_listener.entity.parameter.post_load.class%'
+  ds_config.event_listener.entity.parameter.encrypt:
+    class: '%ds_config.event_listener.entity.parameter.encrypt.class%'
+    arguments:
+      - '@ds_config.collection.parameter'
     tags:
       - { name: doctrine.event_listener, event: postLoad, priority: 2 }
+      - { name: doctrine.event_listener, event: preUpdate, priority: 2 }
+      - { name: doctrine.event_listener, event: preFlush, priority: 2 }
 
   ds_config.event_listener.entity.parameter.serializer.post_flush:
     class: '%ds_config.event_listener.entity.parameter.serializer.post_flush.class%'
