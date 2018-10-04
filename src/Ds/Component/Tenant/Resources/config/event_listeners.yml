@@ -8,16 +8,16 @@ services:
       - { name: kernel.event_listener, event: kernel.request, method: onPreAuthentication, priority: 255 }
       - { name: kernel.event_listener, event: kernel.request, method: onPostAuthentication, priority: 5 }
 
-  ds_tenant.event_listener.entity.tenant:
-    class: '%ds_tenant.event_listener.entity.tenant.class%'
+  ds_tenant.event_listener.loader:
+    class: '%ds_tenant.event_listener.loader.class%'
     arguments:
       - '@service_container'
     tags:
-      - { name: doctrine.orm.entity_listener, entity: '%ds_tenant.entity.tenant.class%', event: postPersist }
-      - { name: doctrine.orm.entity_listener, entity: '%ds_tenant.entity.tenant.class%', event: postRemove }
+      - { name: doctrine.orm.entity_listener, entity: '%ds_tenant.entity.tenant.class%', event: prePersist, priority: 2 }
+      - { name: doctrine.orm.entity_listener, entity: '%ds_tenant.entity.tenant.class%', event: postRemove, priority: 2 }
 
-  ds_tenant.event_listener.entity.type.tenantable:
-    class: '%ds_tenant.event_listener.entity.type.tenantable.class%'
+  ds_tenant.event_listener.entity.tenantable:
+    class: '%ds_tenant.event_listener.entity.tenantable.class%'
     arguments:
       - '@service_container'
     tags:

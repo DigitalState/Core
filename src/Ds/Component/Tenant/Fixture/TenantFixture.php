@@ -5,7 +5,7 @@ namespace Ds\Component\Tenant\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ds\Component\Tenant\Entity\Tenant;
 use Ds\Component\Database\Fixture\ResourceFixture;
-use Ds\Component\Tenant\EventListener\Entity\TenantListener;
+use Ds\Component\Tenant\EventListener\LoaderListener;
 
 /**
  * Class TenantFixture
@@ -24,7 +24,7 @@ abstract class TenantFixture extends ResourceFixture
 
         foreach ($metadata->entityListeners as $event => $listeners) {
             foreach ($listeners as $key => $listener) {
-                if (TenantListener::class === $listener['class']) {
+                if (LoaderListener::class === $listener['class']) {
                     unset($metadata->entityListeners[$event][$key]);
                 }
             }

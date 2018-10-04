@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Tenant\EventListener\Entity\Type;
+namespace Ds\Component\Tenant\EventListener\Entity;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ds\Component\Container\EventListener\ContainerListener;

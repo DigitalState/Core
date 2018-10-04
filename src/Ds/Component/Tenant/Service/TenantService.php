@@ -10,6 +10,7 @@ use Ds\Component\Tenant\Collection\LoaderCollection;
 use Ds\Component\Tenant\Collection\UnloaderCollection;
 use Ds\Component\Tenant\Entity\Tenant;
 use Exception;
+use LogicException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -145,7 +146,7 @@ class TenantService extends EntityService
      */
     public function load(Tenant $tenant)
     {
-        $this->manager->getFilters()->disable('tenant');
+        $this->disable('tenant');
         $connection = $this->manager->getConnection();
         $connection->beginTransaction();
 
@@ -160,6 +161,8 @@ class TenantService extends EntityService
             throw $exception;
         }
 
+        $this->enable('tenant');
+
         return $this;
     }
 
@@ -172,7 +175,7 @@ class TenantService extends EntityService
      */
     public function unload(Tenant $tenant)
     {
-        $this->manager->getFilters()->disable('tenant');
+        $this->disable('tenant');
         $connection = $this->manager->getConnection();
         $connection->beginTransaction();
 
@@ -185,6 +188,52 @@ class TenantService extends EntityService
         } catch (Exception $exception) {
             $connection->rollBack();
             throw $exception;
+        }
+
+        $this->enable('tenant');
+
+        return $this;
+    }
+
+    /**
+     * Enable filter
+     *
+     * @param string $filter
+     * @return \Ds\Component\Tenant\Service\TenantService
+     * @throws \LogicException
+     */
+    private function enable(string $filter) : TenantService
+    {
+        $filters = $this->manager->getFilters();
+
+        if (!$filters->has($filter)) {
+            throw new LogicException('Filter does not exist.');
+        }
+
+        if (!$filters->isEnabled($filter)) {
+            $filters->enable($filter);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Disable filter
+     *
+     * @param string $filter
+     * @return \Ds\Component\Tenant\Service\TenantService
+     * @throws \LogicException
+     */
+    private function disable(string $filter) : TenantService
+    {
+        $filters = $this->manager->getFilters();
+
+        if (!$filters->has($filter)) {
+            throw new LogicException('Filter does not exist.');
+        }
+
+        if ($filters->isEnabled($filter)) {
+            $filters->disable($filter);
         }
 
         return $this;

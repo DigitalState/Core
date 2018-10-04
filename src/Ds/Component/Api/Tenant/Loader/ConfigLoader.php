@@ -59,6 +59,7 @@ class ConfigLoader implements Loader
                 ->setTenant($object->tenant);
             $manager->persist($config);
             $manager->flush();
+            $manager->detach($config);
         }
     }
 }
