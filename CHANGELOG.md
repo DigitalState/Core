@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.12.0
+## 0.12.0 (2018-10-10)
 
 - Feature [Discovery] Add servermock integration to mock discovery endpoints
 - Feature [System] Add system behat context
