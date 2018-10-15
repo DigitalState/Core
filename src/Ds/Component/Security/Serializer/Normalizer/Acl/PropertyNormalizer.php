@@ -63,43 +63,45 @@ class PropertyNormalizer implements NormalizerInterface, DenormalizerInterface, 
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        $token = $this->tokenStorage->getToken();
+        if (in_array(Secured::class, class_implements($class), true)) {
+            $token = $this->tokenStorage->getToken();
 
-        if (!$token) {
-            throw new LogicException('Token is not defined.');
-        }
+            if (!$token) {
+                throw new LogicException('Token is not defined.');
+            }
 
-        $attribute = Permission::EDIT;
-        $subject = [
-            0 => null,
-            1 => null
-        ];
+            $attribute = Permission::EDIT;
+            $subject = [
+                0 => null,
+                1 => null
+            ];
 
-        if (array_key_exists('object_to_populate', $context)) {
-            $subject[0] = $context['object_to_populate'];
-        } else {
-            $object = new $context['resource_class'];
+            if (array_key_exists('object_to_populate', $context)) {
+                $subject[0] = $context['object_to_populate'];
+            } else {
+                $object = new $context['resource_class'];
 
-            foreach ($data as $property => $value) {
-                if (in_array($property, ['uuid', 'owner', 'ownerUuid', 'identity', 'identityUuid'], true)) {
-                    // Set the required values for permission scope voters to vote on.
-                    $object->{'set'.$property}($value);
+                foreach ($data as $property => $value) {
+                    if (in_array($property, ['uuid', 'owner', 'ownerUuid', 'identity', 'identityUuid'], true)) {
+                        // Set the required values for permission scope voters to vote on.
+                        $object->{'set' . $property}($value);
+                    }
                 }
+
+                $subject[0] = $object;
             }
 
-            $subject[0] = $object;
-        }
+            foreach (array_keys($data) as $property) {
+                $subject[1] = $property;
+                $vote = $this->propertyVoter->vote($token, $subject, [$attribute]);
 
-        foreach (array_keys($data) as $property) {
-            $subject[1] = $property;
-            $vote = $this->propertyVoter->vote($token, $subject, [$attribute]);
+                if (PropertyVoter::ACCESS_ABSTAIN === $vote) {
+                    throw new LogicException('Voter cannot abstain from voting.');
+                }
 
-            if (PropertyVoter::ACCESS_ABSTAIN === $vote) {
-                throw new LogicException('Voter cannot abstain from voting.');
-            }
-
-            if (PropertyVoter::ACCESS_DENIED === $vote) {
-                unset($data[$property]);
+                if (PropertyVoter::ACCESS_DENIED === $vote) {
+                    unset($data[$property]);
+                }
             }
         }
 
@@ -112,40 +114,43 @@ class PropertyNormalizer implements NormalizerInterface, DenormalizerInterface, 
     public function normalize($object, $format = null, array $context = [])
     {
         $data = $this->decorated->normalize($object, $format, $context);
-        $token = $this->tokenStorage->getToken();
 
-        if (!$token) {
-            throw new LogicException('Token is not defined.');
-        }
+        if ($object instanceof Secured) {
+            $token = $this->tokenStorage->getToken();
 
-        switch (true) {
-            case array_key_exists('collection_operation_name', $context):
-                $attribute = Permission::BROWSE;
-                break;
-
-            case array_key_exists('item_operation_name', $context):
-                $attribute = Permission::READ;
-                break;
-
-            default:
-                throw new DomainException('Operation does not exist.');
-        }
-
-        $subject = [
-            0 => $object,
-            1 => null
-        ];
-
-        foreach (array_keys($data) as $property) {
-            $subject[1] = $property;
-            $vote = $this->propertyVoter->vote($token, $subject, [$attribute]);
-
-            if (PropertyVoter::ACCESS_ABSTAIN === $vote) {
-                throw new LogicException('Voter cannot abstain from voting.');
+            if (!$token) {
+                throw new LogicException('Token is not defined.');
             }
 
-            if (PropertyVoter::ACCESS_DENIED === $vote) {
-                unset($data[$property]);
+            switch (true) {
+                case array_key_exists('collection_operation_name', $context):
+                    $attribute = Permission::BROWSE;
+                    break;
+
+                case array_key_exists('item_operation_name', $context):
+                    $attribute = Permission::READ;
+                    break;
+
+                default:
+                    throw new DomainException('Operation does not exist.');
+            }
+
+            $subject = [
+                0 => $object,
+                1 => null
+            ];
+
+            foreach (array_keys($data) as $property) {
+                $subject[1] = $property;
+                $vote = $this->propertyVoter->vote($token, $subject, [$attribute]);
+
+                if (PropertyVoter::ACCESS_ABSTAIN === $vote) {
+                    throw new LogicException('Voter cannot abstain from voting.');
+                }
+
+                if (PropertyVoter::ACCESS_DENIED === $vote) {
+                    unset($data[$property]);
+                }
             }
         }
 
@@ -157,10 +162,6 @@ class PropertyNormalizer implements NormalizerInterface, DenormalizerInterface, 
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        if (!in_array(Secured::class, class_implements($type), true)) {
-            return false;
-        }
-
         return $this->decorated->supportsDenormalization($data, $type, $format);
     }
 
@@ -169,10 +170,6 @@ class PropertyNormalizer implements NormalizerInterface, DenormalizerInterface, 
      */
     public function supportsNormalization($data, $format = null)
     {
-        if (!$data instanceof Secured) {
-            return false;
-        }
-
         return $this->decorated->supportsNormalization($data, $format);
     }
 
