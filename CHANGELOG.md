@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.13.0 (2018-10-17)
+
+- Feature [Security] Add compatibility to acl property serializer for non-secured entities
+
 ## 0.12.0 (2018-10-10)
 
 - Feature [Discovery] Add servermock integration to mock discovery endpoints
