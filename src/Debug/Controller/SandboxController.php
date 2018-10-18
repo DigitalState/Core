@@ -1,19 +1,18 @@
 <?php
 
-namespace Ds\Component\Debug\Action;
+namespace Ds\Component\Debug\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class SandboxAction
+ * Class SandboxController
  *
  * @package Ds\Component\Debug
  */
-class SandboxAction
+final class SandboxController
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
@@ -33,10 +32,10 @@ class SandboxAction
     /**
      * Action
      *
-     * @Method("GET")
-     * @Route(path="/sandbox")
+     * @Route(path="/sandbox", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function get()
+    public function get() : JsonResponse
     {
         return new JsonResponse;
     }

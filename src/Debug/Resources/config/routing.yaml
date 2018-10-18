@@ -1,0 +1,3 @@
+ds_debug:
+  resource: '@DsDebugBundle/Controller/'
+  type: annotation

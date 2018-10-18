@@ -9,6 +9,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @package Ds\Component\Debug
  */
-class DsDebugBundle extends Bundle
+final class DsDebugBundle extends Bundle
 {
 }

@@ -1,0 +1,8 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  Ds\Component\Debug\Controller\:
+    resource: ../../Controller
+    tags: [controller.service_arguments]
