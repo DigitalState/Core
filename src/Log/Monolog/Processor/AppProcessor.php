@@ -5,9 +5,9 @@ namespace Ds\Component\Log\Monolog\Processor;
 /**
  * Class AppProcessor
  *
- * @package Ds\Log\Monolog
+ * @package Ds\Component\Log
  */
-class AppProcessor
+final class AppProcessor
 {
     /**
      * @var string
@@ -19,7 +19,7 @@ class AppProcessor
      *
      * @param string $app
      */
-    public function __construct($app)
+    public function __construct(?string $app)
     {
         $this->app = $app;
     }
@@ -30,7 +30,7 @@ class AppProcessor
      * @param array $record
      * @return array
      */
-    public function process(array $record)
+    public function process(array $record): array
     {
         if (null !== $this->app) {
             $record['app'] = $this->app;

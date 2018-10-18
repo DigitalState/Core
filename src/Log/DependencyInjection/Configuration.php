@@ -10,12 +10,12 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  *
  * @package Ds\Component\Log
  */
-class Configuration implements ConfigurationInterface
+final class Configuration implements ConfigurationInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $builder = new TreeBuilder;
         $node = $builder->root('ds_log');
