@@ -9,6 +9,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @package Ds\Component\Workflow
  */
-class DsWorkflowBundle extends Bundle
+final class DsWorkflowBundle extends Bundle
 {
 }
