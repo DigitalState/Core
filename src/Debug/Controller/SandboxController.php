@@ -35,7 +35,7 @@ final class SandboxController
      * @Route(path="/sandbox", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function get() : JsonResponse
+    public function get(): JsonResponse
     {
         return new JsonResponse;
     }

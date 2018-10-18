@@ -15,7 +15,7 @@ final class Configuration implements ConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder() : TreeBuilder
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $builder = new TreeBuilder;
         $node = $builder->root('ds_workflow');
