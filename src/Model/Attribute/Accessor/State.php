@@ -15,13 +15,13 @@ trait State
     /**
      * Set state
      *
-     * @param integer $state
+     * @param string $state
      * @return object
      * @throws \DomainException
      */
-    public function setState($state)
+    public function setState(?string $state)
     {
-        if ($this->getStates() && !in_array($state, $this->getStates(), true)) {
+        if (null !== $state && $this->getStates() && !in_array($state, $this->getStates(), true)) {
             throw new DomainException('State does not exist.');
         }
 
@@ -33,9 +33,9 @@ trait State
     /**
      * Get state
      *
-     * @return integer
+     * @return string
      */
-    public function getState()
+    public function getState(): ?string
     {
         return $this->state;
     }
@@ -45,7 +45,7 @@ trait State
      *
      * @return array
      */
-    public function getStates()
+    public function getStates(): array
     {
         static $states;
 

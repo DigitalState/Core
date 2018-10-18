@@ -14,5 +14,5 @@ trait CustomId
     /**
      * @var string
      */
-    protected $customId;
+    private $customId;
 }

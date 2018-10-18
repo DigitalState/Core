@@ -14,5 +14,5 @@ trait Ip
     /**
      * @var string
      */
-    protected $ip;
+    private $ip;
 }

@@ -18,7 +18,7 @@ trait Entity
      * @return object
      * @throws \DomainException
      */
-    public function setEntity($entity = null)
+    public function setEntity(?string $entity)
     {
         if (null !== $entity) {
             if (!preg_match('/^[a-z]+$/i', $entity)) {
@@ -36,7 +36,7 @@ trait Entity
      *
      * @return string
      */
-    public function getEntity()
+    public function getEntity(): ?string
     {
         return $this->entity;
     }

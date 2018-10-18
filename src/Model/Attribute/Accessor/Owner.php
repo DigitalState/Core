@@ -18,7 +18,7 @@ trait Owner
      * @return object
      * @throws \DomainException
      */
-    public function setOwner($owner)
+    public function setOwner(?string $owner)
     {
         if (null !== $owner) {
             if (!preg_match('/^[a-z]+$/i', $owner)) {
@@ -36,7 +36,7 @@ trait Owner
      *
      * @return string
      */
-    public function getOwner()
+    public function getOwner(): ?string
     {
         return $this->owner;
     }

@@ -15,7 +15,7 @@ trait Key
      * @param string $key
      * @return object
      */
-    public function setKey($key)
+    public function setKey(?string $key)
     {
         $this->key = $key;
 
@@ -27,7 +27,7 @@ trait Key
      *
      * @return string
      */
-    public function getKey()
+    public function getKey(): ?string
     {
         return $this->key;
     }

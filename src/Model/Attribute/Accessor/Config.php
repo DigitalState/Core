@@ -17,7 +17,7 @@ trait Config
      * @param array $config
      * @return object
      */
-    public function setConfig($config)
+    public function setConfig(?array $config)
     {
         $this->config = $config;
 
@@ -31,7 +31,7 @@ trait Config
      * @return array
      * @throws \OutOfRangeException
      */
-    public function getConfig($property = null)
+    public function getConfig(?string $property)
     {
         if (null === $property) {
             return $this->config;

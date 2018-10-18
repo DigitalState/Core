@@ -14,5 +14,5 @@ trait Slug
     /**
      * @var string
      */
-    protected $slug;
+    private $slug;
 }

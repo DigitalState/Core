@@ -15,13 +15,13 @@ trait Status
     /**
      * Set status
      *
-     * @param integer $status
+     * @param string $status
      * @return object
      * @throws \DomainException
      */
-    public function setStatus($status)
+    public function setStatus(?string $status)
     {
-        if ($this->getStatuses() && !in_array($status, $this->getStatuses(), true)) {
+        if (null !== $status && $this->getStatuses() && !in_array($status, $this->getStatuses(), true)) {
             throw new DomainException('Status does not exist.');
         }
 

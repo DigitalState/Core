@@ -13,29 +13,29 @@ interface Associable
      * Set entity
      *
      * @param string $entity
-     * @return object
+     * @return \Ds\Component\Model\Type\Associable
      */
-    public function setEntity($entity);
+    public function setEntity(string $entity): Associable;
 
     /**
      * Get entity
      *
      * @return string
      */
-    public function getEntity();
+    public function getEntity(): ?string;
 
     /**
      * Set entity uuid
      *
      * @param string $entityUuid
-     * @return object
+     * @return \Ds\Component\Model\Type\Associable
      */
-    public function setEntityUuid($entityUuid);
+    public function setEntityUuid(string $entityUuid): Associable;
 
     /**
      * Get entity uuid
      *
      * @return string
      */
-    public function getEntityUuid();
+    public function getEntityUuid(): ?string;
 }

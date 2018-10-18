@@ -14,5 +14,5 @@ trait DueAt
     /**
      * @var \DateTime
      */
-    protected $createdAt;
+    private $createdAt;
 }

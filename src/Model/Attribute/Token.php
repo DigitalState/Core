@@ -14,5 +14,5 @@ trait Token
     /**
      * @var string
      */
-    protected $token;
+    private $token;
 }

@@ -14,5 +14,5 @@ trait FollowUpAt
     /**
      * @var \DateTime
      */
-    protected $createdAt;
+    private $createdAt;
 }

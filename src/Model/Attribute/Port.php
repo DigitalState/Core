@@ -14,5 +14,5 @@ trait Port
     /**
      * @var integer
      */
-    protected $port;
+    private $port;
 }

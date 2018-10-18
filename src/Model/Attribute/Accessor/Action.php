@@ -13,7 +13,7 @@ trait Action
      * @param string $action
      * @return object
      */
-    public function setAction($action)
+    public function setAction(?string $action)
     {
         $this->action = $action;
 
@@ -25,7 +25,7 @@ trait Action
      *
      * @return string
      */
-    public function getAction()
+    public function getAction(): ?string
     {
         return $this->action;
     }

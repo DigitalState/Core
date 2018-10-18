@@ -18,7 +18,7 @@ trait IdentityUuid
      * @return object
      * @throws \InvalidArgumentException
      */
-    public function setIdentityUuid($identityUuid)
+    public function setIdentityUuid(?string $identityUuid)
     {
         if (null !== $identityUuid) {
             if (!preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $identityUuid)) {
@@ -36,7 +36,7 @@ trait IdentityUuid
      *
      * @return string
      */
-    public function getIdentityUuid()
+    public function getIdentityUuid(): ?string
     {
         return $this->identityUuid;
     }

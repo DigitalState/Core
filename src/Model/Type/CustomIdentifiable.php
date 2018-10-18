@@ -13,14 +13,14 @@ interface CustomIdentifiable
      * Set custom id
      *
      * @param string $customId
-     * @return object
+     * @return \Ds\Component\Model\Type\CustomIdentifiable
      */
-    public function setCustomId($customId);
+    public function setCustomId(string $customId): CustomIdentifiable;
 
     /**
      * Get custom id
      *
      * @return string
      */
-    public function getCustomId();
+    public function getCustomId(): ?string;
 }

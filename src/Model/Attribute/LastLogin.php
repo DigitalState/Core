@@ -14,5 +14,5 @@ trait LastLogin
     /**
      * @var \DateTime
      */
-    protected $lastLogin;
+    private $lastLogin;
 }

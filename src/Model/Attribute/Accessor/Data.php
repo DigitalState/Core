@@ -17,7 +17,7 @@ trait Data
      * @param array $data
      * @return object
      */
-    public function setData($data)
+    public function setData(?array $data)
     {
         $this->data = $data;
 
@@ -31,7 +31,7 @@ trait Data
      * @return array
      * @throws \OutOfRangeException
      */
-    public function getData($property = null)
+    public function getData(?string $property)
     {
         if (null === $property) {
             return $this->data;

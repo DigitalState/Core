@@ -18,7 +18,7 @@ trait EntityUuid
      * @return object
      * @throws \InvalidArgumentException
      */
-    public function setEntityUuid($entityUuid)
+    public function setEntityUuid(?string $entityUuid)
     {
         if (null !== $entityUuid) {
             if (!preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $entityUuid)) {
@@ -36,7 +36,7 @@ trait EntityUuid
      *
      * @return string
      */
-    public function getEntityUuid()
+    public function getEntityUuid(): ?string
     {
         return $this->entityUuid;
     }

@@ -13,7 +13,7 @@ trait Display
      * @param string $display
      * @return object
      */
-    public function setDisplay($display)
+    public function setDisplay(?string $display)
     {
         $this->display = $display;
 
@@ -25,7 +25,7 @@ trait Display
      *
      * @return string
      */
-    public function getDisplay()
+    public function getDisplay(): ?string
     {
         return $this->display;
     }

@@ -15,7 +15,7 @@ trait Title
      * @param string $title
      * @return object
      */
-    public function setTitle($title)
+    public function setTitle(?string $title)
     {
         $this->title = $title;
 
@@ -27,7 +27,7 @@ trait Title
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }

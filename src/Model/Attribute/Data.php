@@ -14,5 +14,5 @@ trait Data
     /**
      * @var array
      */
-    protected $data;
+    private $data;
 }

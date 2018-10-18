@@ -15,7 +15,7 @@ trait Ip
      * @param string $ip
      * @return object
      */
-    public function setIp($ip)
+    public function setIp(?string $ip)
     {
         $this->ip = $ip;
 
@@ -27,7 +27,7 @@ trait Ip
      *
      * @return string
      */
-    public function getIp()
+    public function getIp(): ?string
     {
         return $this->ip;
     }

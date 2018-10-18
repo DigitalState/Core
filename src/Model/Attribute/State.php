@@ -14,5 +14,5 @@ trait State
     /**
      * @var integer
      */
-    protected $state;
+    private $state;
 }

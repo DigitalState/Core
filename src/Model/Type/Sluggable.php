@@ -13,14 +13,14 @@ interface Sluggable
      * Set slug
      *
      * @param string $slug
-     * @return object
+     * @return \Ds\Component\Model\Type\Sluggable
      */
-    public function setSlug($slug);
+    public function setSlug(string $slug): Sluggable;
 
     /**
      * Get slug
      *
      * @return string
      */
-    public function getSlug();
+    public function getSlug(): ?string;
 }

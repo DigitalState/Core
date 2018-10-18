@@ -13,14 +13,14 @@ interface Versionable
      * Set version
      *
      * @param integer $version
-     * @return object
+     * @return \Ds\Component\Model\Type\Versionable
      */
-    public function setVersion($version);
+    public function setVersion(int $version): Versionable;
 
     /**
      * Get version
      *
      * @return integer
      */
-    public function getVersion();
+    public function getVersion(): ?int;
 }

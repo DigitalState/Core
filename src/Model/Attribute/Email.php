@@ -14,5 +14,5 @@ trait Email
     /**
      * @var string
      */
-    protected $email;
+    private $email;
 }

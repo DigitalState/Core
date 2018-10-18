@@ -15,7 +15,7 @@ trait Port
      * @param integer $port
      * @return object
      */
-    public function setPort($port)
+    public function setPort(?int $port)
     {
         $this->port = $port;
 
@@ -27,7 +27,7 @@ trait Port
      *
      * @return integer
      */
-    public function getPort()
+    public function getPort(): ?int
     {
         return $this->port;
     }

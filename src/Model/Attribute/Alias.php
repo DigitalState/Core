@@ -12,5 +12,5 @@ trait Alias
     /**
      * @var string
      */
-    protected $alias;
+    private $alias;
 }

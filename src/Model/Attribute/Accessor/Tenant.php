@@ -18,7 +18,7 @@ trait Tenant
      * @return object
      * @throws \InvalidArgumentException
      */
-    public function setTenant($tenant)
+    public function setTenant(?string $tenant)
     {
         if (null !== $tenant) {
             if (!preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $tenant)) {
@@ -36,7 +36,7 @@ trait Tenant
      *
      * @return string
      */
-    public function getTenant()
+    public function getTenant(): ?string
     {
         return $this->tenant;
     }

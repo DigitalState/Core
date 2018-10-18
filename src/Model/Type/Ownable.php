@@ -13,29 +13,29 @@ interface Ownable
      * Set owner
      *
      * @param string $owner
-     * @return object
+     * @return \Ds\Component\Model\Type\Ownable
      */
-    public function setOwner($owner);
+    public function setOwner(string $owner): Ownable;
 
     /**
      * Get owner
      *
      * @return string
      */
-    public function getOwner();
+    public function getOwner(): ?string;
 
     /**
      * Set owner uuid
      *
      * @param string $ownerUuid
-     * @return object
+     * @return \Ds\Component\Model\Type\Ownable
      */
-    public function setOwnerUuid($ownerUuid);
+    public function setOwnerUuid(string $ownerUuid): Ownable;
 
     /**
      * Get owner uuid
      *
      * @return string
      */
-    public function getOwnerUuid();
+    public function getOwnerUuid(): ?string;
 }

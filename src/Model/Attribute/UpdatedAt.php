@@ -14,5 +14,5 @@ trait UpdatedAt
     /**
      * @var \DateTime
      */
-    protected $updatedAt;
+    private $updatedAt;
 }

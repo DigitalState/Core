@@ -14,5 +14,5 @@ trait Title
     /**
      * @var string
      */
-    protected $title;
+    private $title;
 }

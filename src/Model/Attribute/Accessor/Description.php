@@ -15,7 +15,7 @@ trait Description
      * @param string $description
      * @return object
      */
-    public function setDescription($description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
 
@@ -27,7 +27,7 @@ trait Description
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }

@@ -17,7 +17,7 @@ trait LastLogin
      * @param \DateTime $lastLogin
      * @return object
      */
-    public function setLastLogin(DateTime $lastLogin = null)
+    public function setLastLogin(?DateTime $lastLogin)
     {
         $this->lastLogin = $lastLogin;
 
@@ -29,7 +29,7 @@ trait LastLogin
      *
      * @return \DateTime
      */
-    public function getLastLogin()
+    public function getLastLogin(): ?DateTime
     {
         return $this->lastLogin;
     }

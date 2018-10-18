@@ -15,7 +15,7 @@ trait Form
      * @param string $form
      * @return object
      */
-    public function setForm($form)
+    public function setForm(?string $form)
     {
         $this->form = $form;
 
@@ -27,7 +27,7 @@ trait Form
      *
      * @return string
      */
-    public function getForm()
+    public function getForm(): ?string
     {
         return $this->form;
     }

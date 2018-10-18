@@ -12,5 +12,5 @@ trait Collection
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
-    protected $collection;
+    private $collection;
 }

@@ -14,5 +14,5 @@ trait Priority
     /**
      * @var integer
      */
-    protected $priority;
+    private $priority;
 }

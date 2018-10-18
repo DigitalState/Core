@@ -17,7 +17,7 @@ trait DueAt
      * @param \DateTime $dueAt
      * @return object
      */
-    public function setDueAt(DateTime $dueAt = null)
+    public function setDueAt(?DateTime $dueAt)
     {
         $this->dueAt = $dueAt;
 
@@ -29,7 +29,7 @@ trait DueAt
      *
      * @return \DateTime
      */
-    public function getDueAt()
+    public function getDueAt(): ?DateTime
     {
         return $this->dueAt;
     }

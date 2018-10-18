@@ -13,7 +13,7 @@ trait Method
      * @param string $method
      * @return object
      */
-    public function setMethod($method)
+    public function setMethod(?string $method)
     {
         $this->method = $method;
 
@@ -25,7 +25,7 @@ trait Method
      *
      * @return string
      */
-    public function getMethod()
+    public function getMethod(): ?string
     {
         return $this->method;
     }

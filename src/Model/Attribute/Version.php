@@ -14,5 +14,5 @@ trait Version
     /**
      * @var integer
      */
-    protected $version;
+    private $version;
 }

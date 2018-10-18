@@ -14,5 +14,5 @@ trait Identity
     /**
      * @var string
      */
-    protected $identity;
+    private $identity;
 }

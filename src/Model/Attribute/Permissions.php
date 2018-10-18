@@ -14,5 +14,5 @@ trait Permissions
     /**
      * @var array
      */
-    protected $permissions;
+    private $permissions;
 }

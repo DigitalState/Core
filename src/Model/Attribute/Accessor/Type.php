@@ -18,9 +18,9 @@ trait Type
      * @param string $type
      * @return object
      */
-    public function setType($type)
+    public function setType(?string $type)
     {
-        if ($this->getTypes() && !in_array($type, $this->getTypes(), true)) {
+        if (null !== $type && $this->getTypes() && !in_array($type, $this->getTypes(), true)) {
             throw new DomainException('Type does not exist.');
         }
 
@@ -34,7 +34,7 @@ trait Type
      *
      * @return string
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -44,7 +44,7 @@ trait Type
      *
      * @return array
      */
-    public function getTypes()
+    public function getTypes(): array
     {
         static $types;
 

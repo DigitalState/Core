@@ -14,5 +14,5 @@ trait Value
     /**
      * @var mixed
      */
-    protected $value;
+    private $value;
 }

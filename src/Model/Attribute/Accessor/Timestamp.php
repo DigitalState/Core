@@ -15,7 +15,7 @@ trait Timestamp
      * @param \DateTime $timestamp
      * @return object
      */
-    public function setTimestamp(DateTime $timestamp)
+    public function setTimestamp(?DateTime $timestamp)
     {
         $this->timestamp = $timestamp;
 
@@ -27,7 +27,7 @@ trait Timestamp
      *
      * @return \DateTime
      */
-    public function getTimestamp()
+    public function getTimestamp(): ?DateTime
     {
         return $this->timestamp;
     }

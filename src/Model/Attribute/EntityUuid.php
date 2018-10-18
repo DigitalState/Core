@@ -14,5 +14,5 @@ trait EntityUuid
     /**
      * @var string
      */
-    protected $entityUuid;
+    private $entityUuid;
 }

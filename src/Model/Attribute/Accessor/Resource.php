@@ -12,10 +12,10 @@ trait Resource
     /**
      * Set resource
      *
-     * @param mixed $resource
+     * @param object $resource
      * @return object
      */
-    public function setResource($resource)
+    public function setResource(?object $resource)
     {
         $this->resource = $resource;
 
@@ -27,7 +27,7 @@ trait Resource
      *
      * @return mixed
      */
-    public function getResource()
+    public function getResource(): ?object
     {
         return $this->resource;
     }

@@ -14,5 +14,5 @@ trait Primary
     /**
      * @var boolean
      */
-    protected $primary;
+    private $primary;
 }

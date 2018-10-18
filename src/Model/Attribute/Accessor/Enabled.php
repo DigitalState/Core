@@ -17,7 +17,7 @@ trait Enabled
      * @param boolean $enabled
      * @return object
      */
-    public function setEnabled($enabled)
+    public function setEnabled(?bool $enabled)
     {
         $this->enabled = $enabled;
 
@@ -33,7 +33,7 @@ trait Enabled
      *
      * @return boolean
      */
-    public function getEnabled()
+    public function getEnabled(): ?bool
     {
         return $this->enabled;
     }
@@ -43,7 +43,7 @@ trait Enabled
      *
      * @return boolean
      */
-    public function isEnabled()
+    public function isEnabled(): ?bool
     {
         return $this->enabled;
     }

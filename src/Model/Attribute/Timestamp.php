@@ -12,5 +12,5 @@ trait Timestamp
     /**
      * @var \DateTime
      */
-    protected $timestamp;
+    private $timestamp;
 }

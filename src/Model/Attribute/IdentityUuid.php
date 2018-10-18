@@ -14,5 +14,5 @@ trait IdentityUuid
     /**
      * @var string
      */
-    protected $identityUuid;
+    private $identityUuid;
 }

@@ -14,5 +14,5 @@ trait Owner
     /**
      * @var string
      */
-    protected $owner;
+    private $owner;
 }

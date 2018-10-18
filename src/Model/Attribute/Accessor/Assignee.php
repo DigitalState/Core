@@ -18,7 +18,7 @@ trait Assignee
      * @return object
      * @throws \DomainException
      */
-    public function setAssignee($assignee = null)
+    public function setAssignee(?string $assignee)
     {
         if (null !== $assignee) {
             if (!preg_match('/^[a-z]+$/i', $assignee)) {
@@ -36,7 +36,7 @@ trait Assignee
      *
      * @return string
      */
-    public function getAssignee()
+    public function getAssignee(): ?string
     {
         return $this->assignee;
     }

@@ -13,14 +13,14 @@ interface Identifiable
      * Set id
      *
      * @param integer $id
-     * @return object
+     * @return \Ds\Component\Model\Type\Identifiable
      */
-    public function setId($id);
+    public function setId(int $id): Identifiable;
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId();
+    public function getId(): ?int;
 }

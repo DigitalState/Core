@@ -14,5 +14,5 @@ trait Tags
     /**
      * @var array
      */
-    protected $tags;
+    private $tags;
 }

@@ -14,5 +14,5 @@ trait Roles
     /**
      * @var array
      */
-    protected $roles;
+    private $roles;
 }

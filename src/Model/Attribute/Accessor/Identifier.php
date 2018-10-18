@@ -15,7 +15,7 @@ trait Identifier
      * @param string $identifier
      * @return object
      */
-    public function setIdentifier($identifier)
+    public function setIdentifier(?string $identifier)
     {
         $this->identifier = $identifier;
 
@@ -27,7 +27,7 @@ trait Identifier
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier(): ?string
     {
         return $this->identifier;
     }

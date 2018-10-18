@@ -14,5 +14,5 @@ trait Presentation
     /**
      * @var string
      */
-    protected $presentation;
+    private $presentation;
 }

@@ -14,5 +14,5 @@ trait Attribute
     /**
      * @var string
      */
-    protected $attribute;
+    private $attribute;
 }

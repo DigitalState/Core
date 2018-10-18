@@ -12,5 +12,5 @@ trait Action
     /**
      * @var string
      */
-    protected $action;
+    private $action;
 }

@@ -15,7 +15,7 @@ trait Primary
      * @param boolean $primary
      * @return object
      */
-    public function setPrimary($primary)
+    public function setPrimary(?bool $primary)
     {
         $this->primary = $primary;
 
@@ -27,7 +27,7 @@ trait Primary
      *
      * @return boolean
      */
-    public function getPrimary()
+    public function getPrimary(): ?bool
     {
         return $this->primary;
     }
@@ -37,7 +37,7 @@ trait Primary
      *
      * @return boolean
      */
-    public function isPrimary()
+    public function isPrimary(): ?bool
     {
         return $this->primary;
     }

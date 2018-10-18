@@ -12,10 +12,10 @@ trait Schema
     /**
      * Set schema
      *
-     * @param \stdClass|array $schema
+     * @param array $schema
      * @return object
      */
-    public function setSchema($schema)
+    public function setSchema(?array $schema)
     {
         $this->schema = $schema;
 
@@ -27,7 +27,7 @@ trait Schema
      *
      * @return \stdClass|array
      */
-    public function getSchema()
+    public function getSchema(): ?array
     {
         return $this->schema;
     }

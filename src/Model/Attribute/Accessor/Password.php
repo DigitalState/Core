@@ -15,7 +15,7 @@ trait Password
      * @param string $password
      * @return object
      */
-    public function setPassword($password)
+    public function setPassword(?string $password)
     {
         $this->password = $password;
 
@@ -27,7 +27,7 @@ trait Password
      *
      * @return string
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }

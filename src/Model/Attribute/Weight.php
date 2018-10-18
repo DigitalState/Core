@@ -14,5 +14,5 @@ trait Weight
     /**
      * @var integer
      */
-    protected $weight;
+    private $weight;
 }

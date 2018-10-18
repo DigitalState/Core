@@ -14,5 +14,5 @@ trait Username
     /**
      * @var string
      */
-    protected $username;
+    private $username;
 }

@@ -14,5 +14,5 @@ trait CreatedAt
     /**
      * @var \DateTime
      */
-    protected $createdAt;
+    private $createdAt;
 }

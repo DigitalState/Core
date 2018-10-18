@@ -14,5 +14,5 @@ trait Key
     /**
      * @var string
      */
-    protected $key;
+    private $key;
 }

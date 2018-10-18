@@ -15,11 +15,11 @@ trait Scope
     /**
      * Set scope
      *
-     * @param integer $scope
+     * @param string $scope
      * @return object
      * @throws \DomainException
      */
-    public function setScope($scope = null)
+    public function setScope(?string $scope)
     {
         if (null !== $scope && $this->getScopes() && !in_array($scope, $this->getScopes(), true)) {
             throw new DomainException('Scope does not exist.');
@@ -33,9 +33,9 @@ trait Scope
     /**
      * Get scope
      *
-     * @return integer
+     * @return string
      */
-    public function getScope()
+    public function getScope(): ?string
     {
         return $this->scope;
     }
@@ -45,7 +45,7 @@ trait Scope
      *
      * @return array
      */
-    public function getScopes()
+    public function getScopes(): array
     {
         static $scopes;
 

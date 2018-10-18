@@ -15,7 +15,7 @@ trait Token
      * @param string $token
      * @return object
      */
-    public function setToken($token)
+    public function setToken(?string $token)
     {
         $this->token = $token;
 
@@ -27,7 +27,7 @@ trait Token
      *
      * @return string
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }

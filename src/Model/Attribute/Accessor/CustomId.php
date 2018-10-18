@@ -15,7 +15,7 @@ trait CustomId
      * @param string $customId
      * @return object
      */
-    public function setCustomId($customId)
+    public function setCustomId(?string $customId)
     {
         $this->customId = $customId;
 
@@ -27,7 +27,7 @@ trait CustomId
      *
      * @return string
      */
-    public function getCustomId()
+    public function getCustomId(): ?string
     {
         return $this->customId;
     }

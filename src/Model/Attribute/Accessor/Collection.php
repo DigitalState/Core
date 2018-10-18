@@ -15,7 +15,7 @@ trait Collection
      * @param \Doctrine\Common\Collections\ArrayCollection $collection
      * @return object
      */
-    public function setCollection(ArrayCollection $collection)
+    public function setCollection(?ArrayCollection $collection)
     {
         $this->collection = $collection;
 
@@ -27,7 +27,7 @@ trait Collection
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
-    public function getCollection()
+    public function getCollection(): ?ArrayCollection
     {
         return $this->collection;
     }

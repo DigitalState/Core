@@ -15,7 +15,7 @@ trait Slug
      * @param string $slug
      * @return object
      */
-    public function setSlug($slug)
+    public function setSlug(?string $slug)
     {
         $this->slug = $slug;
 
@@ -27,7 +27,7 @@ trait Slug
      *
      * @return string
      */
-    public function getSlug()
+    public function getSlug(): ?string
     {
         return $this->slug;
     }

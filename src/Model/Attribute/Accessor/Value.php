@@ -15,7 +15,7 @@ trait Value
      * @param mixed $value
      * @return object
      */
-    public function setValue($value)
+    public function setValue($value = null)
     {
         $this->value = $value;
 

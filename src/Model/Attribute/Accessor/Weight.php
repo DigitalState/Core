@@ -15,7 +15,7 @@ trait Weight
      * @param integer $weight
      * @return object
      */
-    public function setWeight($weight)
+    public function setWeight(?int $weight)
     {
         $this->weight = $weight;
 
@@ -27,7 +27,7 @@ trait Weight
      *
      * @return integer
      */
-    public function getWeight()
+    public function getWeight(): ?int
     {
         return $this->weight;
     }

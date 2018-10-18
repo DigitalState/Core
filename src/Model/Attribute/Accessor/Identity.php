@@ -18,7 +18,7 @@ trait Identity
      * @return object
      * @throws \DomainException
      */
-    public function setIdentity($identity = null)
+    public function setIdentity(?string $identity)
     {
         if (null !== $identity) {
             if (!preg_match('/^[a-z]+$/i', $identity)) {
@@ -36,7 +36,7 @@ trait Identity
      *
      * @return string
      */
-    public function getIdentity()
+    public function getIdentity(): ?string
     {
         return $this->identity;
     }

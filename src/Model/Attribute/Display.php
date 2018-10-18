@@ -12,5 +12,5 @@ trait Display
     /**
      * @var string
      */
-    protected $display;
+    private $display;
 }

@@ -15,7 +15,7 @@ trait Email
      * @param string $email
      * @return object
      */
-    public function setEmail($email)
+    public function setEmail(?string $email)
     {
         $this->email = $email;
 
@@ -27,7 +27,7 @@ trait Email
      *
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }

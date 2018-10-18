@@ -17,7 +17,7 @@ trait Attributes
      * @param array $attributes
      * @return object
      */
-    public function setAttributes($attributes)
+    public function setAttributes(?array $attributes)
     {
         $this->attributes = $attributes;
 
@@ -31,7 +31,7 @@ trait Attributes
      * @return array
      * @throws \OutOfRangeException
      */
-    public function getAttributes($property = null)
+    public function getAttributes(?string $property)
     {
         if (null === $property) {
             return $this->attributes;

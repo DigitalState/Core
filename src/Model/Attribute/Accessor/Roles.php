@@ -15,7 +15,7 @@ trait Roles
      * @param array $roles
      * @return object
      */
-    public function setRoles($roles)
+    public function setRoles(?array $roles)
     {
         $this->roles = $roles;
 
@@ -27,7 +27,7 @@ trait Roles
      *
      * @return array
      */
-    public function getRoles()
+    public function getRoles(): ?array
     {
         return $this->roles;
     }

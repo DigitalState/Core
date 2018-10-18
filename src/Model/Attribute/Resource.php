@@ -14,5 +14,5 @@ trait Resource
     /**
      * @var mixed
      */
-    protected $resource;
+    private $resource;
 }

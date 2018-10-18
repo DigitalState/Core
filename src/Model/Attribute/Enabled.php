@@ -14,5 +14,5 @@ trait Enabled
     /**
      * @var boolean
      */
-    protected $enabled;
+    private $enabled;
 }

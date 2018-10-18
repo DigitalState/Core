@@ -12,5 +12,5 @@ trait Method
     /**
      * @var string
      */
-    protected $method;
+    private $method;
 }

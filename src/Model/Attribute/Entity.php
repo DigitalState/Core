@@ -14,5 +14,5 @@ trait Entity
     /**
      * @var string
      */
-    protected $entity;
+    private $entity;
 }

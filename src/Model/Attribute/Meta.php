@@ -14,5 +14,5 @@ trait Meta
     /**
      * @var array
      */
-    protected $meta;
+    private $meta;
 }

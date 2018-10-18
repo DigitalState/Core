@@ -15,7 +15,7 @@ trait Tags
      * @param array $tags
      * @return object
      */
-    public function setTags(array $tags)
+    public function setTags(?array $tags)
     {
         $this->tags = $tags;
 
@@ -27,7 +27,7 @@ trait Tags
      *
      * @return array
      */
-    public function getTags()
+    public function getTags(): ?array
     {
         return $this->tags;
     }

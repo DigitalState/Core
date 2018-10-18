@@ -15,36 +15,36 @@ interface Deletable
      * Set deleted status
      *
      * @param boolean $deleted
-     * @return object
+     * @return \Ds\Component\Model\Type\Deletable
      */
-    public function setDeleted($deleted);
+    public function setDeleted(bool $deleted): Deletable;
 
     /**
      * Get deleted status
      *
      * @return boolean
      */
-    public function getDeleted();
+    public function getDeleted(): bool;
 
     /**
      * Set deleted at date
      *
      * @param \DateTime $deletedAt
-     * @return object
+     * @return \Ds\Component\Model\Type\Deletable
      */
-    public function setDeletedAt(DateTime $deletedAt);
+    public function setDeletedAt(DateTime $deletedAt): Deletable;
 
     /**
      * Get deleted at date
      *
      * @return \DateTime
      */
-    public function getDeletedAt();
+    public function getDeletedAt(): ?DateTime;
 
     /**
      * Check if deleted or not
      *
      * @return boolean
      */
-    public function isDeleted();
+    public function isDeleted(): bool;
 }

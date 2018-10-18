@@ -15,7 +15,7 @@ trait Version
      * @param integer $version
      * @return object
      */
-    public function setVersion($version)
+    public function setVersion(?int $version)
     {
         $this->version = $version;
 
@@ -27,7 +27,7 @@ trait Version
      *
      * @return integer
      */
-    public function getVersion()
+    public function getVersion(): ?int
     {
         return $this->version;
     }

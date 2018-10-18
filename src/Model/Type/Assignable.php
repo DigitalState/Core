@@ -13,29 +13,29 @@ interface Assignable
      * Set assignee
      *
      * @param string $assignee
-     * @return object
+     * @return \Ds\Component\Model\Type\Assignable
      */
-    public function setAssignee($assignee);
+    public function setAssignee(string $assignee): Assignable;
 
     /**
      * Get assignee
      *
      * @return string
      */
-    public function getAssignee();
+    public function getAssignee(): ?string;
 
     /**
      * Set assignee uuid
      *
      * @param string $assigneeUuid
-     * @return object
+     * @return \Ds\Component\Model\Type\Assignable
      */
-    public function setAssigneeUuid($assigneeUuid);
+    public function setAssigneeUuid(string $assigneeUuid): Assignable;
 
     /**
      * Get assignee uuid
      *
      * @return string
      */
-    public function getAssigneeUuid();
+    public function getAssigneeUuid(): ?string;
 }

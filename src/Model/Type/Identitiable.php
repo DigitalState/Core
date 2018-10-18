@@ -13,29 +13,29 @@ interface Identitiable
      * Set identity
      *
      * @param string $identity
-     * @return object
+     * @return \Ds\Component\Model\Type\Identitiable
      */
-    public function setIdentity($identity);
+    public function setIdentity(string $identity): Identitiable;
 
     /**
      * Get identity
      *
      * @return string
      */
-    public function getIdentity();
+    public function getIdentity(): ?string;
 
     /**
      * Set identity uuid
      *
      * @param string $identityUuid
-     * @return object
+     * @return \Ds\Component\Model\Type\Identitiable
      */
-    public function setIdentityUuid($identityUuid);
+    public function setIdentityUuid(string $identityUuid): Identitiable;
 
     /**
      * Get identity uuid
      *
      * @return string
      */
-    public function getIdentityUuid();
+    public function getIdentityUuid(): ?string;
 }

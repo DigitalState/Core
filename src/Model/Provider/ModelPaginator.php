@@ -8,37 +8,37 @@ use Iterator;
 /**
  * Class ModelPaginator
  */
-class ModelPaginator implements Iterator, Paginator
+final class ModelPaginator implements Iterator, Paginator
 {
     /**
      * @var array
      */
-    protected $items;
+    private $items;
 
     /**
      * @var integer
      */
-    protected $cursor;
+    private $cursor;
 
     /**
      * @var float
      */
-    protected $currentPage;
+    private $currentPage;
 
     /**
      * @var float
      */
-    protected $lastPage;
+    private $lastPage;
 
     /**
      * @var float
      */
-    protected $itemsPerPage;
+    private $itemsPerPage;
 
     /**
      * @var float
      */
-    protected $totalItems;
+    private $totalItems;
 
     /**
      * Constructor

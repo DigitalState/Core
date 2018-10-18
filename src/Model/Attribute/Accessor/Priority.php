@@ -15,7 +15,7 @@ trait Priority
      * @param integer $priority
      * @return object
      */
-    public function setPriority($priority)
+    public function setPriority(?int $priority)
     {
         $this->priority = $priority;
 
@@ -27,7 +27,7 @@ trait Priority
      *
      * @return integer
      */
-    public function getPriority()
+    public function getPriority(): ?int
     {
         return $this->priority;
     }

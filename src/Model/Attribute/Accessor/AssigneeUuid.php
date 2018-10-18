@@ -18,7 +18,7 @@ trait AssigneeUuid
      * @return object
      * @throws \InvalidArgumentException
      */
-    public function setAssigneeUuid($assigneeUuid)
+    public function setAssigneeUuid(?string $assigneeUuid)
     {
         if (null !== $assigneeUuid) {
             if (!preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $assigneeUuid)) {
@@ -36,7 +36,7 @@ trait AssigneeUuid
      *
      * @return string
      */
-    public function getAssigneeUuid()
+    public function getAssigneeUuid(): ?string
     {
         return $this->assigneeUuid;
     }

@@ -14,5 +14,5 @@ trait Form
     /**
      * @var string
      */
-    protected $form;
+    private $form;
 }

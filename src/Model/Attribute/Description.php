@@ -14,5 +14,5 @@ trait Description
     /**
      * @var string
      */
-    protected $description;
+    private $description;
 }

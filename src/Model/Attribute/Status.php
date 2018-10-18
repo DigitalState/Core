@@ -14,5 +14,5 @@ trait Status
     /**
      * @var integer
      */
-    protected $status;
+    private $status;
 }

@@ -14,5 +14,5 @@ trait AssigneeUuid
     /**
      * @var string
      */
-    protected $assigneeUuid;
+    private $assigneeUuid;
 }

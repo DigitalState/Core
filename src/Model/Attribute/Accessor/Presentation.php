@@ -15,7 +15,7 @@ trait Presentation
      * @param string $presentation
      * @return object
      */
-    public function setPresentation($presentation)
+    public function setPresentation(?string $presentation)
     {
         $this->presentation = $presentation;
 
@@ -27,7 +27,7 @@ trait Presentation
      *
      * @return string
      */
-    public function getPresentation()
+    public function getPresentation(): ?string
     {
         return $this->presentation;
     }

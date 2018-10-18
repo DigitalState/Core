@@ -17,7 +17,7 @@ trait Meta
      * @param array $meta
      * @return object
      */
-    public function setMeta($meta)
+    public function setMeta(?array $meta)
     {
         $this->meta = $meta;
 
@@ -31,7 +31,7 @@ trait Meta
      * @return array
      * @throws \OutOfRangeException
      */
-    public function getMeta($property = null)
+    public function getMeta(?string $property)
     {
         if (null === $property) {
             return $this->meta;

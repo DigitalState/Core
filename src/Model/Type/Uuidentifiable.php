@@ -13,14 +13,14 @@ interface Uuidentifiable
      * Set uuid
      *
      * @param string $uuid
-     * @return object
+     * @return \Ds\Component\Model\Type\Uuidentifiable
      */
-    public function setUuid($uuid);
+    public function setUuid(string $uuid): Uuidentifiable;
 
     /**
      * Get uuid
      *
      * @return string
      */
-    public function getUuid();
+    public function getUuid(): ?string;
 }

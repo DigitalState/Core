@@ -17,7 +17,7 @@ trait FollowUpAt
      * @param \DateTime $followUpAt
      * @return object
      */
-    public function setFollowUpAt(DateTime $followUpAt = null)
+    public function setFollowUpAt(?DateTime $followUpAt)
     {
         $this->followUpAt = $followUpAt;
 
@@ -29,7 +29,7 @@ trait FollowUpAt
      *
      * @return \DateTime
      */
-    public function getFollowUpAt()
+    public function getFollowUpAt(): ?DateTime
     {
         return $this->followUpAt;
     }

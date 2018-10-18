@@ -14,5 +14,5 @@ trait Tenant
     /**
      * @var string
      */
-    protected $tenant;
+    private $tenant;
 }

@@ -14,5 +14,5 @@ trait Config
     /**
      * @var array
      */
-    protected $config;
+    private $config;
 }

@@ -14,5 +14,5 @@ trait Schema
     /**
      * @var \stdClass|array
      */
-    protected $schema;
+    private $schema;
 }

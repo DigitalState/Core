@@ -14,5 +14,5 @@ trait Scope
     /**
      * @var integer
      */
-    protected $scope;
+    private $scope;
 }

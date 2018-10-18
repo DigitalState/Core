@@ -14,5 +14,5 @@ trait Assignee
     /**
      * @var string
      */
-    protected $assignee;
+    private $assignee;
 }

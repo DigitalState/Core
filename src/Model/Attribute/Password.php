@@ -14,5 +14,5 @@ trait Password
     /**
      * @var string
      */
-    protected $password;
+    private $password;
 }

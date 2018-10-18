@@ -17,7 +17,7 @@ trait Deleted
      * @param boolean $deleted
      * @return object
      */
-    public function setDeleted($deleted)
+    public function setDeleted(?bool $deleted)
     {
         $this->deletedAt = $deleted ? new DateTime : null;
 
@@ -29,7 +29,7 @@ trait Deleted
      *
      * @return boolean
      */
-    public function getDeleted()
+    public function getDeleted(): ?bool
     {
         return null !== $this->deletedAt;
     }

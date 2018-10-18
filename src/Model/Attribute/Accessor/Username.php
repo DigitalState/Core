@@ -15,7 +15,7 @@ trait Username
      * @param string $username
      * @return object
      */
-    public function setUsername($username)
+    public function setUsername(?string $username)
     {
         $this->username = $username;
 
@@ -27,7 +27,7 @@ trait Username
      *
      * @return string
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->username;
     }

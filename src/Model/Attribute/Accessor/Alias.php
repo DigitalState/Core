@@ -13,7 +13,7 @@ trait Alias
      * @param string $alias
      * @return object
      */
-    public function setAlias($alias)
+    public function setAlias(?string $alias)
     {
         $this->alias = $alias;
 
@@ -25,7 +25,7 @@ trait Alias
      *
      * @return string
      */
-    public function getAlias()
+    public function getAlias(): ?string
     {
         return $this->alias;
     }
