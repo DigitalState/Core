@@ -33,7 +33,7 @@ final class CheckPass implements CompilerPassInterface
         foreach ($checks as $id => $tags) {
             foreach ($tags as $tag) {
                 if (!array_key_exists('alias', $tag)) {
-                    throw new LogicException('Tag attribute is missing.');
+                    $tag['alias'] = $id;
                 }
 
                 $check = $container->findDefinition($id);
