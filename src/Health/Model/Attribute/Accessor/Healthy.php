@@ -4,6 +4,8 @@ namespace Ds\Component\Health\Model\Attribute\Accessor;
 
 /**
  * Trait Healthy
+ *
+ * @package Ds\Component\Health
  */
 trait Healthy
 {

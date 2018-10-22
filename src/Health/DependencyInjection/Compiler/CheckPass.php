@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Health\DependencyInjection\Compiler;
 
+use Ds\Component\Health\Collection\CheckCollection;
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -12,7 +13,7 @@ use Symfony\Component\DependencyInjection\Reference;
  *
  * @package Ds\Component\Health
  */
-class CheckPass implements CompilerPassInterface
+final class CheckPass implements CompilerPassInterface
 {
     /**
      * Process
@@ -22,11 +23,11 @@ class CheckPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has('ds_health.collection.check')) {
+        if (!$container->has(CheckCollection::class)) {
             return;
         }
 
-        $collection = $container->findDefinition('ds_health.collection.check');
+        $collection = $container->findDefinition(CheckCollection::class);
         $checks = $container->findTaggedServiceIds('ds_health.check');
 
         foreach ($checks as $id => $tags) {

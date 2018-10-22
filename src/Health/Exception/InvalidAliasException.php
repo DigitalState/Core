@@ -9,6 +9,6 @@ use DomainException;
  *
  * @package Ds\Component\Health
  */
-class InvalidAliasException extends DomainException
+final class InvalidAliasException extends DomainException
 {
 }

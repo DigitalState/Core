@@ -10,14 +10,14 @@ use Ds\Component\Model\Attribute;
  *
  * @package Ds\Component\Health
  */
-class PingCheck implements Check
+final class PingCheck implements Check
 {
     use Attribute\Alias;
 
     /**
      * {@inheritdoc}
      */
-    public function execute()
+    public function execute(): Status
     {
         $status = new Status;
         $status

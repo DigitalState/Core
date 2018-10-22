@@ -4,6 +4,8 @@ namespace Ds\Component\Health\Model\Attribute;
 
 /**
  * Trait Healthy
+ *
+ * @package Ds\Component\Health
  */
 trait Healthy
 {
@@ -12,5 +14,5 @@ trait Healthy
     /**
      * @var boolean
      */
-    protected $healthy;
+    private $healthy;
 }

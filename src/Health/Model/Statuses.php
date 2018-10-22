@@ -34,7 +34,7 @@ class Statuses
      *
      * @return \stdClass
      */
-    public function toObject()
+    public function toObject(): stdClass
     {
         $object = new stdClass;
         $object->healthy = $this->healthy;

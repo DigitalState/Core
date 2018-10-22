@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @package Ds\Component\Health
  */
-class DsHealthBundle extends Bundle
+final class DsHealthBundle extends Bundle
 {
     /**
      * {@inheritdoc}

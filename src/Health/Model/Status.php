@@ -5,6 +5,7 @@ namespace Ds\Component\Health\Model;
 use DateTime;
 use Ds\Component\Health\Model\Attribute as HealthAttribute;
 use Ds\Component\Model\Attribute;
+use stdClass;
 
 /**
  * Class Status
@@ -31,7 +32,7 @@ class Status
      *
      * @return \stdClass
      */
-    public function toObject()
+    public function toObject(): stdClass
     {
         return (object) get_object_vars($this);
     }

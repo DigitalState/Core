@@ -11,12 +11,12 @@ use Ds\Component\Health\Model\Statuses;
  *
  * @package Ds\Component\Health
  */
-class HealthService
+final class HealthService
 {
     /**
      * @var \Ds\Component\Health\Collection\CheckCollection
      */
-    protected $checkCollection;
+    private $checkCollection;
 
     /**
      * Constructor

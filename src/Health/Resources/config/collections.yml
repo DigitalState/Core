@@ -1,3 +1,0 @@
-services:
-  ds_health.collection.check:
-    class: '%ds_health.collection.check.class%'

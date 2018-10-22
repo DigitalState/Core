@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Health\Action;
+namespace Ds\Component\Health\Controller;
 
 use Ds\Component\Health\Exception\InvalidAliasException;
 use Ds\Component\Health\Service\HealthService;
@@ -8,16 +8,14 @@ use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class HealthAction
+ * Class HealthController
  *
  * @package Ds\Component\Health
  */
-class HealthAction
+final class HealthController
 {
     /**
      * @const string
@@ -27,7 +25,7 @@ class HealthAction
     /**
      * @var \Ds\Component\Health\Service\HealthService
      */
-    protected $healthService;
+    private $healthService;
 
     /**
      * Constructor
@@ -42,11 +40,10 @@ class HealthAction
     /**
      * Action
      *
-     * @Method("GET")
-     * @Route(path="/system/health")
+     * @Route(path="/system/health", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function cget()
+    public function cget(): JsonResponse
     {
         $statuses = $this->healthService->check();
         $data = $statuses->toObject();
@@ -68,12 +65,11 @@ class HealthAction
     /**
      * Action
      *
-     * @Method("GET")
-     * @Route(path="/system/health/{alias}", requirements={"alias"=".+"})
+     * @Route(path="/system/health/{alias}", requirements={"alias"=".+"}, methods={"GET"})
      * @param string $alias
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function get($alias)
+    public function get($alias): JsonResponse
     {
         $alias = str_replace('/', '.', $alias);
 

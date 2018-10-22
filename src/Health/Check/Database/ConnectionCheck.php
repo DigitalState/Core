@@ -11,14 +11,14 @@ use Ds\Component\Model\Attribute;
  *
  * @package Ds\Component\Health
  */
-class ConnectionCheck implements Check
+final class ConnectionCheck implements Check
 {
     use Attribute\Alias;
 
     /**
      * {@inheritdoc}
      */
-    public function execute()
+    public function execute(): Status
     {
         $status = new Status;
         $status

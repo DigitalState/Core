@@ -11,7 +11,7 @@ use InvalidArgumentException;
  *
  * @package Ds\Component\Health
  */
-class CheckCollection extends ArrayCollection
+final class CheckCollection extends ArrayCollection
 {
     /**
      * {@inheritdoc}
