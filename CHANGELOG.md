@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.13.2 ()
+
+- Feature [System] Set system security encoders compatible with platform
+
 ## 0.13.0 (2018-10-17)
 
 - Feature [Security] Add compatibility to acl property serializer for non-secured entities
