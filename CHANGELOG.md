@@ -2,7 +2,7 @@
 
 ## 0.14.0 (2018-10-29)
 
-- Feature [Tenant] Convert tenant data to runtime-only data.
+- Feature [Tenant] Convert tenant data to runtime-only data
 
 ## 0.13.2 (2018-10-26)
 
