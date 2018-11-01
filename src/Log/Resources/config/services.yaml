@@ -1,0 +1,9 @@
+parameters:
+  env(APP): 'app'
+
+services:
+  Ds\Component\Log\Monolog\Processor\AppProcessor:
+    arguments:
+      - '%env(resolve:APP)%'
+    tags:
+      - { name: monolog.processor, method: process }
