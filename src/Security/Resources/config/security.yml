@@ -1,8 +1,0 @@
-security:
-  providers:
-    ds_security:
-      lexik_jwt:
-        class: Ds\Component\Security\Model\User
-
-  access_decision_manager:
-    strategy: unanimous

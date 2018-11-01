@@ -1,7 +1,0 @@
-services:
-  ds_exception.event_listener.exception:
-    class: '%ds_exception.event_listener.exception.class%'
-    arguments:
-      - '%kernel.environment%'
-    tags:
-      - { name: kernel.event_listener, event: kernel.exception, method: kernelException }

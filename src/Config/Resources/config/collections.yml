@@ -1,6 +1,0 @@
-services:
-  ds_config.collection.config:
-    class: '%ds_config.collection.config.class%'
-
-  ds_config.collection.parameter:
-    class: '%ds_config.collection.parameter.class%'

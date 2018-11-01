@@ -1,9 +1,0 @@
-services:
-  ds_cache.doctrine.orm.query_extension.cache:
-    class: '%ds_cache.doctrine.orm.query_extension.cache.class%'
-    public: false
-    arguments:
-      - '@annotation_reader'
-    tags:
-      - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
-      - { name: api_platform.doctrine.orm.query_extension.item }

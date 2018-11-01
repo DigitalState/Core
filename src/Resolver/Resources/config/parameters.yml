@@ -1,2 +1,0 @@
-parameters:
-  ds_resolver.collection.resolver.class: Ds\Component\Resolver\Collection\ResolverCollection

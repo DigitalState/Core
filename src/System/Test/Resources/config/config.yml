@@ -1,4 +1,0 @@
-ds_system_test:
-  users:
-    - username: system
-      password: system

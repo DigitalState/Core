@@ -1,6 +1,0 @@
-services:
-  ds_system.service.tasks.tenant:
-    parent: ds_system.service
-    class: '%ds_system.service.tasks.tenant.class%'
-    tags:
-      - { name: ds_system.service, alias: tasks.tenant }

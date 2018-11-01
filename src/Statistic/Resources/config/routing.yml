@@ -1,3 +1,0 @@
-ds_statistic:
-  resource: '@DsStatisticBundle/Action/'
-  type: annotation

@@ -1,4 +1,0 @@
-ds_config:
-  parameters:
-    - { key: ds_system.user.username,  encrypt: false,  title: ds.system.parameters.user.username }
-    - { key: ds_system.user.password,  encrypt: true,   title: ds.system.parameters.user.password }

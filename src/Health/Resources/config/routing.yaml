@@ -1,3 +1,0 @@
-ds_health:
-  resource: '@DsHealthBundle/Controller/'
-  type: annotation

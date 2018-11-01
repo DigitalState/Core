@@ -1,3 +1,0 @@
-services:
-  ds_resolver.collection.resolver:
-    class: '%ds_resolver.collection.resolver.class%'

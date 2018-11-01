@@ -1,4 +1,0 @@
-parameters:
-  ds_identity.event_listener.token.identity.roles.class: Ds\Component\Identity\EventListener\Token\Identity\RolesListener
-  ds_identity.event_listener.token.identity.type.class: Ds\Component\Identity\EventListener\Token\Identity\TypeListener
-  ds_identity.event_listener.token.identity.uuid.class: Ds\Component\Identity\EventListener\Token\Identity\UuidListener

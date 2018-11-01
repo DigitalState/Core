@@ -1,6 +1,0 @@
-services:
-  ds_tenant.repository.tenant:
-    class: '%ds_tenant.repository.tenant.class%'
-    factory: ['@doctrine.orm.default_entity_manager', getRepository]
-    arguments:
-      - '%ds_tenant.entity.tenant.class%'

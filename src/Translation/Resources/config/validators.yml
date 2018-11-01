@@ -1,7 +1,0 @@
-services:
-  ds_translation.validator.valid:
-    class: '%ds_translation.validator.valid.class%'
-    arguments:
-      - '@ds_translation.service.translation'
-    tags:
-      - { name: validator.constraint_validator, alias: ds.translation.valid }

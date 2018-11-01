@@ -1,3 +1,0 @@
-services:
-  ds_system.collection.service:
-    class: '%ds_system.collection.service.class%'

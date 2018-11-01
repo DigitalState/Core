@@ -1,9 +1,0 @@
-parameters:
-  ds_encryption.event_listener.entity.encryptable.abstract.class: Ds\Component\Encryption\EventListener\Entity\Encryptable\AbstractListener
-  ds_encryption.event_listener.entity.encryptable.post_flush.class: Ds\Component\Encryption\EventListener\Entity\Encryptable\PostFlushListener
-  ds_encryption.event_listener.entity.encryptable.post_load.class: Ds\Component\Encryption\EventListener\Entity\Encryptable\PostLoadListener
-  ds_encryption.event_listener.entity.encryptable.post_update.class: Ds\Component\Encryption\EventListener\Entity\Encryptable\PostUpdateListener
-  ds_encryption.event_listener.entity.encryptable.pre_flush.class: Ds\Component\Encryption\EventListener\Entity\Encryptable\PreFlushListener
-  ds_encryption.event_listener.entity.encryptable.pre_update.class: Ds\Component\Encryption\EventListener\Entity\Encryptable\PreUpdateListener
-  ds_encryption.service.cipher.class: Ds\Component\Encryption\Service\CipherService
-  ds_encryption.service.encryption.class: Ds\Component\Encryption\Service\EncryptionService
