@@ -2,6 +2,11 @@ parameters:
   env(APP): 'app'
 
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
   Ds\Component\Log\Monolog\Processor\AppProcessor:
     arguments:
       - '%env(resolve:APP)%'
