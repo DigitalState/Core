@@ -4,7 +4,7 @@ services:
     autoconfigure: true
     public: false
 
-  Ds\Component\Resolver\:
+  Ds\Component\Statistic\:
     resource: ../../{Collection,Controller,Service}
 
   Ds\Component\Statistic\Controller\:
