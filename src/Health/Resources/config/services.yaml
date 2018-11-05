@@ -5,7 +5,7 @@ services:
     public: false
 
   Ds\Component\Health\:
-    resource: ../../*
+    resource: ../../{Check,Collection,Controller,Service}
 
   Ds\Component\Health\Controller\:
     resource: ../../Controller

@@ -4,10 +4,9 @@ services:
     autoconfigure: true
     public: false
 
+  Ds\Component\Resolver\:
+    resource: ../../{Collection,Controller,Service}
+
   Ds\Component\Statistic\Controller\:
     resource: ../../Controller
     tags: [controller.service_arguments]
-
-  Ds\Component\Statistic\Collection\StatCollection: ~
-
-  Ds\Component\Statistic\Service\StatisticService: ~

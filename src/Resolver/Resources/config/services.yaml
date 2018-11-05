@@ -4,4 +4,5 @@ services:
     autoconfigure: true
     public: false
 
-  Ds\Component\Resolver\Collection\ResolverCollection: ~
+  Ds\Component\Resolver\:
+    resource: ../../{Collection}

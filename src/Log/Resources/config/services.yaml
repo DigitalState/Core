@@ -1,5 +1,5 @@
 parameters:
-  env(APP): 'app'
+  env(APP): ''
 
 services:
   _defaults:
