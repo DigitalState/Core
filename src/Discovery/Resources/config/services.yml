@@ -1,0 +1,22 @@
+parameters:
+  env(DISCOVERY_HOST): ''
+  env(DISCOVERY_CREDENTIAL): ''
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  ds_discovery.client:
+    class: GuzzleHttp\Client
+
+  Ds\Component\Discovery\:
+    resource: ../../{Repository}
+
+  Ds\Component\Discovery\Repository\Repository:
+    abstract: true
+    arguments:
+      - '@ds_discovery.client'
+      - '%env(resolve:DISCOVERY_HOST)%'
+      - '%env(resolve:DISCOVERY_CREDENTIAL)%'
