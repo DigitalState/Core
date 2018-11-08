@@ -35,7 +35,7 @@ final class Parameter implements Identifiable, Encryptable
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(name="id", type="integer")
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
@@ -43,14 +43,14 @@ final class Parameter implements Identifiable, Encryptable
      * @Assert\NotBlank
      * @Assert\Length(min=1, max=255)
      */
-    protected $key;
+    private $key;
 
     /**
      * @var string
      * @ORM\Column(name="value", type="text", nullable=true)
      * @Encrypt("object.getEncrypt()")
      */
-    protected $value;
+    private $value;
 
     /**
      * @var boolean

@@ -16,7 +16,7 @@ final class ParameterExtension extends Twig_Extension
     /**
      * @var \Ds\Component\Parameter\Service\ParameterService
      */
-    protected $parameterService;
+    private $parameterService;
 
     /**
      * Constructor
