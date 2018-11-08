@@ -2,7 +2,7 @@
 
 namespace Ds\Component\Parameter\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Ds\Component\Entity\Repository\EntityRepository;
 
 /**
  * Class ParameterRepository
