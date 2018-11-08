@@ -50,15 +50,15 @@ abstract class ResourceFixture extends AbstractFixture implements ContainerAware
             $extension = pathinfo($file, PATHINFO_EXTENSION);
 
             switch ($extension) {
-                case 'yml':
+                case 'yaml':
                     $config = Yaml::parse(file_get_contents($file), Yaml::PARSE_OBJECT_FOR_MAP);
 
-                    if (!property_exists($config,'fixtures')) {
-                        throw new LogicException('Config property "fixtures" does not exist.');
+                    if (!property_exists($config,'objects')) {
+                        throw new LogicException('Config property "objects" does not exist.');
                     }
 
-                    if (!is_array($config->fixtures)) {
-                        throw new LogicException('Config property "fixtures" is not an array.');
+                    if (!is_array($config->objects)) {
+                        throw new LogicException('Config property "objects" is not an array.');
                     }
 
                     $prototype = [];
@@ -71,8 +71,8 @@ abstract class ResourceFixture extends AbstractFixture implements ContainerAware
                         $prototype = $config->prototype;
                     }
 
-                    foreach ($config->fixtures as $fixture) {
-                        $objects[] = (object) array_merge((array) $prototype, (array) $fixture);
+                    foreach ($config->objects as $object) {
+                        $objects[] = (object) array_merge((array) $prototype, (array) $object);
                     }
 
                     break;
