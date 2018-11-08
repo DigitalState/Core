@@ -40,7 +40,7 @@ final class ParameterService extends EntityService
      * @return mixed
      * @throws \OutOfRangeException
      */
-    public function get($key)
+    public function get(string $key)
     {
         $parameter = $this->repository->findOneBy(['key' => $key]);
         $this->manager->detach($parameter);
@@ -58,7 +58,7 @@ final class ParameterService extends EntityService
      * @param string $key
      * @param mixed $value
      */
-    public function set($key, $value)
+    public function set(string $key, $value)
     {
         $parameter = $this->repository->findOneBy(['key' => $key]);
 
