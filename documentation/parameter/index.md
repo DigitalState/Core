@@ -1,4 +1,4 @@
-# Config
+# Parameter
 
 ## Table of Contents
 
