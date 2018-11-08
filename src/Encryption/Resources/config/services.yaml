@@ -1,6 +1,3 @@
-parameters:
-  env(ENCRYPTION): ''
-
 services:
   _defaults:
     autowire: true
@@ -29,7 +26,3 @@ services:
   Ds\Component\Encryption\EventListener\Entity\Encryptable\PreUpdateListener:
     tags:
       - { name: doctrine.event_listener, event: preUpdate, priority: 0 }
-
-  Ds\Component\Encryption\Service\CipherService:
-    arguments:
-      - '%env(resolve:ENCRYPTION)%'

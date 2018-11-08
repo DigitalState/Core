@@ -19,6 +19,11 @@ final class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder;
         $node = $builder->root('ds_encryption');
+        $node
+            ->children()
+                ->scalarNode('encryption')
+                ->end()
+            ->end();
 
         return $builder;
     }
