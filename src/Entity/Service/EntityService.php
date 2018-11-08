@@ -2,7 +2,7 @@
 
 namespace Ds\Component\Entity\Service;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Class EntityService
@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManager;
 class EntityService
 {
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var \Doctrine\ORM\EntityManagerInterface
      */
     protected $manager;
 
@@ -29,10 +29,10 @@ class EntityService
     /**
      * Constructor
      *
-     * @param \Doctrine\ORM\EntityManager $manager
+     * @param \Doctrine\ORM\EntityManagerInterface $manager
      * @param string $entity
      */
-    public function __construct(EntityManager $manager, $entity)
+    public function __construct(EntityManagerInterface $manager, $entity)
     {
         $this->manager = $manager;
         $this->repository = $manager->getRepository($entity);

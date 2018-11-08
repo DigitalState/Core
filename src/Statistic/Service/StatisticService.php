@@ -16,7 +16,7 @@ final class StatisticService
     /**
      * @var \Ds\Component\Statistic\Collection\StatCollection
      */
-    protected $statCollection;
+    private $statCollection;
 
     /**
      * Constructor

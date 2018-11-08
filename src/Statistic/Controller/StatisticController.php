@@ -26,7 +26,7 @@ class StatisticController
     /**
      * @var \Ds\Component\Statistic\Service\StatisticService
      */
-    protected $statisticService;
+    private $statisticService;
 
     /**
      * Constructor

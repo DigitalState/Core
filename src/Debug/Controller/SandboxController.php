@@ -17,7 +17,7 @@ final class SandboxController
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    protected $container;
+    private $container;
 
     /**
      * Constructor

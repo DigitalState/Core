@@ -12,7 +12,7 @@ final class AppProcessor
     /**
      * @var string
      */
-    protected $app;
+    private $app;
 
     /**
      * Constructor
