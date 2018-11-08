@@ -2,8 +2,6 @@
 
 namespace Ds\Component\Encryption\Model\Attribute\Accessor;
 
-use Ds\Component\Encryption\Model\Type\Encryptable;
-
 /**
  * Trait Encrypted
  *
