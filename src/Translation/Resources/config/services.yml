@@ -1,0 +1,42 @@
+parameters:
+  ds_translation.doctrine.orm.filter.search.class:
+  ds_translation.doctrine.orm.filter.order.class:
+  ds_translation.event_listener.translate.class:
+  ds_translation.service.translation.class: Ds\Component\Translation\Service\TranslationService
+  ds_translation.validator.valid.class:
+
+
+
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Translation\:
+    resource: ../../{Doctrine,EventListener,Service,Validator}
+
+  Ds\Component\Translation\Doctrine\ORM\Filter\SearchFilter:
+    arguments:
+      - '@doctrine'
+      - '@request_stack'
+      - '@api_platform.iri_converter'
+      - '@api_platform.property_accessor'
+      - '@?logger'
+
+  Ds\Component\Translation\Doctrine\ORM\Filter\OrderFilter:
+    arguments:
+      - '@doctrine'
+      - '@request_stack'
+      - '%api_platform.collection.order_parameter_name%'
+      - '@?logger'
+
+  Ds\Component\Translation\EventListener\TranslateListener:
+    tags:
+      - { name: doctrine.event_listener, event: postLoad }
+      - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 2 }
+
+  Ds\Component\Translation\Validator\ValidValidator:
+    tags:
+      - { name: validator.constraint_validator, alias: ds_translation.valid }
