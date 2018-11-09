@@ -5,5 +5,7 @@ services:
     public: false
 
   Ds\Component\Log\Monolog\Processor\AppProcessor:
+    arguments:
+      - '%ds_log.app%'
     tags:
       - { name: monolog.processor, method: process }

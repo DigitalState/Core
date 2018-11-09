@@ -2,8 +2,6 @@
 
 namespace Ds\Component\Discovery\DependencyInjection;
 
-use Ds\Component\Discovery\Repository\ConfigRepository;
-use Ds\Component\Discovery\Repository\ServiceRepository;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
@@ -27,15 +25,7 @@ final class DsDiscoveryExtension extends Extension
         $configuration = new Configuration;
         $config = $this->processConfiguration($configuration, $configs);
 
-        $repositories = [
-            ConfigRepository::class,
-            ServiceRepository::class
-        ];
-
-        foreach ($repositories as $repository) {
-            $definition = $container->getDefinition($repository);
-            $definition->addArgument($config['host']);
-            $definition->addArgument($config['credential']);
-        }
+        $container->setParameter('ds_discovery.host', $config['host']);
+        $container->setParameter('ds_discovery.credential', $config['credential']);
     }
 }

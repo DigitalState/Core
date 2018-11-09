@@ -26,3 +26,7 @@ services:
   Ds\Component\Encryption\EventListener\Entity\Encryptable\PreUpdateListener:
     tags:
       - { name: doctrine.event_listener, event: preUpdate, priority: 0 }
+
+  Ds\Component\Encryption\Service\CipherService:
+    arguments:
+      - '%ds_encryption.encryption%'

@@ -2,7 +2,6 @@
 
 namespace Ds\Component\Log\DependencyInjection;
 
-use Ds\Component\Log\Monolog\Processor\AppProcessor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -26,7 +25,6 @@ final class DsLogExtension extends Extension
         $configuration = new Configuration;
         $config = $this->processConfiguration($configuration, $configs);
 
-        $definition = $container->getDefinition(AppProcessor::class);
-        $definition->addArgument($config['app']);
+        $container->setParameter('ds_log.app', $config['app']);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Ds\Component\Encryption\DependencyInjection;
 
-use Ds\Component\Encryption\Service\CipherService;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
@@ -26,7 +25,6 @@ final class DsEncryptionExtension extends Extension
         $configuration = new Configuration;
         $config = $this->processConfiguration($configuration, $configs);
 
-        $definition = $container->getDefinition(CipherService::class);
-        $definition->addArgument($config['encryption']);
+        $container->setParameter('ds_encryption.encryption', $config['encryption']);
     }
 }
