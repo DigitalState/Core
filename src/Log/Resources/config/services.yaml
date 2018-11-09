@@ -4,6 +4,9 @@ services:
     autoconfigure: true
     public: false
 
+  Ds\Component\Log\:
+    resource: ../../{Monolog}
+
   Ds\Component\Log\Monolog\Processor\AppProcessor:
     arguments:
       - '%ds_log.app%'
