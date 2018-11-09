@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  * @ORMAssert\UniqueEntity(fields="key")
  */
-final class Parameter implements Identifiable, Encryptable
+class Parameter implements Identifiable, Encryptable
 {
     use Accessor\Id;
     use Accessor\Key;
