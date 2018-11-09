@@ -60,6 +60,7 @@ final class ExceptionListener
 
         switch ($accept) {
             case 'application/json':
+            case 'application/ld+json':
                 $response = new JsonResponse($data, Response::HTTP_INTERNAL_SERVER_ERROR);
                 $event->setResponse($response);
                 break;
