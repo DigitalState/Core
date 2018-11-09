@@ -14,14 +14,7 @@ services:
   Ds\Component\Discovery\:
     resource: ../../{Repository}
 
-  Ds\Component\Discovery\Repository\ConfigRepository:
+  Ds\Component\Discovery\Repository\:
+    resource: ../../Repository
     arguments:
       - '@ds_discovery.client'
-      - '%env(resolve:DISCOVERY_HOST)%'
-      - '%env(resolve:DISCOVERY_CREDENTIAL)%'
-
-  Ds\Component\Discovery\Repository\ServiceRepository:
-    arguments:
-      - '@ds_discovery.client'
-      - '%env(resolve:DISCOVERY_HOST)%'
-      - '%env(resolve:DISCOVERY_CREDENTIAL)%'
