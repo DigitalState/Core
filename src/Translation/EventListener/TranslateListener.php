@@ -56,10 +56,10 @@ final class TranslateListener
 
         if ($data instanceof Paginator || is_array($data)) {
             foreach ($data as $item) {
-                $this->load($item);
+                $this->translationService->translate($item);
             }
         } else {
-            $this->load($data);
+            $this->translationService->translate($data);
         }
     }
 
@@ -76,28 +76,8 @@ final class TranslateListener
             return;
         }
 
-        $this->load($entity);
+        $this->translationService->translate($entity);
     }
 
-    /**
-     * Load entity translations
-     *
-     * @param \Ds\Component\Translation\Model\Type\Translatable $entity
-     */
-    protected function load(Translatable $entity)
-    {
-        $properties = $this->translationService->getProperties($entity);
 
-        foreach ($properties as $property) {
-            $get = 'get'.$property->getName();
-            $set = 'set'.$property->getName();
-            $values = [];
-
-            foreach ($entity->getTranslations() as $translation) {
-                $values[$translation->getLocale()] = $translation->$get();
-            }
-
-            $entity->$set($values);
-        }
-    }
 }

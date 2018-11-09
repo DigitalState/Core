@@ -30,6 +30,28 @@ final class TranslationService
     }
 
     /**
+     * Translate model
+     *
+     * @param \Ds\Component\Translation\Model\Type\Translatable $model
+     */
+    public function translate(Translatable $model)
+    {
+        $properties = $this->getProperties($model);
+
+        foreach ($properties as $property) {
+            $get = 'get'.$property->getName();
+            $set = 'set'.$property->getName();
+            $values = [];
+
+            foreach ($model->getTranslations() as $translation) {
+                $values[$translation->getLocale()] = $translation->$get();
+            }
+
+            $model->$set($values);
+        }
+    }
+
+    /**
      * Get properties with Translate annotation
      *
      * @param \Ds\Component\Translation\Model\Type\Translatable $model
