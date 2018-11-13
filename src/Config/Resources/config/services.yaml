@@ -1,0 +1,49 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Config\:
+    resource: ../../{Collection,Command,EventListener,Repository,Service,Tenant,Twig}
+
+  Ds\Component\Config\EventListener\Entity\Config\EncryptListener:
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 2 }
+      - { name: doctrine.event_listener, event: preUpdate, priority: 2 }
+      - { name: doctrine.event_listener, event: preFlush, priority: 2 }
+
+  Ds\Component\Config\EventListener\Entity\Config\Serializer\PostFlushListener:
+    tags:
+      - { name: doctrine.event_listener, event: postFlush, priority: 0 }
+
+  Ds\Component\Config\EventListener\Entity\Config\Serializer\PostLoadListener:
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 0 }
+
+  Ds\Component\Config\EventListener\Entity\Config\Serializer\PostUpdateListener:
+    tags:
+      - { name: doctrine.event_listener, event: postUpdate, priority: 0 }
+
+  Ds\Component\Config\EventListener\Entity\Config\Serializer\PreFlushListener:
+    tags:
+      - { name: doctrine.event_listener, event: preFlush, priority: 1 }
+
+  Ds\Component\Config\EventListener\Entity\Config\Serializer\PreUpdateListener:
+    tags:
+      - { name: doctrine.event_listener, event: preUpdate, priority: 1 }
+
+  Ds\Component\Config\Repository\ConfigRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - Ds\Component\Config\Entity\Config
+
+  Ds\Component\Config\Service\ConfigService: ~
+
+  Ds\Component\Config\Tenant\Unloader\ConfigUnloader:
+    tags:
+      - { name: ds_tenant.unloader }
+
+  Ds\Component\Config\Twig\Extension\ConfigExtension:
+    tags:
+      - { name: twig.extension }
