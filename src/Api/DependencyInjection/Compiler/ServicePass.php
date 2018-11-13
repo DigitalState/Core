@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Api\DependencyInjection\Compiler;
 
+use Ds\Component\Api\Collection\ServiceCollection;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -11,7 +12,7 @@ use Symfony\Component\DependencyInjection\Reference;
  *
  * @package Ds\Component\Api
  */
-class ServicePass implements CompilerPassInterface
+final class ServicePass implements CompilerPassInterface
 {
     /**
      * Process
@@ -20,11 +21,7 @@ class ServicePass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has('ds_api.collection.service')) {
-            return;
-        }
-
-        $definition = $container->findDefinition('ds_api.collection.service');
+        $definition = $container->findDefinition(ServiceCollection::class);
         $services = $container->findTaggedServiceIds('ds_api.service');
 
         foreach ($services as $id => $tags) {
