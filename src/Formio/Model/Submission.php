@@ -7,7 +7,7 @@ namespace Ds\Component\Formio\Model;
  *
  * @package Ds\Component\Formio
  */
-class Submission implements Model
+final class Submission implements Model
 {
     use Attribute\Id;
     use Attribute\Updated;

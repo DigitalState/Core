@@ -7,7 +7,7 @@ namespace Ds\Component\Formio\Query;
  *
  * @package Ds\Component\Formio
  */
-class FormParameters implements Parameters
+final class FormParameters implements Parameters
 {
     use Base;
 

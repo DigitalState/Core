@@ -9,7 +9,7 @@ use Ds\Component\Formio\Model\Role;
  *
  * @package Ds\Component\Formio
  */
-class RoleService implements Service
+final class RoleService implements Service
 {
     use Base;
 
@@ -26,7 +26,7 @@ class RoleService implements Service
     /**
      * @var array
      */
-    protected static $map = [
+    private static $map = [
         'id' => '_id',
         'created',
         'updated' => 'modified',

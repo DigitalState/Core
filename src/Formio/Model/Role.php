@@ -7,7 +7,7 @@ namespace Ds\Component\Formio\Model;
  *
  * @package Ds\Component\Formio
  */
-class Role implements Model
+final class Role implements Model
 {
     use Attribute\Id;
     use Attribute\Created;

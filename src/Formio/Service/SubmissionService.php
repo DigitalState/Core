@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\ClientException;
  *
  * @package Ds\Component\Formio
  */
-class SubmissionService implements Service
+final class SubmissionService implements Service
 {
     use Base;
 
@@ -31,7 +31,7 @@ class SubmissionService implements Service
     /**
      * @var array
      */
-    protected static $map = [
+    private static $map = [
         'id' => '_id',
         'updated' => 'modified',
         'created',

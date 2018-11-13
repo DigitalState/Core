@@ -12,7 +12,7 @@ use DateTime;
  *
  * @package Ds\Component\Formio
  */
-class UserService implements Service
+final class UserService implements Service
 {
     use Base;
 
@@ -31,7 +31,7 @@ class UserService implements Service
     /**
      * @var array
      */
-    protected static $map = [
+    private static $map = [
         'id' => '_id',
         'updated' => 'modified',
         'created',

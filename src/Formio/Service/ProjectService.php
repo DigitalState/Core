@@ -9,7 +9,7 @@ use Ds\Component\Formio\Model\Project;
  *
  * @package Ds\Component\Formio
  */
-class ProjectService implements Service
+final class ProjectService implements Service
 {
     use Base;
 
@@ -21,7 +21,7 @@ class ProjectService implements Service
     /**
      * @var array
      */
-    protected static $map = [
+    private static $map = [
         'id' => '_id',
         'updated' => 'modified',
         'title'

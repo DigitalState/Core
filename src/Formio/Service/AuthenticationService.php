@@ -9,7 +9,7 @@ use Ds\Component\Formio\Model\User;
  *
  * @package Ds\Component\Formio
  */
-class AuthenticationService implements Service
+final class AuthenticationService implements Service
 {
     use Base;
 
@@ -18,6 +18,12 @@ class AuthenticationService implements Service
      */
     const RESOURCE_LOGIN = '/user/login';
     const RESOURCE_LOGOUT = '/logout';
+
+    /**
+     * @var array
+     */
+    private static $map = [
+    ];
 
     /**
      * Login

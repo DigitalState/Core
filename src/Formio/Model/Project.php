@@ -9,7 +9,7 @@ use stdClass;
  *
  * @package Ds\Component\Formio
  */
-class Project implements Model
+final class Project implements Model
 {
     use Attribute\Id;
     use Attribute\Title;
