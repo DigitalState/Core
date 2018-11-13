@@ -3,6 +3,7 @@
 namespace Ds\Component\Api\Model;
 
 use Ds\Component\Model\Attribute;
+use Ds\Component\Api\Model\Attribute as ApiAttribute;
 
 /**
  * Class Access
@@ -19,7 +20,7 @@ final class Access implements Model
     use Attribute\OwnerUuid;
     use Attribute\Assignee;
     use Attribute\AssigneeUuid;
-    use Attribute\Permissions;
+    use ApiAttribute\Permissions;
     use Attribute\Version;
 
     /**
