@@ -33,15 +33,15 @@ services:
       - { name: ds_tenant.loader }
 
 imports:
-  - { resource: services/assets.yml }
-  - { resource: services/authentication.yml }
-  - { resource: services/cases.yml }
-  - { resource: services/camunda.yml }
-  - { resource: services/cms.yml }
-  - { resource: services/formio.yml }
-  - { resource: services/forms.yml }
-  - { resource: services/identities.yml }
-  - { resource: services/records.yml }
-  - { resource: services/services.yml }
-  - { resource: services/tasks.yml }
-  - { resource: services/tenants.yml }
+  - { resource: services/assets.yaml }
+  - { resource: services/authentication.yaml }
+  - { resource: services/cases.yaml }
+  - { resource: services/camunda.yaml }
+  - { resource: services/cms.yaml }
+  - { resource: services/formio.yaml }
+  - { resource: services/forms.yaml }
+  - { resource: services/identities.yaml }
+  - { resource: services/records.yaml }
+  - { resource: services/services.yaml }
+  - { resource: services/tasks.yaml }
+  - { resource: services/tenants.yaml }
