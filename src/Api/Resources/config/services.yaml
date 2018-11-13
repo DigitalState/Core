@@ -14,7 +14,7 @@ services:
     arguments:
       - '@Ds\Component\Api\Collection\ServiceCollection'
       - '@Ds\Component\Discovery\Repository\ServiceRepository'
-      - '@Ds\Component\Cconfig\Service\ConfigService'
+      - '@Ds\Component\Config\Service\ConfigService'
       - '%ds_api.namespace%'
       - '%kernel.environment%'
       - '@lexik_jwt_authentication.jwt_manager'
