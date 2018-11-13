@@ -1,0 +1,35 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Api\Service\Formio\AuthenticationService:
+    class: Ds\Component\Formio\Service\AuthenticationService
+    tags:
+      - { name: ds_api.service, alias: formio.authentication }
+
+  Ds\Component\Api\Service\Formio\ProjectService:
+    class: Ds\Component\Formio\Service\ProjectService
+    tags:
+      - { name: ds_api.service, alias: formio.project }
+
+  Ds\Component\Api\Service\Formio\FormService:
+    class: Ds\Component\Formio\Service\FormService
+    tags:
+      - { name: ds_api.service, alias: formio.form }
+
+  Ds\Component\Api\Service\Formio\SubmissionService:
+    class: Ds\Component\Formio\Service\SubmissionService
+    tags:
+      - { name: ds_api.service, alias: formio.submission }
+
+  Ds\Component\Api\Service\Formio\UserService:
+    class: Ds\Component\Formio\Service\UserService
+    tags:
+      - { name: ds_api.service, alias: formio.user }
+
+  Ds\Component\Api\Service\Formio\RoleService:
+    class: Ds\Component\Formio\Service\RoleService
+    tags:
+      - { name: ds_api.service, alias: formio.role }

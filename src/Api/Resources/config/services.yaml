@@ -1,0 +1,47 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  ds_api.client:
+    class: GuzzleHttp\Client
+
+  Ds\Component\Api\:
+    resource: ../../{Api,Collection,Resolver,Service,Tenant}
+
+  Ds\Component\Api\Api\Api:
+    arguments:
+      - '@Ds\Component\Api\Collection\ServiceCollection'
+      - '@Ds\Component\Discovery\Repository\ServiceRepository'
+      - '@Ds\Component\Cconfig\Service\ConfigService'
+      - '%ds_api.namespace%'
+      - '%kernel.environment%'
+      - '@lexik_jwt_authentication.jwt_manager'
+
+  Ds\Component\Api\Service\:
+    resource: ../../Service
+    arguments:
+      - '@ds_api.client'
+
+  Ds\Component\Api\Resolver\ApiResolver:
+    tags:
+      - { name: ds_resolver.resolver, alias: ds_api }
+
+  Ds\Component\Api\Tenant\Unloader:
+    tags:
+      - { name: ds_tenant.loader }
+
+imports:
+  - { resource: services/assets.yml }
+  - { resource: services/authentication.yml }
+  - { resource: services/cases.yml }
+  - { resource: services/camunda.yml }
+  - { resource: services/cms.yml }
+  - { resource: services/formio.yml }
+  - { resource: services/forms.yml }
+  - { resource: services/identities.yml }
+  - { resource: services/records.yml }
+  - { resource: services/services.yml }
+  - { resource: services/tasks.yml }
+  - { resource: services/tenants.yml }

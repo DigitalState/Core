@@ -1,0 +1,20 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Api\Service\Cases\HealthService:
+    class: Ds\Component\Api\Service\HealthService
+    tags:
+      - { name: ds_api.service, alias: cases.health }
+
+  Ds\Component\Api\Service\Cases\ConfigService:
+    class: Ds\Component\Api\Service\ConfigService
+    tags:
+      - { name: ds_api.service, alias: cases.config }
+
+  Ds\Component\Api\Service\Cases\AccessService:
+    class: Ds\Component\Api\Service\AccessService
+    tags:
+      - { name: ds_api.service, alias: cases.access }
