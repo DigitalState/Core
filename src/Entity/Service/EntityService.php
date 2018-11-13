@@ -32,7 +32,7 @@ class EntityService
      * @param \Doctrine\ORM\EntityManagerInterface $manager
      * @param string $entity
      */
-    public function __construct(EntityManagerInterface $manager, $entity)
+    public function __construct(EntityManagerInterface $manager, string $entity)
     {
         $this->manager = $manager;
         $this->repository = $manager->getRepository($entity);
