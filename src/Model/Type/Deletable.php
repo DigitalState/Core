@@ -30,19 +30,19 @@ interface Deletable
      *
      * @param \DateTime $deletedAt
      */
-    public function setDeletedAt(?DateTime $deletedAt);
+    public function setDeletedAt(DateTime $deletedAt);
 
     /**
      * Get deleted at date
      *
      * @return \DateTime
      */
-    public function getDeletedAt(): ?DateTime;
+    public function getDeletedAt();
 
     /**
      * Check if deleted or not
      *
      * @return boolean
      */
-    public function isDeleted(): bool;
+    public function isDeleted();
 }
