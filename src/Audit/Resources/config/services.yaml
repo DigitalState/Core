@@ -1,0 +1,19 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Audit\:
+    resource: ../../{EventListener,Repository,Service}
+
+
+  Ds\Component\Audit\EventListener\EntityListener:
+    tags:
+      - { name: doctrine.event_listener, event: postPersist }
+      - { name: doctrine.event_listener, event: postUpdate }
+
+  Ds\Component\Audit\Repository\AuditRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - Ds\Component\Audit\Entity\Audit

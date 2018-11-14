@@ -1,0 +1,17 @@
+ds_acl:
+  entities:
+    - Ds\Component\Audit\Entity\Audit
+  permissions:
+    audit:               { attributes: [BROWSE, READ, EDIT, ADD, DELETE],  entity:   Ds\Component\Audit\Entity\Audit,               title: ds_audit.permissions.audit               }
+    audit_property:      { attributes: [BROWSE, READ, EDIT],               property: Ds\Component\Audit\Entity\Audit.*,             title: ds_audit.permissions.audit.property      }
+    audit_id:            { attributes: [BROWSE, READ, EDIT],               property: Ds\Component\Audit\Entity\Audit.id,            title: ds_audit.permissions.audit.id            }
+    audit_uuid:          { attributes: [BROWSE, READ, EDIT],               property: Ds\Component\Audit\Entity\Audit.uuid,          title: ds_audit.permissions.audit.uiid          }
+    audit_created_at:    { attributes: [BROWSE, READ, EDIT],               property: Ds\Component\Audit\Entity\Audit.createdAt,     title: ds_audit.permissions.audit.created_at    }
+    audit_updated_at:    { attributes: [BROWSE, READ, EDIT],               property: Ds\Component\Audit\Entity\Audit.updatedAt,     title: ds_audit.permissions.audit.updated_at    }
+    audit_owner:         { attributes: [BROWSE, READ, EDIT],               property: Ds\Component\Audit\Entity\Audit.owner,         title: ds_audit.permissions.audit.owner         }
+    audit_owner_uuid:    { attributes: [BROWSE, READ, EDIT],               property: Ds\Component\Audit\Entity\Audit.ownerUuid,     title: ds_audit.permissions.audit.owner_uuid    }
+    audit_user_uuid:     { attributes: [BROWSE, READ, EDIT],               property: Ds\Component\Audit\Entity\Audit.userUuid,      title: ds_audit.permissions.audit.user_uuid     }
+    audit_identity:      { attributes: [BROWSE, READ, EDIT],               property: Ds\Component\Audit\Entity\Audit.identity,      title: ds_audit.permissions.audit.identity      }
+    audit_identity_uuid: { attributes: [BROWSE, READ, EDIT],               property: Ds\Component\Audit\Entity\Audit.identityUuid,  title: ds_audit.permissions.audit.identity_uuid }
+    audit_action:        { attributes: [BROWSE, READ, EDIT],               property: Ds\Component\Audit\Entity\Audit.action,        title: ds_audit.permissions.audit.action        }
+    audit_data:          { attributes: [BROWSE, READ, EDIT],               property: Ds\Component\Audit\Entity\Audit.data,          title: ds_audit.permissions.audit.data          }
