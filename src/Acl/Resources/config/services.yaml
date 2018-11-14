@@ -41,6 +41,16 @@ services:
     arguments:
       - '@Ds\Component\Acl\Serializer\Normalizer\Property\JsonLdNormalizer.inner'
 
+  Ds\Component\Acl\Repository\AccessRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - Ds\Component\Acl\Entity\Access
+
+  Ds\Component\Acl\Repository\PermissionRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - Ds\Component\Acl\Entity\Permission
+
   Ds\Component\Acl\Tenant\Unloader\AccessUnloader:
     tags:
       - { name: ds_tenant.unloader }
