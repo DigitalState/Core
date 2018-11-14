@@ -1,13 +1,3 @@
-parameters:
-  ds_translation.doctrine.orm.filter.search.class:
-  ds_translation.doctrine.orm.filter.order.class:
-  ds_translation.event_listener.translate.class:
-  ds_translation.service.translation.class: Ds\Component\Translation\Service\TranslationService
-  ds_translation.validator.valid.class:
-
-
-
-
 services:
   _defaults:
     autowire: true
