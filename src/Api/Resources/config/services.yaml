@@ -28,7 +28,8 @@ services:
     tags:
       - { name: ds_resolver.resolver, alias: ds_api }
 
-  Ds\Component\Api\Tenant\Unloader:
+  Ds\Component\Api\Tenant\Loader\:
+    resource: ../../Tenant/Loader
     tags:
       - { name: ds_tenant.loader }
 
