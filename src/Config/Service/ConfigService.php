@@ -43,11 +43,12 @@ final class ConfigService extends EntityService
     public function get(string $key)
     {
         $config = $this->repository->findOneBy(['key' => $key]);
-        $this->manager->detach($config);
 
         if (!$config) {
             throw new OutOfRangeException('Config "'.$key.'" does not exist.');
         }
+
+        $this->manager->detach($config);
 
         return $config->getValue();
     }

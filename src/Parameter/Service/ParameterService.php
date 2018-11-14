@@ -43,11 +43,12 @@ final class ParameterService extends EntityService
     public function get(string $key)
     {
         $parameter = $this->repository->findOneBy(['key' => $key]);
-        $this->manager->detach($parameter);
 
         if (!$parameter) {
             throw new OutOfRangeException('Parameter "'.$key.'" does not exist.');
         }
+
+        $this->manager->detach($parameter);
 
         return $parameter->getValue();
     }
