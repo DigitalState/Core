@@ -1,0 +1,3 @@
+services:
+  ds_system_test.collection.user:
+    class: '%ds_system_test.collection.user.class%'

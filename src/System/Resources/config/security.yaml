@@ -1,0 +1,11 @@
+security:
+  encoders:
+    Symfony\Component\Security\Core\User\User: bcrypt
+
+  providers:
+    ds_system:
+      memory:
+        users:
+          '%ds_system.system.username%':
+              password: '%ds_system.system.password%'
+              roles: ROLE_SYSTEM

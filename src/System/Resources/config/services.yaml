@@ -1,0 +1,31 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  ds_system.client:
+    class: GuzzleHttp\Client
+
+  Ds\Component\System\:
+    resource: ../../{Api,Collection,Service}
+
+  Ds\Component\System\Api\Api:
+    arguments:
+      - '@Ds\Component\System\Collection\ServiceCollection'
+      - '@Ds\Component\Discovery\Repository\ServiceRepository'
+      - '@Ds\Component\Parameter\Service\ParameterService'
+      - '%ds_system.namespace%'
+      - '%kernel.environment%'
+
+imports:
+  - { resource: services/assets.yaml }
+  - { resource: services/authentication.yaml }
+  - { resource: services/cases.yaml }
+  - { resource: services/cms.yaml }
+  - { resource: services/forms.yaml }
+  - { resource: services/identities.yaml }
+  - { resource: services/records.yaml }
+  - { resource: services/services.yaml }
+  - { resource: services/tasks.yaml }
+  - { resource: services/tenants.yaml }
