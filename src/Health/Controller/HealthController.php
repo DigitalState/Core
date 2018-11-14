@@ -40,7 +40,7 @@ final class HealthController
     /**
      * Action
      *
-     * @Route(path="/system/health", methods={"GET"})
+     * @Route(path="/health", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function cget(): JsonResponse
@@ -65,7 +65,7 @@ final class HealthController
     /**
      * Action
      *
-     * @Route(path="/system/health/{alias}", requirements={"alias"=".+"}, methods={"GET"})
+     * @Route(path="/health/{alias}", requirements={"alias"=".+"}, methods={"GET"})
      * @param string $alias
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
