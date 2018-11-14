@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Metadata\:
+    resource: ../../{Repository,Service}
+
+  Ds\Component\Metadata\Repository\MetadataRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - Ds\Component\Metadata\Entity\Metadata
