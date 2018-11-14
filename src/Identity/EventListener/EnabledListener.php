@@ -1,0 +1,87 @@
+<?php
+
+namespace Ds\Component\Identity\EventListener;
+
+use ApiPlatform\Core\DataProvider\PaginatorInterface as Paginator;
+use Ds\Component\Model\Type\Enableable;
+use Ds\Component\Identity\Voter\EnabledVoter;
+use LogicException;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+/**
+ * Class EnabledListener
+ *
+ * @package Ds\Component\Identity
+ */
+final class EnabledListener
+{
+    /**
+     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
+     * @var \Ds\Component\Identity\Voter\EnabledVoter
+     */
+    private $enabledVoter;
+
+    /**
+     * Constructor
+     *
+     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
+     * @param \Ds\Component\Identity\Voter\EnabledVoter $enabledVoter
+     */
+    public function __construct(TokenStorageInterface $tokenStorage, EnabledVoter $enabledVoter)
+    {
+        $this->tokenStorage = $tokenStorage;
+        $this->enabledVoter = $enabledVoter;
+    }
+
+    /**
+     * Deny access if the user does not have proper permissions
+     *
+     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+     */
+    public function kernelRequest(GetResponseEvent $event)
+    {
+        $request = $event->getRequest();
+        $entity = $request->attributes->get('_api_resource_class');
+
+        if (null === $entity) {
+            return;
+        }
+
+        if (!in_array(Enableable::class, class_implements($entity), true)) {
+            return;
+        }
+
+        $token = $this->tokenStorage->getToken();
+        $data = $request->attributes->get('data');
+
+        if ($data instanceof Paginator || is_array($data)) {
+            foreach ($data as $item) {
+                $vote = $this->enabledVoter->vote($token, $item, ['*']);
+
+                if (EnabledVoter::ACCESS_ABSTAIN === $vote) {
+                    throw new LogicException('Voter cannot abstain from voting.');
+                }
+
+                if (EnabledVoter::ACCESS_GRANTED !== $vote) {
+                    throw new AccessDeniedException('Access denied.');
+                }
+            }
+        } else {
+            $vote = $this->enabledVoter->vote($token, $data, ['*']);
+
+            if (EnabledVoter::ACCESS_ABSTAIN === $vote) {
+                throw new LogicException('Voter cannot abstain from voting.');
+            }
+
+            if (EnabledVoter::ACCESS_GRANTED !== $vote) {
+                throw new AccessDeniedException('Access denied.');
+            }
+        }
+    }
+}

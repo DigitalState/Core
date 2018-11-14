@@ -1,0 +1,43 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Identity\:
+    resource: ../../{EventListener,Service}
+
+  Ds\Component\Identity\Doctrine\ORM\QueryExtension\DeletedExtension:
+    tags:
+      - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
+      - { name: api_platform.doctrine.orm.query_extension.item }
+
+  Ds\Component\Identity\Doctrine\ORM\QueryExtension\EnabledExtension:
+    tags:
+      - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
+      - { name: api_platform.doctrine.orm.query_extension.item }
+
+  Ds\Component\Identity\EventListener\DeletedListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 1 }
+
+  Ds\Component\Identity\EventListener\EnabledListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 1 }
+
+  Ds\Component\Identity\EventListener\Entity\IdentitiableListener:
+    tags:
+      - { name: doctrine.event_listener, event: prePersist }
+
+  Ds\Component\Identity\Resolver\Context\IdentityResolver:
+    tags:
+      - { name: ds_resolver.resolver, alias: ds.context.identity }
+
+  Ds\Component\Identity\Resolver\Context\Identity\PersonaResolver:
+    tags:
+      - { name: ds_resolver.resolver, alias: ds.context.identity.persona }
+
+  Ds\Component\Identity\Voter\:
+    resource: ../../Voter
+    tags:
+      - { name: security.voter }
