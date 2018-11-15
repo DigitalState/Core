@@ -3,7 +3,7 @@
 namespace Ds\Component\Acl\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ds\Component\Acl\Entity\Attribute\Accessor as EntityAccessor;
+use Ds\Component\Acl\Entity\Attribute\Accessor as AclAccessor;
 use Ds\Component\Model\Type\Assignable;
 use Ds\Component\Model\Type\Identifiable;
 use Ds\Component\Model\Type\Uuidentifiable;
@@ -54,7 +54,8 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Assignable, Versi
     use Accessor\OwnerUuid;
     use Accessor\Assignee;
     use Accessor\AssigneeUuid;
-    use EntityAccessor\Access;
+    use AclAccessor\Permissions;
+    use AclAccessor\Access;
     use Accessor\Version;
     use TenantAccessor\Tenant;
 
