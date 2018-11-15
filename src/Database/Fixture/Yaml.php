@@ -41,10 +41,15 @@ trait Yaml
     protected function parse($path): array
     {
         $env = $this->container->get('kernel')->getEnvironment();
-        $files = str_replace('{env}', $env, $path);
+        $files = glob(str_replace('{env}', $env, $path));
+
+        if (!$files) {
+            throw new LogicException('Fixture path "'.$path.'" yields nothing.');
+        }
+
         $objects = [];
 
-        foreach (glob($files) as $file) {
+        foreach ($files as $file) {
             $extension = pathinfo($file, PATHINFO_EXTENSION);
 
             switch ($extension) {
