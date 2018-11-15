@@ -2,22 +2,20 @@
 
 namespace Ds\Component\Database\Fixture;
 
-use Doctrine\Common\DataFixtures\AbstractFixture;
 use DomainException;
 use Ds\Component\Container\Attribute;
 use LogicException;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Yaml as YamlParser;
 
 /**
- * Class ResourceFixture
+ * Trait Yaml
  *
- * This class provides the ability to load fixtures from resource configuration files.
+ * This trait provides the ability to load fixtures from YAML configuration files.
  *
  * @package Ds\Component\Database
  * @example A YAML resource configuration file
  * <code>
- * items:
+ * objects:
  *   - uuid: 1ea40809-0520-482f-a4d6-7973228b225a
  *     title: Item 1
  *   - uuid: 7f51d089-945a-4f80-9c05-4e2fe924d214
@@ -28,22 +26,22 @@ use Symfony\Component\Yaml\Yaml;
  *   title: Default title
  * </code>
  */
-abstract class ResourceFixture extends AbstractFixture implements ContainerAwareInterface
+trait Yaml
 {
     use Attribute\Container;
 
     /**
      * Parse resource files to objects
      *
-     * @param string $resource
+     * @param string $path
      * @return array
      * @throws \DomainException
      * @throws \LogicException
      */
-    protected function parse($resource)
+    protected function parse($path): array
     {
         $env = $this->container->get('kernel')->getEnvironment();
-        $files = str_replace('{env}', $env, $resource);
+        $files = str_replace('{env}', $env, $path);
         $objects = [];
 
         foreach (glob($files) as $file) {
@@ -51,7 +49,8 @@ abstract class ResourceFixture extends AbstractFixture implements ContainerAware
 
             switch ($extension) {
                 case 'yaml':
-                    $config = Yaml::parse(file_get_contents($file), Yaml::PARSE_OBJECT_FOR_MAP);
+                case 'yml':
+                    $config = YamlParser::parse(file_get_contents($file), YamlParser::PARSE_OBJECT_FOR_MAP);
 
                     if (!property_exists($config,'objects')) {
                         throw new LogicException('Config property "objects" does not exist.');
@@ -84,11 +83,4 @@ abstract class ResourceFixture extends AbstractFixture implements ContainerAware
 
         return $objects;
     }
-
-    /**
-     * Get resource
-     *
-     * @return string
-     */
-    abstract protected function getResource();
 }
