@@ -1,18 +1,25 @@
 <?php
 
-namespace Ds\Component\Acl\Fixture;
+namespace Ds\Component\Config\Fixture;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Ds\Component\Acl\Entity\Access;
-use Ds\Component\Database\Fixture\ResourceFixture;
+use Ds\Component\Config\Entity\Config as ConfigEntity;
+use Ds\Component\Database\Fixture\Yaml;
 
 /**
- * Class AccessFixture
+ * Trait Config
  *
- * @package Ds\Component\Acl
+ * @package Ds\Component\Config
  */
-abstract class AccessFixture extends ResourceFixture
+trait Config
 {
+    use Yaml;
+
+    /**
+     * @var string
+     */
+    private $path;
+
     /**
      * {@inheritdoc}
      */
@@ -23,24 +30,24 @@ abstract class AccessFixture extends ResourceFixture
 
         switch ($platform) {
             case 'postgresql':
-                $connection->exec('ALTER SEQUENCE ds_access_id_seq RESTART WITH 1');
+                $connection->exec('ALTER SEQUENCE ds_config_id_seq RESTART WITH 1');
                 break;
         }
 
-        $objects = $this->parse($this->getResource());
+        $objects = $this->parse($this->path);
 
         foreach ($objects as $object) {
-            $access = new Access;
-            $access
+            $config = new ConfigEntity;
+            $config
                 ->setUuid($object->uuid)
                 ->setOwner($object->owner)
                 ->setOwnerUuid($object->owner_uuid)
-                ->setAssignee($object->assignee)
-                ->setAssigneeUuid($object->assignee_uuid)
+                ->setKey($object->key)
+                ->setValue($object->value)
                 ->setTenant($object->tenant);
-            $manager->persist($access);
+            $manager->persist($config);
             $manager->flush();
-            $manager->detach($access);
+            $manager->detach($config);
         }
     }
 }

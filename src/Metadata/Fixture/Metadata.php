@@ -3,16 +3,23 @@
 namespace Ds\Component\Metadata\Fixture;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Ds\Component\Metadata\Entity\Metadata;
-use Ds\Component\Database\Fixture\ResourceFixture;
+use Ds\Component\Database\Fixture\Yaml;
+use Ds\Component\Metadata\Entity\Metadata as MetadataEntity;
 
 /**
- * Class MetadataFixture
+ * Trait Metadata
  *
  * @package Ds\Component\Metadata
  */
-abstract class MetadataFixture extends ResourceFixture
+trait Metadata
 {
+    use Yaml;
+
+    /**
+     * @var string
+     */
+    private $path;
+
     /**
      * {@inheritdoc}
      */
@@ -28,10 +35,10 @@ abstract class MetadataFixture extends ResourceFixture
                 break;
         }
 
-        $objects = $this->parse($this->getResource());
+        $objects = $this->parse($this->path);
 
         foreach ($objects as $object) {
-            $metadata = new Metadata;
+            $metadata = new MetadataEntity;
             $metadata
                 ->setUuid($object->uuid)
                 ->setOwner($object->owner)

@@ -4,16 +4,23 @@ namespace Ds\Component\Acl\Fixture;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Ds\Component\Acl\Entity\Access;
-use Ds\Component\Acl\Entity\Permission;
-use Ds\Component\Database\Fixture\ResourceFixture;
+use Ds\Component\Acl\Entity\Permission as PermissionEntity;
+use Ds\Component\Database\Fixture\Yaml;
 
 /**
- * Class PermissionFixture
+ * Trait Permission
  *
  * @package Ds\Component\Acl
  */
-abstract class PermissionFixture extends ResourceFixture
+trait Permission
 {
+    use Yaml;
+
+    /**
+     * @var string
+     */
+    private $path;
+
     /**
      * {@inheritdoc}
      */
@@ -28,7 +35,7 @@ abstract class PermissionFixture extends ResourceFixture
                 break;
         }
 
-        $objects = $this->parse($this->getResource());
+        $objects = $this->parse($this->path);
 
         foreach ($objects as $object) {
             if (!is_array($object->key)) {
@@ -36,7 +43,7 @@ abstract class PermissionFixture extends ResourceFixture
             }
 
             foreach ($object->key as $key) {
-                $permission = new Permission;
+                $permission = new PermissionEntity;
                 $permission
                     ->setAccess($manager->getRepository(Access::class)->findOneBy(['uuid' => $object->access]))
                     ->setScope($object->scope)

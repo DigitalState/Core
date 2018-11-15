@@ -3,16 +3,23 @@
 namespace Ds\Component\Parameter\Fixture;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Ds\Component\Parameter\Entity\Parameter;
-use Ds\Component\Database\Fixture\ResourceFixture;
+use Ds\Component\Database\Fixture\Yaml;
+use Ds\Component\Parameter\Entity\Parameter as ParameterEntity;
 
 /**
- * Class ParameterFixture
+ * Trait Parameter
  *
  * @package Ds\Component\Parameter
  */
-abstract class ParameterFixture extends ResourceFixture
+trait Parameter
 {
+    use Yaml;
+
+    /**
+     * @var string
+     */
+    private $path;
+
     /**
      * {@inheritdoc}
      */
@@ -27,10 +34,10 @@ abstract class ParameterFixture extends ResourceFixture
                 break;
         }
 
-        $objects = $this->parse($this->getResource());
+        $objects = $this->parse($this->path);
 
         foreach ($objects as $object) {
-            $parameter = new Parameter;
+            $parameter = new ParameterEntity;
             $parameter
                 ->setKey($object->key)
                 ->setValue($object->value);

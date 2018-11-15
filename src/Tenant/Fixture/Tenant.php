@@ -3,8 +3,8 @@
 namespace Ds\Component\Tenant\Fixture;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Ds\Component\Tenant\Entity\Tenant;
-use Ds\Component\Database\Fixture\ResourceFixture;
+use Ds\Component\Database\Fixture\Yaml;
+use Ds\Component\Tenant\Entity\Tenant as TenantEntity;
 use Ds\Component\Tenant\EventListener\LoaderListener;
 
 /**
@@ -12,15 +12,22 @@ use Ds\Component\Tenant\EventListener\LoaderListener;
  *
  * @package Ds\Component\Tenant
  */
-abstract class TenantFixture extends ResourceFixture
+trait Tenant
 {
+    use Yaml;
+
+    /**
+     * @var string
+     */
+    private $path;
+
     /**
      * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
         // Disable the event listener in charge of loading tenant data
-        $metadata = $manager->getClassMetadata(Tenant::class);
+        $metadata = $manager->getClassMetadata(TenantEntity::class);
 
         foreach ($metadata->entityListeners as $event => $listeners) {
             foreach ($listeners as $key => $listener) {
@@ -39,10 +46,10 @@ abstract class TenantFixture extends ResourceFixture
                 break;
         }
 
-        $objects = $this->parse($this->getResource());
+        $objects = $this->parse($this->path);
 
         foreach ($objects as $object) {
-            $tenant = new Tenant;
+            $tenant = new TenantEntity;
             $tenant
                 ->setUuid($object->uuid)
                 ->setData((array) $object->data);
