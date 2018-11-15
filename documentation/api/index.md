@@ -6,8 +6,17 @@ This component comes by default with model mappings of all DigitalState microser
 
 ## Table of Contents
 
+- [Dependencies](#dependencies)
 - [Architecture](#architecture)
 - [Usage](#usage)
+
+## Dependencies
+
+- Config
+- Discovery
+- Model
+- Security
+- Tenant
 
 ## Architecture
 
