@@ -2,8 +2,6 @@
 
 namespace Ds\Component\Model\Attribute\Accessor;
 
-use OutOfRangeException;
-
 /**
  * Trait Attributes
  *
@@ -27,20 +25,10 @@ trait Attributes
     /**
      * Get attributes
      *
-     * @param string $property
      * @return array
-     * @throws \OutOfRangeException
      */
-    public function getAttributes(?string $property)
+    public function getAttributes(): ?array
     {
-        if (null === $property) {
-            return $this->attributes;
-        }
-
-        if (!array_key_exists($property, $this->attributes)) {
-            throw new OutOfRangeException('Array property does not exist.');
-        }
-
-        return $this->attributes[$property];
+        return $this->attributes;
     }
 }
