@@ -28,5 +28,6 @@ services:
       - { name: doctrine.event_listener, event: preUpdate, priority: 0 }
 
   Ds\Component\Encryption\Service\CipherService:
+    public: true # Used by migrations
     arguments:
       - '%ds_encryption.encryption%'
