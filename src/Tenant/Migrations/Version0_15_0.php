@@ -19,11 +19,11 @@ final class Version0_15_0 extends AbstractMigration
      */
     public function up(Schema $schema, array $tenants = [])
     {
-        $tenantSequence = 1 + count($tenants);
+        $sequence = 1 + count($tenants);
 
         switch ($this->platform->getName()) {
             case 'postgresql':
-                $this->addSql('CREATE SEQUENCE ds_tenant_id_seq INCREMENT BY 1 MINVALUE 1 START '.$tenantSequence);
+                $this->addSql('CREATE SEQUENCE ds_tenant_id_seq INCREMENT BY 1 MINVALUE 1 START '.$sequence);
                 $this->addSql('CREATE TABLE ds_tenant (id INT NOT NULL, uuid UUID NOT NULL, version INT DEFAULT 1 NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
                 $this->addSql('CREATE UNIQUE INDEX UNIQ_EF5FAEEAD17F50A6 ON ds_tenant (uuid)');
 
