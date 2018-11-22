@@ -6,7 +6,6 @@ use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 use Ds\Component\Container\Attribute;
 use Ds\Component\Encryption\Service\CipherService;
-use Ds\Component\Parameter\Collection\ParameterCollection;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 /**
