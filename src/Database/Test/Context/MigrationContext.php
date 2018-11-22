@@ -30,7 +30,7 @@ final class MigrationContext implements Context
      */
     public function downMigrations()
     {
-        $process = new Process('php bin/console doctrine:migrations:execute --env=test --no-interaction --down 1_0_0');
+        $process = new Process('php bin/console doctrine:migrations:migrate --env=test --no-interaction first');
         $process->run();
     }
 }
