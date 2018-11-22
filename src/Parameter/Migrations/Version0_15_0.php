@@ -4,24 +4,53 @@ namespace Ds\Component\Parameter\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+use Ds\Component\Container\Attribute;
+use Ds\Component\Encryption\Service\CipherService;
+use Ds\Component\Parameter\Collection\ParameterCollection;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 /**
  * Class Version0_15_0
  */
-final class Version0_15_0 extends AbstractMigration
+final class Version0_15_0 extends AbstractMigration implements ContainerAwareInterface
 {
+    use Attribute\Container;
+
     /**
      * Up migration
      *
      * @param \Doctrine\DBAL\Schema\Schema $schema
+     * @param array $parameters
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema, array $parameters = [])
     {
+        $cipherService = $this->container->get(CipherService::class);
+        $encrypted = ['ds_system.user.password'];
+        $sequence = 1 + count($parameters);
+
         switch ($this->platform->getName()) {
             case 'postgresql':
-                $this->addSql('CREATE SEQUENCE ds_parameter_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+                $this->addSql('CREATE SEQUENCE ds_parameter_id_seq INCREMENT BY 1 MINVALUE 1 START '.$sequence);
                 $this->addSql('CREATE TABLE ds_parameter (id INT NOT NULL, "key" VARCHAR(255) NOT NULL, value TEXT DEFAULT NULL, PRIMARY KEY(id))');
                 $this->addSql('CREATE UNIQUE INDEX UNIQ_B3C0FD91F48571EB ON ds_parameter ("key")');
+
+                $i = 0;
+
+                foreach ($parameters as $parameter) {
+                    $parameter->value = serialize($parameter->value);
+
+                    if (in_array($parameter->key, $encrypted)) {
+                        $parameter->value = $cipherService->encrypt($parameter->value);
+                    }
+
+                    $this->addSql(sprintf(
+                        'INSERT INTO ds_parameter (id, key, value) VALUES (%d, %s, %s);',
+                        ++$i,
+                        $this->connection->quote($parameter->key),
+                        $this->connection->quote($parameter->value)
+                    ));
+                }
+
                 break;
 
             default:
