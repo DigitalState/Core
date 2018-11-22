@@ -1,2 +1,0 @@
-parameters:
-  ds_system_test.collection.user.class: Ds\Component\System\Test\Collection\UserCollection

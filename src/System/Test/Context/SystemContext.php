@@ -12,17 +12,17 @@ use Ds\Component\System\Test\Collection\UserCollection;
  *
  * @package Ds\Component\System
  */
-class SystemContext implements Context
+final class SystemContext implements Context
 {
     /**
      * @var \Behatch\HttpCall\Request
      */
-    protected $request;
+    private $request;
 
     /**
      * @var \Ds\Component\System\Test\Collection\UserCollection
      */
-    protected $userCollection;
+    private $userCollection;
 
     /**
      * Constructor

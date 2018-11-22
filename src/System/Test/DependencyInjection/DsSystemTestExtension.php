@@ -2,18 +2,19 @@
 
 namespace Ds\Component\System\Test\DependencyInjection;
 
+use Ds\Component\System\Test\Collection\UserCollection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Class DsSystemTestExtension
  *
  * @package Ds\Component\System
  */
-class DsSystemTestExtension extends Extension implements PrependExtensionInterface
+final class DsSystemTestExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritdoc}
@@ -25,7 +26,7 @@ class DsSystemTestExtension extends Extension implements PrependExtensionInterfa
         ]);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('config.yml');
+        $loader->load('config.yaml');
     }
 
     /**
@@ -34,13 +35,12 @@ class DsSystemTestExtension extends Extension implements PrependExtensionInterfa
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('parameters.yml');
-        $loader->load('collections.yml');
+        $loader->load('services.yaml');
 
         $configuration = new Configuration;
         $config = $this->processConfiguration($configuration, $configs);
 
-        $definition = $container->findDefinition('ds_system_test.collection.user');
+        $definition = $container->findDefinition(UserCollection::class);
         $definition->setArguments([$config['users']]);
     }
 }
