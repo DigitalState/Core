@@ -25,11 +25,11 @@ final class Version0_15_0 extends AbstractMigration implements ContainerAwareInt
     {
         $cipherService = $this->container->get(CipherService::class);
         $encrypted = ['ds_system.user.password'];
-        $sequence = 1 + count($parameters);
+        $sequences['ds_parameter_id_seq'] = 1 + count($parameters);
 
         switch ($this->platform->getName()) {
             case 'postgresql':
-                $this->addSql('CREATE SEQUENCE ds_parameter_id_seq INCREMENT BY 1 MINVALUE 1 START '.$sequence);
+                $this->addSql('CREATE SEQUENCE ds_parameter_id_seq INCREMENT BY 1 MINVALUE 1 START '.$sequences['ds_parameter_id_seq']);
                 $this->addSql('CREATE TABLE ds_parameter (id INT NOT NULL, "key" VARCHAR(255) NOT NULL, value TEXT DEFAULT NULL, PRIMARY KEY(id))');
                 $this->addSql('CREATE UNIQUE INDEX UNIQ_B3C0FD91F48571EB ON ds_parameter ("key")');
 

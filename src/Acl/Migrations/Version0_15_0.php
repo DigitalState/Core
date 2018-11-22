@@ -19,17 +19,17 @@ final class Version0_15_0 extends AbstractMigration
      */
     public function up(Schema $schema, array $accesses = [])
     {
-        $accessSequence = 1 + count($accesses);
-        $permissionSequence = 1;
+        $sequences['ds_access_id_seq'] = 1 + count($accesses);
+        $sequences['ds_access_permission_id_seq'] = 1;
 
         foreach ($accesses as $access) {
-            $permissionSequence += count($access->permissions);
+            $sequences['ds_access_permission_id_seq'] += count($access->permissions);
         }
 
         switch ($this->platform->getName()) {
             case 'postgresql':
-                $this->addSql('CREATE SEQUENCE ds_access_id_seq INCREMENT BY 1 MINVALUE 1 START '.$accessSequence);
-                $this->addSql('CREATE SEQUENCE ds_access_permission_id_seq INCREMENT BY 1 MINVALUE 1 START '.$permissionSequence);
+                $this->addSql('CREATE SEQUENCE ds_access_id_seq INCREMENT BY 1 MINVALUE 1 START '.$sequences['ds_access_id_seq']);
+                $this->addSql('CREATE SEQUENCE ds_access_permission_id_seq INCREMENT BY 1 MINVALUE 1 START '.$sequences['ds_access_permission_id_seq']);
                 $this->addSql('CREATE TABLE ds_access (id INT NOT NULL, uuid UUID NOT NULL, "owner" VARCHAR(255) DEFAULT NULL, owner_uuid UUID DEFAULT NULL, assignee VARCHAR(255) DEFAULT NULL, assignee_uuid UUID DEFAULT NULL, version INT DEFAULT 1 NOT NULL, tenant UUID NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
                 $this->addSql('CREATE UNIQUE INDEX UNIQ_A76F41DCD17F50A6 ON ds_access (uuid)');
                 $this->addSql('CREATE TABLE ds_access_permission (id INT NOT NULL, access_id INT DEFAULT NULL, scope VARCHAR(255) DEFAULT NULL, entity VARCHAR(255) DEFAULT NULL, entity_uuid UUID DEFAULT NULL, "key" VARCHAR(255) NOT NULL, attributes JSON NOT NULL, tenant UUID NOT NULL, PRIMARY KEY(id))');
