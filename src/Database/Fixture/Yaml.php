@@ -2,10 +2,9 @@
 
 namespace Ds\Component\Database\Fixture;
 
-use DomainException;
 use Ds\Component\Container\Attribute;
+use Ds\Component\Database\Util\Objects;
 use LogicException;
-use Symfony\Component\Yaml\Yaml as YamlParser;
 
 /**
  * Trait Yaml
@@ -44,45 +43,14 @@ trait Yaml
         $files = glob(str_replace('{env}', $env, $path));
 
         if (!$files) {
-            throw new LogicException('Fixture path "'.$path.'" yields nothing.');
+            throw new LogicException('Fixtures path "'.$path.'" yields no files.');
         }
 
         $objects = [];
 
         foreach ($files as $file) {
-            $extension = pathinfo($file, PATHINFO_EXTENSION);
-
-            switch ($extension) {
-                case 'yaml':
-                case 'yml':
-                    $config = YamlParser::parse(file_get_contents($file), YamlParser::PARSE_OBJECT_FOR_MAP);
-
-                    if (!property_exists($config,'objects')) {
-                        throw new LogicException('Config property "objects" does not exist.');
-                    }
-
-                    if (!is_array($config->objects)) {
-                        throw new LogicException('Config property "objects" is not an array.');
-                    }
-
-                    $prototype = [];
-
-                    if (property_exists($config,'prototype')) {
-                        if (!is_object($config->prototype)) {
-                            throw new LogicException('Config property "prototype" is not an object.');
-                        }
-
-                        $prototype = $config->prototype;
-                    }
-
-                    foreach ($config->objects as $object) {
-                        $objects[] = (object) array_merge((array) $prototype, (array) $object);
-                    }
-
-                    break;
-
-                default:
-                    throw new DomainException('Resource file extension is not supported.');
+            foreach (Objects::parseFile($file) as $object) {
+                $objects[] = $object;
             }
         }
 
