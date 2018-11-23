@@ -11,19 +11,20 @@ use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
  *
  * @package Ds\Component\Security
  */
-class User implements UserInterface, JWTUserInterface
+final class User implements UserInterface, JWTUserInterface
 {
     /**
      * {@inheritdoc}
      */
     public static function createFromPayload($username, array $payload)
     {
+        // @todo Populate security user model using callbacks from JWT token event listeners, instead of hard-coded here
         $uuid = $payload['uuid'] ?? null;
         $roles = $payload['roles'] ?? [];
         $identity = new Identity;
-        $identity->setRoles($payload['identity']['roles'] ?? []);
-        $identity->setType($payload['identity']['type'] ?? null);
-        $identity->setUuid($payload['identity']['uuid'] ?? null);
+        $identity->setRoles($payload['identity']->roles ?? []);
+        $identity->setType($payload['identity']->type ?? null);
+        $identity->setUuid($payload['identity']->uuid ?? null);
         $tenant = $payload['tenant'] ?? null;
 
         return new static($username, $uuid, $roles, $identity, $tenant);
@@ -32,27 +33,27 @@ class User implements UserInterface, JWTUserInterface
     /**
      * @var string
      */
-    protected $username;
+    private $username;
 
     /**
      * @var string
      */
-    protected $uuid;
+    private $uuid;
 
     /**
      * @var array
      */
-    protected $roles;
+    private $roles;
 
     /**
      * @var \Ds\Component\Security\Model\Identity
      */
-    protected $identity;
+    private $identity;
 
     /**
      * @var string
      */
-    protected $tenant;
+    private $tenant;
 
     /**
      * Constructor

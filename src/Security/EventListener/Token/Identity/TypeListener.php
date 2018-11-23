@@ -65,6 +65,9 @@ final class TypeListener
     {
         $payload = $event->getPayload();
 
+        // Make property accessor paths compatible by converting payload to recursive associative array
+        $payload = json_decode(json_encode($payload), true);
+
         if (!$this->accessor->isReadable($payload, $this->property)) {
             $event->markAsInvalid();
         }

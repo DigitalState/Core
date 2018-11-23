@@ -72,6 +72,9 @@ final class IpListener
         $request = $this->requestStack->getCurrentRequest();
         $payload = $event->getPayload();
 
+        // Make property accessor paths compatible by converting payload to recursive associative array
+        $payload = json_decode(json_encode($payload), true);
+
         if (!$this->accessor->isReadable($payload, $this->property)) {
             $event->markAsInvalid();
         } elseif ($this->validate && $this->accessor->getValue($payload, $this->property) !== $request->getClientIp()) {

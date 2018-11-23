@@ -58,6 +58,9 @@ final class ModifierListener
     {
         $payload = $event->getPayload();
 
+        // Make property accessor paths compatible by converting payload to recursive associative array
+        $payload = json_decode(json_encode($payload), true);
+
         foreach ($this->removed as $property) {
             if (array_key_exists($property, $payload)) {
                 $event->markAsInvalid();

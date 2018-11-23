@@ -49,6 +49,9 @@ final class TenantListener
     {
         $payload = $event->getPayload();
 
+        // Make property accessor paths compatible by converting payload to recursive associative array
+        $payload = json_decode(json_encode($payload), true);
+
         if (!array_key_exists($this->attribute, $payload)) {
             $event->markAsInvalid();
         }
