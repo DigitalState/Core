@@ -63,7 +63,6 @@ class UserContext implements Context
         }
 
         $token = $this->tokenManager->create($user);
-        var_dump($token);exit;
         $this->request->setHttpHeader('Authorization', 'Bearer '.$token);
     }
 }
