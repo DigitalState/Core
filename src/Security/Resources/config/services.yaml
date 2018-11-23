@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Security\:
+    resource: ../../{EventListener}
+
+  Ds\Component\Security\EventListener\Token\:
+    resource: ../../EventListener/Token
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: created }
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: decoded }

@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 /**
  * Class DsSecurityExtension
@@ -50,19 +51,20 @@ final class DsSecurityExtension extends Extension implements PrependExtensionInt
         $configuration = new Configuration;
         $config = $this->processConfiguration($configuration, $configs);
 
+        $expressionLanguage = new ExpressionLanguage;
         $token = [
-            'uuid' => Token\UuidListener::class,
-            'ip' => Token\IpListener::class,
-            'client' => Token\ClientListener::class,
-            'modifier' => Token\ModifierListener::class,
-            'identity.roles' => Token\Identity\RolesListener::class,
-            'identity.type' => Token\Identity\TypeListener::class,
-            'identity.uuid' => Token\Identity\UuidListener::class
+            '["uuid"]' => Token\UuidListener::class,
+            '["ip"]' => Token\IpListener::class,
+            '["client"]' => Token\ClientListener::class,
+            '["modifier"]' => Token\ModifierListener::class,
+            '["identity"]["roles"]' => Token\Identity\RolesListener::class,
+            '["identity"]["type"]' => Token\Identity\TypeListener::class,
+            '["identity"]["uuid"]' => Token\Identity\UuidListener::class
         ];
 
-        foreach ($config['token'] as $property => $enabled) {
-            if (!$enabled) {
-                $container->removeDefinition($token[$property]);
+        foreach ($token as $property => $class) {
+            if (!$expressionLanguage->evaluate('token'.$property, ['token' => $config['token']])) {
+                $container->removeDefinition($class);
             }
         }
     }
