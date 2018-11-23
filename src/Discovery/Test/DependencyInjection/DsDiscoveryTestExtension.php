@@ -2,9 +2,7 @@
 
 namespace Ds\Component\Discovery\Test\DependencyInjection;
 
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -19,6 +17,11 @@ final class DsDiscoveryTestExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $configuration = new Configuration;
+        $config = $this->processConfiguration($configuration, $configs);
+
+        if ('vendor/bin/behat' === $_SERVER['PHP_SELF']) {
+            $container->setParameter('ds_discovery.host', $config['host']);
+        }
     }
 }
