@@ -4,7 +4,7 @@ services:
     autoconfigure: true
     public: false
 
-  ds_system.client:
+  GuzzleHttp\ClientInterface:
     class: GuzzleHttp\Client
 
   Ds\Component\System\:

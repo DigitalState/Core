@@ -4,7 +4,7 @@ services:
     autoconfigure: true
     public: false
 
-  ds_discovery.client:
+  GuzzleHttp\ClientInterface:
     class: GuzzleHttp\Client
 
   Ds\Component\Discovery\:
@@ -13,6 +13,6 @@ services:
   Ds\Component\Discovery\Repository\:
     resource: ../../Repository
     arguments:
-      - '@ds_discovery.client'
+      - '@GuzzleHttp\ClientInterface'
       - '%ds_discovery.host%'
       - '%ds_discovery.credential%'
