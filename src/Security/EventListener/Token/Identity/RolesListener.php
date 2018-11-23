@@ -2,10 +2,10 @@
 
 namespace Ds\Component\Security\EventListener\Token\Identity;
 
-use AppBundle\Entity\User;
 use DomainException;
 use Ds\Component\Api\Api\Api;
-use Ds\Component\Identity\Model\Identity;
+use Ds\Component\Security\Model\Identity;
+use Ds\Component\Security\Model\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -59,6 +59,8 @@ final class RolesListener
 
         // @todo remove condition when both user types are homogenized
         if ($user instanceof User) {
+            $roles = $user->getIdentity()->getRoles();
+        } else {
             if (null !== $user->getIdentityUuid()) {
                 switch ($user->getIdentity()) {
                     case Identity::ANONYMOUS:
@@ -90,8 +92,6 @@ final class RolesListener
                     $roles[] = substr($role, -36);
                 }
             }
-        } else {
-            $roles = $user->getIdentity()->getRoles();
         }
 
         $this->accessor->setValue($data, $this->property, $roles);
