@@ -4,7 +4,7 @@ services:
     autoconfigure: true
     public: false
 
-  ds_api.client:
+  GuzzleHttp\ClientInterface:
     class: GuzzleHttp\Client
 
   Ds\Component\Api\:
@@ -18,11 +18,6 @@ services:
       - '%ds_api.namespace%'
       - '%kernel.environment%'
       - '@lexik_jwt_authentication.jwt_manager'
-
-  Ds\Component\Api\Service\:
-    resource: ../../Service
-    arguments:
-      - '@ds_api.client'
 
   Ds\Component\Api\Resolver\ApiResolver:
     tags:
