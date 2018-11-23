@@ -48,11 +48,11 @@ class UserContext implements Context
     /**
      * Set authorization header
      *
-     * @Given I am authenticated as the :identity user from the tenant :tenant
+     * @Given I am authenticated as the :user user from the tenant :tenant
      * @param string $identity
      * @param string $tenant
      */
-    public function iAmAuthenticatedAsTheIdentityFromTheTenant($identity, $tenant)
+    public function iAmAuthenticatedAsTheUserFromTheTenant($identity, $tenant)
     {
         $user = $this->userCollection->filter(function(User $user) use ($identity, $tenant) {
             return $user->getIdentity()->getType() === $identity && $user->getTenant() === $tenant;
@@ -63,6 +63,7 @@ class UserContext implements Context
         }
 
         $token = $this->tokenManager->create($user);
+        var_dump($token);exit;
         $this->request->setHttpHeader('Authorization', 'Bearer '.$token);
     }
 }
