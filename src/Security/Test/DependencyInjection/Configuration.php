@@ -1,15 +1,15 @@
 <?php
 
-namespace Ds\Component\Identity\Test\DependencyInjection;
+namespace Ds\Component\Security\Test\DependencyInjection;
 
-use Ds\Component\Identity\Model\Identity;
+use Ds\Component\Security\Model\Identity;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * Class Configuration
  *
- * @package Ds\Component\Identity
+ * @package Ds\Component\Security
  */
 class Configuration implements ConfigurationInterface
 {
@@ -19,7 +19,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $builder = new TreeBuilder;
-        $node = $builder->root('ds_identity_test');
+        $node = $builder->root('ds_security_test');
         $node
             ->children()
                 ->arrayNode('users')

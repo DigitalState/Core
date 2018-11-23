@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Identity\Collection;
+namespace Ds\Component\Security\Test\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ds\Component\Security\Model\User;
@@ -9,7 +9,7 @@ use InvalidArgumentException;
 /**
  * Class UserCollection
  *
- * @package Ds\Component\Identity
+ * @package Ds\Component\Security
  */
 class UserCollection extends ArrayCollection
 {

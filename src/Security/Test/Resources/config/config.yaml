@@ -1,4 +1,4 @@
-ds_identity_test:
+ds_security_test:
   users:
     - username: system@system.ds
       roles: []

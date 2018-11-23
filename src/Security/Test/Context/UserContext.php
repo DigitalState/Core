@@ -1,20 +1,20 @@
 <?php
 
-namespace Ds\Component\Identity\Test\Context;
+namespace Ds\Component\Security\Test\Context;
 
 use Behat\Behat\Context\Context;
 use Behatch\HttpCall\Request;
 use DomainException;
-use Ds\Component\Identity\Collection\UserCollection;
+use Ds\Component\Security\Test\Collection\UserCollection;
 use Ds\Component\Security\Model\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 /**
- * Class IdentityContext
+ * Class UserContext
  *
- * @package Ds\Component\Identity
+ * @package Ds\Component\Security
  */
-class IdentityContext implements Context
+class UserContext implements Context
 {
     /**
      * @var \Behatch\HttpCall\Request
@@ -27,7 +27,7 @@ class IdentityContext implements Context
     protected $tokenManager;
 
     /**
-     * @var \Ds\Component\Identity\Collection\UserCollection
+     * @var \Ds\Component\Security\Test\Collection\UserCollection
      */
     protected $userCollection;
 
@@ -36,7 +36,7 @@ class IdentityContext implements Context
      *
      * @param \Behatch\HttpCall\Request $request
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface $tokenManager
-     * @param \Ds\Component\Identity\Collection\UserCollection $userCollection
+     * @param \Ds\Component\Security\Test\Collection\UserCollection $userCollection
      */
     public function __construct(Request $request, JWTTokenManagerInterface $tokenManager, UserCollection $userCollection)
     {
@@ -48,7 +48,7 @@ class IdentityContext implements Context
     /**
      * Set authorization header
      *
-     * @Given I am authenticated as the :identity identity from the tenant :tenant
+     * @Given I am authenticated as the :identity user from the tenant :tenant
      * @param string $identity
      * @param string $tenant
      */
