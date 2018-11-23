@@ -21,7 +21,7 @@ final class DsDiscoveryTestExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         if ('vendor/bin/behat' === $_SERVER['PHP_SELF']) {
-            $container->setParameter('ds_discovery.host', $config['host']);
+            $container->setParameter('env(DISCOVERY_HOST)', $config['host']);
         }
     }
 }
