@@ -16,10 +16,6 @@ The api component provides a flexible framework to define and map models to micr
 
 
 
-[Cache Component](documentation/cache/index.md)
-
-
-
 [Camunda Component](documentation/camunda/index.md)
 
 
@@ -60,15 +56,7 @@ The api component provides a flexible framework to define and map models to micr
 
 
 
-[Func Component](documentation/func/index.md)
-
-
-
 [Health Component](documentation/health/index.md)
-
-
-
-[Http Component](documentation/http/index.md)
 
 
 
@@ -96,10 +84,6 @@ The api component provides a flexible framework to define and map models to micr
 
 The security component provides a flexible framework and a wide range of libraries for securing various resources in the system.
 
-[Session Component](documentation/session/index.md)
-
-
-
 [Statistic Component](documentation/statistic/index.md)
 
 
@@ -110,7 +94,4 @@ The security component provides a flexible framework and a wide range of librari
 
 [Translation Component](documentation/translation/index.md)
 
-
-
-[Workflow Component](documentation/workflow/index.md)
 
