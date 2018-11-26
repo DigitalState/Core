@@ -97,6 +97,7 @@ class UserCollection extends ArrayCollection
             }
         }
 
+        $element['identity'] = (object) $element['identity'];
         $user = User::createFromPayload($element['username'], $element);
 
         return $user;
