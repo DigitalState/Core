@@ -38,9 +38,9 @@ trait Yaml
      * @throws \LogicException
      */
     protected function parse($path): array
-    {
-        $env = $this->container->get('kernel')->getEnvironment();
-        $files = glob(str_replace('{env}', $env, $path));
+    {var_dump($_ENV['FIXTURES']);exit;
+        $fixtures = array_key_exists('FIXTURES', $_ENV) ? $_ENV['FIXTURES'] : 'dev';
+        $files = glob(str_replace('{fixtures}', $fixtures, $path));
 
         if (!$files) {
             throw new LogicException('Fixtures path "'.$path.'" yields no files.');
