@@ -38,7 +38,7 @@ trait Yaml
      * @throws \LogicException
      */
     protected function parse($path): array
-    {var_dump($_ENV['FIXTURES']);exit;
+    {
         $fixtures = array_key_exists('FIXTURES', $_ENV) ? $_ENV['FIXTURES'] : 'dev';
         $files = glob(str_replace('{fixtures}', $fixtures, $path));
 
