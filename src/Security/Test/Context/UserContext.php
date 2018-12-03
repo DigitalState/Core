@@ -14,22 +14,22 @@ use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
  *
  * @package Ds\Component\Security
  */
-class UserContext implements Context
+final class UserContext implements Context
 {
     /**
      * @var \Behatch\HttpCall\Request
      */
-    protected $request;
+    private $request;
 
     /**
      * @var \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface
      */
-    protected $tokenManager;
+    private $tokenManager;
 
     /**
      * @var \Ds\Component\Security\Test\Collection\UserCollection
      */
-    protected $userCollection;
+    private $userCollection;
 
     /**
      * Constructor
@@ -48,14 +48,14 @@ class UserContext implements Context
     /**
      * Set authorization header
      *
-     * @Given I am authenticated as the :user user from the tenant :tenant
-     * @param string $identity
+     * @Given I am authenticated as the :username user from the tenant :tenant
+     * @param string $username
      * @param string $tenant
      */
-    public function iAmAuthenticatedAsTheUserFromTheTenant($identity, $tenant)
+    public function iAmAuthenticatedAsTheUserFromTheTenant(string $username, string $tenant)
     {
-        $user = $this->userCollection->filter(function(User $user) use ($identity, $tenant) {
-            return $user->getIdentity()->getType() === $identity && $user->getTenant() === $tenant;
+        $user = $this->userCollection->filter(function(User $user) use ($username, $tenant) {
+            return $user->getUsername() === $username && $user->getTenant() === $tenant;
         })->first();
 
         if (!$user) {

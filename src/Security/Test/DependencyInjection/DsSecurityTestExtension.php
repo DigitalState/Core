@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @package Ds\Component\Security
  */
-class DsSecurityTestExtension extends Extension implements PrependExtensionInterface
+final class DsSecurityTestExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritdoc}

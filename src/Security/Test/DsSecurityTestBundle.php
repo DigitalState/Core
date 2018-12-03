@@ -9,6 +9,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @package Ds\Component\Security
  */
-class DsSecurityTestBundle extends Bundle
+final class DsSecurityTestBundle extends Bundle
 {
 }

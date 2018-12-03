@@ -11,7 +11,7 @@ use InvalidArgumentException;
  *
  * @package Ds\Component\Security
  */
-class UserCollection extends ArrayCollection
+final class UserCollection extends ArrayCollection
 {
     /**
      * {@inheritdoc}
