@@ -41,7 +41,7 @@ final class ValueListener
         $item = $this->permissionCollection->get($permission->getKey());
 
         if (!$item) {
-            throw new UnexpectedValueException('Permission does not exist.');
+            throw new UnexpectedValueException('Permission "'.$permission->getKey().'" does not exist.');
         }
 
         $permission
