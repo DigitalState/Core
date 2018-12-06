@@ -15,12 +15,18 @@ services:
       - '@api_platform.property_accessor'
       - '@?logger'
 
+  ds_translation.doctrine.orm.filter.search:
+    alias: Ds\Component\Translation\Doctrine\ORM\Filter\SearchFilter
+
   Ds\Component\Translation\Doctrine\ORM\Filter\OrderFilter:
     arguments:
       - '@doctrine'
       - '@request_stack'
       - '%api_platform.collection.order_parameter_name%'
       - '@?logger'
+
+  ds_translation.doctrine.orm.filter.order:
+    alias: Ds\Component\Translation\Doctrine\ORM\Filter\OrderFilter
 
   Ds\Component\Translation\EventListener\TranslateListener:
     tags:
