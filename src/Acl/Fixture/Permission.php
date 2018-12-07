@@ -6,6 +6,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Ds\Component\Acl\Entity\Access;
 use Ds\Component\Acl\Entity\Permission as PermissionEntity;
 use Ds\Component\Database\Fixture\Yaml;
+use LogicException;
 
 /**
  * Trait Permission
@@ -43,9 +44,15 @@ trait Permission
             }
 
             foreach ($object->key as $key) {
+                $access = $manager->getRepository(Access::class)->findOneBy(['uuid' => $object->access]);
+
+                if (!$access) {
+                    throw new LogicException('Access "'.$object->access.'" does not exist.');
+                }
+
                 $permission = new PermissionEntity;
                 $permission
-                    ->setAccess($manager->getRepository(Access::class)->findOneBy(['uuid' => $object->access]))
+                    ->setAccess($access)
                     ->setScope($object->scope)
                     ->setEntity($object->entity)
                     ->setEntityUuid($object->entity_uuid)
