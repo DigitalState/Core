@@ -27,20 +27,11 @@ trait Data
     /**
      * Get data
      *
-     * @param string $property
      * @return array
      * @throws \OutOfRangeException
      */
-    public function getData(?string $property)
+    public function getData(): ?array
     {
-        if (null === $property) {
-            return $this->data;
-        }
-
-        if (!array_key_exists($property, $this->data)) {
-            throw new OutOfRangeException('Array property does not exist.');
-        }
-
-        return $this->data[$property];
+        return $this->data;
     }
 }
