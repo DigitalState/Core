@@ -42,8 +42,8 @@ trait Parameter
                 ->setKey($object->key)
                 ->setValue($object->value);
             $manager->persist($parameter);
-            $manager->flush();
-            $manager->detach($parameter);
         }
+
+        $manager->flush();
     }
 }

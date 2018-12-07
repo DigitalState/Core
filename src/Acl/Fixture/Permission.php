@@ -60,9 +60,9 @@ trait Permission
                     ->setAttributes($object->attributes)
                     ->setTenant($object->tenant);
                 $manager->persist($permission);
-                $manager->flush();
-                $manager->detach($permission);
             }
         }
+
+        $manager->flush();
     }
 }

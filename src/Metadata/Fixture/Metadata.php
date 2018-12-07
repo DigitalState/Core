@@ -49,7 +49,8 @@ trait Metadata
                 ->setData((array) $object->data)
                 ->setTenant($object->tenant);
             $manager->persist($metadata);
-            $manager->flush();
         }
+
+        $manager->flush();
     }
 }

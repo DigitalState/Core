@@ -46,8 +46,8 @@ trait Access
                 ->setAssigneeUuid($object->assignee_uuid)
                 ->setTenant($object->tenant);
             $manager->persist($access);
-            $manager->flush();
-            $manager->detach($access);
         }
+
+        $manager->flush();
     }
 }
