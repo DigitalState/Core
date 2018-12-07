@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Acl\Migrations;
+namespace Ds\Component\Acl\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -8,6 +8,8 @@ use Ramsey\Uuid\Uuid;
 
 /**
  * Class Version0_15_0
+ *
+ * @package Ds\Component\Acl
  */
 final class Version0_15_0 extends AbstractMigration
 {

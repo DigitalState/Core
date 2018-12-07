@@ -1,6 +1,6 @@
 <?php
 
-namespace Ds\Component\Parameter\Migrations;
+namespace Ds\Component\Parameter\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -10,6 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 /**
  * Class Version0_15_0
+ *
+ * @package Ds\Component\Parameter
  */
 final class Version0_15_0 extends AbstractMigration implements ContainerAwareInterface
 {
