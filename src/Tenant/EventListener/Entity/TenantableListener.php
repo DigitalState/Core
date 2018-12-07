@@ -5,6 +5,7 @@ namespace Ds\Component\Tenant\EventListener\Entity;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ds\Component\Container\EventListener\ContainerListener;
 use Ds\Component\Tenant\Model\Type\Tenantable;
+use Ds\Component\Tenant\Service\TenantService;
 
 /**
  * Class TenantableListener
@@ -30,7 +31,7 @@ final class TenantableListener extends ContainerListener
             return;
         }
 
-        $tenant = $this->container->get('ds_tenant.service.tenant')->getContext();
+        $tenant = $this->container->get(TenantService::class)->getContext();
         $entity->setTenant($tenant);
     }
 }

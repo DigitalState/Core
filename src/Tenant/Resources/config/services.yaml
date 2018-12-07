@@ -33,3 +33,6 @@ services:
     factory: ['@doctrine.orm.default_entity_manager', getRepository]
     arguments:
       - Ds\Component\Tenant\Entity\Tenant
+
+  Ds\Component\Tenant\Service\TenantService:
+    public: true # Used by doctrine listeners to avoid circular references.
