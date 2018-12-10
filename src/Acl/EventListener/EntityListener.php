@@ -5,10 +5,10 @@ namespace Ds\Component\Acl\EventListener;
 use ApiPlatform\Core\DataProvider\PaginatorInterface as Paginator;
 use Ds\Component\Acl\Collection\EntityCollection;
 use Ds\Component\Acl\Model\Permission;
-use Ds\Component\Acl\Voter\EntityVoter;
 use LogicException;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -24,9 +24,9 @@ final class EntityListener
     private $tokenStorage;
 
     /**
-     * @var \Ds\Component\Acl\Voter\EntityVoter
+     * @var \Symfony\Component\Security\Core\Authorization\Voter\VoterInterface
      */
-    private $entityVoter;
+    private $voter;
 
     /**
      * @var \Ds\Component\Acl\Collection\EntityCollection
@@ -37,13 +37,13 @@ final class EntityListener
      * Constructor
      *
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Ds\Component\Acl\Voter\EntityVoter $entityVoter
+     * @param \Symfony\Component\Security\Core\Authorization\Voter\VoterInterface $voter
      * @param \Ds\Component\Acl\Collection\EntityCollection $entityCollection
      */
-    public function __construct(TokenStorageInterface $tokenStorage, EntityVoter $entityVoter, EntityCollection $entityCollection)
+    public function __construct(TokenStorageInterface $tokenStorage, VoterInterface $voter, EntityCollection $entityCollection)
     {
         $this->tokenStorage = $tokenStorage;
-        $this->entityVoter = $entityVoter;
+        $this->voter = $voter;
         $this->entityCollection = $entityCollection;
     }
 
@@ -100,24 +100,24 @@ final class EntityListener
 
         if ($data instanceof Paginator || is_array($data)) {
             foreach ($data as $item) {
-                $vote = $this->entityVoter->vote($token, $item, [$attribute]);
+                $vote = $this->voter->vote($token, $item, [$attribute]);
 
-                if (EntityVoter::ACCESS_ABSTAIN === $vote) {
+                if (VoterInterface::ACCESS_ABSTAIN === $vote) {
                     throw new LogicException('Voter cannot abstain from voting.');
                 }
 
-                if (EntityVoter::ACCESS_GRANTED !== $vote) {
+                if (VoterInterface::ACCESS_GRANTED !== $vote) {
                     throw new AccessDeniedException('Access denied.');
                 }
             }
         } else {
-            $vote = $this->entityVoter->vote($token, $data, [$attribute]);
+            $vote = $this->voter->vote($token, $data, [$attribute]);
 
-            if (EntityVoter::ACCESS_ABSTAIN === $vote) {
+            if (VoterInterface::ACCESS_ABSTAIN === $vote) {
                 throw new LogicException('Voter cannot abstain from voting.');
             }
 
-            if (EntityVoter::ACCESS_GRANTED !== $vote) {
+            if (VoterInterface::ACCESS_GRANTED !== $vote) {
                 throw new AccessDeniedException('Access denied.');
             }
         }

@@ -6,9 +6,9 @@ use ApiPlatform\Core\Serializer\AbstractItemNormalizer;
 use DomainException;
 use Ds\Component\Acl\Collection\EntityCollection;
 use Ds\Component\Acl\Model\Permission;
-use Ds\Component\Acl\Voter\PropertyVoter;
 use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
@@ -32,9 +32,9 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
     private $tokenStorage;
 
     /**
-     * @var \Ds\Component\Acl\Voter\PropertyVoter
+     * @var \Symfony\Component\Security\Core\Authorization\Voter\VoterInterface
      */
-    private $propertyVoter;
+    private $voter;
 
     /**
      * @var \Symfony\Component\Serializer\SerializerInterface
@@ -51,14 +51,14 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
      *
      * @param \ApiPlatform\Core\Serializer\AbstractItemNormalizer $decorated
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Ds\Component\Acl\Voter\PropertyVoter $propertyVoter
+     * @param \Symfony\Component\Security\Core\Authorization\Voter\VoterInterface $voter
      * @param \Ds\Component\Acl\Collection\EntityCollection $entityCollection
      */
-    public function __construct(AbstractItemNormalizer $decorated, TokenStorageInterface $tokenStorage, PropertyVoter $propertyVoter, EntityCollection $entityCollection)
+    public function __construct(AbstractItemNormalizer $decorated, TokenStorageInterface $tokenStorage, VoterInterface $voter, EntityCollection $entityCollection)
     {
         $this->decorated = $decorated;
         $this->tokenStorage = $tokenStorage;
-        $this->propertyVoter = $propertyVoter;
+        $this->voter = $voter;
         $this->entityCollection = $entityCollection;
     }
 
@@ -113,13 +113,13 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
 
             foreach (array_keys($data) as $property) {
                 $subject[1] = $property;
-                $vote = $this->propertyVoter->vote($token, $subject, [$attribute]);
+                $vote = $this->voter->vote($token, $subject, [$attribute]);
 
-                if (PropertyVoter::ACCESS_ABSTAIN === $vote) {
+                if (VoterInterface::ACCESS_ABSTAIN === $vote) {
                     throw new LogicException('Voter cannot abstain from voting.');
                 }
 
-                if (PropertyVoter::ACCESS_DENIED === $vote) {
+                if (VoterInterface::ACCESS_DENIED === $vote) {
                     unset($data[$property]);
                 }
             }
@@ -163,13 +163,13 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
 
             foreach (array_keys($data) as $property) {
                 $subject[1] = $property;
-                $vote = $this->propertyVoter->vote($token, $subject, [$attribute]);
+                $vote = $this->voter->vote($token, $subject, [$attribute]);
 
-                if (PropertyVoter::ACCESS_ABSTAIN === $vote) {
+                if (VoterInterface::ACCESS_ABSTAIN === $vote) {
                     throw new LogicException('Voter cannot abstain from voting.');
                 }
 
-                if (PropertyVoter::ACCESS_DENIED === $vote) {
+                if (VoterInterface::ACCESS_DENIED === $vote) {
                     unset($data[$property]);
                 }
             }

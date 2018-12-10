@@ -4,10 +4,10 @@ namespace Ds\Component\Identity\EventListener;
 
 use ApiPlatform\Core\DataProvider\PaginatorInterface as Paginator;
 use Ds\Component\Model\Type\Enableable;
-use Ds\Component\Identity\Voter\EnabledVoter;
 use LogicException;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -23,20 +23,20 @@ final class EnabledListener
     private $tokenStorage;
 
     /**
-     * @var \Ds\Component\Identity\Voter\EnabledVoter
+     * @var \Symfony\Component\Security\Core\Authorization\Voter\VoterInterface
      */
-    private $enabledVoter;
+    private $voter;
 
     /**
      * Constructor
      *
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Ds\Component\Identity\Voter\EnabledVoter $enabledVoter
+     * @param \Symfony\Component\Security\Core\Authorization\Voter\VoterInterface $voter
      */
-    public function __construct(TokenStorageInterface $tokenStorage, EnabledVoter $enabledVoter)
+    public function __construct(TokenStorageInterface $tokenStorage, VoterInterface $voter)
     {
         $this->tokenStorage = $tokenStorage;
-        $this->enabledVoter = $enabledVoter;
+        $this->voter = $voter;
     }
 
     /**
@@ -62,24 +62,24 @@ final class EnabledListener
 
         if ($data instanceof Paginator || is_array($data)) {
             foreach ($data as $item) {
-                $vote = $this->enabledVoter->vote($token, $item, ['*']);
+                $vote = $this->voter->vote($token, $item, ['*']);
 
-                if (EnabledVoter::ACCESS_ABSTAIN === $vote) {
+                if (VoterInterface::ACCESS_ABSTAIN === $vote) {
                     throw new LogicException('Voter cannot abstain from voting.');
                 }
 
-                if (EnabledVoter::ACCESS_GRANTED !== $vote) {
+                if (VoterInterface::ACCESS_GRANTED !== $vote) {
                     throw new AccessDeniedException('Access denied.');
                 }
             }
         } else {
-            $vote = $this->enabledVoter->vote($token, $data, ['*']);
+            $vote = $this->voter->vote($token, $data, ['*']);
 
-            if (EnabledVoter::ACCESS_ABSTAIN === $vote) {
+            if (VoterInterface::ACCESS_ABSTAIN === $vote) {
                 throw new LogicException('Voter cannot abstain from voting.');
             }
 
-            if (EnabledVoter::ACCESS_GRANTED !== $vote) {
+            if (VoterInterface::ACCESS_GRANTED !== $vote) {
                 throw new AccessDeniedException('Access denied.');
             }
         }

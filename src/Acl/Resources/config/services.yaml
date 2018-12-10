@@ -16,6 +16,9 @@ services:
       - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
 
   Ds\Component\Acl\EventListener\EntityListener:
+    arguments:
+      - '@security.token_storage'
+      - '@Ds\Component\Acl\Voter\EntityVoter'
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 1 }
 
@@ -35,11 +38,15 @@ services:
     decorates: api_platform.serializer.normalizer.item
     arguments:
       - '@Ds\Component\Acl\Serializer\Normalizer\Property\JsonNormalizer.inner'
+      - '@security.token_storage'
+      - '@Ds\Component\Acl\Voter\PropertyVoter'
 
   Ds\Component\Acl\Serializer\Normalizer\Property\JsonLdNormalizer:
     decorates: api_platform.jsonld.normalizer.item
     arguments:
       - '@Ds\Component\Acl\Serializer\Normalizer\Property\JsonLdNormalizer.inner'
+      - '@security.token_storage'
+      - '@Ds\Component\Acl\Voter\PropertyVoter'
 
   Ds\Component\Acl\Repository\AccessRepository:
     factory: ['@doctrine.orm.default_entity_manager', getRepository]

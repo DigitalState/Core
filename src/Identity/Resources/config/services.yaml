@@ -18,10 +18,16 @@ services:
       - { name: api_platform.doctrine.orm.query_extension.item }
 
   Ds\Component\Identity\EventListener\DeletedListener:
+    arguments:
+      - '@security.token_storage'
+      - '@Ds\Component\Identity\Voter\DeletedVoter'
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 1 }
 
   Ds\Component\Identity\EventListener\EnabledListener:
+    arguments:
+      - '@security.token_storage'
+      - '@Ds\Component\Identity\Voter\EnabledVoter'
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 1 }
 
