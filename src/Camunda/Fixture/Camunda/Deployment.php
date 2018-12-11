@@ -19,6 +19,16 @@ trait Deployment
     /**
      * @var string
      */
+    private $app;
+
+    /**
+     * @var string
+     */
+    private $namespace;
+
+    /**
+     * @var string
+     */
     private $path;
 
     /**
@@ -33,10 +43,8 @@ trait Deployment
             return;
         }
 
-        $namespace = $_ENV['APP_NAMESPACE'];
-        $app = $_ENV['APP'];
         $fixtures = array_key_exists('FIXTURES', $_ENV) ? $_ENV['FIXTURES'] : 'dev';
-        $source = $namespace.'.'.$app.'.fixtures.'.$fixtures;
+        $source = $this->namespace.'.'.$this->app.'.fixtures.'.$fixtures;
         $api = $this->container->get('ds_api.api')->get('camunda.deployment');
         $parameters = new DeploymentParameters;
         $parameters->setSource($source);
