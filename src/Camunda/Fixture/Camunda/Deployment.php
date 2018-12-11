@@ -26,8 +26,6 @@ trait Deployment
      */
     public function load(ObjectManager $manager)
     {
-        // @todo remove dependency on ds_api, add camunda api services
-        $app = $this->container->getParameter('app');
         $env = $this->container->get('kernel')->getEnvironment();
 
         // @todo create mock server instead of skipping fixture
@@ -35,7 +33,10 @@ trait Deployment
             return;
         }
 
-        $source = str_replace(['{app}', '{env}'], [$app, $env], 'ds.{app}.fixtures.{env}');
+        $namespace = $_ENV['APP_NAMESPACE'];
+        $app = $_ENV['APP'];
+        $fixtures = array_key_exists('FIXTURES', $_ENV) ? $_ENV['FIXTURES'] : 'dev';
+        $source = $namespace.'.'.$app.'.fixtures.'.$fixtures;
         $api = $this->container->get('ds_api.api')->get('camunda.deployment');
         $parameters = new DeploymentParameters;
         $parameters->setSource($source);
