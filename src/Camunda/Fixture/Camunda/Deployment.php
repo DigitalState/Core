@@ -3,21 +3,23 @@
 namespace Ds\Component\Camunda\Fixture\Camunda;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Ds\Component\Camunda\Model\Deployment;
+use Ds\Component\Camunda\Model\Deployment as DeploymentModel;
 use Ds\Component\Camunda\Query\DeploymentParameters;
-use Ds\Component\Database\Fixture\ResourceFixture;
+use Ds\Component\Database\Fixture\Yaml;
 
 /**
- * Class DeploymentFixture
+ * Trait Access
  *
  * @package Ds\Component\Camunda
  */
-abstract class DeploymentFixture extends ResourceFixture
+trait Deployment
 {
+    use Yaml;
+
     /**
-     * @const string
+     * @var string
      */
-    const DEPLOYMENT_SOURCE = 'ds.{app}.fixtures.{env}';
+    private $path;
 
     /**
      * {@inheritdoc}
@@ -33,7 +35,7 @@ abstract class DeploymentFixture extends ResourceFixture
             return;
         }
 
-        $source = str_replace(['{app}', '{env}'], [$app, $env], static::DEPLOYMENT_SOURCE);
+        $source = str_replace(['{app}', '{env}'], [$app, $env], 'ds.{app}.fixtures.{env}');
         $api = $this->container->get('ds_api.api')->get('camunda.deployment');
         $parameters = new DeploymentParameters;
         $parameters->setSource($source);
@@ -48,7 +50,7 @@ abstract class DeploymentFixture extends ResourceFixture
         $objects = $this->parse($this->getResource());
 
         foreach ($objects as $object) {
-            $deployment = new Deployment;
+            $deployment = new DeploymentModel;
             $deployment
                 ->setName($object->name)
                 ->setSource($source)

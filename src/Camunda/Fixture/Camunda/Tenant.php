@@ -1,19 +1,26 @@
 <?php
 
-namespace Ds\Component\Camunda\Fixture\Camunda;
+namespace Ds\Component\Camunda\Fixture;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Ds\Component\Camunda\Model\Tenant;
+use Ds\Component\Camunda\Model\Tenant as TenantModel;
 use Ds\Component\Camunda\Query\TenantParameters;
-use Ds\Component\Database\Fixture\ResourceFixture;
+use Ds\Component\Database\Fixture\Yaml;
 
 /**
- * Class TenantFixture
+ * Trait Tenant
  *
  * @package Ds\Component\Camunda
  */
-abstract class TenantFixture extends ResourceFixture
+trait Tenant
 {
+    use Yaml;
+
+    /**
+     * @var string
+     */
+    private $path;
+
     /**
      * {@inheritdoc}
      */
@@ -40,7 +47,7 @@ abstract class TenantFixture extends ResourceFixture
         $objects = $this->parse($this->getResource());
 
         foreach ($objects as $object) {
-            $tenant = new Tenant;
+            $tenant = new TenantModel;
             $tenant->setName($object->name);
             $api->create($tenant);
         }
