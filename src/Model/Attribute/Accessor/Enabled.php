@@ -43,8 +43,8 @@ trait Enabled
      *
      * @return boolean
      */
-    public function isEnabled(): ?bool
+    public function isEnabled(): bool
     {
-        return $this->enabled;
+        return (bool) $this->enabled;
     }
 }
