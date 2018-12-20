@@ -25,15 +25,6 @@ trait Parameter
      */
     public function load(ObjectManager $manager)
     {
-        $connection = $manager->getConnection();
-        $platform = $connection->getDatabasePlatform()->getName();
-
-        switch ($platform) {
-            case 'postgresql':
-                $connection->exec('ALTER SEQUENCE ds_parameter_id_seq RESTART WITH 1');
-                break;
-        }
-
         $objects = $this->parse($this->path);
 
         foreach ($objects as $object) {

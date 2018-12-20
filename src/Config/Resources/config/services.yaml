@@ -5,7 +5,7 @@ services:
     public: false
 
   Ds\Component\Config\:
-    resource: ../../{Collection,Command,EventListener,Repository,Service,Tenant,Twig}
+    resource: ../../{Collection,Command,EventListener,Fixture,Repository,Service,Tenant,Twig}
 
   Ds\Component\Config\EventListener\Entity\Config\EncryptListener:
     tags:
@@ -32,6 +32,10 @@ services:
   Ds\Component\Config\EventListener\Entity\Config\Serializer\PreUpdateListener:
     tags:
       - { name: doctrine.event_listener, event: preUpdate, priority: 1 }
+
+  Ds\Component\Config\Fixture\:
+    resource: ../../Fixture
+    tags: [doctrine.fixture.orm]
 
   Ds\Component\Config\Repository\ConfigRepository:
     factory: ['@doctrine.orm.default_entity_manager', getRepository]

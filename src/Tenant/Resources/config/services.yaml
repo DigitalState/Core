@@ -5,7 +5,7 @@ services:
     public: false
 
   Ds\Component\Tenant\:
-    resource: ../../{Collection,Doctrine,EventListener,Repository,Service}
+    resource: ../../{Collection,Doctrine,EventListener,Fixture,Repository,Service}
 
   Ds\Component\Tenant\EventListener\ContextListener:
     tags:
@@ -28,6 +28,10 @@ services:
     tags:
       - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: created }
       - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: decoded }
+
+  Ds\Component\Tenant\Fixture\:
+    resource: ../../Fixture
+    tags: [doctrine.fixture.orm]
 
   Ds\Component\Tenant\Repository\TenantRepository:
     factory: ['@doctrine.orm.default_entity_manager', getRepository]

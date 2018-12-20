@@ -5,7 +5,11 @@ services:
     public: false
 
   Ds\Component\Metadata\:
-    resource: ../../{Repository,Service}
+    resource: ../../{Fixture,Repository,Service}
+
+  Ds\Component\Metadata\Fixture\:
+    resource: ../../Fixture
+    tags: [doctrine.fixture.orm]
 
   Ds\Component\Metadata\Repository\MetadataRepository:
     factory: ['@doctrine.orm.default_entity_manager', getRepository]
