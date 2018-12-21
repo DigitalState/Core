@@ -6,6 +6,7 @@ use Ds\Component\Health\Exception\InvalidAliasException;
 use Ds\Component\Health\Service\HealthService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,7 +60,9 @@ final class HealthController
 
         unset($data->collection);
 
-        return new JsonResponse($data);
+        return new JsonResponse($data, Response::HTTP_OK, [
+            'Content-Type' => 'application/json; charset=utf-8'
+        ]);
     }
 
     /**
@@ -83,6 +86,8 @@ final class HealthController
         $data->timestamp = $data->timestamp->format(static::TIMESTAMP_FORMAT);
         unset($data->alias);
 
-        return new JsonResponse($data);
+        return new JsonResponse($data, Response::HTTP_OK, [
+            'Content-Type' => 'application/json; charset=utf-8'
+        ]);
     }
 }
