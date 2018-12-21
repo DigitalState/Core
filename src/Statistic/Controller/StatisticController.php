@@ -6,6 +6,7 @@ use Ds\Component\Statistic\Exception\InvalidAliasException;
 use Ds\Component\Statistic\Service\StatisticService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,18 +51,20 @@ class StatisticController
         $data = $this->statisticService->getAll();
         $data = $data->toObject();
         $data->timestamp = $data->timestamp->format(static::TIMESTAMP_FORMAT);
-        $data->data = new stdClass;
+        $data->statistics = new stdClass;
 
         foreach ($data->collection as $datum) {
             $datum->timestamp = $datum->timestamp->format(static::TIMESTAMP_FORMAT);
             $alias = $datum->alias;
             unset($datum->alias);
-            $data->data->{$alias} = $datum;
+            $data->statistics->{$alias} = $datum;
         }
 
         unset($data->collection);
 
-        return new JsonResponse($data);
+        return new JsonResponse($data, Response::HTTP_OK, [
+            'Content-Type' => 'application/json; charset=utf-8'
+        ]);
     }
 
     /**
