@@ -89,6 +89,8 @@ class StatisticController
         $data->timestamp = $data->timestamp->format(static::TIMESTAMP_FORMAT);
         unset($data->alias);
 
-        return new JsonResponse($data);
+        return new JsonResponse($data, Response::HTTP_OK, [
+            'Content-Type' => 'application/json; charset=utf-8'
+        ]);
     }
 }
