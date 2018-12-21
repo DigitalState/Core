@@ -5,6 +5,7 @@ namespace Ds\Component\Acl\Controller\Reference;
 use Ds\Component\Acl\Collection\PermissionCollection;
 use Ds\Component\Acl\Model\Permission;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
@@ -60,6 +61,8 @@ final class PermissionsController
             $permissions[] = $permission;
         }
 
-        return new JsonResponse($permissions);
+        return new JsonResponse($permissions, Response::HTTP_OK, [
+            'Content-Type' => 'application/json; charset=utf-8'
+        ]);
     }
 }
