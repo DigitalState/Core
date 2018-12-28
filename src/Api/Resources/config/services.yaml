@@ -4,9 +4,6 @@ services:
     autoconfigure: true
     public: false
 
-  GuzzleHttp\ClientInterface:
-    class: GuzzleHttp\Client
-
   Ds\Component\Api\:
     resource: ../../{Api,Collection,Resolver,Service,Tenant}
 

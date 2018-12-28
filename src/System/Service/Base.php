@@ -4,7 +4,7 @@ namespace Ds\Component\System\Service;
 
 use DateTime;
 use Ds\Component\System\Model\Model;
-use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client;
 use InvalidArgumentException;
 use LogicException;
 use stdClass;
@@ -145,13 +145,12 @@ trait Base
     /**
      * Constructor
      *
-     * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
      * @param array $headers
      */
-    public function __construct(ClientInterface $client, $host = null, array $headers = [])
+    public function __construct($host = null, array $headers = [])
     {
-        $this->client = $client;
+        $this->client = new Client;
         $this->host = $host;
 
         if (!isset($headers['Content-Type'])) {
