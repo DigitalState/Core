@@ -3,6 +3,7 @@
 namespace Ds\Component\Camunda\Fixture;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Ds\Component\Api\Api\Api;
 use Ds\Component\Camunda\Model\Tenant as TenantModel;
 use Ds\Component\Camunda\Query\TenantParameters;
 use Ds\Component\Database\Fixture\Yaml;
@@ -27,15 +28,11 @@ trait Tenant
     public function load(ObjectManager $manager)
     {
         // @todo remove dependency on ds_api, add camunda api services
-        $app = $this->container->getParameter('app');
-        $env = $this->container->get('kernel')->getEnvironment();
-
-        // @todo create mock server instead of skipping fixture
-        if ('test' === $env) {
+        if ('vendor/bin/behat' === $_SERVER['PHP_SELF']) {
             return;
         }
 
-        $api = $this->container->get('ds_api.api')->get('camunda.tenant');
+        $api = $this->container->get(Api::class)->get('camunda.tenant');
         $parameters = new TenantParameters;
         $tenants = $api->getList($parameters);
 
@@ -44,7 +41,7 @@ trait Tenant
             $api->delete($tenant->getId(), $parameters);
         }
 
-        $objects = $this->parse($this->getResource());
+        $objects = $this->parse($this->path);
 
         foreach ($objects as $object) {
             $tenant = new TenantModel;

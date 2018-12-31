@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Camunda\Service;
 
+use Ds\Component\Api\Service\Service;
 use Ds\Component\Camunda\Model\Task;
 use Ds\Component\Camunda\Model\Variable;
 use Ds\Component\Camunda\Query\TaskParameters as Parameters;

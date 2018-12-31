@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Camunda\Service;
 
+use Ds\Component\Api\Service\Service;
 use Ds\Component\Camunda\Model\ProcessInstance;
 use Ds\Component\Camunda\Query\ProcessInstanceParameters as Parameters;
 
