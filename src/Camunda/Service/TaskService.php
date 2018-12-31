@@ -26,12 +26,12 @@ final class TaskService implements Service
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/engine-rest/task';
-    const RESOURCE_COUNT = '/engine-rest/task/count';
-    const RESOURCE_OBJECT = '/engine-rest/task/{id}';
-    const RESOURCE_SUBMIT = '/engine-rest/task/{id}/submit-form';
-    const RESOURCE_CLAIM = '/engine-rest/task/{id}/claim';
-    const RESOURCE_UNCLAIM = '/engine-rest/task/{id}/unclaim';
+    const RESOURCE_LIST = '/rest/task';
+    const RESOURCE_COUNT = '/rest/task/count';
+    const RESOURCE_OBJECT = '/rest/task/{id}';
+    const RESOURCE_SUBMIT = '/rest/task/{id}/submit-form';
+    const RESOURCE_CLAIM = '/rest/task/{id}/claim';
+    const RESOURCE_UNCLAIM = '/rest/task/{id}/unclaim';
 
     /**
      * @var array

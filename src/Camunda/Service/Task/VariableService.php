@@ -14,5 +14,5 @@ final class VariableService extends BaseVariableService
     /**
      * @const string
      */
-    const VARIABLE_LIST = '/task/{id}/variables';
+    const VARIABLE_LIST = '/rest/task/{id}/variables';
 }

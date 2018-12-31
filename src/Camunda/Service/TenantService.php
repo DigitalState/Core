@@ -23,7 +23,7 @@ final class TenantService implements Service
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/engine-rest/tenant';
+    const RESOURCE_LIST = '/rest/tenant';
 
     /**
      * @var array

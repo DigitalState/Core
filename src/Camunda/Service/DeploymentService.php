@@ -24,10 +24,10 @@ final class DeploymentService implements Service
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/engine-rest/deployment';
-    const RESOURCE_COUNT = '/engine-rest/deployment/count';
-    const RESOURCE_OBJECT = '/engine-rest/deployment/{id}';
-    const RESOURCE_CREATE = '/engine-rest/deployment/create';
+    const RESOURCE_LIST = '/rest/deployment';
+    const RESOURCE_COUNT = '/rest/deployment/count';
+    const RESOURCE_OBJECT = '/rest/deployment/{id}';
+    const RESOURCE_CREATE = '/rest/deployment/create';
 
     /**
      * @var array

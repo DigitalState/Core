@@ -27,20 +27,20 @@ final class ProcessDefinitionService implements Service
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/engine-rest/process-definition';
-    const RESOURCE_COUNT = '/engine-rest/process-definition/count';
-    const RESOURCE_OBJECT = '/engine-rest/process-definition/{id}';
-    const RESOURCE_OBJECT_BY_KEY = '/engine-rest/process-definition/key/{key}';
-    const RESOURCE_OBJECT_BY_KEY_AND_TENANT_ID = '/engine-rest/process-definition/key/{key}/tenant-id/{tenant-id}';
-    const RESOURCE_OBJECT_XML = '/engine-rest/process-definition/{id}/xml';
-    const RESOURCE_OBJECT_XML_BY_KEY = '/engine-rest/process-definition/key/{key}/xml';
-    const RESOURCE_OBJECT_XML_BY_KEY_AND_TENANT_ID = '/engine-rest/process-definition/key/{key}/xml';
-    const RESOURCE_OBJECT_START = '/engine-rest/process-definition/{id}/start';
-    const RESOURCE_OBJECT_START_BY_KEY = '/engine-rest/process-definition/key/{key}/start';
-    const RESOURCE_OBJECT_START_BY_KEY_AND_TENANT_ID = '/engine-rest/process-definition/key/{key}/tenant-id/{tenant-id}/start';
-    const RESOURCE_OBJECT_START_FORM = '/engine-rest/process-definition/{id}/startForm';
-    const RESOURCE_OBJECT_START_FORM_BY_KEY = '/engine-rest/process-definition/key/{key}/startForm';
-    const RESOURCE_OBJECT_START_FORM_BY_KEY_AND_TENANT_ID = '/engine-rest/process-definition/key/{key}/tenant-id/{tenant-id}/startForm';
+    const RESOURCE_LIST = '/rest/process-definition';
+    const RESOURCE_COUNT = '/rest/process-definition/count';
+    const RESOURCE_OBJECT = '/rest/process-definition/{id}';
+    const RESOURCE_OBJECT_BY_KEY = '/rest/process-definition/key/{key}';
+    const RESOURCE_OBJECT_BY_KEY_AND_TENANT_ID = '/rest/process-definition/key/{key}/tenant-id/{tenant-id}';
+    const RESOURCE_OBJECT_XML = '/rest/process-definition/{id}/xml';
+    const RESOURCE_OBJECT_XML_BY_KEY = '/rest/process-definition/key/{key}/xml';
+    const RESOURCE_OBJECT_XML_BY_KEY_AND_TENANT_ID = '/rest/process-definition/key/{key}/xml';
+    const RESOURCE_OBJECT_START = '/rest/process-definition/{id}/start';
+    const RESOURCE_OBJECT_START_BY_KEY = '/rest/process-definition/key/{key}/start';
+    const RESOURCE_OBJECT_START_BY_KEY_AND_TENANT_ID = '/rest/process-definition/key/{key}/tenant-id/{tenant-id}/start';
+    const RESOURCE_OBJECT_START_FORM = '/rest/process-definition/{id}/startForm';
+    const RESOURCE_OBJECT_START_FORM_BY_KEY = '/rest/process-definition/key/{key}/startForm';
+    const RESOURCE_OBJECT_START_FORM_BY_KEY_AND_TENANT_ID = '/rest/process-definition/key/{key}/tenant-id/{tenant-id}/startForm';
 
     /**
      * @var array
