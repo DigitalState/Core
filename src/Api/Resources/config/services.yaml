@@ -8,6 +8,7 @@ services:
     resource: ../../{Api,Collection,Resolver,Service,Tenant}
 
   Ds\Component\Api\Api\Api:
+    public: true # Used by camunda fixtures
     arguments:
       - '@Ds\Component\Api\Collection\ServiceCollection'
       - '@Ds\Component\Discovery\Repository\ServiceRepository'
