@@ -20,7 +20,7 @@ final class ServiceRepository extends Repository
     public function find($id)
     {
         try {
-            $response = $this->client->request('GET', 'http://' . $this->host . '/v1/catalog/service/' . $id, [
+            $response = $this->client->request('GET', 'http://'.$this->host.'/v1/catalog/service/'.$id, [
                 'headers' => [
                     'X-Consul-Token' => $this->token
                 ]
