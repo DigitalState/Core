@@ -30,7 +30,6 @@ imports:
   - { resource: services/assets.yaml }
   - { resource: services/authentication.yaml }
   - { resource: services/cases.yaml }
-  - { resource: services/camunda.yaml }
   - { resource: services/cms.yaml }
   - { resource: services/formio.yaml }
   - { resource: services/forms.yaml }
@@ -39,3 +38,4 @@ imports:
   - { resource: services/services.yaml }
   - { resource: services/tasks.yaml }
   - { resource: services/tenants.yaml }
+  - { resource: services/workflow.yaml }

@@ -7,29 +7,29 @@ services:
   Ds\Component\Api\Service\Camunda\DeploymentService:
     class: Ds\Component\Camunda\Service\DeploymentService
     tags:
-      - { name: ds_api.service, alias: camunda.deployment }
+      - { name: ds_api.service, alias: workflow.deployment }
 
   Ds\Component\Api\Service\Camunda\ProcessDefinitionService:
     class: Ds\Component\Camunda\Service\ProcessDefinitionService
     tags:
-      - { name: ds_api.service, alias: camunda.process_definition }
+      - { name: ds_api.service, alias: workflow.process_definition }
 
   Ds\Component\Api\Service\Camunda\ProcessInstanceService:
     class: Ds\Component\Camunda\Service\ProcessInstanceService
     tags:
-      - { name: ds_api.service, alias: camunda.process_instance }
+      - { name: ds_api.service, alias: workflow.process_instance }
 
   Ds\Component\Api\Service\Camunda\TaskService:
     class: Ds\Component\Camunda\Service\TaskService
     tags:
-      - { name: ds_api.service, alias: camunda.task }
+      - { name: ds_api.service, alias: workflow.task }
 
   Ds\Component\Api\Service\Camunda\Task\VariableService:
     class: Ds\Component\Camunda\Service\Task\VariableService
     tags:
-      - { name: ds_api.service, alias: camunda.task.variable }
+      - { name: ds_api.service, alias: workflow.task.variable }
 
   Ds\Component\Api\Service\Camunda\TenantService:
     class: Ds\Component\Camunda\Service\TenantService
     tags:
-      - { name: ds_api.service, alias: camunda.tenant }
+      - { name: ds_api.service, alias: workflow.tenant }
