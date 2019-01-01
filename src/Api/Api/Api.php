@@ -86,7 +86,7 @@ final class Api
         }
 
         $service = $this->serviceCollection->get($alias);
-        $entry = $this->serviceRepository->find($this->namespace.explode('.', $alias)[0].'_api_http');
+        $entry = $this->serviceRepository->find($this->namespace.'_'.explode('.', $alias)[0].'_api_http');
 
         if ($entry) {
             foreach ($entry->getTags() as $tag) {
