@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Discovery\Model;
 
+use Ds\Component\Discovery\Model\Attribute as DiscoveryAttribute;
 use Ds\Component\Model\Attribute;
 
 /**
@@ -11,7 +12,7 @@ use Ds\Component\Model\Attribute;
  */
 final class Service
 {
-    use Attribute\Id;
+    use DiscoveryAttribute\Id;
     use Attribute\Ip;
     use Attribute\Port;
     use Attribute\Meta;
