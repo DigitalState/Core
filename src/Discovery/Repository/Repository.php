@@ -3,7 +3,7 @@
 namespace Ds\Component\Discovery\Repository;
 
 use Doctrine\Common\Persistence\ObjectRepository;
-use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client;
 
 /**
  * Class Repository
@@ -30,13 +30,12 @@ abstract class Repository implements ObjectRepository
     /**
      * Constructor
      *
-     * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
      * @param string $token
      */
-    public function __construct(ClientInterface $client, string $host = null, string $token = null)
+    public function __construct(string $host = null, string $token = null)
     {
-        $this->client = $client;
+        $this->client = new Client;
         $this->host = $host;
         $this->token = $token;
     }

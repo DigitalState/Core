@@ -15,12 +15,20 @@ use stdClass;
 final class ServiceRepository extends Repository
 {
     /**
+     * @const string
+     */
+    const RESOURCE_LIST = '/v1/catalog/services';
+    const RESOURCE_OBJECT = '/v1/catalog/service/{id}';
+
+    /**
      * {@inheritdoc}
      */
     public function find($id)
     {
+        $resource = 'http://'.$this->host.str_replace('{id}', $id, static::RESOURCE_OBJECT);
+
         try {
-            $response = $this->client->request('GET', 'http://'.$this->host.'/v1/catalog/service/'.$id, [
+            $response = $this->client->request('GET', $resource, [
                 'headers' => [
                     'X-Consul-Token' => $this->token
                 ]
@@ -54,11 +62,18 @@ final class ServiceRepository extends Repository
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        $response = $this->client->request('GET', 'http://'.$this->host.'/v1/catalog/services', [
-            'headers' => [
-                'X-Consul-Token' => $this->token
-            ]
-        ]);
+        $resource = 'http://'.$this->host.static::RESOURCE_LIST;
+
+        try {
+            $response = $this->client->request('GET', $resource, [
+                'headers' => [
+                    'X-Consul-Token' => $this->token
+                ]
+            ]);
+        } catch (ClientException $exception) {
+            return null;
+        }
+
         $body = (string) $response->getBody();
         $objects = \GuzzleHttp\json_decode($body);
         $models = new ArrayCollection;

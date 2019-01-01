@@ -13,6 +13,5 @@ services:
   Ds\Component\Discovery\Repository\:
     resource: ../../Repository
     arguments:
-      - '@GuzzleHttp\ClientInterface'
       - '%ds_discovery.host%'
       - '%ds_discovery.credential%'

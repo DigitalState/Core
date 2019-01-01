@@ -15,12 +15,20 @@ use stdClass;
 final class ConfigRepository extends Repository
 {
     /**
+     * @const string
+     */
+    const RESOURCE_LIST = '/v1/kv';
+    const RESOURCE_OBJECT = '/v1/kv/{id}';
+
+    /**
      * {@inheritdoc}
      */
     public function find($id)
     {
+        $resource = 'http://'.$this->host.str_replace('{id}', $id, static::RESOURCE_OBJECT);
+
         try {
-            $response = $this->client->request('GET', 'http://'.$this->host.'/v1/kv/'.$id, [
+            $response = $this->client->request('GET', $resource, [
                 'headers' => [
                     'X-Consul-Token' => $this->token
                 ]
@@ -54,19 +62,20 @@ final class ConfigRepository extends Repository
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        $uri = 'http://'.$this->host.'/v1/kv/';
+        $resource = 'http://'.$this->host.static::RESOURCE_LIST;
 
         if (array_key_exists('directory', $criteria)) {
-            $uri .= '/'.$criteria['directory'];
+            $resource .= '/'.$criteria['directory'];
             unset($criteria['directory']);
         }
 
-        $response = $this->client->request('GET', $uri, [
+        $response = $this->client->request('GET', $resource, [
             'headers' => [
                 'X-Consul-Token' => $this->token
             ],
             'query' => $criteria
         ]);
+
         $body = (string) $response->getBody();
         $objects = \GuzzleHttp\json_decode($body);
         $models = new ArrayCollection;
