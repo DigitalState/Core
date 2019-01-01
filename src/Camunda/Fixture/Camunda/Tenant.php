@@ -32,7 +32,7 @@ trait Tenant
             return;
         }
 
-        $api = $this->container->get(Api::class)->get('camunda.tenant');
+        $api = $this->container->get(Api::class)->get('workflow.tenant');
         $parameters = new TenantParameters;
         $tenants = $api->getList($parameters);
 

@@ -43,7 +43,7 @@ trait Deployment
 
         $fixtures = array_key_exists('FIXTURES', $_ENV) ? $_ENV['FIXTURES'] : 'dev';
         $source = $this->namespace.'.'.$this->app.'.fixtures.'.$fixtures;
-        $api = $this->container->get(Api::class)->get('camunda.deployment');
+        $api = $this->container->get(Api::class)->get('workflow.deployment');
         $parameters = new DeploymentParameters;
         $parameters->setSource($source);
         $deployments = $api->getList($parameters);
