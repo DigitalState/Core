@@ -6,10 +6,10 @@ use Ds\Component\Formio\Exception\RequestException;
 use Ds\Component\Formio\Exception\ResponseException;
 use Ds\Component\Formio\Exception\ValidationException;
 use Ds\Component\Formio\Model\Model;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use stdClass;
 use DateTime;
-use GuzzleHttp\ClientInterface;
 use LogicException;
 use InvalidArgumentException;
 
@@ -152,13 +152,12 @@ trait Base
     /**
      * Constructor
      *
-     * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
      * @param array $headers
      */
-    public function __construct(ClientInterface $client, ?string $host = null, array $headers = [])
+    public function __construct(?string $host = null, array $headers = [])
     {
-        $this->client = $client;
+        $this->client = new Client;
         $this->host = $host;
         $this->headers = $headers;
     }

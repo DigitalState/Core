@@ -5,7 +5,7 @@ namespace Ds\Component\Camunda\Service;
 use DateTime;
 use Ds\Component\Camunda\Model\Model;
 use Ds\Component\Camunda\Model\Variable;
-use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client;
 use InvalidArgumentException;
 use LogicException;
 use UnexpectedValueException;
@@ -167,13 +167,12 @@ trait Base
     /**
      * Constructor
      *
-     * @param \GuzzleHttp\ClientInterface $client
      * @param string $host
      * @param array $headers
      */
-    public function __construct(ClientInterface $client, ?string $host = null, array $headers = [])
+    public function __construct(?string $host = null, array $headers = [])
     {
-        $this->client = $client;
+        $this->client = new Client;
         $this->host = $host;
         $this->headers = $headers;
     }
