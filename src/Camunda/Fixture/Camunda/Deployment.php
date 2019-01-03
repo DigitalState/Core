@@ -37,7 +37,7 @@ trait Deployment
      */
     public function load(ObjectManager $manager)
     {
-        if ('vendor/bin/behat' === $_SERVER['PHP_SELF']) {
+        if ('test' === $this->container->getParameter('kernel.environment')) {
             return;
         }
 

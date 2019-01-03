@@ -27,8 +27,7 @@ trait Tenant
      */
     public function load(ObjectManager $manager)
     {
-        // @todo remove dependency on ds_api, add camunda api services
-        if ('vendor/bin/behat' === $_SERVER['PHP_SELF']) {
+        if ('test' === $this->container->getParameter('kernel.environment')) {
             return;
         }
 
