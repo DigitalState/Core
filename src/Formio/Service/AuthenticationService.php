@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Formio\Service;
 
+use Ds\Component\Api\Service\Service;
 use Ds\Component\Formio\Model\User;
 
 /**

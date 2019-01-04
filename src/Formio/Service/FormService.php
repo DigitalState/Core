@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Formio\Service;
 
+use Ds\Component\Api\Service\Service;
 use Ds\Component\Formio\Model\Form;
 use Ds\Component\Formio\Query\FormParameters as Parameters;
 use stdClass;
