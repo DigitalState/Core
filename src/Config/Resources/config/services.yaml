@@ -42,7 +42,8 @@ services:
     arguments:
       - Ds\Component\Config\Entity\Config
 
-  Ds\Component\Config\Service\ConfigService: ~
+  Ds\Component\Config\Service\ConfigService:
+    public: true # Used by event listeners
 
   Ds\Component\Config\Tenant\Unloader\ConfigUnloader:
     tags:
