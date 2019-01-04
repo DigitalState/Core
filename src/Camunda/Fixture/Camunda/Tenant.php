@@ -27,10 +27,6 @@ trait Tenant
      */
     public function load(ObjectManager $manager)
     {
-        if ('test' === $this->container->getParameter('kernel.environment')) {
-            return;
-        }
-
         $api = $this->container->get(Api::class)->get('workflow.tenant');
         $parameters = new TenantParameters;
         $tenants = $api->getList($parameters);

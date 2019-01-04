@@ -37,10 +37,6 @@ trait Deployment
      */
     public function load(ObjectManager $manager)
     {
-        if ('test' === $this->container->getParameter('kernel.environment')) {
-            return;
-        }
-
         $fixtures = array_key_exists('FIXTURES', $_ENV) ? $_ENV['FIXTURES'] : 'dev';
         $source = $this->namespace.'.'.$this->app.'.fixtures.'.$fixtures;
         $api = $this->container->get(Api::class)->get('workflow.deployment');
