@@ -1,47 +1,49 @@
 <?php
 
-namespace Ds\Component\Formio\Fixture\Formio;
+namespace Ds\Component\Formio\Fixture;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Ds\Component\Api\Api\Api;
+use Ds\Component\Config\Service\ConfigService;
 use Ds\Component\Formio\Exception\ValidationException;
-use Ds\Component\Formio\Model\Form;
-use Ds\Component\Formio\Model\User;
-use Ds\Component\Database\Fixture\ResourceFixture;
+use Ds\Component\Formio\Model\Form as FormModel;
+use Ds\Component\Formio\Model\User as UserModel;
+use Ds\Component\Database\Fixture\Yaml;
 
 /**
- * Class FormFixture
+ * Trait Form
  *
  * @package Ds\Component\Formio
  */
-abstract class FormFixture extends ResourceFixture
+trait Form
 {
+    use Yaml;
+
+    /**
+     * @var string
+     */
+    private $path;
+
     /**
      * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
-        $env = $this->container->get('kernel')->getEnvironment();
+        $fixtures = array_key_exists('FIXTURES', $_ENV) ? $_ENV['FIXTURES'] : 'dev';
+        $configService = $this->container->get(ConfigService::class);
 
-        // @todo create mock server instead of skipping fixture
-        if ('test' === $env) {
-            return;
-        }
-
-        $configService = $this->container->get('ds_config.service.config');
-
-        // @todo remove dependency on ds_api, add formio api services
-        $api = $this->container->get('ds_api.api')->get('formio.authentication');
-        $user = new User;
+        $api = $this->container->get(Api::class)->get('formio.authentication');
+        $user = new UserModel;
         $user
             ->setEmail($configService->get('ds_api.user.username'))
             ->setPassword($configService->get('ds_api.user.password'));
         $token = $api->login($user);
 
-        $api = $this->container->get('ds_api.api')->get('formio.role');
+        $api = $this->container->get(Api::class)->get('formio.role');
         $api->setHeader('x-jwt-token', $token);
         $roles = $api->getList();
 
-        $api = $this->container->get('ds_api.api')->get('formio.form');
+        $api = $this->container->get(Api::class)->get('formio.form');
         $api->setHeader('x-jwt-token', $token);
         $objects = $this->parse($this->getResource());
 
@@ -52,9 +54,9 @@ abstract class FormFixture extends ResourceFixture
                 // @todo this is so first time fixtures dont cause an error, handle "Invalid alias" better
             }
 
-            $form = new Form;
-            $object->components = json_decode(file_get_contents(dirname(str_replace('{env}', $env, $this->getResource())).'/'.$object->components));
-            $object->submission_access = json_decode(file_get_contents(dirname(str_replace('{env}', $env, $this->getResource())).'/'.$object->submission_access));
+            $form = new FormModel;
+            $object->components = json_decode(file_get_contents(dirname(str_replace('{fixtures}', $fixtures, $this->path)).'/'.$object->components));
+            $object->submission_access = json_decode(file_get_contents(dirname(str_replace('{fixtures}', $fixtures, $this->path)).'/'.$object->submission_access));
             $submissionAccess = [];
 
             foreach ($object->submission_access as $access) {
