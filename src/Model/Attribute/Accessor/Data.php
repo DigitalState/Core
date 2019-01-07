@@ -2,8 +2,6 @@
 
 namespace Ds\Component\Model\Attribute\Accessor;
 
-use OutOfRangeException;
-
 /**
  * Trait Data
  *
