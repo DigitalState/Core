@@ -72,14 +72,12 @@ final class Api
         }
 
         $service = $this->serviceCollection->get($alias);
-        $discovered = $this->serviceRepository->find($this->namespace.explode('.', $alias)[0].'_api_http');
+        $entry = $this->serviceRepository->find($this->namespace.'_'.explode('.', $alias)[0].'_api_http');
 
-        if ($discovered) {
-            foreach ($discovered->getTags() as $tag) {
+        if ($entry) {
+            foreach ($entry->getTags() as $tag) {
                 if (substr($tag, 0, 25) === 'proxy.frontend.rule=Host:') {
                     $host = substr($tag, 25);
-                    $entrypoint = $discovered->getMeta('entrypoint-'.$this->environment);
-                    $host = str_replace('${url}', $host, $entrypoint);
                     $service->setHost($host);
                 }
             }
