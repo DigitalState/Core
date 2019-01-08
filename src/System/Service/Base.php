@@ -45,6 +45,10 @@ trait Base
                         $model->{'set'.ucfirst($local)}(new DateTime($object->$remote));
                         break;
 
+                    case 'data':
+                        $model->{'set'.ucfirst($local)}((array) $object->$remote);
+                        break;
+
                     default:
                         $model->{'set'.ucfirst($local)}($object->$remote);
                 }
