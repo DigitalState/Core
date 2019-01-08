@@ -62,13 +62,9 @@ services:
     arguments:
       - Ds\Component\Acl\Entity\Permission
 
-  Ds\Component\Acl\Tenant\Unloader\AccessUnloader:
+  Ds\Component\Acl\Tenant\Unloader\AclUnloader:
     tags:
       - { name: ds_tenant.unloader }
-
-  Ds\Component\Acl\Tenant\Unloader\PermissionUnloader:
-    tags:
-      - { name: ds_tenant.unloader, priority: -1 }
 
   Ds\Component\Acl\Voter\:
     resource: ../../Voter

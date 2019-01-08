@@ -3,9 +3,8 @@
 namespace Ds\Component\Api\Tenant\Loader;
 
 use Ds\Component\Config\Service\ConfigService;
-use Ds\Component\Tenant\Entity\Tenant;
+use Ds\Component\Config\Tenant\Loader\Config;
 use Ds\Component\Tenant\Loader\Loader;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class ConfigLoader
@@ -14,10 +13,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 final class ConfigLoader implements Loader
 {
-    /**
-     * @var \Ds\Component\Config\Service\ConfigService
-     */
-    private $configService;
+    use Config;
 
     /**
      * Constructor
@@ -27,39 +23,6 @@ final class ConfigLoader implements Loader
     public function __construct(ConfigService $configService)
     {
         $this->configService = $configService;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function load(Tenant $tenant)
-    {
-        $yml = file_get_contents('/srv/api-platform/vendor/digitalstate/core/src/Ds/Component/Api/Resources/tenant/configs.yml');
-
-        // @todo Figure out how symfony does parameter binding and use the same technique
-        $yml = strtr($yml, [
-            '%user.system.password%' => $tenant->getData()['user']['system']['password'],
-            '%user.system.uuid%' => $tenant->getData()['user']['system']['uuid'],
-            '%identity.system.uuid%' => $tenant->getData()['identity']['system']['uuid'],
-            '%business_unit.administration.uuid%' => $tenant->getData()['business_unit']['administration']['uuid'],
-            '%tenant.uuid%' => $tenant->getUuid()
-        ]);
-
-        $configs = Yaml::parse($yml, YAML::PARSE_OBJECT_FOR_MAP);
-        $manager = $this->configService->getManager();
-
-        foreach ($configs->objects as $object) {
-            $object = (object) array_merge((array) $configs->prototype, (array) $object);
-            $config = $this->configService->createInstance();
-            $config
-                ->setOwner($object->owner)
-                ->setOwnerUuid($object->owner_uuid)
-                ->setKey($object->key)
-                ->setValue($object->value)
-                ->setTenant($object->tenant);
-            $manager->persist($config);
-            $manager->flush();
-            $manager->detach($config);
-        }
+        $this->path = '/srv/api/vendor/digitalstate/core/src/Api/Resources/tenant/loader/config.yaml';
     }
 }
