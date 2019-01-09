@@ -28,6 +28,7 @@ trait Config
     public function load(Tenant $tenant)
     {
         $data = (array) json_decode(json_encode($tenant->getData()));
+        $data['config'] = (array) $data['config'];
         $objects = Objects::parseFile($this->path, $data);
         $manager = $this->configService->getManager();
 
