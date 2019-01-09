@@ -85,7 +85,7 @@ class Tenant implements Identifiable, Uuidentifiable, Versionable
     /**
      * @var array
      * @ApiProperty
-     * @Serializer\Groups({"tenant_output", "tenant_input"})
+     * @Serializer\Groups({"tenant_input"})
      */
     private $data;
 
