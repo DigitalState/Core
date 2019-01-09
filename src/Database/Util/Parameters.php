@@ -48,7 +48,7 @@ final class Parameters
     public static function replace(string $string, array $data = []): string
     {
         $expressionLanguage = new ExpressionLanguage;
-        preg_match_all('/\%([a-z0-9_\[\]\.]+)\%/i', $string, $matches);
+        preg_match_all('/\%([a-z0-9_\[\]\"\.]+)\%/i', $string, $matches);
         $placeholders = array_unique($matches[1]);
         $translations = [];
 
