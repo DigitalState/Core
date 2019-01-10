@@ -49,7 +49,7 @@ final class ExceptionListener
             'detail' => ''
         ];
 
-        if ('dev' === $this->environment) {
+        if (in_array($this->environment, ['dev', 'test'], true)) {
             $data['detail'] = $exception->getMessage();
             $data['trace'] = $exception->getTrace();
         }
