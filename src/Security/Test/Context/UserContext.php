@@ -59,7 +59,7 @@ final class UserContext implements Context
         })->first();
 
         if (!$user) {
-            throw new DomainException('User does not exist.');
+            throw new DomainException('User "'.$username.'" for tenant "'.$tenant.'" does not exist.');
         }
 
         $token = $this->tokenManager->create($user);

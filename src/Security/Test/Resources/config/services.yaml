@@ -5,7 +5,7 @@ services:
     public: false
 
   Ds\Component\Security\Test\:
-    resource: ../../{Collection}
+    resource: ../../{Collection,Command}
 
   Ds\Component\Security\Test\Collection\UserCollection:
     public: true # Used by behat
