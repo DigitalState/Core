@@ -59,4 +59,22 @@ final class ConsoleContext implements Context
             throw new Exception('Command output does not match expected output.');
         }
     }
+
+    /**
+     * @Then I should get the following output on line :line:
+     * @param \Behat\Gherkin\Node\PyStringNode $string
+     * @throws \Exception
+     */
+    public function iShouldGetTheFollowingOutputOnLine($line, PyStringNode $string)
+    {
+        if (0 > $line) {
+            $key = count($this->output) + $line;
+        } else {
+            $key = $line - 1;
+        }
+
+        if ($this->output[$key] !== (string) $string) {
+            throw new Exception('Command output does not match expected output.');
+        }
+    }
 }
