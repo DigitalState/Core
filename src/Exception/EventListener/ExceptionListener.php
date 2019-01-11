@@ -39,14 +39,13 @@ final class ExceptionListener
     {
         $exception = $event->getException();
 
-        if ($exception instanceof HttpException || $exception instanceof ValidationException) {
+        if ($exception instanceof ValidationException) {
             return;
         }
 
         $data = [
             'type' => 'https://tools.ietf.org/html/rfc2616#section-10',
-            'title' =>'An error occurred',
-            'detail' => ''
+            'title' =>'An error occurred'
         ];
 
         if (in_array($this->environment, ['dev', 'test'], true)) {
@@ -61,7 +60,13 @@ final class ExceptionListener
         switch ($accept) {
             case 'application/json':
             case 'application/ld+json':
-                $response = new JsonResponse($data, Response::HTTP_INTERNAL_SERVER_ERROR);
+                $code = Response::HTTP_INTERNAL_SERVER_ERROR;
+
+                if ($exception instanceof HttpException) {
+                    $code = $exception->getStatusCode();
+                }
+
+                $response = new JsonResponse($data, $code);
                 $event->setResponse($response);
                 break;
         }
