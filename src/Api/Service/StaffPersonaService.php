@@ -22,8 +22,8 @@ final class StaffPersonaService implements Service
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/staff-personas';
-    const RESOURCE_OBJECT = '/staff-personas/{id}';
+    const RESOURCE_LIST = '/staff_personas';
+    const RESOURCE_OBJECT = '/staff_personas/{id}';
 
     /**
      * @var array

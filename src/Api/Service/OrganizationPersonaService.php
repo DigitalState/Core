@@ -22,8 +22,8 @@ final class OrganizationPersonaService implements Service
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/organization-personas';
-    const RESOURCE_OBJECT = '/organization-personas/{id}';
+    const RESOURCE_LIST = '/organization_personas';
+    const RESOURCE_OBJECT = '/organization_personas/{id}';
 
     /**
      * @var array

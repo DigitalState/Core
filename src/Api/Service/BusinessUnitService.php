@@ -22,8 +22,8 @@ final class BusinessUnitService implements Service
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/business-units';
-    const RESOURCE_OBJECT = '/business-units/{id}';
+    const RESOURCE_LIST = '/business_units';
+    const RESOURCE_OBJECT = '/business_units/{id}';
 
     /**
      * @var array

@@ -19,7 +19,7 @@ final class OrganizationPersona implements Model
     use Attribute\Owner;
     use Attribute\OwnerUuid;
     use ApiAttribute\Organization;
-    use Attribute\Title;
+    use Attribute\Translation\Title;
     use Attribute\Data;
     use Attribute\Version;
     use Attribute\Tenant;
@@ -29,6 +29,8 @@ final class OrganizationPersona implements Model
      */
     public function __construct()
     {
+        $this->title = [];
+        $this->data = [];
         $this->version = 1;
     }
 }

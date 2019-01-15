@@ -46,6 +46,11 @@ trait Base
                         $model->{'set'.ucfirst($local)}(new DateTime($object->$remote));
                         break;
 
+                    case 'data':
+                    case 'title':
+                        $model->{'set'.ucfirst($local)}((array) $object->$remote);
+                        break;
+
                     case 'individual':
                         // @todo reverse load for relationships
                         break;

@@ -22,8 +22,8 @@ final class CaseStatusService implements Service
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/case-statuses';
-    const RESOURCE_OBJECT = '/case-statuses/{id}';
+    const RESOURCE_LIST = '/case_statuses';
+    const RESOURCE_OBJECT = '/case_statuses/{id}';
 
     /**
      * @var array

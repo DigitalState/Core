@@ -22,8 +22,8 @@ final class AnonymousPersonaService implements Service
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/anonymous-personas';
-    const RESOURCE_OBJECT = '/anonymous-personas/{id}';
+    const RESOURCE_LIST = '/anonymous_personas';
+    const RESOURCE_OBJECT = '/anonymous_personas/{id}';
 
     /**
      * @var array

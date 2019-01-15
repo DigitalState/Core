@@ -17,7 +17,17 @@ final class StaffPersona implements Model
     use Attribute\UpdatedAt;
     use Attribute\Owner;
     use Attribute\OwnerUuid;
-    use Attribute\Title;
+    use Attribute\Translation\Title;
     use Attribute\Data;
     use Attribute\Version;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->title = [];
+        $this->data = [];
+        $this->version = 1;
+    }
 }

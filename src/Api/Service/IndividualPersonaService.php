@@ -22,8 +22,8 @@ final class IndividualPersonaService implements Service
     /**
      * @const string
      */
-    const RESOURCE_LIST = '/individual-personas';
-    const RESOURCE_OBJECT = '/individual-personas/{id}';
+    const RESOURCE_LIST = '/individual_personas';
+    const RESOURCE_OBJECT = '/individual_personas/{id}';
 
     /**
      * @var array
