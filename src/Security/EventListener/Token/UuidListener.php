@@ -2,8 +2,6 @@
 
 namespace Ds\Component\Security\EventListener\Token;
 
-use Ds\Component\Security\Exception\InvalidUserTypeException;
-use Ds\Component\Security\Model\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -40,17 +38,11 @@ final class UuidListener
      * Add the user uuid to the token
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
-     * @throws \Ds\Component\Security\Exception\InvalidUserTypeException
      */
     public function created(JWTCreatedEvent $event)
     {
         $data = $event->getData();
         $user = $event->getUser();
-
-        if (!$user instanceof User) {
-            throw new InvalidUserTypeException('Security user should be an instance of "'.User::class.'"');
-        }
-
         $this->accessor->setValue($data, $this->property, $user->getUuid());
         $event->setData($data);
     }
