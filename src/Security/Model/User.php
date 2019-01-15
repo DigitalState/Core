@@ -2,7 +2,6 @@
 
 namespace Ds\Component\Security\Model;
 
-use Ds\Component\Security\Model\Identity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 
