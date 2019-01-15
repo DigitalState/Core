@@ -24,10 +24,10 @@ use stdClass;
  * equals to:
  *
  * - "entity", the `value` should be the fully-qualified class name of the
- *   entity (example: "AppBundle\Entity\User").
+ *   entity (example: "App\Entity\User").
  * - "property", the `value` should be the fully-qualified class name of the
  *   entity, followed by a period and the property name (example:
- *   "AppBundle\Entity\User.uuid").
+ *   "App\Entity\User.uuid").
  * - "generic", the `value` should be an arbitrary string that is unique.
  *
  * The `attributes` is an array of strings that contains one or more of the
@@ -59,7 +59,7 @@ use stdClass;
  *     "key": "user",
  *     "attributes": ["BROWSE", "READ", "EDIT", "ADD", "DELETE"],
  *     "type": "entity",
- *     "value": "AppBundle\Entity\User",
+ *     "value": "App\Entity\User",
  *     "title": "User entity"
  * }
  * </code>
@@ -69,7 +69,7 @@ use stdClass;
  *     "key": "user_uuid",
  *     "attributes": ["BROWSE", "READ", "EDIT"],
  *     "type": "property",
- *     "value": "AppBundle\Entity\User.uuid",
+ *     "value": "App\Entity\User.uuid",
  *     "title": "User uuid property"
  * }
  * </code>

@@ -114,18 +114,18 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                     }
 
                     if (in_array($resourceClass, [
-                        'AppBundle\\Entity\\Anonymous',
-                        'AppBundle\\Entity\\Individual',
-                        'AppBundle\\Entity\\Organization',
-                        'AppBundle\\Entity\\Staff'
+                        'App\\Entity\\Anonymous',
+                        'App\\Entity\\Individual',
+                        'App\\Entity\\Organization',
+                        'App\\Entity\\Staff'
                     ])) {
                         $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_security_identity_'.$i);
                         $parameters['ds_security_identity_'.$i] = $permission->getEntity();
                     } else if (in_array($resourceClass, [
-                        'AppBundle\\Entity\\AnonymousPersona',
-                        'AppBundle\\Entity\\IndividualPersona',
-                        'AppBundle\\Entity\\OrganizationPersona',
-                        'AppBundle\\Entity\\StaffPersona'
+                        'App\\Entity\\AnonymousPersona',
+                        'App\\Entity\\IndividualPersona',
+                        'App\\Entity\\OrganizationPersona',
+                        'App\\Entity\\StaffPersona'
                     ])) {
                         $identity = substr($resourceClass, 0, -7);
                         $alias = strtolower(substr($resourceClass, 17, -7));
@@ -182,18 +182,18 @@ final class EntityExtension implements QueryCollectionExtensionInterface
 
                     // @todo Refactor this exception handling at the entity level with metadata, the core should not know about these details.
                     if (in_array($resourceClass, [
-                        'AppBundle\\Entity\\Anonymous',
-                        'AppBundle\\Entity\\Individual',
-                        'AppBundle\\Entity\\Organization',
-                        'AppBundle\\Entity\\Staff'
+                        'App\\Entity\\Anonymous',
+                        'App\\Entity\\Individual',
+                        'App\\Entity\\Organization',
+                        'App\\Entity\\Staff'
                     ])) {
                         $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_security_identity_uuid_'.$i);
                         $parameters['ds_security_identity_uuid_'.$i] = $user->getIdentity()->getUuid();
                     } else if (in_array($resourceClass, [
-                        'AppBundle\\Entity\\AnonymousPersona',
-                        'AppBundle\\Entity\\IndividualPersona',
-                        'AppBundle\\Entity\\OrganizationPersona',
-                        'AppBundle\\Entity\\StaffPersona'
+                        'App\\Entity\\AnonymousPersona',
+                        'App\\Entity\\IndividualPersona',
+                        'App\\Entity\\OrganizationPersona',
+                        'App\\Entity\\StaffPersona'
                     ])) {
                         $identity = substr($resourceClass, 0, -7);
                         $alias = strtolower(substr($resourceClass, 17, -7));
