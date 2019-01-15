@@ -115,7 +115,7 @@ final class Api
             $payload = [
                 'uuid' => $this->configService->get('ds_api.user.uuid'),
                 'roles' => $this->configService->get('ds_api.user.roles'),
-                'identity' => [
+                'identity' => (object) [
                     'roles' => $this->configService->get('ds_api.user.identity.roles'),
                     'type' => $this->configService->get('ds_api.user.identity.type'),
                     'uuid' => $this->configService->get('ds_api.user.identity.uuid')
