@@ -6,7 +6,7 @@ services:
         uuid: exact
         owner: exact
         ownerUuid: exact
-        key: partial
+        key: exact
     tags:
       - { name: api_platform.filter, id: ds_config.config.search }
 
