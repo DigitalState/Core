@@ -15,9 +15,9 @@ final class MigrationContext implements Context
     /**
      * Up migrations
      *
-     * @BeforeScenario @upMigrations
+     * @BeforeSuite
      */
-    public function upMigrations()
+    public static function upMigrations()
     {
         $process = new Process('php bin/console doctrine:migrations:migrate --env=test --no-interaction');
         $process->run();
@@ -26,9 +26,9 @@ final class MigrationContext implements Context
     /**
      * Down migrations
      *
-     * @AfterScenario @downMigrations
+     * @AfterSuite
      */
-    public function downMigrations()
+    public static function downMigrations()
     {
         $process = new Process('php bin/console doctrine:migrations:migrate --env=test --no-interaction first');
         $process->run();
