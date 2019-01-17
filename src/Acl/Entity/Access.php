@@ -127,7 +127,6 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Assignable, Versi
      * @ApiProperty
      * @Serializer\Groups({"access_output", "access_input"})
      * @ORM\Column(name="assignee_uuid", type="guid", nullable=true)
-     * @Assert\NotBlank
      * @Assert\Uuid
      */
     private $assigneeUuid;
