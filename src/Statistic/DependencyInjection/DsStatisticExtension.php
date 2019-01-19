@@ -21,7 +21,7 @@ final class DsStatisticExtension extends Extension implements PrependExtensionIn
     public function prepend(ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('config.yaml');
+        $loader->load('packages/ds_acl.yaml');
     }
 
     /**

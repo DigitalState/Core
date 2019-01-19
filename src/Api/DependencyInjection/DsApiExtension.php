@@ -21,7 +21,7 @@ final class DsApiExtension extends Extension implements PrependExtensionInterfac
     public function prepend(ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('config.yaml');
+        $loader->load('packages/ds_config.yaml');
     }
 
     /**

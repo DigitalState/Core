@@ -34,6 +34,7 @@ final class DsAclExtension extends Extension implements PrependExtensionInterfac
         ]);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('packages/api_platform.yaml');
         $loader->load('config.yaml');
     }
 
@@ -43,7 +44,6 @@ final class DsAclExtension extends Extension implements PrependExtensionInterfac
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('api_filters.yaml');
         $loader->load('services.yaml');
 
         $configuration = new Configuration;

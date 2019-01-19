@@ -7,7 +7,6 @@ services:
   Ds\Component\Audit\:
     resource: ../../{EventListener,Repository,Service}
 
-
   Ds\Component\Audit\EventListener\EntityListener:
     tags:
       - { name: doctrine.event_listener, event: postPersist }

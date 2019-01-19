@@ -23,7 +23,8 @@ final class DsConfigExtension extends Extension implements PrependExtensionInter
     public function prepend(ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('config.yaml');
+        $loader->load('packages/api_platform.yaml');
+        $loader->load('packages/ds_acl.yaml');
     }
 
     /**
@@ -35,7 +36,6 @@ final class DsConfigExtension extends Extension implements PrependExtensionInter
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('api_filters.yaml');
         $loader->load('services.yaml');
 
         $elements = [];
