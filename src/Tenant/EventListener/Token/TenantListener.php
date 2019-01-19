@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Tenant\EventListener\Token;
 
+use Ds\Component\Tenant\Service\TenantService;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 
@@ -13,6 +14,11 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 final class TenantListener
 {
     /**
+     * @var \Ds\Component\Tenant\Service\TenantService
+     */
+    private $tenantService;
+
+    /**
      * @var string
      */
     private $attribute;
@@ -20,10 +26,12 @@ final class TenantListener
     /**
      * Constructor
      *
+     * @param \Ds\Component\Tenant\Service\TenantService $tenantService
      * @param string $attribute
      */
-    public function __construct(string $attribute = 'tenant')
+    public function __construct(TenantService $tenantService, string $attribute = 'tenant')
     {
+        $this->tenantService = $tenantService;
         $this->attribute = $attribute;
     }
 
@@ -53,6 +61,13 @@ final class TenantListener
         $payload = json_decode(json_encode($payload), true);
 
         if (!array_key_exists($this->attribute, $payload)) {
+            $event->markAsInvalid();
+        }
+
+        $uuid = $payload[$this->attribute];
+        $tenant = $this->tenantService->getRepository()->findBy(['uuid' => $uuid]);
+
+        if (!$tenant) {
             $event->markAsInvalid();
         }
     }
