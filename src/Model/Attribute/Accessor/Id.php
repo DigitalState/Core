@@ -15,7 +15,7 @@ trait Id
      * @param integer $id
      * @return object
      */
-    public function setId(?int $id)
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -27,7 +27,7 @@ trait Id
      *
      * @return integer
      */
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }

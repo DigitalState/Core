@@ -12,7 +12,7 @@ trait Id
     use Accessor\Id;
 
     /**
-     * @var string
+     * @var integer
      */
     private $id;
 }
