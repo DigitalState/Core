@@ -20,7 +20,7 @@ trait Value
      * @param string $value
      * @return object
      */
-    public function setValue(?string $value)
+    public function setValue($value)
     {
         $this->value = $value;
 
@@ -32,7 +32,7 @@ trait Value
      *
      * @return string
      */
-    public function getValue(): ?string
+    public function getValue()
     {
         return $this->value;
     }

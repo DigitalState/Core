@@ -31,7 +31,7 @@ final class Variable implements Model
      * @param string $type
      * @param \stdClass $valueInfo
      */
-    public function __construct(?string $name = null, ?string $value = null, ?string $type = self::TYPE_STRING, ?stdClass $valueInfo = null)
+    public function __construct(?string $name = null, $value = null, ?string $type = self::TYPE_STRING, ?stdClass $valueInfo = null)
     {
         $this
             ->setName($name)
