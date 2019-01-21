@@ -2,7 +2,7 @@
 
 namespace Ds\Component\Form\Model;
 
-use Ds\Component\Model\Attribute;
+use Ds\Component\Form\Model\Attribute;
 use stdClass;
 
 /**
