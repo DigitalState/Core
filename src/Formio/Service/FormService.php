@@ -74,7 +74,7 @@ final class FormService implements Service
      * @param \Ds\Component\Formio\Query\FormParameters $parameters
      * @return \Ds\Component\Formio\Model\Form
      */
-    public function get(string $id, Parameters $parameters = null): Form
+    public function get(?string $id, Parameters $parameters = null): Form
     {
         if (null !== $id) {
             $resource = str_replace('{id}', $id, static::RESOURCE_OBJECT);
