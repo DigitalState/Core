@@ -12,7 +12,7 @@ trait State
     use Accessor\State;
 
     /**
-     * @var string
+     * @var integer
      */
     private $state;
 }

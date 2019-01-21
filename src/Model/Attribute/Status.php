@@ -12,7 +12,7 @@ trait Status
     use Accessor\Status;
 
     /**
-     * @var string
+     * @var integer
      */
     private $status;
 }
