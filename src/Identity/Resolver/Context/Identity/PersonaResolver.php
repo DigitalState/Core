@@ -75,7 +75,7 @@ final class PersonaResolver implements Resolver
         $matches = [];
 
         if (!$this->isMatch($variable, $matches)) {
-            throw new UnresolvedException('Variable pattern is not valid.');
+            throw new UnresolvedException('Variable pattern "'.$variable.'" is not valid.');
         }
 
         $token = $this->tokenStorage->getToken();

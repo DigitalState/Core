@@ -71,7 +71,7 @@ final class IdentityResolver implements Resolver
         $matches = [];
 
         if (!$this->isMatch($variable, $matches)) {
-            throw new UnresolvedException('Variable pattern is not valid.');
+            throw new UnresolvedException('Variable pattern "'.$variable.'" is not valid.');
         }
 
         $token = $this->tokenStorage->getToken();
@@ -104,7 +104,7 @@ final class IdentityResolver implements Resolver
         }
 
         if (!$model) {
-            throw new UnresolvedException('Variable pattern did not resolve to data.');
+            throw new UnresolvedException('Variable pattern "'.$variable.'" did not resolve to data.');
         }
 
         $property = $matches[1];
@@ -113,7 +113,7 @@ final class IdentityResolver implements Resolver
         try {
             $value = $accessor->getValue($model, $property);
         } catch (Exception $exception) {
-            throw new UnresolvedException('Variable pattern did not resolve to data.', 0, $exception);
+            throw new UnresolvedException('Variable pattern "'.$variable.'" did not resolve to data.', 0, $exception);
         }
 
         return $value;
