@@ -41,7 +41,7 @@ services:
 
   Ds\Component\Identity\Resolver\Context\Identity\PersonaResolver:
     tags:
-      - { name: ds_resolver.resolver, alias: ds.context.identity.persona }
+      - { name: ds_resolver.resolver, alias: ds.context.identity.persona, priority: -1 }
 
   Ds\Component\Identity\Voter\:
     resource: ../../Voter

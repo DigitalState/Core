@@ -21,20 +21,32 @@ final class ResolverPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(ResolverCollection::class)) {
-            return;
-        }
-
         $definition = $container->findDefinition(ResolverCollection::class);
         $services = $container->findTaggedServiceIds('ds_resolver.resolver');
+        $items = [];
 
         foreach ($services as $id => $tags) {
             foreach ($tags as $tag) {
-                if (array_key_exists('alias', $tag)) {
-                    $definition->addMethodCall('set', [ $tag['alias'], new Reference($id) ]);
-                } else {
-                    $definition->addMethodCall('add', [ new Reference($id) ]);
-                }
+                $items[] = [
+                    'id' => $id,
+                    'priority' => array_key_exists('priority', $tag) ? $tag['priority'] : 0,
+                    'alias' => array_key_exists('alias', $tag) ? $tag['alias'] : null
+                ];
+            }
+        }
+
+        usort($items, function($a, $b) {
+            return
+                $a['priority'] === $b['priority'] ? 0
+                    : $a['priority'] < $b['priority'] ? -1
+                    : 1;
+        });
+
+        foreach ($items as $item) {
+            if (null !== $item['alias']) {
+                $definition->addMethodCall('set', [$item['alias'], new Reference($item['id'])]);
+            } else {
+                $definition->addMethodCall('add', [new Reference($item['id'])]);
             }
         }
     }
