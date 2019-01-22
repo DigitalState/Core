@@ -120,6 +120,12 @@ final class PersonaResolver implements Resolver
         $property = $matches[1];
         $accessor = PropertyAccess::createPropertyAccessor();
 
+        // @todo look at removing this and standardizing arrays and objects globally
+        if (preg_match('/^data\./', $property)) {
+            $model = json_decode(json_encode($model->getData()), false);
+            $property = substr($property, 5);
+        }
+
         try {
             $value = $accessor->getValue($model, $property);
         } catch (Exception $exception) {

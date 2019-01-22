@@ -100,7 +100,7 @@ final class IdentityResolver implements Resolver
                 break;
 
             default:
-                throw new DomainException('User identity is not valid.');
+                throw new DomainException('User identity "'.$identity->getType().'" is not valid.');
         }
 
         if (!$model) {
