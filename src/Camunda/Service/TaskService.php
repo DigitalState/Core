@@ -154,10 +154,16 @@ final class TaskService implements Service
 
         foreach ($variables as $variable) {
             // @todo Standardize variable toObject logic (see ProcessInstanceService::start)
-            $options['json']['variables'][$variable->getName()] = [
-                'value' => Variable::TYPE_JSON === $variable->getType() ? json_encode($variable->getValue()) : $variable->getValue(),
-                'type' => $variable->getType()
-            ];
+            if (Variable::TYPE_JSON === $variable->getType()) {
+                $options['json']['variables'][$variable->getName()] = [
+                    'value' => $variable->getValue()
+                ];
+            } else {
+                $options['json']['variables'][$variable->getName()] = [
+                    'value' => $variable->getValue(),
+                    'type' => $variable->getType()
+                ];
+            }
         }
 
         $this->execute('POST', $resource, $options);
