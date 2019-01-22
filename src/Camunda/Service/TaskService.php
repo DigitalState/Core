@@ -16,7 +16,9 @@ use stdClass;
  */
 final class TaskService implements Service
 {
-    use Base;
+    use Base {
+        toModel as protected baseToModel;
+    }
 
     /**
      * @const string
@@ -208,7 +210,7 @@ final class TaskService implements Service
      */
     public static function toModel(stdClass $object)
     {
-        $model = parent::toModel($object);
+        $model = static::baseToModel($object);
 
         // @todo Parse everything that is embedded
         if (isset($object->_embedded->identityLink)) {
