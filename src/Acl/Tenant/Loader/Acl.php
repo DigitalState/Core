@@ -49,6 +49,8 @@ trait Acl
                 $permission = $this->permissionService->createInstance();
                 $permission
                     ->setScope($subObject->scope)
+                    ->setEntity($subObject->entity)
+                    ->setEntityUuid($subObject->entity_uuid)
                     ->setKey($subObject->key)
                     ->setAttributes($subObject->attributes)
                     ->setTenant($object->tenant);
