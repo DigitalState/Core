@@ -5,6 +5,7 @@ namespace Ds\Component\Translation\Service;
 use Doctrine\Common\Annotations\Reader;
 use Ds\Component\Translation\Model\Annotation\Translate;
 use Ds\Component\Translation\Model\Type\Translatable;
+use Ds\Component\Translation\Model\Type\Translation;
 use ReflectionObject;
 
 /**
@@ -30,7 +31,7 @@ final class TranslationService
     }
 
     /**
-     * Translate model
+     * Translate translatable properties
      *
      * @param \Ds\Component\Translation\Model\Type\Translatable $model
      */
@@ -49,6 +50,44 @@ final class TranslationService
 
             $model->$set($values);
         }
+    }
+
+    public function aggregate(Translation $model)
+    {
+        $translatable = $model->getTranslatable();
+        $properties = $this->getProperties($translatable);
+
+        foreach ($properties as $property) {
+            $get = 'get'.$property->getName();
+            $set = 'set'.$property->getName();
+            $values = $translatable->$get();
+            $values[$model->getLocale()] = $model->$get();
+            $translatable->$set($values);
+        }
+    }
+
+    /**
+     * Transfer translatable properties to translations
+     *
+     * @param \Ds\Component\Translation\Model\Type\Translatable $model
+     */
+    public function transfer(Translatable $model)
+    {
+        $properties = $this->getProperties($model);
+
+        foreach ($properties as $property) {
+            $get = 'get'.$property->getName();
+            $set = 'set'.$property->getName();
+            $values = $model->$get();
+
+            if (null !== $values) {
+                foreach ($values as $locale => $value) {
+                    $model->translate($locale, false)->$set($value);
+                }
+            }
+        }
+
+        $model->mergeNewTranslations();
     }
 
     /**

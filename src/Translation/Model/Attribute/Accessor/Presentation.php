@@ -17,15 +17,6 @@ trait Presentation
      */
     public function setPresentation(array $presentation)
     {
-        foreach ($this->getTranslations() as $translation) {
-            $translation->setPresentation(null);
-        }
-
-        foreach ($presentation as $locale => $value) {
-            $this->translate($locale, false)->setPresentation($value);
-        }
-
-        $this->mergeNewTranslations();
         $this->presentation = $presentation;
 
         return $this;

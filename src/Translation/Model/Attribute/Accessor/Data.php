@@ -17,15 +17,6 @@ trait Data
      */
     public function setData(array $data)
     {
-        foreach ($this->getTranslations() as $translation) {
-            $translation->setData([]);
-        }
-
-        foreach ($data as $locale => $value) {
-            $this->translate($locale, false)->setData($value);
-        }
-
-        $this->mergeNewTranslations();
         $this->data = $data;
 
         return $this;

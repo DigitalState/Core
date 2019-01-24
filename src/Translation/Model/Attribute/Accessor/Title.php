@@ -17,15 +17,6 @@ trait Title
      */
     public function setTitle(array $title)
     {
-        foreach ($this->getTranslations() as $translation) {
-            $translation->setTitle(null);
-        }
-
-        foreach ($title as $locale => $value) {
-            $this->translate($locale, false)->setTitle($value);
-        }
-
-        $this->mergeNewTranslations();
         $this->title = $title;
 
         return $this;

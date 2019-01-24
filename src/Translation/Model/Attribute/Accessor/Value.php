@@ -17,15 +17,6 @@ trait Value
      */
     public function setValue(array $value)
     {
-        foreach ($this->getTranslations() as $translation) {
-            $translation->setValue(null);
-        }
-
-        foreach ($value as $locale => $v) {
-            $this->translate($locale, false)->setValue($v);
-        }
-
-        $this->mergeNewTranslations();
         $this->value = $value;
 
         return $this;

@@ -17,15 +17,6 @@ trait Description
      */
     public function setDescription(array $description)
     {
-        foreach ($this->getTranslations() as $translation) {
-            $translation->setDescription(null);
-        }
-
-        foreach ($description as $locale => $value) {
-            $this->translate($locale, false)->setDescription($value);
-        }
-
-        $this->mergeNewTranslations();
         $this->description = $description;
 
         return $this;
