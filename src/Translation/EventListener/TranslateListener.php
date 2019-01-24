@@ -3,7 +3,6 @@
 namespace Ds\Component\Translation\EventListener;
 
 use ApiPlatform\Core\DataProvider\PaginatorInterface as Paginator;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ds\Component\Translation\Model\Type\Translatable;
 use Ds\Component\Translation\Service\TranslationService;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -48,10 +47,6 @@ final class TranslateListener
             return;
         }
 
-        if ('post' !== $request->attributes->get('_api_collection_operation_name') && 'put' !== $request->attributes->get('_api_item_operation_name')) {
-            return;
-        }
-
         $data = $request->attributes->get('data');
 
         if ($data instanceof Paginator || is_array($data)) {
@@ -62,22 +57,4 @@ final class TranslateListener
             $this->translationService->translate($data);
         }
     }
-
-    /**
-     * Transfer translations from source to properties after retrieving them from storage
-     *
-     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
-     */
-    public function postLoad(LifecycleEventArgs $args)
-    {
-        $entity = $args->getEntity();
-
-        if (!$entity instanceof Translatable) {
-            return;
-        }
-
-        $this->translationService->translate($entity);
-    }
-
-
 }
