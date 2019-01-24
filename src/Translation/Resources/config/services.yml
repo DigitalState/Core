@@ -30,6 +30,8 @@ services:
 
   Ds\Component\Translation\EventListener\TranslateListener:
     tags:
+      - { name: doctrine.event_listener, event: prePersist }
+      - { name: doctrine.event_listener, event: preUpdate }
       - { name: doctrine.event_listener, event: postLoad }
       - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 2 }
 

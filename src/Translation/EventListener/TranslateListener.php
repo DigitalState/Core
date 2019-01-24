@@ -4,6 +4,7 @@ namespace Ds\Component\Translation\EventListener;
 
 use ApiPlatform\Core\DataProvider\PaginatorInterface as Paginator;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Ds\Component\Translation\Model\Type\Translatable;
 use Ds\Component\Translation\Model\Type\Translation;
 use Ds\Component\Translation\Service\TranslationService;
@@ -49,24 +50,46 @@ final class TranslateListener
             return;
         }
 
+        $model = $request->attributes->get('data');
+
         if ('post' === $request->attributes->get('_api_collection_operation_name')) {
-            $model = $request->attributes->get('data');
             $this->translationService->transfer($model);
         } else if ('put' === $request->attributes->get('_api_item_operation_name')) {
-            $model = $request->attributes->get('data');
             $this->translationService->transfer($model);
             $this->translationService->translate($model);
-        } else if ('get' === $request->attributes->get('_api_collection_operation_name') || 'get' === $request->attributes->get('_api_item_operation_name')) {
-            $models = $request->attributes->get('data');
-
-            if ($models instanceof Paginator || is_array($models)) {
-                foreach ($models as $model) {
-                    $this->translationService->translate($model);
-                }
-            } else {
-                $this->translationService->translate($models);
-            }
         }
+    }
+
+    /**
+     * Generate a custom id before persisting the entity, if none provided
+     *
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
+     */
+    public function prePersist(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+
+        if (!$entity instanceof Translatable) {
+            return;
+        }
+
+        $this->translationService->transfer($entity);
+    }
+
+    /**
+     * Encrypt encryptable entity properties before saving in storage.
+     *
+     * @param \Doctrine\ORM\Event\PreUpdateEventArgs $args
+     */
+    public function preUpdate(PreUpdateEventArgs $args)
+    {
+        $entity = $args->getEntity();
+
+        if (!$entity instanceof Translatable) {
+            return;
+        }
+
+        $this->translationService->transfer($entity);
     }
 
     /**
@@ -78,10 +101,10 @@ final class TranslateListener
     {
         $entity = $args->getEntity();
 
-        if (!$entity instanceof Translation) {
+        if (!$entity instanceof Translatable) {
             return;
         }
 
-//        $this->translationService->aggregate($entity);
+        $this->translationService->translate($entity);
     }
 }
