@@ -14,7 +14,7 @@ services:
   ds_metadata.filter.metadata.search_translation:
     parent: Ds\Component\Translation\Doctrine\ORM\Filter\SearchFilter
     arguments:
-      - title: partial
+      - title: ipartial
     tags:
       - { name: api_platform.filter, id: ds_metadata.metadata.search_translation }
 
@@ -23,6 +23,7 @@ services:
     arguments:
       - createdAt: ~
         updatedAt: ~
+        deletedAt: ~
     tags:
       - { name: api_platform.filter, id: ds_metadata.metadata.date }
 
