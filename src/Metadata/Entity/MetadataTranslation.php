@@ -3,6 +3,7 @@
 namespace Ds\Component\Metadata\Entity;
 
 use Ds\Component\Model\Attribute\Accessor;
+use Ds\Component\Translation\Model\Type\Translation;
 use Knp\DoctrineBehaviors\Model as Behavior;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="ds_metadata_trans")
  */
-class MetadataTranslation
+class MetadataTranslation implements Translation
 {
     use Behavior\Translatable\Translation;
 
