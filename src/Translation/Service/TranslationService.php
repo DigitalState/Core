@@ -6,7 +6,7 @@ use Doctrine\Common\Annotations\Reader;
 use Ds\Component\Translation\Model\Annotation\Translate;
 use Ds\Component\Translation\Model\Type\Translatable;
 use Ds\Component\Translation\Model\Type\Translation;
-use ReflectionObject;
+use ReflectionClass;
 
 /**
  * Class TranslationService
@@ -98,8 +98,14 @@ final class TranslationService
      */
     public function getProperties(Translatable $model): array
     {
+        $class = get_class($model);
+
+        if (substr($class, 0, 15) === 'Proxies\\__CG__\\') {
+            $class = substr($class, 15);
+        }
+
         $properties = [];
-        $reflection = new ReflectionObject($model);
+        $reflection = new ReflectionClass($class);
 
         foreach ($reflection->getProperties() as $property) {
             $annotation = $this->annotationReader->getPropertyAnnotation($property, Translate::class);
