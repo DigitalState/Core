@@ -5,7 +5,7 @@ namespace Ds\Component\Locale\Service;
 use Doctrine\Common\Annotations\Reader;
 use Ds\Component\Locale\Model\Annotation\Locale;
 use Ds\Component\Locale\Model\Type\Localizable;
-use ReflectionObject;
+use ReflectionClass;
 
 /**
  * Class LocaleService
@@ -59,8 +59,14 @@ final class LocaleService
      */
     public function getProperties(Localizable $model): array
     {
+        $class = get_class($model);
+
+        if (substr($class, 0, 15) === 'Proxies\\__CG__\\') {
+            $class = substr($class, 15);
+        }
+
         $properties = [];
-        $reflection = new ReflectionObject($model);
+        $reflection = new ReflectionClass($class);
 
         foreach ($reflection->getProperties() as $property) {
             $annotation = $this->annotationReader->getPropertyAnnotation($property, Locale::class);
