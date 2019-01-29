@@ -229,16 +229,10 @@ final class ProcessDefinitionService implements Service
                 switch ($name) {
                     case 'variables':
                         foreach ($value as $variable) {
-                            if (Variable::TYPE_JSON === $variable->type) {
-                                $options['json'][$name][$variable->name] = [
-                                    'value' => $variable->value
-                                ];
-                            } else {
-                                $options['json'][$name][$variable->name] = [
-                                    'value' => $variable->value,
-                                    'type' => $variable->type
-                                ];
-                            }
+                            $options['json'][$name][$variable->name] = [
+                                'value' => Variable::TYPE_JSON === $variable->type ? json_encode($variable->value) : $variable->value,
+                                'type' => $variable->type
+                            ];
                         }
 
                         break;
