@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.15.0
+
+- Feature [Apip] Upgrade apip dependency to 2.3.6
+- Feature [Apip] Urls changed from dashes to underscores
+- Feature [Metadata] Metadata urls changed from `/metadatas` to `/metadata`
+
 ## 0.14.0 (2018-10-29)
 
 - Feature [Tenant] Convert tenant data to runtime-only data

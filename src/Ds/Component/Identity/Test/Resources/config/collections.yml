@@ -1,3 +1,0 @@
-services:
-  ds_identity_test.collection.user:
-    class: '%ds_identity_test.collection.user.class%'

@@ -1,5 +1,0 @@
-services:
-  ds_health.service.health:
-    class: '%ds_health.service.health.class%'
-    arguments:
-      - '@ds_health.collection.check'

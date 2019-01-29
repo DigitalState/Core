@@ -1,0 +1,39 @@
+services:
+  ds_metadata.filter.metadata.search:
+    parent: api_platform.doctrine.orm.search_filter
+    arguments:
+      - id: exact
+        uuid: exact
+        owner: exact
+        ownerUuid: exact
+        slug: exact
+        type: exact
+    tags:
+      - { name: api_platform.filter, id: ds_metadata.metadata.search }
+
+  ds_metadata.filter.metadata.search_translation:
+    parent: Ds\Component\Translation\Doctrine\ORM\Filter\SearchFilter
+    arguments:
+      - title: ipartial
+    tags:
+      - { name: api_platform.filter, id: ds_metadata.metadata.search_translation }
+
+  ds_metadata.filter.metadata.date:
+    parent: api_platform.doctrine.orm.date_filter
+    arguments:
+      - createdAt: ~
+        updatedAt: ~
+        deletedAt: ~
+    tags:
+      - { name: api_platform.filter, id: ds_metadata.metadata.date }
+
+  ds_metadata.filter.metadata.order:
+    parent: api_platform.doctrine.orm.order_filter
+    arguments:
+      - id: ~
+        createdAt: ~
+        updatedAt: ~
+        deletedAt: ~
+        owner: ~
+    tags:
+      - { name: api_platform.filter, id: ds_metadata.metadata.order }

@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Entity\:
+    resource: ../../{EventListener,Repository,Service}
+
+  Ds\Component\Entity\EventListener\:
+    resource: ../../EventListener
+    tags:
+      - { name: doctrine.event_listener, event: prePersist }

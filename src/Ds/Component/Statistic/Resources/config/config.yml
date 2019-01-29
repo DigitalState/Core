@@ -1,3 +1,0 @@
-ds_security:
-  permissions:
-    statistic: { attributes: [BROWSE, READ], generic: Statistic, title: ds.statistic.permissions.statistic }

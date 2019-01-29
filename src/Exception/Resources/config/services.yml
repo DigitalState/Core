@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Exception\:
+    resource: ../../{EventListener}
+
+  Ds\Component\Exception\EventListener\ExceptionListener:
+    arguments:
+      - '%kernel.environment%'
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception, method: kernelException }

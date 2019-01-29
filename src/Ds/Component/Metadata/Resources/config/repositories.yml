@@ -1,6 +1,0 @@
-services:
-  ds_metadata.repository.metadata:
-    class: '%ds_metadata.repository.metadata.class%'
-    factory: ['@doctrine.orm.default_entity_manager', getRepository]
-    arguments:
-      - '%ds_metadata.entity.metadata.class%'

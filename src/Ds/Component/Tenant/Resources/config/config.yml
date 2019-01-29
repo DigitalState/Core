@@ -1,3 +1,0 @@
-ds_config:
-  parameters:
-    - { key: ds_tenant.tenant.default,  encrypt: false,  title: ds.tenant.parameters.tenant.default }

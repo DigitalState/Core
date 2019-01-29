@@ -1,0 +1,4 @@
+ds_parameter:
+  parameters:
+    - { key: ds_system.user.username,  encrypt: false,  title: ds_system.parameters.user.username }
+    - { key: ds_system.user.password,  encrypt: true,   title: ds_system.parameters.user.password }

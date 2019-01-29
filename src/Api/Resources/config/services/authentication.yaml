@@ -1,0 +1,25 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Api\Service\Authentication\HealthService:
+    class: Ds\Component\Api\Service\HealthService
+    tags:
+      - { name: ds_api.service, alias: authentication.health }
+
+  Ds\Component\Api\Service\Authentication\ConfigService:
+    class: Ds\Component\Api\Service\ConfigService
+    tags:
+      - { name: ds_api.service, alias: authentication.config }
+
+  Ds\Component\Api\Service\Authentication\AccessService:
+    class: Ds\Component\Api\Service\AccessService
+    tags:
+      - { name: ds_api.service, alias: authentication.access }
+
+  Ds\Component\Api\Service\Authentication\UserService:
+    class: Ds\Component\Api\Service\UserService
+    tags:
+      - { name: ds_api.service, alias: authentication.user }

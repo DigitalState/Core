@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Security\Test\:
+    resource: ../../{Collection,Command}
+
+  Ds\Component\Security\Test\Collection\UserCollection:
+    public: true # Used by behat

@@ -1,0 +1,18 @@
+parameters:
+  ds_discovery.host: ''
+  ds_discovery.credential: ''
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Discovery\:
+    resource: ../../{Repository}
+
+  Ds\Component\Discovery\Repository\:
+    resource: ../../Repository
+    arguments:
+      - '%ds_discovery.host%'
+      - '%ds_discovery.credential%'

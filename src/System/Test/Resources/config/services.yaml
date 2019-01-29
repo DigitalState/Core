@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\System\Test\:
+    resource: ../../{Collection}
+
+  Ds\Component\System\Test\Collection\UserCollection:
+    public: true # Used by behat

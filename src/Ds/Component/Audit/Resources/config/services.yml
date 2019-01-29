@@ -1,6 +1,0 @@
-services:
-  ds_audit.service.audit:
-    class: '%ds_audit.service.audit.class%'
-    parent: ds_entity.service.entity
-    arguments:
-      - '@annotation_reader'

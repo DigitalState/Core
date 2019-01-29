@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Locale\:
+    resource: ../../{EventListener,Service}
+
+  Ds\Component\Locale\EventListener\LocaleListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.view, method: kernelView, priority: 17 }

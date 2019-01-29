@@ -1,2 +1,0 @@
-parameters:
-  ds_bpm.resolver.context.bpm.class: Ds\Component\Bpm\Resolver\Context\BpmResolver

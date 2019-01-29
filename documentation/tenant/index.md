@@ -8,3 +8,9 @@ It features global tenant filters, tenant data loaders, etc.
 
 - [Global Filters](filters.md)
 - [Loaders](loaders.md)
+- [Dependencies](#dependencies)
+
+## Dependencies
+
+- Model
+- Security

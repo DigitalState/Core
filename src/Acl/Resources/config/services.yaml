@@ -1,0 +1,72 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Acl\:
+    resource: ../../{Collection,Controller,Fixture,Repository,Service}
+
+  Ds\Component\Acl\Controller\:
+    resource: ../../Controller
+    tags: [controller.service_arguments]
+
+  Ds\Component\Acl\Doctrine\ORM\QueryExtension\EntityExtension:
+    tags:
+      - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
+
+  Ds\Component\Acl\EventListener\EntityListener:
+    arguments:
+      - '@security.token_storage'
+      - '@Ds\Component\Acl\Voter\EntityVoter'
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 1 }
+
+  Ds\Component\Acl\EventListener\ExceptionListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception, method: kernelException }
+
+  Ds\Component\Acl\EventListener\Entity\Access\PermissionsListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 4 }
+
+  Ds\Component\Acl\EventListener\Entity\Permission\ValueListener:
+    tags:
+      - { name: doctrine.orm.entity_listener, entity: Ds\Component\Acl\Entity\Permission, event: postLoad }
+
+  Ds\Component\Acl\Fixture\:
+    resource: ../../Fixture
+    tags: [doctrine.fixture.orm]
+
+  Ds\Component\Acl\Serializer\Normalizer\Property\JsonNormalizer:
+    decorates: api_platform.serializer.normalizer.item
+    arguments:
+      - '@Ds\Component\Acl\Serializer\Normalizer\Property\JsonNormalizer.inner'
+      - '@security.token_storage'
+      - '@Ds\Component\Acl\Voter\PropertyVoter'
+
+  Ds\Component\Acl\Serializer\Normalizer\Property\JsonLdNormalizer:
+    decorates: api_platform.jsonld.normalizer.item
+    arguments:
+      - '@Ds\Component\Acl\Serializer\Normalizer\Property\JsonLdNormalizer.inner'
+      - '@security.token_storage'
+      - '@Ds\Component\Acl\Voter\PropertyVoter'
+
+  Ds\Component\Acl\Repository\AccessRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - Ds\Component\Acl\Entity\Access
+
+  Ds\Component\Acl\Repository\PermissionRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - Ds\Component\Acl\Entity\Permission
+
+  Ds\Component\Acl\Tenant\Unloader\AclUnloader:
+    tags:
+      - { name: ds_tenant.unloader }
+
+  Ds\Component\Acl\Voter\:
+    resource: ../../Voter
+    tags:
+      - { name: security.voter }

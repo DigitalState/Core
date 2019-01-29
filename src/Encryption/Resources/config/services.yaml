@@ -1,0 +1,33 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Encryption\:
+    resource: ../../{EventListener,Service}
+
+  Ds\Component\Encryption\EventListener\Entity\Encryptable\PostFlushListener:
+    tags:
+      - { name: doctrine.event_listener, event: postFlush, priority: 1 }
+
+  Ds\Component\Encryption\EventListener\Entity\Encryptable\PostLoadListener:
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 1 }
+
+  Ds\Component\Encryption\EventListener\Entity\Encryptable\PostUpdateListener:
+    tags:
+      - { name: doctrine.event_listener, event: postUpdate, priority: 1 }
+
+  Ds\Component\Encryption\EventListener\Entity\Encryptable\PreFlushListener:
+    tags:
+      - { name: doctrine.event_listener, event: preFlush, priority: 0 }
+
+  Ds\Component\Encryption\EventListener\Entity\Encryptable\PreUpdateListener:
+    tags:
+      - { name: doctrine.event_listener, event: preUpdate, priority: 0 }
+
+  Ds\Component\Encryption\Service\CipherService:
+    public: true # Used by migrations
+    arguments:
+      - '%ds_encryption.encryption%'

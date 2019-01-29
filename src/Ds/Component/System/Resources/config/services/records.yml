@@ -1,6 +1,0 @@
-services:
-  ds_system.service.records.tenant:
-    parent: ds_system.service
-    class: '%ds_system.service.records.tenant.class%'
-    tags:
-      - { name: ds_system.service, alias: records.tenant }

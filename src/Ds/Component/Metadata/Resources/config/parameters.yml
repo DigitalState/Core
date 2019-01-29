@@ -1,4 +1,0 @@
-parameters:
-  ds_metadata.entity.metadata.class: Ds\Component\Metadata\Entity\Metadata
-  ds_metadata.repository.metadata.class: Ds\Component\Metadata\Repository\MetadataRepository
-  ds_metadata.service.metadata.class: Ds\Component\Metadata\Service\MetadataService

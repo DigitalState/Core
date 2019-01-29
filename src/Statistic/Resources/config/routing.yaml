@@ -1,0 +1,3 @@
+ds_statistic:
+  resource: '@DsStatisticBundle/Controller/'
+  type: annotation

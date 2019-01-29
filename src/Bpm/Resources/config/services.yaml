@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Bpm\:
+    resource: ../../{Resolver}
+
+  Ds\Component\Bpm\Resolver\Context\BpmResolver:
+    tags:
+      - { name: ds_resolver.resolver, alias: ds.context.bpm }

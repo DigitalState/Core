@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Statistic\:
+    resource: ../../{Collection,Controller,Service}
+
+  Ds\Component\Statistic\Controller\:
+    resource: ../../Controller
+    tags: [controller.service_arguments]

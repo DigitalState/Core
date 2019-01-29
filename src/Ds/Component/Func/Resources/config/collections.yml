@@ -1,3 +1,0 @@
-services:
-  ds_func.collection.check:
-    class: '%ds_func.collection.func.class%'

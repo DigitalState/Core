@@ -1,0 +1,65 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Api\Service\Identities\HealthService:
+    class: Ds\Component\Api\Service\HealthService
+    tags:
+      - { name: ds_api.service, alias: identities.health }
+
+  Ds\Component\Api\Service\Identities\ConfigService:
+    class: Ds\Component\Api\Service\ConfigService
+    tags:
+      - { name: ds_api.service, alias: identities.config }
+
+  Ds\Component\Api\Service\Identities\AccessService:
+    class: Ds\Component\Api\Service\AccessService
+    tags:
+      - { name: ds_api.service, alias: identities.access }
+
+  Ds\Component\Api\Service\Identities\AnonymousService:
+    class: Ds\Component\Api\Service\AnonymousService
+    tags:
+      - { name: ds_api.service, alias: identities.anonymous }
+
+  Ds\Component\Api\Service\Identities\AnonymousPersonaService:
+    class: Ds\Component\Api\Service\AnonymousPersonaService
+    tags:
+      - { name: ds_api.service, alias: identities.anonymous_persona }
+
+  Ds\Component\Api\Service\Identities\IndividualService:
+    class: Ds\Component\Api\Service\IndividualService
+    tags:
+      - { name: ds_api.service, alias: identities.individual }
+
+  Ds\Component\Api\Service\Identities\IndividualPersonaService:
+    class: Ds\Component\Api\Service\IndividualPersonaService
+    tags:
+      - { name: ds_api.service, alias: identities.individual_persona }
+
+  Ds\Component\Api\Service\Identities\OrganizationService:
+    class: Ds\Component\Api\Service\OrganizationService
+    tags:
+      - { name: ds_api.service, alias: identities.organization }
+
+  Ds\Component\Api\Service\Identities\OrganizationPersonaService:
+    class: Ds\Component\Api\Service\OrganizationPersonaService
+    tags:
+      - { name: ds_api.service, alias: identities.organization_persona }
+
+  Ds\Component\Api\Service\Identities\StaffService:
+    class: Ds\Component\Api\Service\StaffService
+    tags:
+      - { name: ds_api.service, alias: identities.staff }
+
+  Ds\Component\Api\Service\Identities\StaffPersonaService:
+    class: Ds\Component\Api\Service\StaffPersonaService
+    tags:
+      - { name: ds_api.service, alias: identities.staff_persona }
+
+  Ds\Component\Api\Service\Identities\SystemService:
+    class: Ds\Component\Api\Service\SystemService
+    tags:
+      - { name: ds_api.service, alias: identities.system }

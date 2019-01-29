@@ -1,0 +1,49 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Parameter\:
+    resource: ../../{Collection,Command,EventListener,Fixture,Repository,Service,Twig}
+
+  Ds\Component\Parameter\EventListener\Entity\Parameter\EncryptListener:
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 2 }
+      - { name: doctrine.event_listener, event: preUpdate, priority: 2 }
+      - { name: doctrine.event_listener, event: preFlush, priority: 2 }
+
+  Ds\Component\Parameter\EventListener\Entity\Parameter\Serializer\PostFlushListener:
+    tags:
+      - { name: doctrine.event_listener, event: postFlush, priority: 0 }
+
+  Ds\Component\Parameter\EventListener\Entity\Parameter\Serializer\PostLoadListener:
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 0 }
+
+  Ds\Component\Parameter\EventListener\Entity\Parameter\Serializer\PostUpdateListener:
+    tags:
+      - { name: doctrine.event_listener, event: postUpdate, priority: 0 }
+
+  Ds\Component\Parameter\EventListener\Entity\Parameter\Serializer\PreFlushListener:
+    tags:
+      - { name: doctrine.event_listener, event: preFlush, priority: 1 }
+
+  Ds\Component\Parameter\EventListener\Entity\Parameter\Serializer\PreUpdateListener:
+    tags:
+      - { name: doctrine.event_listener, event: preUpdate, priority: 1 }
+
+  Ds\Component\Parameter\Fixture\:
+    resource: ../../Fixture
+    tags: [doctrine.fixture.orm]
+
+  Ds\Component\Parameter\Repository\ParameterRepository:
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - Ds\Component\Parameter\Entity\Parameter
+
+  Ds\Component\Parameter\Service\ParameterService: ~
+
+  Ds\Component\Parameter\Twig\Extension\ParameterExtension:
+    tags:
+      - { name: twig.extension }

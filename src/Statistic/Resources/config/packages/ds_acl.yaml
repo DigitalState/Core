@@ -1,0 +1,3 @@
+ds_acl:
+  permissions:
+    statistic: { attributes: [BROWSE, READ], generic: Statistic, title: ds_statistic.permissions.statistic }

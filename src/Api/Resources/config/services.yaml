@@ -1,0 +1,41 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Api\:
+    resource: ../../{Api,Collection,Resolver,Service,Tenant}
+
+  Ds\Component\Api\Api\Api:
+    public: true # Used by camunda fixtures
+    arguments:
+      - '@Ds\Component\Api\Collection\ServiceCollection'
+      - '@Ds\Component\Discovery\Repository\ServiceRepository'
+      - '@Ds\Component\Config\Service\ConfigService'
+      - '%ds_api.namespace%'
+      - '%kernel.environment%'
+      - '@lexik_jwt_authentication.jwt_manager'
+
+  Ds\Component\Api\Resolver\ApiResolver:
+    tags:
+      - { name: ds_resolver.resolver, alias: ds_api }
+
+  Ds\Component\Api\Tenant\Loader\:
+    resource: ../../Tenant/Loader
+    tags:
+      - { name: ds_tenant.loader }
+
+imports:
+  - { resource: services/assets.yaml }
+  - { resource: services/authentication.yaml }
+  - { resource: services/cases.yaml }
+  - { resource: services/cms.yaml }
+  - { resource: services/formio.yaml }
+  - { resource: services/forms.yaml }
+  - { resource: services/identities.yaml }
+  - { resource: services/records.yaml }
+  - { resource: services/services.yaml }
+  - { resource: services/tasks.yaml }
+  - { resource: services/tenants.yaml }
+  - { resource: services/workflow.yaml }

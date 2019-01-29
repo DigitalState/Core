@@ -4,7 +4,10 @@ The resolver component provides a flexible framework to define data resolvers an
 
 ## Table of Contents
 
+- [Dependencies](#dependencies)
 - [Resolvers](#resolvers)
+
+## Dependencies
 
 ## Resolvers
 

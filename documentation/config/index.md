@@ -2,6 +2,9 @@
 
 ## Table of Contents
 
-- [Todo](#todo)
+- [Dependencies](#dependencies)
 
-## Todo
+## Dependencies
+
+- Database
+- Model

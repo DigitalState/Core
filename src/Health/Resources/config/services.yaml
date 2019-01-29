@@ -1,0 +1,20 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Health\:
+    resource: ../../{Check,Collection,Controller,Service}
+
+  Ds\Component\Health\Controller\:
+    resource: ../../Controller
+    tags: [controller.service_arguments]
+
+  Ds\Component\Health\Check\PingCheck:
+    tags:
+      - { name: ds_health.check, alias: ping }
+
+  Ds\Component\Health\Check\Database\ConnectionCheck:
+    tags:
+      - { name: ds_health.check, alias: database.connection }

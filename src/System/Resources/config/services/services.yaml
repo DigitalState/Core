@@ -1,0 +1,5 @@
+services:
+  Ds\Component\System\Service\Services\TenantService:
+    class: Ds\Component\System\Service\TenantService
+    tags:
+      - { name: ds_system.service, alias: services.tenant }
