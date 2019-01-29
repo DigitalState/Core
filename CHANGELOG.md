@@ -6,6 +6,14 @@
 - Feature [Apip] Urls changed from dashes to underscores
 - Feature [Metadata] Metadata urls changed from `/metadatas` to `/metadata`
 
+## 0.14.0 (2018-10-29)
+
+- Feature [Tenant] Convert tenant data to runtime-only data
+
+## 0.13.2 (2018-10-26)
+
+- Feature [System] Set system security encoders compatible with platform
+
 ## 0.13.0 (2018-10-17)
 
 - Feature [Security] Add compatibility to acl property serializer for non-secured entities
