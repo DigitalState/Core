@@ -198,12 +198,14 @@ final class FormService
                             break;
 
                         case property_exists($component, 'defaultValue'):
-                            try {
-                                $component->defaultValue = $resolverCollection->resolve($component->defaultValue);
-                            } catch (UnresolvedException $exception) {
-                                $component->defaultValue = null;
-                            } catch (UnmatchedException $exception) {
-                                // Leave default value as-is
+                            if (null !== $component->defaultValue) {
+                                try {
+                                    $component->defaultValue = $resolverCollection->resolve($component->defaultValue);
+                                } catch (UnresolvedException $exception) {
+                                    $component->defaultValue = null;
+                                } catch (UnmatchedException $exception) {
+                                    // Leave default value as-is
+                                }
                             }
 
                             break;
