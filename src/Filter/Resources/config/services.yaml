@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Filter\:
+    resource: ../../{EventListener}
+
+  Ds\Component\Filter\EventListener\ContentListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: kernelRequest, priority: 5 }
