@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ds\Component\Query\:
+    resource: ../../{Controller}
+
+  Ds\Component\Query\Controller\:
+    resource: ../../Controller
+    tags: [controller.service_arguments]
