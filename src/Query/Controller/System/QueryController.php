@@ -31,20 +31,21 @@ final class QueryController
     /**
      * Query endpoint
      *
-     * @Route(path="/system/query/{path}", methods={"POST"})
+     * @Route(path="/system/{entity}/query", methods={"POST"})
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $path
+     * @param string $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function post(Request $request, $path)
+    public function post(Request $request, $entity)
     {
         try {
-            $get = $this->client->get($request->getSchemeAndHttpHost().'/system/'.$path, [
+            $get = $this->client->get($request->getSchemeAndHttpHost().'/system/'.$entity, [
                 'headers' => [
                     'accept' => $request->headers->get('accept'),
                     'content-type' => $request->headers->get('content-type'),
                     'authorization' => $request->headers->get('authorization')
                 ],
+                'query' => $request->query->all(),
                 'body' => $request->getContent()
             ]);
         } catch (ClientException $exception) {

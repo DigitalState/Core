@@ -1,6 +1,19 @@
 # Changelog
 
-## 0.15.0
+## 0.16.2 (2019-04-29)
+
+- Feature [Query] Forward query string parameters
+- Feature [Query] Make `/query` path a suffix
+
+## 0.16.1 (2019-04-28)
+
+- Feature [Query] Add query component
+
+## 0.16.0 (2019-03-31)
+
+- Feature [Filter] Add filter component
+
+## 0.15.0 (2019-03-31)
 
 - Feature [Apip] Upgrade apip dependency to 2.3.6
 - Feature [Apip] Urls changed from dashes to underscores
