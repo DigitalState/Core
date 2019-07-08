@@ -28,10 +28,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *      attributes={
  *          "normalization_context"={
- *              "groups"={"access_output", "permission_output"}
+ *              "groups"={"access_output", "permission_output", "scope_output"}
  *          },
  *          "denormalization_context"={
- *              "groups"={"access_input", "permission_input"}
+ *              "groups"={"access_input", "permission_input", "scope_input"}
  *          },
  *          "filters"={
  *              "ds_acl.access.search",

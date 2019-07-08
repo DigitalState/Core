@@ -90,7 +90,7 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                 continue;
             }
 
-            switch ($permission->getScope()) {
+            switch ($permission->getScope()->getType()) {
                 case 'generic':
                     // This permission grants access to all entities of the class, no conditions need to be applied.
                     return;
@@ -102,7 +102,7 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                     }
 
                     $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_security_uuid_'.$i);
-                    $parameters['ds_security_uuid_'.$i] = $permission->getEntityUuid();
+                    $parameters['ds_security_uuid_'.$i] = $permission->getScope()->getEntityUuid();
                     $i++;
 
                     break;
@@ -120,7 +120,7 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                         'App\\Entity\\Staff'
                     ])) {
                         $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_security_identity_'.$i);
-                        $parameters['ds_security_identity_'.$i] = $permission->getEntity();
+                        $parameters['ds_security_identity_'.$i] = $permission->getScope()->getEntity();
                     } else if (in_array($resourceClass, [
                         'App\\Entity\\AnonymousPersona',
                         'App\\Entity\\IndividualPersona',
@@ -138,14 +138,14 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                                 ->where($alias.'.uuid = :ds_security_identity_uuid_'.$i)
                                 ->getDQL()
                         );
-                        $parameters['ds_security_identity_uuid_'.$i] = $permission->getEntityUuid();
+                        $parameters['ds_security_identity_uuid_'.$i] = $permission->getScope()->getEntityUuid();
                     } else {
                         $conditions[] = $queryBuilder->expr()->andX(
                             $queryBuilder->expr()->eq($rootAlias.'.identity', ':ds_security_identity_'.$i),
                             $queryBuilder->expr()->eq($rootAlias.'.identityUuid', ':ds_security_identity_uuid_'.$i)
                         );
-                        $parameters['ds_security_identity_'.$i] = $permission->getEntity();
-                        $parameters['ds_security_identity_uuid_'.$i] = $permission->getEntityUuid();
+                        $parameters['ds_security_identity_'.$i] = $permission->getScope()->getEntity();
+                        $parameters['ds_security_identity_uuid_'.$i] = $permission->getScope()->getEntityUuid();
                     }
 
                     $i++;
@@ -158,16 +158,16 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                         continue;
                     }
 
-                    if (null === $permission->getEntityUuid()) {
+                    if (null === $permission->getScope()->getEntityUuid()) {
                         $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.owner', ':ds_security_owner_'.$i);
-                        $parameters['ds_security_owner_'.$i] = $permission->getEntity();
+                        $parameters['ds_security_owner_'.$i] = $permission->getScope()->getEntity();
                     } else {
                         $conditions[] = $queryBuilder->expr()->andX(
                             $queryBuilder->expr()->eq($rootAlias.'.owner', ':ds_security_owner_'.$i),
                             $queryBuilder->expr()->eq($rootAlias.'.ownerUuid', ':ds_security_owner_uuid_'.$i)
                         );
-                        $parameters['ds_security_owner_'.$i] = $permission->getEntity();
-                        $parameters['ds_security_owner_uuid_'.$i] = $permission->getEntityUuid();
+                        $parameters['ds_security_owner_'.$i] = $permission->getScope()->getEntity();
+                        $parameters['ds_security_owner_uuid_'.$i] = $permission->getScope()->getEntityUuid();
                     }
 
                     $i++;

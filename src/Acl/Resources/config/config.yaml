@@ -1,7 +1,5 @@
 ds_acl:
-  entities:
-    - Ds\Component\Acl\Entity\Access
-    - Ds\Component\Acl\Entity\Permission
+  entities: []
   permissions:
     generic:               { attributes: [BROWSE, READ, EDIT, ADD, DELETE, EXECUTE], generic:  '*',                                            title: ds_access.permissions.generic               }
     entity:                { attributes: [BROWSE, READ, EDIT, ADD, DELETE],          entity:   '*',                                            title: ds_access.permissions.entity                }

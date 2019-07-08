@@ -26,22 +26,13 @@ class Permission implements Identifiable, Tenantable
     use Accessor\Id;
     use Accessor\Entity;
     use Accessor\EntityUuid;
-    use Accessor\Scope;
+    use EntityAccessor\Scope;
     use EntityAccessor\Access;
     use Accessor\Key;
     use Accessor\Type;
     use Accessor\Value;
     use Accessor\Attributes;
     use TenantAccessor\Tenant;
-
-    /**
-     * @const string
-     */
-    const SCOPE_GENERIC = 'generic';
-    const SCOPE_OBJECT = 'object';
-    const SCOPE_IDENTITY = 'identity';
-    const SCOPE_OWNER = 'owner';
-    const SCOPE_SESSION = 'session';
 
     /**
      * @var integer
@@ -62,27 +53,9 @@ class Permission implements Identifiable, Tenantable
     /**
      * @var string
      * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Column(name="scope", type="string", length=255, nullable=true)
-     * @Assert\NotBlank
-     * @Assert\Length(min=1, max=255)
+     * @ORM\Embedded(class="Scope")
      */
     private $scope;
-
-    /**
-     * @var string
-     * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Column(name="entity", type="string", length=255, nullable=true)
-     * @Assert\Length(min=1, max=255)
-     */
-    private $entity;
-
-    /**
-     * @var string
-     * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Column(name="entity_uuid", type="guid", nullable=true)
-     * @Assert\Uuid
-     */
-    private $entityUuid;
 
     /**
      * @var string

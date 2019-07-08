@@ -112,7 +112,7 @@ final class PropertyVoter extends Voter
                 continue;
             }
 
-            switch ($permission->getScope()) {
+            switch ($permission->getScope()->getType()) {
                 case 'generic':
                     // Nothing to specifically validate.
                     break;
@@ -123,7 +123,7 @@ final class PropertyVoter extends Voter
                         continue;
                     }
 
-                    if ($permission->getEntityUuid() !== $subject->getUuid()) {
+                    if ($permission->getScope()->getEntityUuid() !== $subject->getUuid()) {
                         // Skip permissions that do not match the subject entity uuid.
                         continue;
                     }
@@ -136,15 +136,15 @@ final class PropertyVoter extends Voter
                         continue;
                     }
 
-                    if (null !== $permission->getEntity()) {
-                        if ($permission->getEntity() !== $subject[0]->getIdentity()) {
+                    if (null !== $permission->getScope()->getEntity()) {
+                        if ($permission->getScope()->getEntity() !== $subject[0]->getIdentity()) {
                             // Skip permissions that do not match the subject entity identity.
                             continue;
                         }
                     }
 
-                    if (null !== $permission->getEntityUuid()) {
-                        if ($permission->getEntityUuid() !== $subject[0]->getIdentityUuid()) {
+                    if (null !== $permission->getScope()->getEntityUuid()) {
+                        if ($permission->getScope()->getEntityUuid() !== $subject[0]->getIdentityUuid()) {
                             // Skip permissions that do not match the subject entity identity uuid.
                             continue;
                         }
@@ -158,15 +158,15 @@ final class PropertyVoter extends Voter
                         continue;
                     }
 
-                    if (null !== $permission->getEntity()) {
-                        if ($permission->getEntity() !== $subject[0]->getOwner()) {
+                    if (null !== $permission->getScope()->getEntity()) {
+                        if ($permission->getScope()->getEntity() !== $subject[0]->getOwner()) {
                             // Skip permissions that do not match the subject entity owner.
                             continue;
                         }
                     }
 
-                    if (null !== $permission->getEntityUuid()) {
-                        if ($permission->getEntityUuid() !== $subject[0]->getOwnerUuid()) {
+                    if (null !== $permission->getScope()->getEntityUuid()) {
+                        if ($permission->getScope()->getEntityUuid() !== $subject[0]->getOwnerUuid()) {
                             // Skip permissions that do not match the subject entity owner uuid.
                             continue;
                         }
