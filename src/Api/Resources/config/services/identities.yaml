@@ -29,6 +29,11 @@ services:
     tags:
       - { name: ds_api.service, alias: identities.anonymous_persona }
 
+  Ds\Component\Api\Service\Identities\AnonymousRoleService:
+    class: Ds\Component\Api\Service\AnonymousRoleService
+    tags:
+      - { name: ds_api.service, alias: identities.anonymous_role }
+
   Ds\Component\Api\Service\Identities\IndividualService:
     class: Ds\Component\Api\Service\IndividualService
     tags:
@@ -38,6 +43,11 @@ services:
     class: Ds\Component\Api\Service\IndividualPersonaService
     tags:
       - { name: ds_api.service, alias: identities.individual_persona }
+
+  Ds\Component\Api\Service\Identities\IndividualRoleService:
+    class: Ds\Component\Api\Service\IndividualRoleService
+    tags:
+      - { name: ds_api.service, alias: identities.individual_role }
 
   Ds\Component\Api\Service\Identities\OrganizationService:
     class: Ds\Component\Api\Service\OrganizationService
@@ -49,6 +59,11 @@ services:
     tags:
       - { name: ds_api.service, alias: identities.organization_persona }
 
+  Ds\Component\Api\Service\Identities\OrganizationRoleService:
+    class: Ds\Component\Api\Service\OrganizationRoleService
+    tags:
+      - { name: ds_api.service, alias: identities.organization_role }
+
   Ds\Component\Api\Service\Identities\StaffService:
     class: Ds\Component\Api\Service\StaffService
     tags:
@@ -59,7 +74,17 @@ services:
     tags:
       - { name: ds_api.service, alias: identities.staff_persona }
 
+  Ds\Component\Api\Service\Identities\StaffRoleService:
+    class: Ds\Component\Api\Service\StaffRoleService
+    tags:
+      - { name: ds_api.service, alias: identities.staff_role }
+
   Ds\Component\Api\Service\Identities\SystemService:
     class: Ds\Component\Api\Service\SystemService
     tags:
       - { name: ds_api.service, alias: identities.system }
+
+  Ds\Component\Api\Service\Identities\SystemRoleService:
+    class: Ds\Component\Api\Service\SystemRoleService
+    tags:
+      - { name: ds_api.service, alias: identities.system_role }
