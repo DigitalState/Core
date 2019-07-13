@@ -61,14 +61,32 @@ final class AccessService extends EntityService
         }
 
         // Roles permissions
+        $roles = $user->getIdentity()->getRoles();
+
         $accesses = $this->repository->findBy([
             'assignee' => 'Role',
-            'assigneeUuid' => $user->getIdentity()->getRoles()
+            'assigneeUuid' => array_keys($roles)
         ]);
 
         foreach ($accesses as $access) {
+            $role = $access->getAssigneeUuid();
+
             foreach ($access->getPermissions() as $permission) {
-                $permissions->add($permission);
+                $scope = $permission->getScope();
+
+                if ('*' === $scope->getEntityUuid()) {
+                    if ('owner' === $scope->getType() && 'BusinessUnit' === $scope->getEntity()) {
+                        foreach ($roles[$role] as $businessUnit) {
+                            $clone = clone $permission;
+                            $clone->setEntityUuid($businessUnit);
+                            $permissions->add($clone);
+                        }
+                    } else {
+
+                    }
+                } else {
+                    $permissions->add($permission);
+                }
             }
         }
 
