@@ -21,7 +21,7 @@ final class User implements UserInterface, JWTUserInterface
         $uuid = $payload['uuid'] ?? null;
         $roles = $payload['roles'] ?? [];
         $identity = new Identity;
-        $identity->setRoles($payload['identity']->roles ?? []);
+        $identity->setRoles((array) $payload['identity']->roles ?? []);
         $identity->setType($payload['identity']->type ?? null);
         $identity->setUuid($payload['identity']->uuid ?? null);
         $tenant = $payload['tenant'] ?? null;
