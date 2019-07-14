@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.0 (2019-07-14)
+
+- Feature [Acl] Restructure acl scope
+- Feature [Acl] Enable dynamic permissions related to identity business unit subscriptions
+- Feature [Acl] Optimize acl compilation
+
 ## 0.16.2 (2019-04-29)
 
 - Feature [Query] Forward query string parameters
