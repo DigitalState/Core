@@ -135,7 +135,7 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Assignable, Versi
      * @var \Doctrine\Common\Collections\ArrayCollection
      * @ApiProperty
      * @Serializer\Groups({"access_output", "access_input"})
-     * @ORM\OneToMany(targetEntity="Permission", mappedBy="access", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Permission", mappedBy="access", cascade={"persist", "remove"}, fetch="EAGER")
      * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      * @Assert\Valid
      */
