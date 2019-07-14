@@ -80,7 +80,7 @@ final class GenericVoter extends Voter
         }
 
         $subject = $this->permissionCollection->get($subject);
-        $permissions = $this->accessService->getPermissions($user);
+        $permissions = $this->accessService->getPermissions($user, true);
 
         foreach ($permissions as $permission) {
             if (Permission::GENERIC !== $permission->getType()) {

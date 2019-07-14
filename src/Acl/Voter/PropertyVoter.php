@@ -98,7 +98,7 @@ final class PropertyVoter extends Voter
             return false;
         }
 
-        $permissions = $this->accessService->getPermissions($user);
+        $permissions = $this->accessService->getPermissions($user, true);
 
         foreach ($permissions as $permission) {
             if (Permission::PROPERTY !== $permission->getType()) {

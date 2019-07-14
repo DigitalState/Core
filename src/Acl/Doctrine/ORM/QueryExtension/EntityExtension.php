@@ -67,7 +67,7 @@ final class EntityExtension implements QueryCollectionExtensionInterface
         }
 
         $user = $token->getUser();
-        $permissions = $this->accessService->getPermissions($user);
+        $permissions = $this->accessService->getPermissions($user, true);
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $conditions = [];
         $parameters = [];

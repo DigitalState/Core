@@ -44,7 +44,7 @@ class Permission implements Identifiable, Tenantable
 
     /**
      * @var \Ds\Component\Acl\Entity\Access
-     * @ORM\ManyToOne(targetEntity="Access", inversedBy="permissions")
+     * @ORM\ManyToOne(targetEntity="Access", inversedBy="permissions", fetch="EAGER")
      * @ORM\JoinColumn(name="access_id", referencedColumnName="id")
      * @Assert\Valid
      */
