@@ -34,8 +34,6 @@ final class PermissionService implements Service
         'createdAt',
         'updatedAt',
         'scope',
-        'entity',
-        'entityUuid',
         'key',
         'attributes'
     ];

@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Acl\Tenant\Loader;
 
+use Ds\Component\Acl\Entity\Scope;
 use Ds\Component\Database\Util\Objects;
 use Ds\Component\Tenant\Entity\Tenant;
 
@@ -46,11 +47,14 @@ trait Acl
                 ->setTenant($object->tenant);
 
             foreach ($object->permissions as $subObject) {
+                $scope = new Scope;
+                $scope
+                    ->setType($subObject->scope->type ?? null)
+                    ->setEntity($subObject->scope->entity ?? null)
+                    ->setEntityUuid($subObject->scope->entity_uuid ?? null);
                 $permission = $this->permissionService->createInstance();
                 $permission
-                    ->setScope($subObject->scope)
-                    ->setEntity($subObject->entity)
-                    ->setEntityUuid($subObject->entity_uuid)
+                    ->setScope($scope)
                     ->setKey($subObject->key)
                     ->setAttributes($subObject->attributes)
                     ->setTenant($object->tenant);

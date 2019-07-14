@@ -4,6 +4,11 @@ namespace Ds\Component\Security\EventListener\Token\Identity;
 
 use DomainException;
 use Ds\Component\Api\Api\Api;
+use Ds\Component\Api\Query\AnonymousRoleParameters;
+use Ds\Component\Api\Query\IndividualRoleParameters;
+use Ds\Component\Api\Query\OrganizationRoleParameters;
+use Ds\Component\Api\Query\StaffRoleParameters;
+use Ds\Component\Api\Query\SystemRoleParameters;
 use Ds\Component\Security\Model\Identity;
 use Ds\Component\Security\Model\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
@@ -64,32 +69,46 @@ final class RolesListener
             if (null !== $user->getIdentityUuid()) {
                 switch ($user->getIdentity()) {
                     case Identity::ANONYMOUS:
-                        $identity = $this->api->get('identities.anonymous')->get($user->getIdentityUuid());
+                        $parameters = new AnonymousRoleParameters;
+                        $parameters->setAnonymousUuid($user->getIdentityUuid());
+                        $identityRoles = $this->api->get('identities.anonymous_role')->getList($parameters);
                         break;
 
                     case Identity::INDIVIDUAL:
-                        $identity = $this->api->get('identities.individual')->get($user->getIdentityUuid());
+                        $parameters = new IndividualRoleParameters;
+                        $parameters->setIndividualUuid($user->getIdentityUuid());
+                        $identityRoles = $this->api->get('identities.individual_role')->getList($parameters);
                         break;
 
                     case Identity::ORGANIZATION:
-                        $identity = $this->api->get('identities.organization')->get($user->getIdentityUuid());
+                        $parameters = new OrganizationRoleParameters;
+                        $parameters->setOrganizationUuid($user->getIdentityUuid());
+                        $identityRoles = $this->api->get('identities.organization_role')->getList($parameters);
                         break;
 
                     case Identity::STAFF:
-                        $identity = $this->api->get('identities.staff')->get($user->getIdentityUuid());
+                        $parameters = new StaffRoleParameters;
+                        $parameters->setStaffUuid($user->getIdentityUuid());
+                        $identityRoles = $this->api->get('identities.staff_role')->getList($parameters);
                         break;
 
                     case Identity::SYSTEM:
-                        $identity = $this->api->get('identities.system')->get($user->getIdentityUuid());
+                        $parameters = new SystemRoleParameters;
+                        $parameters->setSystemUuid($user->getIdentityUuid());
+                        $identityRoles = $this->api->get('identities.system_role')->getList($parameters);
                         break;
 
                     default:
                         throw new DomainException('User identity is not valid.');
                 }
 
-                foreach ($identity->getRoles() as $role) {
-                    // @todo Remove substr once we remove iri-based api foreign keys
-                    $roles[] = substr($role, -36);
+                foreach ($identityRoles as $identityRole) {
+                    $role = $identityRole->getRole()->getUuid();
+                    $roles[$role] = [];
+
+                    foreach ($identityRole->getBusinessUnits() as $businessUnit) {
+                        $roles[$role][] = $businessUnit->getUuid();
+                    }
                 }
             }
         }

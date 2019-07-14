@@ -3,7 +3,14 @@
 namespace Ds\Component\Api\Service;
 
 use DateTime;
+use Ds\Component\Api\Model\Anonymous;
+use Ds\Component\Api\Model\BusinessUnit;
+use Ds\Component\Api\Model\Individual;
 use Ds\Component\Api\Model\Model;
+use Ds\Component\Api\Model\Organization;
+use Ds\Component\Api\Model\Role;
+use Ds\Component\Api\Model\Staff;
+use Ds\Component\Api\Model\System;
 use GuzzleHttp\Client;
 use InvalidArgumentException;
 use LogicException;
@@ -43,20 +50,62 @@ trait Base
                     case 'createdAt':
                     case 'updatedAt':
                     case 'lastLogin':
-                        $model->{'set'.ucfirst($local)}(new DateTime($object->$remote));
+                        $value = new DateTime($object->$remote);
+                        $model->{'set'.ucfirst($local)}($value);
                         break;
 
                     case 'data':
                     case 'title':
-                        $model->{'set'.ucfirst($local)}((array) $object->$remote);
+                        $values = (array) $object->$remote;
+                        $model->{'set'.ucfirst($local)}($values);
+                        break;
+
+                    case 'anonymous':
+                        $value = new Anonymous;
+                        $value->setUuid(substr($object->$remote, 13));
+                        $model->{'set'.ucfirst($local)}($value);
                         break;
 
                     case 'individual':
-                        // @todo reverse load for relationships
+                        $value = new Individual;
+                        $value->setUuid(substr($object->$remote, 13));
+                        $model->{'set'.ucfirst($local)}($value);
                         break;
 
                     case 'organization':
-                        // @todo reverse load for relationships
+                        $value = new Organization;
+                        $value->setUuid(substr($object->$remote, 15));
+                        $model->{'set'.ucfirst($local)}($value);
+                        break;
+
+                    case 'staff':
+                        $value = new Staff;
+                        $value->setUuid(substr($object->$remote, 8));
+                        $model->{'set'.ucfirst($local)}($value);
+                        break;
+
+                    case 'system':
+                        $value = new System;
+                        $value->setUuid(substr($object->$remote, 9));
+                        $model->{'set'.ucfirst($local)}($value);
+                        break;
+
+                    case 'role':
+                        $value = new Role;
+                        $value->setUuid(substr($object->$remote, 7));
+                        $model->{'set'.ucfirst($local)}($value);
+                        break;
+
+                    case 'businessUnits':
+                        $values = $object->$remote;
+
+                        foreach ($values as $k => $v) {
+                            $value = new BusinessUnit;
+                            $value->setUuid(substr($v, 16));
+                            $values[$k] = $value;
+                        }
+
+                        $model->{'set'.ucfirst($local)}($values);
                         break;
 
                     case 'permissions':
@@ -126,6 +175,15 @@ trait Base
                     foreach ($value as $permission) {
                         $object->$remote[] = PermissionService::toObject($permission);
                     }
+
+                    break;
+
+                case 'scope':
+                    $object->$remote = [
+                        'type' => $value->getType(),
+                        'entity' => $value->getEntity(),
+                        'entityUuid' => $value->getEntityUuid()
+                    ];
 
                     break;
 
