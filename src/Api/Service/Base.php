@@ -178,6 +178,15 @@ trait Base
 
                     break;
 
+                case 'scope':
+                    $object->$remote = [
+                        'type' => $value->getType(),
+                        'entity' => $value->getEntity(),
+                        'entityUuid' => $value->getEntityUuid()
+                    ];
+
+                    break;
+
                 default:
                     $object->$remote = $value;
             }
