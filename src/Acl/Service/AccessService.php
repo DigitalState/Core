@@ -16,6 +16,11 @@ use Ds\Component\Security\Model\User;
 final class AccessService extends EntityService
 {
     /**
+     * @var array
+     */
+    private $cache;
+
+    /**
      * Constructor
      *
      * @param \Doctrine\ORM\EntityManagerInterface $manager
@@ -24,16 +29,24 @@ final class AccessService extends EntityService
     public function __construct(EntityManagerInterface $manager, string $entity = Access::class)
     {
         parent::__construct($manager, $entity);
+        $this->cache = [];
     }
 
     /**
      * Get user compiled permissions
      *
      * @param \Ds\Component\Security\Model\User $user
+     * @param boolean $cache
      * @return ArrayCollection
      */
-    public function getPermissions(User $user)
+    public function getPermissions(User $user, bool $cache = false)
     {
+        if ($cache) {
+            if (array_key_exists($user->getUuid(), $this->cache)) {
+                return $this->cache[$user->getUuid()];
+            }
+        }
+
         $permissions = new ArrayCollection;
 
         // Generic identity permissions
@@ -88,6 +101,10 @@ final class AccessService extends EntityService
                     $permissions->add($permission);
                 }
             }
+        }
+
+        if ($cache) {
+            $this->cache[$user->getUuid()] = $permissions;
         }
 
         return $permissions;
