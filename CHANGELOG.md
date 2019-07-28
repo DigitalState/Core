@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.17.1 (2019-07-28)
+
+- Feature [Formio] Enable arrays for formio default values
+
 ## 0.17.0 (2019-07-14)
 
 - Feature [Acl] Restructure acl scope
