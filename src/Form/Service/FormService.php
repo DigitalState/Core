@@ -203,26 +203,29 @@ final class FormService
                                     $defaultValue = [];
 
                                     foreach ($component->defaultValue as $value) {
-                                        try {
-                                            $value = $resolverCollection->resolve($value);
-                                        } catch (UnresolvedException $exception) {
-                                            $value = null;
-                                        } catch (UnmatchedException $exception) {
-                                            // Leave default value as-is
+                                        if (is_string($value)) {
+                                            try {
+                                                $value = $resolverCollection->resolve($value);
+                                            } catch (UnresolvedException $exception) {
+                                                $value = null;
+                                            } catch (UnmatchedException $exception) {
+                                                // Leave default value as-is
+                                            }
                                         }
 
                                         $defaultValue[] = $value;
                                     }
 
-
                                     $component->defaultValue = $defaultValue;
                                 } else {
-                                    try {
-                                        $component->defaultValue = $resolverCollection->resolve($component->defaultValue);
-                                    } catch (UnresolvedException $exception) {
-                                        $component->defaultValue = null;
-                                    } catch (UnmatchedException $exception) {
-                                        // Leave default value as-is
+                                    if (is_string($component->defaultValue)) {
+                                        try {
+                                            $component->defaultValue = $resolverCollection->resolve($component->defaultValue);
+                                        } catch (UnresolvedException $exception) {
+                                            $component->defaultValue = null;
+                                        } catch (UnmatchedException $exception) {
+                                            // Leave default value as-is
+                                        }
                                     }
                                 }
                             }
