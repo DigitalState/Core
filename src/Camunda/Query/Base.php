@@ -52,6 +52,13 @@ trait Base
                     $object->$key = implode(',', $value);
                     break;
 
+                case 'createdBefore':
+                case 'createdAfter':
+                case 'dueBefore':
+                case 'dueAfter':
+                    $object->$key = $value->format('Y-m-d\TH:i:s.v+0000');
+                    break;
+
                 default:
                     $object->$key = $value;
             }

@@ -15,6 +15,11 @@ final class TaskParameters implements Parameters
     use Attribute\AssigneeLike;
     use Attribute\CandidateGroup;
     use Attribute\IncludeAssignedTasks;
+    use Attribute\CreatedBefore;
+    use Attribute\CreatedAfter;
+    use Attribute\DueBefore;
+    use Attribute\DueAfter;
+    use Attribute\Priority;
     use Attribute\TenantIdIn;
     use Attribute\SortBy;
     use Attribute\SortOrder;
