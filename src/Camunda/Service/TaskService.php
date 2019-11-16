@@ -102,7 +102,8 @@ final class TaskService implements Service
         $options = [
             'headers' => [
                 'Accept' => 'application/json'
-            ]
+            ],
+            'query' => (array)  $parameters->toObject(true)
         ];
         $result = $this->execute('GET', static::RESOURCE_COUNT, $options);
 
