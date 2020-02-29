@@ -75,12 +75,7 @@ final class Api
         $entry = $this->serviceRepository->find($this->namespace.'_'.explode('.', $alias)[0].'_api_http');
 
         if ($entry) {
-            foreach ($entry->getTags() as $tag) {
-                if (substr($tag, 0, 25) === 'proxy.frontend.rule=Host:') {
-                    $host = substr($tag, 25);
-                    $service->setHost($host);
-                }
-            }
+            $service->setHost($entry->getHost());
         }
 
         $username = $this->parameterService->get('ds_system.user.username');

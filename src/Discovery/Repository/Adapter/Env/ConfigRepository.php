@@ -1,8 +1,6 @@
 <?php
 
-namespace Ds\Component\Discovery\Repository;
-
-use Ds\Component\Discovery\Model\Config;
+namespace Ds\Component\Discovery\Repository\Adapter\Env;
 
 /**
  * Class ConfigRepository
@@ -16,7 +14,7 @@ final class ConfigRepository extends Repository
      */
     public function find($id)
     {
-        return $this->adapterCollection->get($this->adapter.'_config')->find($id);
+
     }
 
     /**
@@ -24,7 +22,7 @@ final class ConfigRepository extends Repository
      */
     public function findAll()
     {
-        return $this->adapterCollection->get($this->adapter.'_config')->findAll();
+
     }
 
     /**
@@ -32,7 +30,7 @@ final class ConfigRepository extends Repository
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        return $this->adapterCollection->get($this->adapter.'_config')->findBy($criteria, $orderBy, $limit, $offset);
+
     }
 
     /**
@@ -40,7 +38,7 @@ final class ConfigRepository extends Repository
      */
     public function findOneBy(array $criteria)
     {
-        return $this->adapterCollection->get($this->adapter.'_config')->findOneBy($criteria);
+
     }
 
     /**
@@ -48,6 +46,6 @@ final class ConfigRepository extends Repository
      */
     public function getClassName()
     {
-        return Config::class;
+
     }
 }
