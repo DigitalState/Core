@@ -24,7 +24,7 @@ final class ServiceRepository extends Repository
     public function __construct(string $services)
     {
         if ($services) {
-            $this->services = json_decode($services);
+            $this->services = json_decode(str_replace("'", '"', $services), true);
         } else {
             $this->services = [];
         }
