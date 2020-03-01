@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.18.0
+
 ## 0.17.1 (2019-07-28)
 
 - Feature [Formio] Enable arrays for formio default values
