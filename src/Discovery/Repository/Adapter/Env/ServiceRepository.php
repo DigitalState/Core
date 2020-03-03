@@ -39,7 +39,7 @@ final class ServiceRepository extends Repository
             return null;
         }
 
-        if ('' === $this->services[$id]) {
+        if ('' === trim($this->services[$id])) {
             return null;
         }
 
