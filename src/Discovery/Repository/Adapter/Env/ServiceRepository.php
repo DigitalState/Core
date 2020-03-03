@@ -39,6 +39,10 @@ final class ServiceRepository extends Repository
             return null;
         }
 
+        if ('' === $this->services[$id]) {
+            return null;
+        }
+
         $model = $this->toModel($this->services[$id]);
 
         return $model;
