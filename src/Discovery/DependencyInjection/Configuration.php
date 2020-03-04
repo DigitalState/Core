@@ -21,9 +21,26 @@ final class Configuration implements ConfigurationInterface
         $node = $builder->root('ds_discovery');
         $node
             ->children()
-                ->scalarNode('host')
+                ->scalarNode('adapter')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                    ->defaultValue('consul')
                 ->end()
-                ->scalarNode('credential')
+                ->arrayNode('consul')
+                    ->children()
+                        ->scalarNode('host')
+                        ->end()
+                        ->scalarNode('credentials')
+                        ->end()
+                    ->end()
+                ->end()
+                ->arrayNode('env')
+                    ->children()
+                        ->scalarNode('services')
+                        ->end()
+                        ->scalarNode('configs')
+                        ->end()
+                    ->end()
                 ->end()
             ->end();
 

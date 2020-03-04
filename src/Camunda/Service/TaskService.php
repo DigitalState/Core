@@ -29,6 +29,7 @@ final class TaskService implements Service
      * @const string
      */
     const RESOURCE_LIST = '/rest/task';
+    const RESOURCE_LIST_BY_TASK_ID = '/custom/task-search';
     const RESOURCE_COUNT = '/rest/task/count';
     const RESOURCE_OBJECT = '/rest/task/{id}';
     const RESOURCE_SUBMIT = '/rest/task/{id}/submit-form';
@@ -77,10 +78,25 @@ final class TaskService implements Service
         $options = [
             'headers' => [
                 'Accept' => 'application/json'
-            ],
-            'query' => (array)  $parameters->toObject(true)
+            ]
         ];
-        $objects = $this->execute('GET', static::RESOURCE_LIST, $options);
+
+        $query = (array) $parameters->toObject(true);
+
+        if (array_key_exists('taskIdIn', $query)) {
+            $resource = static::RESOURCE_LIST_BY_TASK_ID.'?';
+
+            foreach ($query['taskIdIn'] as $taskId) {
+                $resource .= 'taskIdIn[]='.urlencode($taskId).'&';
+            }
+
+            $resource = substr($resource, 0, -1);
+        } else {
+            $resource = static::RESOURCE_LIST;
+            $options['query'] = $query;
+        }
+
+        $objects = $this->execute('GET', $resource, $options);
         $list = [];
 
         foreach ($objects as $object) {

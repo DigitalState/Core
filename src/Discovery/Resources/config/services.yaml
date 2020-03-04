@@ -1,6 +1,9 @@
 parameters:
-  ds_discovery.host: ''
-  ds_discovery.credential: ''
+  ds_discovery.adapter: ''
+  ds_discovery.consul.host: ''
+  ds_discovery.consul.credentials: ''
+  ds_discovery.env.services: ''
+  ds_discovery.env.configs: ''
 
 services:
   _defaults:
@@ -9,10 +12,40 @@ services:
     public: false
 
   Ds\Component\Discovery\:
-    resource: ../../{Repository}
+    resource: ../../{Collection,Repository}
 
-  Ds\Component\Discovery\Repository\:
-    resource: ../../Repository
+  Ds\Component\Discovery\Repository\ConfigRepository:
     arguments:
-      - '%ds_discovery.host%'
-      - '%ds_discovery.credential%'
+      - '@Ds\Component\Discovery\Collection\AdapterCollection'
+      - '%ds_discovery.adapter%'
+
+  Ds\Component\Discovery\Repository\ServiceRepository:
+    arguments:
+      - '@Ds\Component\Discovery\Collection\AdapterCollection'
+      - '%ds_discovery.adapter%'
+
+  Ds\Component\Discovery\Repository\Adapter\Consul\ConfigRepository:
+    arguments:
+      - '%ds_discovery.consul.host%'
+      - '%ds_discovery.consul.credentials%'
+    tags:
+      - { name: ds_discovery.adapter, alias: consul_config }
+
+  Ds\Component\Discovery\Repository\Adapter\Consul\ServiceRepository:
+    arguments:
+      - '%ds_discovery.consul.host%'
+      - '%ds_discovery.consul.credentials%'
+    tags:
+      - { name: ds_discovery.adapter, alias: consul_service }
+
+  Ds\Component\Discovery\Repository\Adapter\Env\ConfigRepository:
+    arguments:
+      - '%ds_discovery.env.configs%'
+    tags:
+      - { name: ds_discovery.adapter, alias: env_config }
+
+  Ds\Component\Discovery\Repository\Adapter\Env\ServiceRepository:
+    arguments:
+      - '%ds_discovery.env.services%'
+    tags:
+      - { name: ds_discovery.adapter, alias: env_service }

@@ -11,6 +11,7 @@ final class TaskParameters implements Parameters
 {
     use Base;
 
+    use Attribute\TaskIdIn;
     use Attribute\Assignee;
     use Attribute\AssigneeLike;
     use Attribute\CandidateGroup;

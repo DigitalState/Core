@@ -2,10 +2,7 @@
 
 namespace Ds\Component\Discovery\Repository;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Ds\Component\Discovery\Model\Service;
-use GuzzleHttp\Exception\ClientException;
-use stdClass;
 
 /**
  * Class ServiceRepository
@@ -15,38 +12,11 @@ use stdClass;
 final class ServiceRepository extends Repository
 {
     /**
-     * @const string
-     */
-    const RESOURCE_LIST = '/v1/catalog/services';
-    const RESOURCE_OBJECT = '/v1/catalog/service/{id}';
-
-    /**
      * {@inheritdoc}
      */
     public function find($id)
     {
-        $resource = 'http://'.$this->host.str_replace('{id}', $id, static::RESOURCE_OBJECT);
-
-        try {
-            $response = $this->client->request('GET', $resource, [
-                'headers' => [
-                    'X-Consul-Token' => $this->token
-                ]
-            ]);
-        } catch (ClientException $exception) {
-            return null;
-        }
-
-        $body = (string) $response->getBody();
-        $objects = \GuzzleHttp\json_decode($body);
-
-        if (!$objects) {
-            return null;
-        }
-
-        $model = $this->toModel($objects[0]);
-
-        return $model;
+        return $this->adapterCollection->get($this->adapter.'_service')->find($id);
     }
 
     /**
@@ -54,7 +24,7 @@ final class ServiceRepository extends Repository
      */
     public function findAll()
     {
-
+        return $this->adapterCollection->get($this->adapter.'_service')->findAll();
     }
 
     /**
@@ -62,49 +32,7 @@ final class ServiceRepository extends Repository
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        $resource = 'http://'.$this->host.static::RESOURCE_LIST;
-
-        try {
-            $response = $this->client->request('GET', $resource, [
-                'headers' => [
-                    'X-Consul-Token' => $this->token
-                ]
-            ]);
-        } catch (ClientException $exception) {
-            return null;
-        }
-
-        $body = (string) $response->getBody();
-        $objects = \GuzzleHttp\json_decode($body);
-        $models = new ArrayCollection;
-
-        if ($objects) {
-            foreach ($objects as $id => $tags) {
-                if (array_key_exists('id', $criteria) && !preg_match($criteria['id'], $id)) {
-                    continue;
-                }
-
-                if (array_key_exists('tag', $criteria) && !in_array($criteria['tag'], $tags)) {
-                    continue;
-                }
-
-                $response = $this->client->request('GET', 'http://'.$this->host.'/v1/catalog/service/'.$id, [
-                    'headers' => [
-                        'X-Consul-Token' => $this->token
-                    ]
-                ]);
-                $body = (string) $response->getBody();
-                $objects = \GuzzleHttp\json_decode($body);
-
-                if (!$objects) {
-                    continue;
-                }
-
-                $models->add($this->toModel($objects[0]));
-            }
-        }
-
-        return $models;
+        return $this->adapterCollection->get($this->adapter.'_service')->findBy($criteria, $orderBy, $limit, $offset);
     }
 
     /**
@@ -112,7 +40,7 @@ final class ServiceRepository extends Repository
      */
     public function findOneBy(array $criteria)
     {
-
+        return $this->adapterCollection->get($this->adapter.'_service')->findOneBy($criteria);
     }
 
     /**
@@ -121,25 +49,5 @@ final class ServiceRepository extends Repository
     public function getClassName()
     {
         return Service::class;
-    }
-
-    /**
-     * Type cast object to model
-     *
-     * @param \stdClass $object
-     * @return \Ds\Component\Discovery\Model\Service
-     */
-    protected function toModel(stdClass $object)
-    {
-        $class = $this->getClassName();
-        $model = new $class;
-        $model
-            ->setId($object->ServiceID)
-            ->setIp($object->ServiceAddress)
-            ->setPort($object->ServicePort)
-            ->setMeta((array) $object->ServiceMeta)
-            ->setTags($object->ServiceTags);
-
-        return $model;
     }
 }

@@ -15,6 +15,7 @@ final class Service
     use DiscoveryAttribute\Id;
     use Attribute\Ip;
     use Attribute\Port;
+    use Attribute\Host;
     use Attribute\Meta;
     use Attribute\Tags;
 
