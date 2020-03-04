@@ -1,6 +1,8 @@
 # Changelog
 
-## 0.18.0
+## 0.18.0 (2020-03-03)
+
+- Feature [Discovery] Add discovery adapters (consul, env)
 
 ## 0.17.1 (2019-07-28)
 
