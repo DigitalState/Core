@@ -24,8 +24,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
 class Permission implements Identifiable, Tenantable
 {
     use Accessor\Id;
-    use Accessor\Entity;
-    use Accessor\EntityUuid;
     use EntityAccessor\Scope;
     use EntityAccessor\Access;
     use Accessor\Key;

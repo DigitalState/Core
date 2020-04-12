@@ -1,6 +1,8 @@
 # Changelog
 
-## 0.18.1
+## 0.18.1 (2020-04-12)
+
+- Bug [Acl] Fix 500 error caused by dynamic permissions
 
 ## 0.18.0 (2020-03-03)
 
