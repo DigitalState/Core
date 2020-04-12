@@ -91,7 +91,7 @@ final class AccessService extends EntityService
                     if ('owner' === $scope->getType() && 'BusinessUnit' === $scope->getEntity()) {
                         foreach ($roles[$role] as $businessUnit) {
                             $clone = clone $permission;
-                            $clone->setEntityUuid($businessUnit);
+                            $clone->getScope()->setEntityUuid($businessUnit);
                             $permissions->add($clone);
                         }
                     } else {
