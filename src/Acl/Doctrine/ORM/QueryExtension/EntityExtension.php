@@ -5,6 +5,7 @@ namespace Ds\Component\Acl\Doctrine\ORM\QueryExtension;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Common\Annotations\Reader;
 use Ds\Component\Acl\Collection\EntityCollection;
 use Ds\Component\Acl\Service\AccessService;
 use Ds\Component\Acl\Exception\NoPermissionsException;
@@ -12,7 +13,10 @@ use Ds\Component\Acl\Model\Permission;
 use Ds\Component\Model\Type\Identitiable;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Type\Uuidentifiable;
+use Ds\Component\Translation\Model\Annotation\Translate;
+use Ds\Component\Translation\Model\Type\Translatable;
 use LogicException;
+use ReflectionClass;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
@@ -38,17 +42,24 @@ final class EntityExtension implements QueryCollectionExtensionInterface
     private $entityCollection;
 
     /**
+     * @var \Doctrine\Common\Annotations\Reader
+     */
+    private $annotationReader;
+
+    /**
      * Constructor
      *
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
      * @param \Ds\Component\Acl\Service\AccessService $accessService
      * @param \Ds\Component\Acl\Collection\EntityCollection $entityCollection
+     * @param \Doctrine\Common\Annotations\Reader $annotationReader
      */
-    public function __construct(TokenStorageInterface $tokenStorage, AccessService $accessService, EntityCollection $entityCollection)
+    public function __construct(TokenStorageInterface $tokenStorage, AccessService $accessService, EntityCollection $entityCollection, Reader $annotationReader)
     {
         $this->tokenStorage = $tokenStorage;
         $this->accessService = $accessService;
         $this->entityCollection = $entityCollection;
+        $this->annotationReader = $annotationReader;
     }
 
     /**
@@ -90,7 +101,10 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                 continue;
             }
 
-            switch ($permission->getScope()->getType()) {
+            $scope = $permission->getScope();
+            $type = array_key_exists('type', $scope) ? $scope['type'] : null;
+
+            switch ($type) {
                 case 'generic':
                     // This permission grants access to all entities of the class, no conditions need to be applied.
                     return;
@@ -101,8 +115,13 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                         continue;
                     }
 
+                    if (!array_key_exists('entity_uuid', $scope)) {
+                        // Skip permissions without entity_uuid defined.
+                        continue;
+                    }
+
                     $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_security_uuid_'.$i);
-                    $parameters['ds_security_uuid_'.$i] = $permission->getScope()->getEntityUuid();
+                    $parameters['ds_security_uuid_'.$i] = $scope['entity_uuid'];
                     $i++;
 
                     break;
@@ -113,6 +132,11 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                         continue;
                     }
 
+                    if (!array_key_exists('entity_uuid', $scope)) {
+                        // Skip permissions without entity_uuid defined.
+                        continue;
+                    }
+
                     if (in_array($resourceClass, [
                         'App\\Entity\\Anonymous',
                         'App\\Entity\\Individual',
@@ -120,7 +144,7 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                         'App\\Entity\\Staff'
                     ])) {
                         $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.uuid', ':ds_security_identity_'.$i);
-                        $parameters['ds_security_identity_'.$i] = $permission->getScope()->getEntity();
+                        $parameters['ds_security_identity_'.$i] = $scope['entity_uuid'];
                     } else if (in_array($resourceClass, [
                         'App\\Entity\\AnonymousPersona',
                         'App\\Entity\\IndividualPersona',
@@ -138,14 +162,19 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                                 ->where($alias.'.uuid = :ds_security_identity_uuid_'.$i)
                                 ->getDQL()
                         );
-                        $parameters['ds_security_identity_uuid_'.$i] = $permission->getScope()->getEntityUuid();
+                        $parameters['ds_security_identity_uuid_'.$i] = $scope['entity_uuid'];
                     } else {
+                        if (!array_key_exists('entity', $scope)) {
+                            // Skip permissions without entity defined.
+                            continue;
+                        }
+
                         $conditions[] = $queryBuilder->expr()->andX(
                             $queryBuilder->expr()->eq($rootAlias.'.identity', ':ds_security_identity_'.$i),
                             $queryBuilder->expr()->eq($rootAlias.'.identityUuid', ':ds_security_identity_uuid_'.$i)
                         );
-                        $parameters['ds_security_identity_'.$i] = $permission->getScope()->getEntity();
-                        $parameters['ds_security_identity_uuid_'.$i] = $permission->getScope()->getEntityUuid();
+                        $parameters['ds_security_identity_'.$i] = $scope['entity'];
+                        $parameters['ds_security_identity_uuid_'.$i] = $scope['entity_entity'];
                     }
 
                     $i++;
@@ -158,16 +187,23 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                         continue;
                     }
 
-                    if (null === $permission->getScope()->getEntityUuid()) {
+                    if (!array_key_exists('entity', $scope)) {
+                        // Skip permissions without entity defined.
+                        continue;
+                    }
+
+                    $entityUuid = array_key_exists('entity_uuid', $scope) ? $scope['entity_uuid'] : null;
+
+                    if (null === $entityUuid) {
                         $conditions[] = $queryBuilder->expr()->eq($rootAlias.'.owner', ':ds_security_owner_'.$i);
-                        $parameters['ds_security_owner_'.$i] = $permission->getScope()->getEntity();
+                        $parameters['ds_security_owner_'.$i] = $scope['entity'];
                     } else {
                         $conditions[] = $queryBuilder->expr()->andX(
                             $queryBuilder->expr()->eq($rootAlias.'.owner', ':ds_security_owner_'.$i),
                             $queryBuilder->expr()->eq($rootAlias.'.ownerUuid', ':ds_security_owner_uuid_'.$i)
                         );
-                        $parameters['ds_security_owner_'.$i] = $permission->getScope()->getEntity();
-                        $parameters['ds_security_owner_uuid_'.$i] = $permission->getScope()->getEntityUuid();
+                        $parameters['ds_security_owner_'.$i] = $scope['entity'];
+                        $parameters['ds_security_owner_uuid_'.$i] = $entityUuid;
                     }
 
                     $i++;
@@ -220,6 +256,109 @@ final class EntityExtension implements QueryCollectionExtensionInterface
 
                     break;
 
+                case 'property':
+                    $property = array_key_exists('property', $scope) ? $scope['property'] : null;
+                    $value = array_key_exists('value', $scope) ? $scope['value'] : null;
+                    $comparison = array_key_exists('comparison', $scope) ? $scope['comparison'] : 'eq';
+
+                    if (null === $property) {
+                        // Skip permissions that do not define a property.
+                        continue;
+                    }
+
+                    if (!in_array($comparison, ['eq', 'neq'], true)) {
+                        // Skip permissions that do not have supported comparison types.
+                        continue;
+                    }
+
+                    if (!in_array(gettype($value), ['string', 'boolean', 'integer', 'double', 'NULL'], true)) {
+                        // Skip permissions that do not have supported value types.
+                        continue;
+                    }
+
+                    $parts = explode('.', $property);
+                    $property = array_shift($parts);
+                    $path = str_replace('\'', '', implode('.', $parts));
+
+                    if (!property_exists($resourceClass, $property)) {
+                        // Skip permissions that do not specify an existing property on the entity.
+                        continue;
+                    }
+
+                    $field = $this->getField($resourceClass, $property);
+
+                    if ('translation.scalar' === $field) {
+                        $translationAlias = $this->addJoinTranslation($queryBuilder, $resourceClass);
+
+                        if (null === $value) {
+                            if ('eq' === $comparison) {
+                                $conditions[] = $queryBuilder->expr()->isNull($translationAlias . '.' . $property);
+                            } else if ('neq' === $comparison) {
+                                $conditions[] = $queryBuilder->expr()->isNotNull($translationAlias . '.' . $property);
+                            }
+                        } else {
+                            $conditions[] = $queryBuilder->expr()->{$comparison}($translationAlias . '.' . $property, ':ds_security_property_' . $i);
+                            $parameters['ds_security_property_' . $i] = $value;
+                        }
+                    } else if ('translation.json' === $field) {
+                        if ('' === $path) {
+                            // Skip permissions that do not specify json path.
+                            continue;
+                        }
+
+                        $translationAlias = $this->addJoinTranslation($queryBuilder, $resourceClass);
+                        $value = $this->typeCast($value);
+
+                        if (null === $value) {
+                            if ('eq' === $comparison) {
+                                $conditions[] = $queryBuilder->expr()->isNull('JSON_GET_TEXT(' . $translationAlias . '.' . $property . ', \'' . $path . '\')');
+                            } else if ('neq' === $comparison) {
+                                $conditions[] = $queryBuilder->expr()->isNotNull('JSON_GET_TEXT(' . $translationAlias . '.' . $property . ', \'' . $path . '\')');
+                            }
+                        } else {
+                            $conditions[] = $queryBuilder->expr()->{$comparison}('JSON_GET_TEXT(' . $translationAlias . '.' . $property . ', \'' . $path . '\')', ':ds_security_property_' . $i);
+                            $parameters['ds_security_property_' . $i] = $value;
+                        }
+                    } else if ('json' === $field) {
+                        if ('' === $path) {
+                            // Skip permissions that do not specify json path.
+                            continue;
+                        }
+
+                        $value = $this->typeCast($value);
+
+                        if (null === $value) {
+                            if ('eq' === $comparison) {
+                                $conditions[] = $queryBuilder->expr()->isNull('JSON_GET_TEXT(' . $rootAlias . '.' . $property . ', \'' . $path . '\')');
+                            } else if ('neq' === $comparison) {
+                                $conditions[] = $queryBuilder->expr()->isNotNull('JSON_GET_TEXT(' . $rootAlias . '.' . $property . ', \'' . $path . '\')');
+                            }
+                        } else {
+                            $conditions[] = $queryBuilder->expr()->{$comparison}('JSON_GET_TEXT(' . $rootAlias . '.' . $property . ', \'' . $path . '\')', ':ds_security_property_' . $i);
+                            $parameters['ds_security_property_' . $i] = $value;
+                        }
+                    } else if ('basic' === $field) {
+                        if ('' !== $path) {
+                            // Skip permissions that do not specify an existing property on the entity.
+                            continue;
+                        }
+
+                        if (null === $value) {
+                            if ('eq' === $comparison) {
+                                $conditions[] = $queryBuilder->expr()->isNull($rootAlias . '.' . $property);
+                            } else if ('neq' === $comparison) {
+                                $conditions[] = $queryBuilder->expr()->isNotNull($rootAlias . '.' . $property);
+                            }
+                        } else {
+                            $conditions[] = $queryBuilder->expr()->{$comparison}($rootAlias . '.' . $property, ':ds_security_property_' . $i);
+                            $parameters['ds_security_property_' . $i] = $value;
+                        }
+                    }
+
+                    $i++;
+
+                    break;
+
                 default:
                     // Skip permissions with unknown scopes. In theory, this case should never
                     // be selected unless there are data integrity issues.
@@ -237,5 +376,101 @@ final class EntityExtension implements QueryCollectionExtensionInterface
         foreach ($parameters as $key => $value) {
             $queryBuilder->setParameter($key, $value);
         }
+
+        echo $queryBuilder->getQuery()->getSQL();exit;
+    }
+
+    /**
+     * Determine what type of field the resource class property is.
+     *
+     * @param $resourceClass
+     * @param $property
+     * @return string
+     * @throws
+     */
+    private function getField($resourceClass, $property): ?string
+    {
+        $manager = $this->accessService->getManager();
+        $reflection = new ReflectionClass($resourceClass);
+        $reflectionProperty = $reflection->getProperty($property);
+        $translatable = in_array(Translatable::class, class_implements($resourceClass));
+        $annotation = $this->annotationReader->getPropertyAnnotation($reflectionProperty, Translate::class);
+
+        if ($translatable && $annotation) {
+            $translationClass = call_user_func($resourceClass . '::getTranslationEntityClass');
+            $field = $this->getField($translationClass, $property);
+
+            switch ($field) {
+                case null:
+                    return null;
+
+                case 'json':
+                    return 'translation.json';
+
+                default:
+                    return 'translation.scalar';
+            }
+        }
+
+        $meta = $manager->getClassMetadata($resourceClass);
+
+        if (!$meta->hasField($property)) {
+            return null;
+        }
+
+        if ('json_array' === $meta->getFieldMapping($property)['type']) {
+            return 'json';
+        }
+
+        return 'scalar';
+    }
+
+    /**
+     * Add a translation join entry, if not already present
+     *
+     * @param QueryBuilder $queryBuilder
+     * @param string $resourceClass
+     * @return string
+     */
+    private function addJoinTranslation(QueryBuilder $queryBuilder, string $resourceClass): string
+    {
+        $rootAlias = $queryBuilder->getRootAliases()[0];
+        $translationAlias = $rootAlias . '_t';
+        $parts = $queryBuilder->getDQLParts()['join'];
+
+        foreach ($parts as $joins) {
+            foreach ($joins as $join) {
+                if ($translationAlias === $join->getAlias()) {
+                    return $translationAlias;
+                }
+            }
+        }
+
+        $queryBuilder->innerJoin($rootAlias . '.translations', $translationAlias);
+
+        return $translationAlias;
+    }
+
+    /**
+     * Type cast value for database JSON_GET_TEXT
+     *
+     * @param mixed $value
+     * @return mixed
+     */
+    private function typeCast($value)
+    {
+        if ('string' === gettype($value)) {
+            // Nothing to do.
+        } else if ('boolean' === gettype($value)) {
+            $value = $value ? 'true' : 'false';
+        } else if ('integer' === gettype($value)) {
+            $value = (string) $value;
+        } else if ('double' === gettype($value)) {
+            $value = (string) $value;
+        } else if ('NULL' === gettype($value)) {
+            // Nothing to do.
+        }
+
+        return $value;
     }
 }

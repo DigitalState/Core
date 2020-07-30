@@ -29,7 +29,8 @@ final class ExceptionListener
 
         // In the event a user requests a list of entities and has no permissions,
         // an empty list is returned.
-        $response = new JsonResponse([]);
+        $response = new JsonResponse([], 200);
         $event->setResponse($response);
+        $event->allowCustomResponseCode();
     }
 }

@@ -2,8 +2,6 @@
 
 namespace Ds\Component\Acl\Entity\Attribute\Accessor;
 
-use Ds\Component\Acl\Entity\Scope as ScopeEntity;
-
 /**
  * Trait Scope
  *
@@ -14,10 +12,10 @@ trait Scope
     /**
      * Set scope
      *
-     * @param \Ds\Component\Acl\Entity\Scope $scope
+     * @param array $scope
      * @return object
      */
-    public function setScope(?ScopeEntity $scope)
+    public function setScope(?array $scope)
     {
         $this->scope = $scope;
 
@@ -27,9 +25,9 @@ trait Scope
     /**
      * Get scope
      *
-     * @return \Ds\Component\Acl\Entity\Scope
+     * @return array
      */
-    public function getScope(): ?ScopeEntity
+    public function getScope(): ?array
     {
         return $this->scope;
     }

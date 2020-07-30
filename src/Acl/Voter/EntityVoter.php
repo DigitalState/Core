@@ -9,6 +9,7 @@ use Ds\Component\Model\Type\Identitiable;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Security\Model\User;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -34,6 +35,11 @@ final class EntityVoter extends Voter
     private $entityCollection;
 
     /**
+     * @var \Symfony\Component\PropertyAccess\PropertyAccessor
+     */
+    private $accessor;
+
+    /**
      * Constructor
      *
      * @param \Ds\Component\Acl\Service\AccessService $accessService
@@ -43,6 +49,7 @@ final class EntityVoter extends Voter
     {
         $this->accessService = $accessService;
         $this->entityCollection = $entityCollection;
+        $this->accessor = PropertyAccess::createPropertyAccessor();
     }
 
     /**
@@ -92,7 +99,12 @@ final class EntityVoter extends Voter
                 continue;
             }
 
-            switch ($permission->getScope()->getType()) {
+            $scope = $permission->getScope();
+            $type = array_key_exists('type', $scope) ? $scope['type'] : null;
+            $entity = array_key_exists('entity', $scope) ? $scope['entity'] : null;
+            $entityUuid = array_key_exists('entity_uuid', $scope) ? $scope['entity_uuid'] : null;
+
+            switch ($type) {
                 case 'generic':
                     // Nothing to specifically validate.
                     break;
@@ -103,7 +115,7 @@ final class EntityVoter extends Voter
                         continue;
                     }
 
-                    if ($permission->getScope()->getEntityUuid() !== $subject->getUuid()) {
+                    if ($entityUuid !== $subject->getUuid()) {
                         // Skip permissions that do not match the subject entity uuid.
                         continue;
                     }
@@ -116,15 +128,15 @@ final class EntityVoter extends Voter
                         continue;
                     }
 
-                    if (null !== $permission->getScope()->getEntity()) {
-                        if ($permission->getScope()->getEntity() !== $subject->getIdentity()) {
+                    if (null !== $entity) {
+                        if ($entity !== $subject->getIdentity()) {
                             // Skip permissions that do not match the subject entity identity.
                             continue;
                         }
                     }
 
-                    if (null !== $permission->getScope()->getEntityUuid()) {
-                        if ($permission->getScope()->getEntityUuid() !== $subject->getIdentityUuid()) {
+                    if (null !== $entityUuid) {
+                        if ($entityUuid !== $subject->getIdentityUuid()) {
                             // Skip permissions that do not match the subject entity identity uuid.
                             continue;
                         }
@@ -138,15 +150,15 @@ final class EntityVoter extends Voter
                         continue;
                     }
 
-                    if (null !== $permission->getScope()->getEntity()) {
-                        if ($permission->getScope()->getEntity() !== $subject->getOwner()) {
+                    if (null !== $entity) {
+                        if ($entity !== $subject->getOwner()) {
                             // Skip permissions that do not match the subject entity owner.
                             continue;
                         }
                     }
 
-                    if (null !== $permission->getScope()->getEntityUuid()) {
-                        if ($permission->getScope()->getEntityUuid() !== $subject->getOwnerUuid()) {
+                    if (null !== $entityUuid) {
+                        if ($entityUuid !== $subject->getOwnerUuid()) {
                             // Skip permissions that do not match the subject entity owner uuid.
                             continue;
                         }
@@ -167,6 +179,24 @@ final class EntityVoter extends Voter
 
                     if ($user->getIdentity()->getUuid() !== $subject->getIdentityUuid()) {
                         // Skip permissions that do not match the subject entity identity uuid.
+                        continue;
+                    }
+
+                    break;
+
+                case 'property':
+                    $property = array_key_exists('property', $scope) ? $scope['property'] : null;
+                    $value = array_key_exists('value', $scope) ? $scope['value'] : null;
+
+                    if (null === $property) {
+                        continue;
+                    }
+
+                    if (!$this->accessor->isReadable($subject, $property)) {
+                        continue;
+                    }
+
+                    if (!$this->accessor->getValue($subject, $property) !== $value) {
                         continue;
                     }
 

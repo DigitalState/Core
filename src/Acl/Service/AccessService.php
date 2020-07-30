@@ -49,7 +49,7 @@ final class AccessService extends EntityService
 
         $permissions = new ArrayCollection;
 
-        // Generic identity permissions
+        // Identity wide permissions
         $accesses = $this->repository->findBy([
             'assignee' => $user->getIdentity()->getType(),
             'assigneeUuid' => null
@@ -61,7 +61,7 @@ final class AccessService extends EntityService
             }
         }
 
-        // Specific identity permissions
+        // Identity specific permissions
         $accesses = $this->repository->findBy([
             'assignee' => $user->getIdentity()->getType(),
             'assigneeUuid' => $user->getIdentity()->getUuid()
@@ -73,7 +73,7 @@ final class AccessService extends EntityService
             }
         }
 
-        // Roles permissions
+        // Role permissions
         $roles = $user->getIdentity()->getRoles();
 
         $accesses = $this->repository->findBy([
@@ -87,11 +87,21 @@ final class AccessService extends EntityService
             foreach ($access->getPermissions() as $permission) {
                 $scope = $permission->getScope();
 
-                if ('*' === $scope->getEntityUuid()) {
-                    if ('owner' === $scope->getType() && 'BusinessUnit' === $scope->getEntity()) {
+                if (
+                    array_key_exists('entity_uuid', $scope)
+                    && '*' === $scope['entity_uuid']
+                ) {
+                    if (
+                        array_key_exists('type', $scope)
+                        && 'owner' === $scope['type']
+                        && array_key_exists('entity', $scope)
+                        && 'BusinessUnit' === $scope['entity']
+                    ) {
                         foreach ($roles[$role] as $businessUnit) {
                             $clone = clone $permission;
-                            $clone->getScope()->setEntityUuid($businessUnit);
+                            $cloneScope = $clone->getScope();
+                            $cloneScope['entity_uuid'] = $businessUnit;
+                            $clone->setScope($cloneScope);
                             $permissions->add($clone);
                         }
                     } else {
