@@ -119,117 +119,190 @@ final class PropertyVoter extends Voter
                 continue;
             }
 
-            $scope = $permission->getScope();
-            $type = array_key_exists('type', $scope) ? $scope['type'] : null;
-            $entity = array_key_exists('entity', $scope) ? $scope['entity'] : null;
-            $entityUuid = array_key_exists('entity_uuid', $scope) ? $scope['entity_uuid'] : null;
-
-            switch ($type) {
-                case 'generic':
-                    // Nothing to specifically validate.
-                    break;
-
-                case 'object':
-                    if (!$subject instanceof Uuidentifiable) {
-                        // Skip permissions with scope "object" if the subject entity is not uuidentitiable.
-                        continue;
-                    }
-
-                    if ($entityUuid !== $subject->getUuid()) {
-                        // Skip permissions that do not match the subject entity uuid.
-                        continue;
-                    }
-
-                    break;
-
-                case 'identity':
-                    if (!$subject[0] instanceof Identitiable) {
-                        // Skip permissions with scope "identity" if the subject entity is not identitiable.
-                        continue;
-                    }
-
-                    if (null !== $entity) {
-                        if ($entity !== $subject[0]->getIdentity()) {
-                            // Skip permissions that do not match the subject entity identity.
-                            continue;
-                        }
-                    }
-
-                    if (null !== $entityUuid) {
-                        if ($entityUuid !== $subject[0]->getIdentityUuid()) {
-                            // Skip permissions that do not match the subject entity identity uuid.
-                            continue;
-                        }
-                    }
-
-                    break;
-
-                case 'owner':
-                    if (!$subject[0] instanceof Ownable) {
-                        // Skip permissions with scope "owner" if the subject entity is not ownable.
-                        continue;
-                    }
-
-                    if (null !== $entity) {
-                        if ($entity !== $subject[0]->getOwner()) {
-                            // Skip permissions that do not match the subject entity owner.
-                            continue;
-                        }
-                    }
-
-                    if (null !== $entityUuid) {
-                        if ($entityUuid !== $subject[0]->getOwnerUuid()) {
-                            // Skip permissions that do not match the subject entity owner uuid.
-                            continue;
-                        }
-                    }
-
-                    break;
-
-                case 'session':
-                    if (!$subject instanceof Identitiable) {
-                        // Skip permissions with scope "session" if the subject entity is not identitiable.
-                        continue;
-                    }
-
-                    if ($user->getIdentity()->getType() !== $subject->getIdentity()) {
-                        // Skip permissions that do not match the subject entity identity.
-                        continue;
-                    }
-
-                    if ($user->getIdentity()->getUuid() !== $subject->getIdentityUuid()) {
-                        // Skip permissions that do not match the subject entity identity uuid.
-                        continue;
-                    }
-
-                    break;
-
-                case 'property':
-                    $property = array_key_exists('property', $scope) ? $scope['property'] : null;
-                    $value = array_key_exists('value', $scope) ? $scope['value'] : null;
-
-                    if (null === $property) {
-                        continue;
-                    }
-
-                    if (!$this->accessor->isReadable($subject, $property)) {
-                        continue;
-                    }
-
-                    if (!$this->accessor->getValue($subject, $property) !== $value) {
-                        continue;
-                    }
-
-                    break;
-
-                default:
-                    // Skip permissions with unknown scopes. In theory, this case should never
-                    // be selected unless there are data integrity issues.
-                    // @todo Add notice logs
-                    continue;
+            if (!in_array($attribute, $permission->getAttributes(), true)) {
+                // Skip permissions that do not contain the required attribute.
+                continue;
             }
 
-            if (in_array($attribute, $permission->getAttributes(), true)) {
+            $operator = $permission->getScopeOperator();
+            $conditions = $permission->getScopeConditions();
+            $results = [];
+
+            foreach ($conditions as $condition) {
+                $result = null;
+                $type = isset($condition['type']) ? $condition['type'] : null;
+
+                switch ($type) {
+                    case 'generic':
+                        // Nothing to specifically validate.
+                        $result = true;
+                        break;
+
+                    case 'object':
+                        if (!$subject[0] instanceof Uuidentifiable) {
+                            // Skip permissions with scope "object" if the subject entity is not uuidentitiable.
+                            continue;
+                        }
+
+                        if (!isset($condition['entity_uuid'])) {
+                            // Skip permissions without entity_uuid defined.
+                            continue;
+                        }
+
+                        $result = true;
+
+                        if ($condition['entity_uuid'] !== $subject[0]->getUuid()) {
+                            $result = false;
+                        }
+
+                        break;
+
+                    case 'identity':
+                        if (!$subject[0] instanceof Identitiable) {
+                            // Skip permissions with scope "identity" if the subject entity is not identitiable.
+                            continue;
+                        }
+
+                        if (!isset($condition['entity'])) {
+                            // Skip permissions without entity defined.
+                            continue;
+                        }
+
+                        if (!isset($condition['entity_uuid'])) {
+                            // Skip permissions without entity_uuid defined.
+                            continue;
+                        }
+
+                        $result = true;
+
+                        if ($condition['entity'] !== $subject[0]->getIdentity()) {
+                            $result = false;
+                        }
+
+                        if ($condition['entity_uuid'] !== $subject[0]->getIdentityUuid()) {
+                            $result = false;
+                        }
+
+                        break;
+
+                    case 'owner':
+                        if (!$subject[0] instanceof Ownable) {
+                            // Skip permissions with scope "owner" if the subject entity is not ownable.
+                            continue;
+                        }
+
+                        if (!isset($condition['entity'])) {
+                            // Skip permissions without entity defined.
+                            continue;
+                        }
+
+                        $result = true;
+
+                        if ($condition['entity'] !== $subject[0]->getOwner()) {
+                            $result = false;
+                        }
+
+                        if (isset($condition['entity_uuid'])) {
+                            if ($condition['entity_uuid'] !== $subject[0]->getOwnerUuid()) {
+                                $result = false;
+                            }
+                        }
+
+                        break;
+
+                    case 'session':
+                        if (!$subject[0] instanceof Identitiable) {
+                            // Skip permissions with scope "session" if the subject entity is not identitiable.
+                            continue;
+                        }
+
+                        $result = true;
+
+                        if ($user->getIdentity()->getType() !== $subject[0]->getIdentity()) {
+                            $result = false;
+                        }
+
+                        if ($user->getIdentity()->getUuid() !== $subject[0]->getIdentityUuid()) {
+                            $result = false;
+                        }
+
+                        break;
+
+                    case 'property':
+                        $property = isset($condition['property']) ? $condition['property'] : null;
+                        $value = isset($condition['value']) ? $condition['value'] : null;
+                        $comparison = isset($condition['comparison']) ? $condition['comparison'] : 'eq';
+
+                        if (null === $property) {
+                            // Skip permissions that do not define a property.
+                            continue;
+                        }
+
+                        if (!in_array($comparison, ['eq', 'neq'], true)) {
+                            // Skip permissions that do not have supported comparison types.
+                            continue;
+                        }
+
+                        if (!in_array(gettype($value), ['string', 'boolean', 'integer', 'double', 'NULL'], true)) {
+                            // Skip permissions that do not have supported value types.
+                            continue;
+                        }
+
+                        $parts = explode('.', $property);
+                        $property = array_shift($parts);
+                        $path = str_replace('\'', '', implode('.', $parts));
+
+                        if (!property_exists($subject[0], $property)) {
+                            // Skip permissions that contains an unreadable property.
+                            continue;
+                        }
+
+                        $result = true;
+
+                        if ('' !== $path) {
+                            $property .= '.' . $path;
+                        }
+
+                        if (!$this->accessor->isReadable($subject[0], $property)) {
+                            $result = false;
+                        }
+
+                        if ('eq' === $comparison) {
+                            if ($this->accessor->getValue($subject[0], $property) !== $value) {
+                                $result = false;
+                            }
+                        } else if ('neq' === $comparison) {
+                            if ($this->accessor->getValue($subject[0], $property) === $value) {
+                                $result = false;
+                            }
+                        }
+
+                        break;
+
+                    default:
+                        // Skip permissions with unknown scopes. In theory, this case should never
+                        // be selected unless there are data integrity issues.
+                        // @todo Add notice logs
+                        continue;
+                }
+
+                if (null !== $result) {
+                    $results[] = $result;
+                }
+            }
+
+            if (!$results) {
+                // Skip permissions that yields no results.
+                continue;
+            }
+
+            if ('and' === $operator && !in_array(false, $results, true)) {
+                // All results must be true.
+                return true;
+            }
+
+            if ('or' === $operator && in_array(true, $results, true)) {
+                // At least one result must be true.
                 return true;
             }
         }
