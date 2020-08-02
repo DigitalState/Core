@@ -33,6 +33,9 @@ final class Version0_19_0 extends AbstractMigration
                             CASE WHEN scope_entity_uuid IS NOT NULL THEN CONCAT(\', "entity_uuid": "\', scope_entity_uuid, \'"\') ELSE \'\' END,
                             \'}\')::jsonb
                 ');
+                $this->addSql('ALTER TABLE ds_access_permission ALTER scope DROP DEFAULT');
+                $this->addSql('ALTER TABLE ds_access_permission ALTER scope SET NOT NULL');
+                $this->addSql('COMMENT ON COLUMN ds_access_permission.scope IS \'(DC2Type:json_array)\'');
                 $this->addSql('ALTER TABLE ds_access_permission DROP COLUMN scope_type');
                 $this->addSql('ALTER TABLE ds_access_permission DROP COLUMN scope_entity');
                 $this->addSql('ALTER TABLE ds_access_permission DROP COLUMN scope_entity_uuid');
