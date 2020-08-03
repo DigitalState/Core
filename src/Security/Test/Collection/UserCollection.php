@@ -91,7 +91,7 @@ final class UserCollection extends ArrayCollection
             throw new InvalidArgumentException('Element is not an array.');
         }
 
-        foreach (['username', 'roles', 'business_units', 'uuid', 'identity', 'tenant'] as $key) {
+        foreach (['username', 'roles', 'uuid', 'identity', 'tenant'] as $key) {
             if (!array_key_exists($key, $element)) {
                 throw new InvalidArgumentException('Element is missing key "'.$key.'".');
             }
