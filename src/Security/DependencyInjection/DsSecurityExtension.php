@@ -29,6 +29,7 @@ final class DsSecurityExtension extends Extension implements PrependExtensionInt
                 'client' => false,
                 'modifier' => false,
                 'identity' => [
+                    'business_units' => false,
                     'roles' => false,
                     'type' => false,
                     'uuid' => false
@@ -57,6 +58,7 @@ final class DsSecurityExtension extends Extension implements PrependExtensionInt
             '["ip"]' => Token\IpListener::class,
             '["client"]' => Token\ClientListener::class,
             '["modifier"]' => Token\ModifierListener::class,
+            '["identity"]["business_units"]' => Token\Identity\BusinessUnitsListener::class,
             '["identity"]["roles"]' => Token\Identity\RolesListener::class,
             '["identity"]["type"]' => Token\Identity\TypeListener::class,
             '["identity"]["uuid"]' => Token\Identity\UuidListener::class
