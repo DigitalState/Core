@@ -9,6 +9,7 @@ use Ds\Component\Api\Query\IndividualRoleParameters;
 use Ds\Component\Api\Query\OrganizationRoleParameters;
 use Ds\Component\Api\Query\StaffRoleParameters;
 use Ds\Component\Api\Query\SystemRoleParameters;
+use Ds\Component\Api\Query\BusinessUnitRoleParameters;
 use Ds\Component\Security\Model\Identity;
 use Ds\Component\Security\Model\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
@@ -103,7 +104,49 @@ final class RolesListener
                 }
 
                 foreach ($identityRoles as $identityRole) {
-                    $roles[$identityRole->getRole()->getUuid()] = $identityRole->getEntityUuids();
+                    $uuid = $identityRole->getRole()->getUuid();
+
+                    if (!array_key_exists($uuid, $roles)) {
+                        $roles[$uuid] = [];
+                    }
+
+                    foreach ($identityRole->getEntityUuids() as $entityUuid) {
+                        if (!in_array($entityUuid, $roles[$uuid], true)) {
+                            $roles[$uuid][] = $entityUuid;
+                        }
+                    }
+                }
+
+                switch ($user->getIdentity()) {
+                    case Identity::ANONYMOUS:
+                    case Identity::INDIVIDUAL:
+                    case Identity::ORGANIZATION:
+                    case Identity::SYSTEM:
+                        $businessUnitRoles = [];
+                        break;
+
+                    case Identity::STAFF:
+                        $parameters = new BusinessUnitRoleParameters;
+                        $parameters->setStaffUuid($user->getIdentityUuid());
+                        $businessUnitRoles = $this->api->get('identities.business_unit_role')->getList($parameters);
+                        break;
+
+                    default:
+                        throw new DomainException('User identity is not valid.');
+                }
+
+                foreach ($businessUnitRoles as $businessUnitRole) {
+                    $uuid = $businessUnitRole->getRole()->getUuid();
+
+                    if (!array_key_exists($uuid, $roles)) {
+                        $roles[$uuid] = [];
+                    }
+
+                    foreach ($businessUnitRole->getEntityUuids() as $entityUuid) {
+                        if (!in_array($entityUuid, $roles[$uuid], true)) {
+                            $roles[$uuid][] = $entityUuid;
+                        }
+                    }
                 }
             }
         }
