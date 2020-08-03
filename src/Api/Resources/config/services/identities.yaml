@@ -34,6 +34,11 @@ services:
     tags:
       - { name: ds_api.service, alias: identities.anonymous_role }
 
+  Ds\Component\Api\Service\Identities\BusinessUnitRoleService:
+    class: Ds\Component\Api\Service\BusinessUnitRoleService
+    tags:
+      - { name: ds_api.service, alias: identities.business_unit_role }
+
   Ds\Component\Api\Service\Identities\IndividualService:
     class: Ds\Component\Api\Service\IndividualService
     tags:

@@ -96,6 +96,12 @@ trait Base
                         $model->{'set'.ucfirst($local)}($value);
                         break;
 
+                    case 'businessUnit':
+                        $value = new BusinessUnit;
+                        $value->setUuid(substr($object->$remote, 16));
+                        $model->{'set'.ucfirst($local)}($value);
+                        break;
+
                     case 'businessUnits':
                         $values = $object->$remote;
 
