@@ -36,7 +36,7 @@ final class StaffRoleService implements Service
         'ownerUuid',
         'staff',
         'role',
-        'businessUnits',
+        'entityUuids',
         'version',
         'tenant'
     ];

@@ -36,7 +36,7 @@ final class SystemRoleService implements Service
         'ownerUuid',
         'system',
         'role',
-        'businessUnits',
+        'entityUuids',
         'version',
         'tenant'
     ];

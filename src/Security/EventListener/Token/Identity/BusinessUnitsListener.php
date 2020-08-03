@@ -4,23 +4,19 @@ namespace Ds\Component\Security\EventListener\Token\Identity;
 
 use DomainException;
 use Ds\Component\Api\Api\Api;
-use Ds\Component\Api\Query\AnonymousRoleParameters;
-use Ds\Component\Api\Query\IndividualRoleParameters;
-use Ds\Component\Api\Query\OrganizationRoleParameters;
-use Ds\Component\Api\Query\StaffRoleParameters;
-use Ds\Component\Api\Query\SystemRoleParameters;
 use Ds\Component\Security\Model\Identity;
 use Ds\Component\Security\Model\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTDecodedEvent;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use UnexpectedValueException;
 
 /**
- * Class RolesListener
+ * Class BusinessUnitsListener
  *
  * @package Ds\Component\Security
  */
-final class RolesListener
+final class BusinessUnitsListener
 {
     /**
      * @var \Ds\Component\Api\Api\Api
@@ -43,7 +39,7 @@ final class RolesListener
      * @param \Ds\Component\Api\Api\Api $api
      * @param string $property
      */
-    public function __construct(Api $api, string $property = '[identity][roles]')
+    public function __construct(Api $api, string $property = '[identity][business_units]')
     {
         $this->api = $api;
         $this->accessor = PropertyAccess::createPropertyAccessor();
@@ -51,7 +47,7 @@ final class RolesListener
     }
 
     /**
-     * Add the identity roles to the token
+     * Add the identity business units to the token
      *
      * @param \Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent $event
      * @throws \Ds\Component\Security\Exception\InvalidUserTypeException
@@ -60,55 +56,41 @@ final class RolesListener
     {
         $data = $event->getData();
         $user = $event->getUser();
-        $roles = [];
+        $businessUnits = [];
 
         // @todo remove condition when both user types are homogenized
         if ($user instanceof User) {
-            $roles = $user->getIdentity()->getRoles();
+            $businessUnits = $user->getIdentity()->getBusinessUnits();
         } else {
             if (null !== $user->getIdentityUuid()) {
                 switch ($user->getIdentity()) {
                     case Identity::ANONYMOUS:
-                        $parameters = new AnonymousRoleParameters;
-                        $parameters->setAnonymousUuid($user->getIdentityUuid());
-                        $identityRoles = $this->api->get('identities.anonymous_role')->getList($parameters);
-                        break;
-
                     case Identity::INDIVIDUAL:
-                        $parameters = new IndividualRoleParameters;
-                        $parameters->setIndividualUuid($user->getIdentityUuid());
-                        $identityRoles = $this->api->get('identities.individual_role')->getList($parameters);
-                        break;
-
                     case Identity::ORGANIZATION:
-                        $parameters = new OrganizationRoleParameters;
-                        $parameters->setOrganizationUuid($user->getIdentityUuid());
-                        $identityRoles = $this->api->get('identities.organization_role')->getList($parameters);
+                    case Identity::SYSTEM:
+                        $businessUnits = [];
                         break;
 
                     case Identity::STAFF:
-                        $parameters = new StaffRoleParameters;
-                        $parameters->setStaffUuid($user->getIdentityUuid());
-                        $identityRoles = $this->api->get('identities.staff_role')->getList($parameters);
-                        break;
+                        $identity = $this->api->get('identities.staff')->get($user->getIdentityUuid());
 
-                    case Identity::SYSTEM:
-                        $parameters = new SystemRoleParameters;
-                        $parameters->setSystemUuid($user->getIdentityUuid());
-                        $identityRoles = $this->api->get('identities.system_role')->getList($parameters);
+                        if (!$identity) {
+                            throw new UnexpectedValueException;
+                        }
+
+                        foreach ($identity->getBusinessUnits() as $businessUnit) {
+                            $businessUnits[] = $businessUnit->getUuid();
+                        }
+
                         break;
 
                     default:
                         throw new DomainException('User identity is not valid.');
                 }
-
-                foreach ($identityRoles as $identityRole) {
-                    $roles[$identityRole->getRole()->getUuid()] = $identityRole->getEntityUuids();
-                }
             }
         }
 
-        $this->accessor->setValue($data, $this->property, $roles);
+        $this->accessor->setValue($data, $this->property, $businessUnits);
         $event->setData($data);
     }
 

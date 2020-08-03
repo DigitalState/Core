@@ -36,7 +36,7 @@ final class AnonymousRoleService implements Service
         'ownerUuid',
         'anonymous',
         'role',
-        'businessUnits',
+        'entityUuids',
         'version',
         'tenant'
     ];

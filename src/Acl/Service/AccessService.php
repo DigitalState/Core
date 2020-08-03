@@ -49,7 +49,7 @@ final class AccessService extends EntityService
 
         $permissions = new ArrayCollection;
 
-        // Identity wide permissions
+        // Permissions assigned to the identity type.
         $accesses = $this->repository->findBy([
             'assignee' => $user->getIdentity()->getType(),
             'assigneeUuid' => null
@@ -61,7 +61,7 @@ final class AccessService extends EntityService
             }
         }
 
-        // Identity specific permissions
+        // Permissions assigned to the identity uuid.
         $accesses = $this->repository->findBy([
             'assignee' => $user->getIdentity()->getType(),
             'assigneeUuid' => $user->getIdentity()->getUuid()
@@ -73,7 +73,7 @@ final class AccessService extends EntityService
             }
         }
 
-        // Role permissions
+        // Permissions assigned to a role.
         $roles = $user->getIdentity()->getRoles();
 
         $accesses = $this->repository->findBy([
@@ -87,25 +87,53 @@ final class AccessService extends EntityService
             foreach ($access->getPermissions() as $permission) {
                 $scope = $permission->getScope();
 
-                if (
-                    array_key_exists('entity_uuid', $scope)
-                    && '*' === $scope['entity_uuid']
-                ) {
-                    if (
-                        array_key_exists('type', $scope)
-                        && 'owner' === $scope['type']
-                        && array_key_exists('entity', $scope)
-                        && 'BusinessUnit' === $scope['entity']
-                    ) {
-                        foreach ($roles[$role] as $businessUnit) {
+                if (array_key_exists('conditions', $scope)) {
+                    $dynamic = false;
+
+                    foreach ($scope['conditions'] as $condition) {
+                        if (array_key_exists('entity_uuid', $condition)) {
+                            if ('*' === $condition['entity_uuid']) {
+                                $dynamic = true;
+                            }
+                        }
+                    }
+
+                    if ($dynamic) {
+                        foreach ($roles[$role] as $entityUuid) {
                             $clone = clone $permission;
                             $cloneScope = $clone->getScope();
-                            $cloneScope['entity_uuid'] = $businessUnit;
+
+                            foreach ($cloneScope['conditions'] as $key => $condition) {
+                                if (array_key_exists('entity_uuid', $condition)) {
+                                    if ('*' === $condition['entity_uuid']) {
+                                        $cloneScope['conditions'][$key]['entity_uuid'] = $entityUuid;
+                                    }
+                                }
+                            }
+
                             $clone->setScope($cloneScope);
                             $permissions->add($clone);
                         }
                     } else {
+                        $permissions->add($permission);
+                    }
+                } else if (array_key_exists('entity_uuid', $scope)) {
+                    $dynamic = false;
 
+                    if ('*' === $scope['entity_uuid']) {
+                        $dynamic = true;
+                    }
+
+                    if ($dynamic) {
+                        foreach ($roles[$role] as $entityUuid) {
+                            $clone = clone $permission;
+                            $cloneScope = $clone->getScope();
+                            $cloneScope['entity_uuid'] = $entityUuid;
+                            $clone->setScope($cloneScope);
+                            $permissions->add($clone);
+                        }
+                    } else {
+                        $permissions->add($permission);
                     }
                 } else {
                     $permissions->add($permission);

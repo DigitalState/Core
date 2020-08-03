@@ -37,6 +37,7 @@ class StaffService implements Service
         'owner',
         'ownerUuid',
         'roles',
+        'businessUnits',
         'version',
         'tenant'
     ];

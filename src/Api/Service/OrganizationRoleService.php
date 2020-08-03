@@ -36,7 +36,7 @@ final class OrganizationRoleService implements Service
         'ownerUuid',
         'organization',
         'role',
-        'businessUnits',
+        'entityUuids',
         'version',
         'tenant'
     ];
