@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Acl\Voter;
 
+use Doctrine\Common\Annotations\Reader;
 use Ds\Component\Acl\Collection\EntityCollection;
 use Ds\Component\Acl\Model\Permission;
 use Ds\Component\Acl\Service\AccessService;
@@ -9,6 +10,9 @@ use Ds\Component\Model\Type\Identitiable;
 use Ds\Component\Model\Type\Ownable;
 use Ds\Component\Model\Type\Uuidentifiable;
 use Ds\Component\Security\Model\User;
+use Ds\Component\Translation\Model\Annotation\Translate;
+use Ds\Component\Translation\Model\Type\Translatable;
+use ReflectionClass;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -35,6 +39,11 @@ final class EntityVoter extends Voter
     private $entityCollection;
 
     /**
+     * @var \Doctrine\Common\Annotations\Reader
+     */
+    private $annotationReader;
+
+    /**
      * @var \Symfony\Component\PropertyAccess\PropertyAccessor
      */
     private $accessor;
@@ -44,11 +53,13 @@ final class EntityVoter extends Voter
      *
      * @param \Ds\Component\Acl\Service\AccessService $accessService
      * @param \Ds\Component\Acl\Collection\EntityCollection $entityCollection
+     * @param \Doctrine\Common\Annotations\Reader $annotationReader
      */
-    public function __construct(AccessService $accessService, EntityCollection $entityCollection)
+    public function __construct(AccessService $accessService, EntityCollection $entityCollection, Reader $annotationReader)
     {
         $this->accessService = $accessService;
         $this->entityCollection = $entityCollection;
+        $this->annotationReader = $annotationReader;
         $this->accessor = PropertyAccess::createPropertyAccessor();
     }
 
@@ -237,10 +248,15 @@ final class EntityVoter extends Voter
                             continue;
                         }
 
+                        $field = $this->getField(get_class($subject), $property);
                         $result = true;
 
                         if ('' !== $path) {
-                            $property .= '.' . $path;
+                            if ('translation.scalar' === $field) {
+                                $property .= '[' . $path . ']';
+                            } else {
+                                $property .= '.' . $path;
+                            }
                         }
 
                         if (!$this->accessor->isReadable($subject, $property)) {
@@ -288,5 +304,50 @@ final class EntityVoter extends Voter
         }
 
         return false;
+    }
+
+    /**
+     * Determine what type of field the resource class property is.
+     *
+     * @param $resourceClass
+     * @param $property
+     * @return string
+     * @throws
+     */
+    private function getField($resourceClass, $property): ?string
+    {
+        $manager = $this->accessService->getManager();
+        $reflection = new ReflectionClass($resourceClass);
+        $reflectionProperty = $reflection->getProperty($property);
+        $translatable = in_array(Translatable::class, class_implements($resourceClass));
+        $annotation = $this->annotationReader->getPropertyAnnotation($reflectionProperty, Translate::class);
+
+        if ($translatable && $annotation) {
+            $translationClass = call_user_func($resourceClass . '::getTranslationEntityClass');
+            $field = $this->getField($translationClass, $property);
+
+            switch ($field) {
+                case null:
+                    return null;
+
+                case 'json':
+                    return 'translation.json';
+
+                default:
+                    return 'translation.scalar';
+            }
+        }
+
+        $meta = $manager->getClassMetadata($resourceClass);
+
+        if (!$meta->hasField($property)) {
+            return null;
+        }
+
+        if ('json_array' === $meta->getFieldMapping($property)['type']) {
+            return 'json';
+        }
+
+        return 'scalar';
     }
 }
