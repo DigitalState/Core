@@ -315,12 +315,12 @@ final class EntityExtension implements QueryCollectionExtensionInterface
 
                             if (null === $value) {
                                 if ('eq' === $comparison) {
-                                    $subWheres[] = $queryBuilder->expr()->isNull('JSON_GET_TEXT(' . $translationAlias . '.' . $property . ', \'' . $path . '\')');
+                                    $subWheres[] = $queryBuilder->expr()->isNull('JSON_GET_PATH_TEXT(' . $translationAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')');
                                 } else if ('neq' === $comparison) {
-                                    $subWheres[] = $queryBuilder->expr()->isNotNull('JSON_GET_TEXT(' . $translationAlias . '.' . $property . ', \'' . $path . '\')');
+                                    $subWheres[] = $queryBuilder->expr()->isNotNull('JSON_GET_PATH_TEXT(' . $translationAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')');
                                 }
                             } else {
-                                $subWheres[] = $queryBuilder->expr()->{$comparison}('JSON_GET_TEXT(' . $translationAlias . '.' . $property . ', \'' . $path . '\')', ':ds_security_property_' . $i);
+                                $subWheres[] = $queryBuilder->expr()->{$comparison}('JSON_GET_PATH_TEXT(' . $translationAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')', ':ds_security_property_' . $i);
                                 $parameters['ds_security_property_' . $i] = $value;
                             }
                         } else if ('json' === $field) {
@@ -333,12 +333,12 @@ final class EntityExtension implements QueryCollectionExtensionInterface
 
                             if (null === $value) {
                                 if ('eq' === $comparison) {
-                                    $subWheres[] = $queryBuilder->expr()->isNull('JSON_GET_TEXT(' . $rootAlias . '.' . $property . ', \'' . $path . '\')');
+                                    $subWheres[] = $queryBuilder->expr()->isNull('JSON_GET_PATH_TEXT(' . $rootAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')');
                                 } else if ('neq' === $comparison) {
-                                    $subWheres[] = $queryBuilder->expr()->isNotNull('JSON_GET_TEXT(' . $rootAlias . '.' . $property . ', \'' . $path . '\')');
+                                    $subWheres[] = $queryBuilder->expr()->isNotNull('JSON_GET_PATH_TEXT(' . $rootAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')');
                                 }
                             } else {
-                                $subWheres[] = $queryBuilder->expr()->{$comparison}('JSON_GET_TEXT(' . $rootAlias . '.' . $property . ', \'' . $path . '\')', ':ds_security_property_' . $i);
+                                $subWheres[] = $queryBuilder->expr()->{$comparison}('JSON_GET_PATH_TEXT(' . $rootAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')', ':ds_security_property_' . $i);
                                 $parameters['ds_security_property_' . $i] = $value;
                             }
                         } else if ('scalar' === $field) {

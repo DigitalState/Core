@@ -254,6 +254,8 @@ final class EntityVoter extends Voter
                         if ('' !== $path) {
                             if ('translation.scalar' === $field) {
                                 $property .= '[' . $path . ']';
+                            } else if ('json' === $field) {
+                                $property .= '[' . str_replace('.', '][', $path) . ']';
                             } else {
                                 $property .= '.' . $path;
                             }
