@@ -133,4 +133,12 @@ final class User implements UserInterface, JWTUserInterface
     public function eraseCredentials()
     {
     }
+
+    /**
+     * Clone instance
+     */
+    public function __clone()
+    {
+        $this->identity = clone $this->identity;
+    }
 }
