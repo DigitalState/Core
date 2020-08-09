@@ -249,13 +249,18 @@ final class PropertyVoter extends Voter
                             continue;
                         }
 
-                        if (!in_array($comparison, ['eq', 'neq'], true)) {
+                        if (!in_array($comparison, ['eq', 'neq', 'like'], true)) {
                             // Skip permissions that do not have supported comparison types.
                             continue;
                         }
 
                         if (!in_array(gettype($value), ['string', 'boolean', 'integer', 'double', 'NULL'], true)) {
                             // Skip permissions that do not have supported value types.
+                            continue;
+                        }
+
+                        if ('like' === $comparison && null === $value) {
+                            // Skip permissions that do not have a supported values against certain comparisons.
                             continue;
                         }
 
@@ -291,6 +296,13 @@ final class PropertyVoter extends Voter
                             }
                         } else if ('neq' === $comparison) {
                             if ($this->accessor->getValue($subject[0], $property) === $value) {
+                                $result = false;
+                            }
+                        } else if ('like' === $comparison) {
+                            $needle = (string) $value;
+                            $haystack = (string) $this->accessor->getValue($subject[0], $property);
+
+                            if (false === strpos($haystack, $needle)) {
                                 $result = false;
                             }
                         }

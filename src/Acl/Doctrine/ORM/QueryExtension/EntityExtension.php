@@ -270,13 +270,18 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                             continue;
                         }
 
-                        if (!in_array($comparison, ['eq', 'neq'], true)) {
+                        if (!in_array($comparison, ['eq', 'neq', 'like'], true)) {
                             // Skip permissions that do not have supported comparison types.
                             continue;
                         }
 
                         if (!in_array(gettype($value), ['string', 'boolean', 'integer', 'double', 'NULL'], true)) {
                             // Skip permissions that do not have supported value types.
+                            continue;
+                        }
+
+                        if ('like' === $comparison && null === $value) {
+                            // Skip permissions that do not have a supported values against certain comparisons.
                             continue;
                         }
 
@@ -302,7 +307,12 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                                 }
                             } else {
                                 $subWheres[] = $queryBuilder->expr()->{$comparison}($translationAlias . '.' . $property, ':ds_security_property_' . $i);
-                                $parameters['ds_security_property_' . $i] = $value;
+
+                                if ('like' === $comparison) {
+                                    $parameters['ds_security_property_' . $i] = '%' . $value . '%';
+                                } else {
+                                    $parameters['ds_security_property_' . $i] = $value;
+                                }
                             }
                         } else if ('translation.json' === $field) {
                             if ('' === $path) {
@@ -313,15 +323,26 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                             $translationAlias = $this->addJoinTranslation($queryBuilder, $resourceClass);
                             $value = $this->typeCast($value);
 
+                            if (false !== strpos($path, '.')) {
+                                $operand = 'JSON_GET_PATH_TEXT(' . $translationAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')';
+                            } else {
+                                $operand = 'JSON_GET_TEXT(' . $translationAlias . '.' . $property . ', \'' . $path . '\')';
+                            }
+
                             if (null === $value) {
                                 if ('eq' === $comparison) {
-                                    $subWheres[] = $queryBuilder->expr()->isNull('JSON_GET_PATH_TEXT(' . $translationAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')');
+                                    $subWheres[] = $queryBuilder->expr()->isNull($operand);
                                 } else if ('neq' === $comparison) {
-                                    $subWheres[] = $queryBuilder->expr()->isNotNull('JSON_GET_PATH_TEXT(' . $translationAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')');
+                                    $subWheres[] = $queryBuilder->expr()->isNotNull($operand);
                                 }
                             } else {
-                                $subWheres[] = $queryBuilder->expr()->{$comparison}('JSON_GET_PATH_TEXT(' . $translationAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')', ':ds_security_property_' . $i);
-                                $parameters['ds_security_property_' . $i] = $value;
+                                $subWheres[] = $queryBuilder->expr()->{$comparison}($operand, ':ds_security_property_' . $i);
+
+                                if ('like' === $comparison) {
+                                    $parameters['ds_security_property_' . $i] = '%' . $value . '%';
+                                } else {
+                                    $parameters['ds_security_property_' . $i] = $value;
+                                }
                             }
                         } else if ('json' === $field) {
                             if ('' === $path) {
@@ -331,15 +352,26 @@ final class EntityExtension implements QueryCollectionExtensionInterface
 
                             $value = $this->typeCast($value);
 
+                            if (false !== strpos($path, '.')) {
+                                $operand = 'JSON_GET_PATH_TEXT(' . $rootAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')';
+                            } else {
+                                $operand = 'JSON_GET_TEXT(' . $rootAlias . '.' . $property . ', \'' . $path . '\')';
+                            }
+
                             if (null === $value) {
                                 if ('eq' === $comparison) {
-                                    $subWheres[] = $queryBuilder->expr()->isNull('JSON_GET_PATH_TEXT(' . $rootAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')');
+                                    $subWheres[] = $queryBuilder->expr()->isNull($operand);
                                 } else if ('neq' === $comparison) {
-                                    $subWheres[] = $queryBuilder->expr()->isNotNull('JSON_GET_PATH_TEXT(' . $rootAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')');
+                                    $subWheres[] = $queryBuilder->expr()->isNotNull($operand);
                                 }
                             } else {
-                                $subWheres[] = $queryBuilder->expr()->{$comparison}('JSON_GET_PATH_TEXT(' . $rootAlias . '.' . $property . ', \'{' . str_replace('.', ', ', $path) . '}\')', ':ds_security_property_' . $i);
-                                $parameters['ds_security_property_' . $i] = $value;
+                                $subWheres[] = $queryBuilder->expr()->{$comparison}($operand, ':ds_security_property_' . $i);
+
+                                if ('like' === $comparison) {
+                                    $parameters['ds_security_property_' . $i] = '%' . $value . '%';
+                                } else {
+                                    $parameters['ds_security_property_' . $i] = $value;
+                                }
                             }
                         } else if ('scalar' === $field) {
                             if ('' !== $path) {
@@ -355,7 +387,12 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                                 }
                             } else {
                                 $subWheres[] = $queryBuilder->expr()->{$comparison}($rootAlias . '.' . $property, ':ds_security_property_' . $i);
-                                $parameters['ds_security_property_' . $i] = $value;
+
+                                if ('like' === $comparison) {
+                                    $parameters['ds_security_property_' . $i] = '%' . $value . '%';
+                                } else {
+                                    $parameters['ds_security_property_' . $i] = $value;
+                                }
                             }
                         }
 
