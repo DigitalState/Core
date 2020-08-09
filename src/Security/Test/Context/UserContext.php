@@ -46,7 +46,7 @@ final class UserContext implements Context
     }
 
     /**
-     * Set authorization header
+     * Set authorization header with a given user from a tenant
      *
      * @Given I am authenticated as the :username user from the tenant :tenant
      * @param string $username
@@ -62,6 +62,29 @@ final class UserContext implements Context
             throw new DomainException('User "'.$username.'" for tenant "'.$tenant.'" does not exist.');
         }
 
+        $token = $this->tokenManager->create($user);
+        $this->request->setHttpHeader('Authorization', 'Bearer '.$token);
+    }
+
+    /**
+     * Set authorization header with a given user and role from a tenant
+     *
+     * @Given I am authenticated as the :username user with role :role from the tenant :tenant
+     * @param string $username
+     * @param string $role
+     * @param string $tenant
+     */
+    public function iAmAuthenticatedAsTheUserWithRoleFromTheTenant(string $username, string $role, string $tenant)
+    {
+        $user = $this->userCollection->filter(function(User $user) use ($username, $tenant) {
+            return $user->getUsername() === $username && $user->getTenant() === $tenant;
+        })->first();
+
+        if (!$user) {
+            throw new DomainException('User "'.$username.'" for tenant "'.$tenant.'" does not exist.');
+        }
+
+        $user['roles'] = [$role];
         $token = $this->tokenManager->create($user);
         $this->request->setHttpHeader('Authorization', 'Bearer '.$token);
     }
