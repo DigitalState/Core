@@ -100,52 +100,52 @@ ds_security_test:
         uuid: 7fd2e84f-b8d6-435d-9339-127e244e8fd0
       tenant: 92000deb-b847-4838-915c-b95d2b28e960 # Tenant 2
 
-  - username: system@system.ds
-    roles: []
-    uuid: 136b84a2-d409-4845-9415-787f54f96899
-    identity:
+    - username: system@system.ds
       roles: []
-      business_units: []
-      type: System
-      uuid: 36315b58-1502-43e9-bb9c-ebe49ff321ab
-    tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
+      uuid: 136b84a2-d409-4845-9415-787f54f96899
+      identity:
+        roles: []
+        business_units: []
+        type: System
+        uuid: 36315b58-1502-43e9-bb9c-ebe49ff321ab
+      tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
 
-  - username: staff@staff.ds
-    roles: []
-    uuid: cc1789bd-de4d-40aa-a018-3a50b8ed404e
-    identity:
+    - username: staff@staff.ds
       roles: []
-      business_units: []
-      type: Staff
-      uuid: 7878154e-cda3-48a4-95cf-71bc4b2cc3ba
-    tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
+      uuid: cc1789bd-de4d-40aa-a018-3a50b8ed404e
+      identity:
+        roles: []
+        business_units: []
+        type: Staff
+        uuid: 7878154e-cda3-48a4-95cf-71bc4b2cc3ba
+      tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
 
-  - username: organization@organization.ds
-    roles: []
-    uuid: a1fd365d-6340-4450-a9ab-f3b67a1e92bf
-    identity:
+    - username: organization@organization.ds
       roles: []
-      business_units: []
-      type: Organization
-      uuid: 31f65051-399d-4f2f-ab40-5ae19e03ff70
-    tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
+      uuid: a1fd365d-6340-4450-a9ab-f3b67a1e92bf
+      identity:
+        roles: []
+        business_units: []
+        type: Organization
+        uuid: 31f65051-399d-4f2f-ab40-5ae19e03ff70
+      tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
 
-  - username: individual@individual.ds
-    roles: []
-    uuid: 12cd4c49-b8b5-4d35-8269-4635e69d52b0
-    identity:
+    - username: individual@individual.ds
       roles: []
-      business_units: []
-      type: Individual
-      uuid: 1d897239-763f-4e90-9bf8-6976431e36cd
-    tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
+      uuid: 12cd4c49-b8b5-4d35-8269-4635e69d52b0
+      identity:
+        roles: []
+        business_units: []
+        type: Individual
+        uuid: 1d897239-763f-4e90-9bf8-6976431e36cd
+      tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
 
-  - username: anonymous@anonymous.ds
-    roles: []
-    uuid: 4a70d4f9-45f7-4afd-a3ec-9383fcc190b6
-    identity:
+    - username: anonymous@anonymous.ds
       roles: []
-      business_units: []
-      type: Anonymous
-      uuid: e0b59434-be1e-407d-b70c-fc2b52ebb4b5
-    tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
+      uuid: 4a70d4f9-45f7-4afd-a3ec-9383fcc190b6
+      identity:
+        roles: []
+        business_units: []
+        type: Anonymous
+        uuid: e0b59434-be1e-407d-b70c-fc2b52ebb4b5
+      tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
