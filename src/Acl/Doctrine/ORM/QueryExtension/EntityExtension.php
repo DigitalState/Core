@@ -287,7 +287,6 @@ final class EntityExtension implements QueryCollectionExtensionInterface
 
                         $parts = explode('.', $property);
                         $property = array_shift($parts);
-                        $path = str_replace('\'', '', implode('.', $parts));
 
                         if (!property_exists($resourceClass, $property)) {
                             // Skip permissions that do not specify an existing property on the entity.
@@ -297,7 +296,14 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                         $field = $this->getField($resourceClass, $property);
 
                         if ('translation.scalar' === $field) {
-                            $translationAlias = $this->addJoinTranslation($queryBuilder, $resourceClass);
+                            if (count($parts) !== 1) {
+                                // Skip permissions that do not specify a language and a json path.
+                                continue;
+                            }
+
+                            $locale = array_shift($parts);
+                            $translationAlias = $this->addJoinTranslation($queryBuilder, $resourceClass, $locale, $i);
+                            $i++;
 
                             if (null === $value) {
                                 if ('eq' === $comparison) {
@@ -315,12 +321,15 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                                 }
                             }
                         } else if ('translation.json' === $field) {
-                            if ('' === $path) {
-                                // Skip permissions that do not specify json path.
+                            if (count($parts) !== 2) {
+                                // Skip permissions that do not specify a language and a json path.
                                 continue;
                             }
 
-                            $translationAlias = $this->addJoinTranslation($queryBuilder, $resourceClass);
+                            $locale = array_shift($parts);
+                            $path = implode('.', $parts);
+                            $translationAlias = $this->addJoinTranslation($queryBuilder, $resourceClass, $locale, $i);
+                            $i++;
                             $value = $this->typeCast($value);
 
                             if (false !== strpos($path, '.')) {
@@ -345,11 +354,12 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                                 }
                             }
                         } else if ('json' === $field) {
-                            if ('' === $path) {
+                            if (count($parts) !== 1) {
                                 // Skip permissions that do not specify json path.
                                 continue;
                             }
 
+                            $path = implode('.', $parts);
                             $value = $this->typeCast($value);
 
                             if (false !== strpos($path, '.')) {
@@ -374,7 +384,7 @@ final class EntityExtension implements QueryCollectionExtensionInterface
                                 }
                             }
                         } else if ('scalar' === $field) {
-                            if ('' !== $path) {
+                            if (count($parts) !== 0) {
                                 // Skip permissions that do not specify an existing property on the entity.
                                 continue;
                             }
@@ -474,12 +484,14 @@ final class EntityExtension implements QueryCollectionExtensionInterface
      *
      * @param QueryBuilder $queryBuilder
      * @param string $resourceClass
+     * @param string $locale
+     * @param integer $i
      * @return string
      */
-    private function addJoinTranslation(QueryBuilder $queryBuilder, string $resourceClass): string
+    private function addJoinTranslation(QueryBuilder $queryBuilder, string $resourceClass, string $locale, int $i): string
     {
         $rootAlias = $queryBuilder->getRootAliases()[0];
-        $translationAlias = $rootAlias . '_t';
+        $translationAlias = $rootAlias . '_t_' . $i;
         $parts = $queryBuilder->getDQLParts()['join'];
 
         foreach ($parts as $joins) {
@@ -490,7 +502,9 @@ final class EntityExtension implements QueryCollectionExtensionInterface
             }
         }
 
-        $queryBuilder->innerJoin($rootAlias . '.translations', $translationAlias);
+        $queryBuilder->innerJoin($rootAlias . '.translations', $translationAlias/*,  'WITH', $translationAlias . '.locale = :ds_security_locale'*/);
+        $queryBuilder->andWhere($translationAlias . '.locale = :ds_security_translation_' . $i);
+        $queryBuilder->setParameter('ds_security_translation_' . $i, $locale);
 
         return $translationAlias;
     }

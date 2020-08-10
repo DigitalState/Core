@@ -279,7 +279,7 @@ final class PropertyVoter extends Voter
                         if ('' !== $path) {
                             if ('translation.scalar' === $field) {
                                 $property .= '[' . $path . ']';
-                            } else if ('json' === $field) {
+                            } else if ('json' === $field || 'translation.json' === $field) {
                                 $property .= '[' . str_replace('.', '][', $path) . ']';
                             } else {
                                 $property .= '.' . $path;
