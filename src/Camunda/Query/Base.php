@@ -52,6 +52,10 @@ trait Base
                     $object->$key = implode(',', $value);
                     break;
 
+                case 'candidateGroups':
+                    $object->$key = implode(',', $value);
+                    break;
+
                 case 'createdBefore':
                 case 'createdAfter':
                 case 'dueBefore':
