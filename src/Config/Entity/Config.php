@@ -94,8 +94,9 @@ class Config implements Identifiable, Uuidentifiable, Ownable, Encryptable, Vers
 
     /**
      * @var \DateTime
-     * @ApiProperty(writable=false)
-     * @Serializer\Groups({"config_output"})
+     * @ApiProperty
+     * @Serializer\Groups({"config_output", "config_input"})
+     * @Assert\DateTime
      */
     protected $createdAt;
 

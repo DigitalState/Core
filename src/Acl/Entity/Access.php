@@ -80,8 +80,9 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Assignable, Versi
 
     /**
      * @var \DateTime
-     * @ApiProperty(writable=false)
-     * @Serializer\Groups({"access_output"})
+     * @ApiProperty
+     * @Serializer\Groups({"access_output", "access_input"})
+     * @Assert\DateTime
      */
     protected $createdAt;
 
