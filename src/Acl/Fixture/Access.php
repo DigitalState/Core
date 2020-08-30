@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Acl\Fixture;
 
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ds\Component\Acl\Entity\Access as AccessEntity;
 use Ds\Component\Database\Fixture\Yaml;
@@ -36,6 +37,13 @@ trait Access
                 ->setAssignee($object->assignee)
                 ->setAssigneeUuid($object->assignee_uuid)
                 ->setTenant($object->tenant);
+
+            if (null !== $object->created_at) {
+                $date = new DateTime;
+                $date->setTimestamp($object->created_at);
+                $access->setCreatedAt($date);
+            }
+
             $manager->persist($access);
         }
 

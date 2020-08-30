@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Tenant\Fixture;
 
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ds\Component\Database\Fixture\Yaml;
 use Ds\Component\Tenant\Entity\Tenant as TenantEntity;
@@ -44,6 +45,13 @@ trait Tenant
             $tenant
                 ->setUuid($object->uuid)
                 ->setData((array) $object->data);
+
+            if (null !== $object->created_at) {
+                $date = new DateTime;
+                $date->setTimestamp($object->created_at);
+                $tenant->setCreatedAt($date);
+            }
+
             $manager->persist($tenant);
         }
 
