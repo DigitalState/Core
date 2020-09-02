@@ -45,13 +45,11 @@ trait Base
                     break;
 
                 case 'cascade':
+                case 'unassigned':
                     $object->$key = $value ? 'true' : 'false';
                     break;
 
                 case 'tenantIdIn':
-                    $object->$key = implode(',', $value);
-                    break;
-
                 case 'candidateGroups':
                     $object->$key = implode(',', $value);
                     break;
