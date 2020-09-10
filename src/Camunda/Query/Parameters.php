@@ -13,7 +13,8 @@ interface Parameters
      * Cast parameters to array
      *
      * @param boolean $minimal
+     * @param string $type
      * @return \stdClass
      */
-    public function toObject(bool $minimal = false);
+    public function toObject(bool $minimal = false, $type = 'query');
 }
