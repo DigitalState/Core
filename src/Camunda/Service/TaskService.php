@@ -107,6 +107,13 @@ final class TaskService implements Service
                 }
             }
 
+            foreach (['firstResult', 'maxResults'] as $key) {
+                if (array_key_exists($key, $options['json'])) {
+                    $options['query'][$key] = $options['json'][$key];
+                    unset($options['json'][$key]);
+                }
+            }
+
             $objects = $this->execute('POST', $resource, $options);
         }
 
@@ -145,6 +152,13 @@ final class TaskService implements Service
                 if ($orParameter) {
                     $options['json']['orQueries'][] = $orParameter;
                 }
+            }
+        }
+
+        foreach (['firstResult', 'maxResults'] as $key) {
+            if (array_key_exists($key, $options['json'])) {
+                $options['query'][$key] = $options['json'][$key];
+                unset($options['json'][$key]);
             }
         }
 
