@@ -93,6 +93,28 @@ final class TaskService implements Service
 
             $resource = substr($resource, 0, -1);
             $objects = $this->execute('GET', $resource, $options);
+
+            if (array_key_exists('sortBy', $query) && array_key_exists('sortOrder', $query)) {
+                $fields = [
+                    'created' => 'startTime',
+                    'dueDate' => 'due'
+                ];
+
+                if (array_key_exists($query['sortBy'], $fields)) {
+                    $field = $fields[$query['sortBy']];
+                    usort($objects, function($a, $b) use ($field) {
+                        if ($a->$field == $b->$field) {
+                            return 0;
+                        }
+
+                        return ($a->$field < $b->$field) ? -1 : 1;
+                    });
+
+                    if ('desc' === $query['sortOrder']) {
+                        $objects = array_reverse($objects);
+                    }
+                }
+            }
         } else {
             $resource = static::RESOURCE_LIST;
             $options['json'] = $query;
