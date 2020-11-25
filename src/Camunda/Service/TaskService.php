@@ -115,6 +115,14 @@ final class TaskService implements Service
                     }
                 }
             }
+
+            if (array_key_exists('firstResult', $query) && array_key_exists('maxResults', $query)) {
+                $objects = array_slice(
+                    $objects,
+                    $query['firstResult'],
+                    $query['maxResults']
+                );
+            }
         } else {
             $resource = static::RESOURCE_LIST;
             $options['json'] = $query;
