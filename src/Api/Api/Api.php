@@ -112,6 +112,7 @@ final class Api
                 'roles' => $this->configService->get('ds_api.user.roles'),
                 'identity' => (object) [
                     'roles' => $this->configService->get('ds_api.user.identity.roles'),
+                    'business_units' => [],
                     'type' => $this->configService->get('ds_api.user.identity.type'),
                     'uuid' => $this->configService->get('ds_api.user.identity.uuid')
                 ],

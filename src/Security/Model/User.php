@@ -21,9 +21,10 @@ final class User implements UserInterface, JWTUserInterface
         $uuid = $payload['uuid'] ?? null;
         $roles = $payload['roles'] ?? [];
         $identity = new Identity;
-        $identity->setRoles((array) $payload['identity']->roles ?? []);
-        $identity->setType($payload['identity']->type ?? null);
-        $identity->setUuid($payload['identity']->uuid ?? null);
+        $identity->setRoles(array_key_exists('identity', $payload) && property_exists($payload['identity'], 'roles') ? (array) $payload['identity']->roles : []);
+        $identity->setBusinessUnits(array_key_exists('identity', $payload) && property_exists($payload['identity'], 'business_units') ? (array) $payload['identity']->business_units : []);
+        $identity->setType(array_key_exists('identity', $payload) && property_exists($payload['identity'], 'type') ? $payload['identity']->type : null);
+        $identity->setUuid(array_key_exists('identity', $payload) && property_exists($payload['identity'], 'uuid') ? $payload['identity']->uuid : null);
         $tenant = $payload['tenant'] ?? null;
 
         return new static($username, $uuid, $roles, $identity, $tenant);
@@ -131,5 +132,13 @@ final class User implements UserInterface, JWTUserInterface
      */
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * Clone instance
+     */
+    public function __clone()
+    {
+        $this->identity = clone $this->identity;
     }
 }

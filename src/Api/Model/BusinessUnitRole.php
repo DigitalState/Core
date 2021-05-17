@@ -6,11 +6,11 @@ use Ds\Component\Model\Attribute;
 use Ds\Component\Api\Model\Attribute as ApiAttribute;
 
 /**
- * Class SystemRole
+ * Class BusinessUnitRole
  *
  * @package Ds\Component\Api
  */
-final class SystemRole implements Model
+final class BusinessUnitRole implements Model
 {
     use Attribute\Id;
     use Attribute\Uuid;
@@ -18,7 +18,7 @@ final class SystemRole implements Model
     use Attribute\UpdatedAt;
     use Attribute\Owner;
     use Attribute\OwnerUuid;
-    use ApiAttribute\System;
+    use ApiAttribute\BusinessUnit;
     use ApiAttribute\Role;
     use Attribute\EntityUuids;
     use Attribute\Version;

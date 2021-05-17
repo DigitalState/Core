@@ -7,7 +7,9 @@ use Behatch\HttpCall\Request;
 use DomainException;
 use Ds\Component\Security\Test\Collection\UserCollection;
 use Ds\Component\Security\Model\User;
+use Ds\Component\Security\Model\Identity;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use ReflectionClass;
 
 /**
  * Class UserContext
@@ -46,7 +48,7 @@ final class UserContext implements Context
     }
 
     /**
-     * Set authorization header
+     * Set authorization header with a given user from a tenant
      *
      * @Given I am authenticated as the :username user from the tenant :tenant
      * @param string $username
@@ -63,6 +65,35 @@ final class UserContext implements Context
         }
 
         $token = $this->tokenManager->create($user);
+        $this->request->setHttpHeader('Authorization', 'Bearer '.$token);
+    }
+
+    /**
+     * Set authorization header with a given user and identity role from a tenant
+     *
+     * @Given I am authenticated as the :username user with identity role :role from the tenant :tenant
+     * @param string $username
+     * @param string $role
+     * @param string $tenant
+     */
+    public function iAmAuthenticatedAsTheUserWithIdentityRoleFromTheTenant(string $username, string $role, string $tenant)
+    {
+        $user = $this->userCollection->filter(function(User $user) use ($username, $tenant) {
+            return $user->getUsername() === $username && $user->getTenant() === $tenant;
+        })->first();
+
+        if (!$user) {
+            throw new DomainException('User "'.$username.'" for tenant "'.$tenant.'" does not exist.');
+        }
+
+        $clone = clone $user;
+        $identity = $clone->getIdentity();
+        $class = new ReflectionClass(Identity::class);
+        $property = $class->getProperty('roles');
+        $property->setAccessible(true);
+        $property->setValue($identity, [$role => []]);
+        $property->setAccessible(false);
+        $token = $this->tokenManager->create($clone);
         $this->request->setHttpHeader('Authorization', 'Bearer '.$token);
     }
 }

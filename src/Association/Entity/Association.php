@@ -57,8 +57,9 @@ abstract class Association implements Identifiable, Uuidentifiable, Associable, 
 
     /**
      * @var \DateTime
-     * @ApiProperty(writable=false)
-     * @Serializer\Groups({"association_output"})
+     * @ApiProperty
+     * @Serializer\Groups({"association_output", "association_input"})
+     * @Assert\DateTime
      */
     protected $createdAt;
 

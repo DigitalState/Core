@@ -16,7 +16,7 @@ trait Base
     /**
      * {@inheritdoc}
      */
-    public function toObject(bool $minimal = false)
+    public function toObject(bool $minimal = false, $type = 'query')
     {
         $object = new stdClass;
 
@@ -45,11 +45,23 @@ trait Base
                     break;
 
                 case 'cascade':
-                    $object->$key = $value ? 'true' : 'false';
+                case 'unassigned':
+                    if ('query' === $type) {
+                        $object->$key = $value ? 'true' : 'false';
+                    } else {
+                        $object->$key = $value;
+                    }
+
                     break;
 
                 case 'tenantIdIn':
-                    $object->$key = implode(',', $value);
+                case 'candidateGroups':
+                    if ('query' === $type) {
+                        $object->$key = implode(',', $value);
+                    } else {
+                        $object->$key = $value;
+                    }
+
                     break;
 
                 case 'createdBefore':

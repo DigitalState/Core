@@ -5,6 +5,7 @@ ds_security_test:
       uuid: 85726ec8-7685-4655-ac91-4746ae71c2cc
       identity:
         roles: []
+        business_units: []
         type: System
         uuid: aa18b644-a503-49fa-8f53-10f4c1f8e3a1
       tenant: b6ac25fe-3cd6-4100-a054-6bba2fc9ef18 # Tenant 1
@@ -14,6 +15,7 @@ ds_security_test:
       uuid: da7bde0e-9690-43b3-abbb-043fb61c679a
       identity:
         roles: []
+        business_units: []
         type: Staff
         uuid: e9111144-71fa-4743-91d0-178653d2e385
       tenant: b6ac25fe-3cd6-4100-a054-6bba2fc9ef18 # Tenant 1
@@ -23,6 +25,7 @@ ds_security_test:
       uuid: 765eaf87-51f9-44f4-8758-c28f380a0855
       identity:
         roles: []
+        business_units: []
         type: Organization
         uuid: cedcdc35-84a8-4fa1-8cf1-ff8fea926222
       tenant: b6ac25fe-3cd6-4100-a054-6bba2fc9ef18 # Tenant 1
@@ -32,6 +35,7 @@ ds_security_test:
       uuid: 0bf2117e-56b4-47ae-87cd-88d7a8bfc758
       identity:
         roles: []
+        business_units: []
         type: Individual
         uuid: 5da1504c-68a4-4968-a03a-36e6ac39e8f2
       tenant: b6ac25fe-3cd6-4100-a054-6bba2fc9ef18 # Tenant 1
@@ -41,6 +45,7 @@ ds_security_test:
       uuid: f9df049a-fe95-405f-ba7c-734f1a0ce558
       identity:
         roles: []
+        business_units: []
         type: Anonymous
         uuid: ad1a4ee4-b707-4135-b8e9-498286d5830c
       tenant: b6ac25fe-3cd6-4100-a054-6bba2fc9ef18 # Tenant 1
@@ -50,6 +55,7 @@ ds_security_test:
       uuid: d6a5c45e-2e14-4dd0-b1eb-7bd36db3fcf6
       identity:
         roles: []
+        business_units: []
         type: System
         uuid: 571c4b5f-532e-48ac-aa6a-8099d57d9088
       tenant: 92000deb-b847-4838-915c-b95d2b28e960 # Tenant 2
@@ -59,6 +65,7 @@ ds_security_test:
       uuid: 36dd306a-b31a-432e-9d6a-3c7d37a8091d
       identity:
         roles: []
+        business_units: []
         type: Staff
         uuid: 45528ca5-5c61-4d42-9584-d62614ea6a6e
       tenant: 92000deb-b847-4838-915c-b95d2b28e960 # Tenant 2
@@ -68,6 +75,7 @@ ds_security_test:
       uuid: 91a6830f-993e-4072-822e-64a94dfe9122
       identity:
         roles: []
+        business_units: []
         type: Organization
         uuid: fca280ca-18c7-477d-bf95-de51f1a1d54d
       tenant: 92000deb-b847-4838-915c-b95d2b28e960 # Tenant 2
@@ -77,6 +85,7 @@ ds_security_test:
       uuid: a3586ba3-8b4f-4c8b-a913-0dafb57702df
       identity:
         roles: []
+        business_units: []
         type: Individual
         uuid: 3967473b-edf1-4011-807e-f6b85a7660dd
       tenant: 92000deb-b847-4838-915c-b95d2b28e960 # Tenant 2
@@ -86,6 +95,57 @@ ds_security_test:
       uuid: 0f642313-3a79-4920-abb7-380e815514a6
       identity:
         roles: []
+        business_units: []
         type: Anonymous
         uuid: 7fd2e84f-b8d6-435d-9339-127e244e8fd0
       tenant: 92000deb-b847-4838-915c-b95d2b28e960 # Tenant 2
+
+    - username: system@system.ds
+      roles: []
+      uuid: 136b84a2-d409-4845-9415-787f54f96899
+      identity:
+        roles: []
+        business_units: []
+        type: System
+        uuid: 36315b58-1502-43e9-bb9c-ebe49ff321ab
+      tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
+
+    - username: staff@staff.ds
+      roles: []
+      uuid: cc1789bd-de4d-40aa-a018-3a50b8ed404e
+      identity:
+        roles: []
+        business_units: []
+        type: Staff
+        uuid: 7878154e-cda3-48a4-95cf-71bc4b2cc3ba
+      tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
+
+    - username: organization@organization.ds
+      roles: []
+      uuid: a1fd365d-6340-4450-a9ab-f3b67a1e92bf
+      identity:
+        roles: []
+        business_units: []
+        type: Organization
+        uuid: 31f65051-399d-4f2f-ab40-5ae19e03ff70
+      tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
+
+    - username: individual@individual.ds
+      roles: []
+      uuid: 12cd4c49-b8b5-4d35-8269-4635e69d52b0
+      identity:
+        roles: []
+        business_units: []
+        type: Individual
+        uuid: 1d897239-763f-4e90-9bf8-6976431e36cd
+      tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0
+
+    - username: anonymous@anonymous.ds
+      roles: []
+      uuid: 4a70d4f9-45f7-4afd-a3ec-9383fcc190b6
+      identity:
+        roles: []
+        business_units: []
+        type: Anonymous
+        uuid: e0b59434-be1e-407d-b70c-fc2b52ebb4b5
+      tenant: 64c82518-017d-4fb2-9fcf-3926da3616e6 # Tenant 0

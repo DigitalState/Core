@@ -14,7 +14,8 @@ final class TaskParameters implements Parameters
     use Attribute\TaskIdIn;
     use Attribute\Assignee;
     use Attribute\AssigneeLike;
-    use Attribute\CandidateGroup;
+    use Attribute\Unassigned;
+    use Attribute\CandidateGroups;
     use Attribute\IncludeAssignedTasks;
     use Attribute\CreatedBefore;
     use Attribute\CreatedAfter;

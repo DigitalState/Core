@@ -71,9 +71,10 @@ final class TaskService implements Service
      * Get task list
      *
      * @param \Ds\Component\Camunda\Query\TaskParameters $parameters
+     * @param array $orParameters
      * @return array
      */
-    public function getList(Parameters $parameters = null)
+    public function getList(Parameters $parameters = null, array $orParameters = [])
     {
         $options = [
             'headers' => [
@@ -81,7 +82,7 @@ final class TaskService implements Service
             ]
         ];
 
-        $query = (array) $parameters->toObject(true);
+        $query = (array) $parameters->toObject(true, 'body');
 
         if (array_key_exists('taskIdIn', $query)) {
             $resource = static::RESOURCE_LIST_BY_TASK_ID.'?';
@@ -91,12 +92,61 @@ final class TaskService implements Service
             }
 
             $resource = substr($resource, 0, -1);
+            $objects = $this->execute('GET', $resource, $options);
+
+            if (array_key_exists('sortBy', $query) && array_key_exists('sortOrder', $query)) {
+                $fields = [
+                    'created' => 'startTime',
+                    'dueDate' => 'due'
+                ];
+
+                if (array_key_exists($query['sortBy'], $fields)) {
+                    $field = $fields[$query['sortBy']];
+                    usort($objects, function($a, $b) use ($field) {
+                        if ($a->$field == $b->$field) {
+                            return 0;
+                        }
+
+                        return ($a->$field < $b->$field) ? -1 : 1;
+                    });
+
+                    if ('desc' === $query['sortOrder']) {
+                        $objects = array_reverse($objects);
+                    }
+                }
+            }
+
+//            if (array_key_exists('firstResult', $query) && array_key_exists('maxResults', $query)) {
+//                $objects = array_slice(
+//                    $objects,
+//                    $query['firstResult'],
+//                    $query['maxResults']
+//                );
+//            }
         } else {
             $resource = static::RESOURCE_LIST;
-            $options['query'] = $query;
+            $options['json'] = $query;
+
+            if ($orParameters) {
+                foreach ($orParameters as $orParameter) {
+                    $orParameter = (array) $orParameter->toObject(true, 'body');
+
+                    if ($orParameter) {
+                        $options['json']['orQueries'][] = $orParameter;
+                    }
+                }
+            }
+
+            foreach (['firstResult', 'maxResults'] as $key) {
+                if (array_key_exists($key, $options['json'])) {
+                    $options['query'][$key] = $options['json'][$key];
+                    unset($options['json'][$key]);
+                }
+            }
+
+            $objects = $this->execute('POST', $resource, $options);
         }
 
-        $objects = $this->execute('GET', $resource, $options);
         $list = [];
 
         foreach ($objects as $object) {
@@ -111,17 +161,38 @@ final class TaskService implements Service
      * Get count
      *
      * @param \Ds\Component\Camunda\Query\TaskParameters $parameters
+     * @param array $orParameters
      * @return integer
      */
-    public function getCount(Parameters $parameters = null)
+    public function getCount(Parameters $parameters = null, array $orParameters = [])
     {
         $options = [
             'headers' => [
                 'Accept' => 'application/json'
-            ],
-            'query' => (array)  $parameters->toObject(true)
+            ]
         ];
-        $result = $this->execute('GET', static::RESOURCE_COUNT, $options);
+        $query = (array) $parameters->toObject(true, 'body');
+        $resource = static::RESOURCE_COUNT;
+        $options['json'] = $query;
+
+        if ($orParameters) {
+            foreach ($orParameters as $orParameter) {
+                $orParameter = (array) $orParameter->toObject(true, 'body');
+
+                if ($orParameter) {
+                    $options['json']['orQueries'][] = $orParameter;
+                }
+            }
+        }
+
+        foreach (['firstResult', 'maxResults'] as $key) {
+            if (array_key_exists($key, $options['json'])) {
+                $options['query'][$key] = $options['json'][$key];
+                unset($options['json'][$key]);
+            }
+        }
+
+        $result = $this->execute('POST', $resource, $options);
 
         return $result->count;
     }

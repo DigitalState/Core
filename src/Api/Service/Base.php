@@ -96,6 +96,12 @@ trait Base
                         $model->{'set'.ucfirst($local)}($value);
                         break;
 
+                    case 'businessUnit':
+                        $value = new BusinessUnit;
+                        $value->setUuid(substr($object->$remote, 16));
+                        $model->{'set'.ucfirst($local)}($value);
+                        break;
+
                     case 'businessUnits':
                         $values = $object->$remote;
 
@@ -175,15 +181,6 @@ trait Base
                     foreach ($value as $permission) {
                         $object->$remote[] = PermissionService::toObject($permission);
                     }
-
-                    break;
-
-                case 'scope':
-                    $object->$remote = [
-                        'type' => $value->getType(),
-                        'entity' => $value->getEntity(),
-                        'entityUuid' => $value->getEntityUuid()
-                    ];
 
                     break;
 

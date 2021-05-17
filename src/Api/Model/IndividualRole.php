@@ -20,7 +20,7 @@ final class IndividualRole implements Model
     use Attribute\OwnerUuid;
     use ApiAttribute\Individual;
     use ApiAttribute\Role;
-    use ApiAttribute\BusinessUnits;
+    use Attribute\EntityUuids;
     use Attribute\Version;
     use Attribute\Tenant;
 
@@ -29,7 +29,7 @@ final class IndividualRole implements Model
      */
     public function __construct()
     {
-        $this->businessUnits = [];
+        $this->entityUuids = [];
         $this->version = 1;
     }
 }

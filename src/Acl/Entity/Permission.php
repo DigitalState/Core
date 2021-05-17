@@ -24,12 +24,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as ORMAssert;
 class Permission implements Identifiable, Tenantable
 {
     use Accessor\Id;
-    use EntityAccessor\Scope;
     use EntityAccessor\Access;
     use Accessor\Key;
     use Accessor\Type;
     use Accessor\Value;
     use Accessor\Attributes;
+    use EntityAccessor\Scope;
     use TenantAccessor\Tenant;
 
     /**
@@ -47,13 +47,6 @@ class Permission implements Identifiable, Tenantable
      * @Assert\Valid
      */
     private $access;
-
-    /**
-     * @var string
-     * @Serializer\Groups({"permission_output", "permission_input"})
-     * @ORM\Embedded(class="Scope")
-     */
-    private $scope;
 
     /**
      * @var string
@@ -85,6 +78,13 @@ class Permission implements Identifiable, Tenantable
      * })
      */
     private $attributes;
+
+    /**
+     * @var string
+     * @Serializer\Groups({"permission_output", "permission_input"})
+     * @ORM\Column(name="scope", type="json_array")
+     */
+    private $scope;
 
     /**
      * @var string

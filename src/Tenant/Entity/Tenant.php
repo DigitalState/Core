@@ -70,8 +70,9 @@ class Tenant implements Identifiable, Uuidentifiable, Versionable
 
     /**
      * @var \DateTime
-     * @ApiProperty(writable=false)
-     * @Serializer\Groups({"tenant_output"})
+     * @ApiProperty
+     * @Serializer\Groups({"tenant_output", "tenant_input"})
+     * @Assert\DateTime
      */
     protected $createdAt;
 

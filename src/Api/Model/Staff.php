@@ -3,6 +3,7 @@
 namespace Ds\Component\Api\Model;
 
 use Ds\Component\Model\Attribute;
+use Ds\Component\Api\Model\Attribute as ApiAttribute;
 
 /**
  * Class Staff
@@ -18,6 +19,7 @@ final class Staff implements Model
     use Attribute\Owner;
     use Attribute\OwnerUuid;
     use Attribute\Roles;
+    use ApiAttribute\BusinessUnits;
     use Attribute\Version;
     use Attribute\Tenant;
 
@@ -27,5 +29,6 @@ final class Staff implements Model
     public function __construct()
     {
         $this->roles = [];
+        $this->businessUnits = [];
     }
 }

@@ -3,7 +3,6 @@
 namespace Ds\Component\Api\Model;
 
 use Ds\Component\Model\Attribute;
-use Ds\Component\Api\Model\Attribute as ApiAttribute;
 
 /**
  * Class Permission
@@ -16,7 +15,7 @@ final class Permission implements Model
     use Attribute\Uuid;
     use Attribute\CreatedAt;
     use Attribute\UpdatedAt;
-    use ApiAttribute\Scope;
+    use Attribute\Scope;
     use Attribute\Entity;
     use Attribute\EntityUuid;
     use Attribute\Key;
@@ -29,5 +28,6 @@ final class Permission implements Model
     public function __construct()
     {
         $this->attributes = [];
+        $this->scope = [];
     }
 }

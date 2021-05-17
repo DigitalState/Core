@@ -36,7 +36,7 @@ final class IndividualRoleService implements Service
         'ownerUuid',
         'individual',
         'role',
-        'businessUnits',
+        'entityUuids',
         'version',
         'tenant'
     ];

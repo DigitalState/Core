@@ -21,4 +21,14 @@ final class Identity
     use Attribute\Uuid;
     use Attribute\Type;
     use Attribute\Roles;
+    use Attribute\BusinessUnits;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->roles = [];
+        $this->businessUnits = [];
+    }
 }

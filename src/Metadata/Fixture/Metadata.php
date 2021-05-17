@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Metadata\Fixture;
 
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ds\Component\Database\Fixture\Yaml;
 use Ds\Component\Metadata\Entity\Metadata as MetadataEntity;
@@ -38,6 +39,13 @@ trait Metadata
                 ->setType($object->type)
                 ->setData((array) $object->data)
                 ->setTenant($object->tenant);
+
+            if (null !== $object->created_at) {
+                $date = new DateTime;
+                $date->setTimestamp($object->created_at);
+                $metadata->setCreatedAt($date);
+            }
+
             $manager->persist($metadata);
         }
 

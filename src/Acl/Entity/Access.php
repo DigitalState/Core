@@ -28,10 +28,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *      attributes={
  *          "normalization_context"={
- *              "groups"={"access_output", "permission_output", "scope_output"}
+ *              "groups"={"access_output", "permission_output"}
  *          },
  *          "denormalization_context"={
- *              "groups"={"access_input", "permission_input", "scope_input"}
+ *              "groups"={"access_input", "permission_input"}
  *          },
  *          "filters"={
  *              "ds_acl.access.search",
@@ -80,8 +80,9 @@ class Access implements Identifiable, Uuidentifiable, Ownable, Assignable, Versi
 
     /**
      * @var \DateTime
-     * @ApiProperty(writable=false)
-     * @Serializer\Groups({"access_output"})
+     * @ApiProperty
+     * @Serializer\Groups({"access_output", "access_input"})
+     * @Assert\DateTime
      */
     protected $createdAt;
 

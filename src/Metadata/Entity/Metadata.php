@@ -95,8 +95,9 @@ class Metadata implements Identifiable, Uuidentifiable, Sluggable, Ownable, Tran
 
     /**
      * @var \DateTime
-     * @ApiProperty(writable=false)
-     * @Serializer\Groups({"metadata_output"})
+     * @ApiProperty
+     * @Serializer\Groups({"metadata_output", "metadata_input"})
+     * @Assert\DateTime
      */
     protected $createdAt;
 

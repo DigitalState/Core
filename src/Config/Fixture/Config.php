@@ -2,6 +2,7 @@
 
 namespace Ds\Component\Config\Fixture;
 
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ds\Component\Config\Entity\Config as ConfigEntity;
 use Ds\Component\Database\Fixture\Yaml;
@@ -36,6 +37,13 @@ trait Config
                 ->setKey($object->key)
                 ->setValue($object->value)
                 ->setTenant($object->tenant);
+
+            if (null !== $object->created_at) {
+                $date = new DateTime;
+                $date->setTimestamp($object->created_at);
+                $config->setCreatedAt($date);
+            }
+
             $manager->persist($config);
         }
 

@@ -35,6 +35,8 @@ final class Configuration implements ConfigurationInterface
                                 ->children()
                                     ->arrayNode('roles')
                                     ->end()
+                                    ->arrayNode('business_units')
+                                    ->end()
                                     ->enumNode('type')
                                         ->values([Identity::SYSTEM, Identity::STAFF, Identity::ORGANIZATION, Identity::INDIVIDUAL, Identity::ANONYMOUS])
                                     ->end()
